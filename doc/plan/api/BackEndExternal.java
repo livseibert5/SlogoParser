@@ -1,6 +1,11 @@
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The purpose of this interface is to allow user input from the front end to be parsed and
+ * executed on the back end, and to let the results of the commands be passed from the back end
+ * to the front end to be displayed.
+ */
 interface BackEndExternal {
   /**
    * Allows user input to be passed from the front end to the parser to be handled.
