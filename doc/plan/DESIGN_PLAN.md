@@ -1,32 +1,42 @@
 # SLogo Design Plan
-### Team Number
+### Team Number 6
 ### Names
 Jessica Yang (JQY2)
+
 Rachel Luria (rl213)
+
 Montana Lee (mal115)
+
 Livia Seibert (las120)
 
 ## Introduction
-
+The goal of this project is to create a working IDE to write and parse Logo commands that move
+a turtle across a canvas. One main design goal is to make our repo's structure extensible so that
+it is easy to add more command types in the future without having to change existing files. We can
+accomplish this by using interfaces and polymorphism wisely to handle the parsing and execution of
+commands. We also want to make it easy for the front end and the back end to be connected and
+communicate with each other, which is attainable by writing clear external APIs.
 
 ## Overview
 
 Front End Internal
 The front end internal API would handle display functionality that does not have to do with the turtle.
-This includes the IDE, the display of command history, and the layout of the UI as a whole.
+This includes the IDE, the display of command history, and the layout of the UI as a whole. Here are some
+example functions for the front end internal API:
 
 createTerminal()
 createScene()
 addToLog()
 
 One way we are thinking of creating the IDE is through using the JavaFX text input box. Once the user
-types a command, the command will execute, and a new text box will become available on the next line.
+types a command and hits enter, the command will execute, and a new text box will become available on the next line.
 We are thinking that the command could either appear in the terminal itself as history or in a box off to
-the side with all past commands. The terminal will appear as split screen with the canvas containing the turtle.
+the side with all past commands. The terminal will appear as a split screen with the canvas containing the turtle.
 
 Front End External
 The front end external API will contain functions that handle displaying the turtle and its movement
 across the screen. It will need to contain functions such as penUp, penDown, changeColor, moveTurtle, etc.
+Here are some example functions for the front end external API:
 
 moveTurtle(int x, int y)
 turnTurtle(double degrees)
@@ -40,11 +50,13 @@ be handled once in the backend rather than passed all the way back to the front 
 
 Another way that we thought about handling the command on the front end was by creating a class that had instance
 variables such as turtleStartLocation, turtleEndLocation, turtleOrientation, etc. Then the front end could
-use this information to update the view. However, we think that this would be inefficient when the back end
-could just call the front end external commands itself.
+use an instance of an object containing this information to update the view after command execution.
+However, we think that this would be inefficient when the back end could just call the front end external
+commands itself.
 
 Back End Internal
 The back end internal API will handle parsing commands and determining how they should be executed.
+Here are some example functions for the back end internal API:
 
 int[] determineLocation()
 double determineOrientation()
@@ -100,12 +112,22 @@ of the view at all.
 
 ## Test Plan
 
+One way we are going to make testing easier for our project is through making the turtle's location
+coordinates accessible to the tests. That way, the test cases can record the turtle location before
+a function call, then record the turtle location after the function call, and ensure that the end location
+is what was expected from the function. This will be especially useful for testing front end external API
+commands.
+
+Another way we are going to make testing easier is through creating our own Exceptions class for the project.
+That way, we can define errors that our project is likely to encounter so that it's easy to debug these errors
+when they are thrown. We think this will be especially useful in testing the back end functionality.
+
 Front End External
 Possible Issue: Move command is being called, but the turtle is staying still. We can test this by calling the
 move function manually from a test file, then making sure that the turtle's end location is where we would expect it
-to be. This wouldn't throw an  Exception, but it is a bug that would impact the functionality of the project.
+to be. This wouldn't throw an Exception, but it is a bug that would impact the functionality of the project.
 
-Possible Issue: Coordinate system is off and the turn turtle function is giving the turtle the wrong orientation.
+Possible Issue: Coordinate system is off, and the turn turtle function is giving the turtle the wrong orientation.
 We can test this by calling the turn function on the turtle with a known degree input. We can then check the resulting
 orientation of the turtle and make sure it is what we expect.
 
