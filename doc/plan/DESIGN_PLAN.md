@@ -74,11 +74,15 @@ for every type of command. Therefore, an interface would let us declare methods 
 should have without including any behavior.
 
 Back End External
-The back end external will API will contain the parse function so that the front end can pass a String
+The back end external API will contain the parse function so that the front end can pass a String
 containing the command to the back end to be handled.
 
 parse(String command)
 getParserResult()
+getVariables()
+getTurtle()
+getUserCommands()
+setLanguage(String language)
 
 One way that we thought about returning the command to the front end was as a String. This String would
 contain the result of parsing and executing the command on the back end and would then be displayed in the
