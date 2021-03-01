@@ -114,6 +114,10 @@ end external API methods as needed to update the front end according to that com
 API calls will alter the layout of the canvas on the front end, but not interfere with the IDE or general layout
 of the view at all.
 
+The Command classes will need access to language resource bundles so that the multiple languages feature can be
+implemented. Command will also be crucial to making the program flexible, as there will be a Command interface that
+new types of commands can implement without altering other command files.
+
 ## Test Plan
 
 One way we are going to make testing easier for our project is through making the turtle's location
