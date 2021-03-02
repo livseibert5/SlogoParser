@@ -164,5 +164,6 @@ interface BackEndInternal {
      */
     public double makeAndSet(double expr, double variable);
 
+    public double repeat()
 
 }
