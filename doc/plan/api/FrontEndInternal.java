@@ -28,4 +28,16 @@ interface FrontEndInternal {
     private void addToLog() {
 
     }
+    private void createVariableView() {
+
+    }
+    private void createErrorBox() {
+
+    }
+    private void updateErrorBox() {
+
+    }
+    private void updateVariables() {
+
+    }
 }
