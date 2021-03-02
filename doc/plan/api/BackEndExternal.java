@@ -46,6 +46,20 @@ interface BackEndExternal {
   public String getParserOutput();
 
   /**
+   * Allows front end to access the current coordinates of the turtle.
+   *
+   * @return x location and y location of turtle on grid
+   */
+  public int[] getTurtleLocation();
+
+  /**
+   * Allows front end to access the current orientation of the turtle.
+   *
+   * @return degree orientation of the turtle on the grid
+   */
+  public double getTurtleOrientation();
+
+  /**
    * Returns new turtle object to front end when user declares new turtle.
    *
    * @return new turtle object
