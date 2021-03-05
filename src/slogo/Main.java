@@ -1,21 +1,21 @@
 package slogo;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
- * Feel free to completely change this code or delete it entirely. 
+ * Initializes window.
+ *
+ * @author Jessica Yang
  */
-public class Main {
-    /**
-     * A method to test (and a joke :).
-     */
-    public double getVersion () {
-        return 0.001;
-    }
+public class Main extends Application {
 
-    /**
-     * Start of the program.
-     */
-    public static void main (String[] args) {
-        System.out.println("Hello world");
-    }
+  public static void main(String[] args) {
+    launch(args);
+  }
+
+  @Override
+  public void start(Stage stage) {
+    Control control = new Control();
+  }
 }
