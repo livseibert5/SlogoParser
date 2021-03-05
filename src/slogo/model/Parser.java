@@ -2,7 +2,8 @@ package slogo.model;
 
 public class Parser {
 
-  RegexDetector regexDetector = new RegexDetector();
+  private RegexDetector regexDetector = new RegexDetector();
+  private CommandFactory commandFactory = new CommandFactory();
 
   public Parser() {
     regexDetector.addPatterns("English");
@@ -12,7 +13,9 @@ public class Parser {
   public int parse(String command) {
     String[] commandComponents = command.split(" ");
     for (String commandComponent: commandComponents) {
-      System.out.println(regexDetector.getSymbol(commandComponent));
+      String commandType = regexDetector.getSymbol(commandComponent);
+      System.out.println(commandType);
+      Command newCommand = commandFactory.createCommand(commandType);
     }
     return 0;
   }
