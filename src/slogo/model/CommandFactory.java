@@ -8,6 +8,6 @@ public class CommandFactory {
   }
 
   public Command createCommand(String commandType) {
-    return new Forward();
+    return new Forward(new Constant(50));
   }
 }

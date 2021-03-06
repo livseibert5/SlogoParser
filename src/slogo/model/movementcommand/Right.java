@@ -1,7 +1,7 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
-import slogo.model.movementcommand.MovementCommand;
+import slogo.model.Turtle;
 
 /**
  * Right class is the Command subclass that determines the end location of
@@ -12,6 +12,7 @@ import slogo.model.movementcommand.MovementCommand;
 public class Right extends MovementCommand implements Command {
 
     private int pixels;
+    private Command argument;
 
     /**
      * Constructor for the Right command, takes a constant as an argument
@@ -20,7 +21,7 @@ public class Right extends MovementCommand implements Command {
      * @param argument Constant command type containing the number of pixels to move the turtle
      */
     public Right(Command argument) {
-        this.pixels = argument.execute();
+        this.argument = argument;
     }
 
     /**
@@ -37,9 +38,11 @@ public class Right extends MovementCommand implements Command {
      * Turns turtle to the right, then calculates the end location of the turtle based on the
      * number of pixels passed as an argument.
      *
+     * @param turtle turtle object to execute command on
      * @return number of pixels moved
      */
-    public int execute() {
+    public int execute(Turtle turtle) {
+        this.pixels = argument.execute(turtle);
         turtle.setOrientation(turtle.getOrientation() - 90);
         int[] newLocation = determineLocation(turtle.getLocation(), turtle.getOrientation(), pixels);
         return pixels;

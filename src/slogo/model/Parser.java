@@ -1,11 +1,15 @@
 package slogo.model;
 
+import slogo.controller.Controller;
+
 public class Parser {
 
   private RegexDetector regexDetector = new RegexDetector();
   private CommandFactory commandFactory = new CommandFactory();
+  private Controller controller;
 
-  public Parser() {
+  public Parser(Controller controller) {
+    this.controller = controller;
     regexDetector.addPatterns("English");
     regexDetector.addPatterns("Syntax");
   }
@@ -19,9 +23,9 @@ public class Parser {
     }
     return 0;
   }
-
+/*
   public static void main(String[] args) {
     Parser parser = new Parser();
     parser.parse("fd * greater? 3 5 100");
-  }
+  }*/
 }

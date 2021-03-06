@@ -12,7 +12,7 @@ public class Constant implements Command {
     return 0;
   }
 
-  public int execute() {
+  public int execute(Turtle turtle) {
     return value;
   }
 }

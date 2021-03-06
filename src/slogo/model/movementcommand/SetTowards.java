@@ -1,14 +1,18 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
+import slogo.model.Turtle;
 
 public class SetTowards implements Command {
 
     int x;
     int y;
+    Command argument1;
+    Command argument2;
+
     public SetTowards(Command argument1, Command argument2){
-        this.x = argument1.execute();
-        this.y = argument2.execute();
+        this.argument1 = argument1;
+        this.argument2 = argument2;
     }
 
     @Override
@@ -17,9 +21,11 @@ public class SetTowards implements Command {
     }
 
     @Override
-    public int execute() {
-        int xdiff = x - turtle.getX();
-        int ydiff = y - turtle.getY();
+    public int execute(Turtle turtle) {
+        this.x = argument1.execute(turtle);
+        this.y = argument2.execute(turtle);
+        int xdiff = x - turtle.getXCoordinate();
+        int ydiff = y - turtle.getYCoordinate();
         int degree = (int) Math.atan(ydiff/xdiff);
         turtle.setOrientation(degree);
         return degree;

@@ -1,6 +1,7 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
+import slogo.model.Turtle;
 
 /**
  * Backward class is the Command subclass that determines the end location of
@@ -11,6 +12,7 @@ import slogo.model.Command;
 public class Backward extends MovementCommand implements Command {
 
   private int pixels;
+  private Command argument;
 
   /**
    * Constructor for the Backward command, takes a constant as an argument
@@ -19,7 +21,7 @@ public class Backward extends MovementCommand implements Command {
    * @param argument Constant command type containing the number of pixels to move the turtle
    */
   public Backward(Command argument) {
-    this.pixels = argument.execute();
+    this.argument = argument;
   }
 
   /**
@@ -37,10 +39,12 @@ public class Backward extends MovementCommand implements Command {
    * Inverts the turtles orientation and calculates the coordinates of its end location
    * after moving.
    *
+   * @param turtle turtle object to execute command on
    * @return number of pixels moved
    */
   @Override
-  public int execute() {
+  public int execute(Turtle turtle) {
+    this.pixels = argument.execute(turtle);
     turtle.setOrientation(turtle.getOrientation() + 180);
     int[] newLocation = determineLocation(turtle.getLocation(), turtle.getOrientation(), pixels);
     return pixels;
