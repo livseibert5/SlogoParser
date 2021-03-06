@@ -9,19 +9,24 @@ public class Turtle {
   public Turtle() {
     xCoordinate = 0;
     yCoordinate = 0;
-    orientation = 90.0;
+    orientation = Math.PI / 2;
   }
 
   public double getOrientation() {
-    return 0.0;
+    return orientation;
   }
 
   public int[] getLocation() {
-    return new int[]{0, 0};
+    return new int[]{xCoordinate, yCoordinate};
   }
 
   public void setOrientation(double orientation) {
     this.orientation = orientation;
+  }
+
+  public void setLocation(int[] newLocation) {
+    xCoordinate = newLocation[0];
+    yCoordinate = newLocation[1];
   }
 
   public int getXCoordinate() {
