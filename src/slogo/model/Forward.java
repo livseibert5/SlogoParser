@@ -1,6 +1,6 @@
 package slogo.model;
 
-public class Forward implements Command {
+public class Forward extends MovementCommand implements Command {
 
   private int pixels;
 
@@ -13,9 +13,7 @@ public class Forward implements Command {
   }
 
   public int execute() {
-    int[] currentLocation = turtle.getLocation();
-    double currentOrientation = turtle.getOrientation();
-    turtle.move(pixels * Math.cos(currentOrientation), pixels * Math.sin(currentOrientation));
+    int[] newLocation = determineLocation(turtle.getLocation(), turtle.getOrientation(), pixels);
     return pixels;
   }
 }
