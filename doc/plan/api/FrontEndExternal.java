@@ -42,5 +42,5 @@ interface FrontEndExternal {
    */
   public void changePenColor(double r, double g, double b);
 
-  //private buildScene(); - adds everything to stage instantiated in constructor of Control
+  //private buildScene(); - adds everything to stage instantiated in constructor of WindowControl
 }
