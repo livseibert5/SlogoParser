@@ -9,9 +9,9 @@ abstract class MovementCommand {
 
   protected int[] determineLocation(int[] currentLocation, double orientation, int pixels) {
     findQuadrantDirection(orientation);
-    int xDiff = isZero(Math.cos(orientationDirection)) ? 0 : (int) Math.cos(orientationDirection);
-    int yDiff = isZero(Math.sin(orientationDirection)) ? 0 : (int) Math.sin(orientationDirection);
-    return new int[]{deltaX * pixels * xDiff, deltaY * pixels * yDiff};
+    double xDiff = isZero(Math.cos(orientationDirection)) ? 0 : Math.cos(orientationDirection);
+    double yDiff = isZero(Math.sin(orientationDirection)) ? 0 : Math.sin(orientationDirection);
+    return new int[]{(int) (deltaX * pixels * xDiff), (int) (deltaY * pixels * yDiff)};
   }
 
   protected void findQuadrantDirection(double orientation) {
