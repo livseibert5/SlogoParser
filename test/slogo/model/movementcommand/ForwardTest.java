@@ -6,6 +6,11 @@ import slogo.model.Constant;
 import slogo.model.Turtle;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for Forward class.
+ *
+ * @author Livia Seibert
+ */
 public class ForwardTest {
 
   private Turtle turtle = new Turtle();

@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 import slogo.model.Constant;
 import slogo.model.Turtle;
 
+/**
+ * Tests for Backward class.
+ *
+ * @author Livia Seibert
+ */
 public class BackwardTest {
 
   private Turtle turtle = new Turtle();
