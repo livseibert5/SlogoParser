@@ -16,7 +16,7 @@ public class Equal implements Command {
 
   @Override
   public int getNumberParameters() {
-    return 0;
+    return 2;
   }
 
   @Override
