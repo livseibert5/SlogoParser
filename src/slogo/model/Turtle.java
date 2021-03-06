@@ -9,7 +9,7 @@ public class Turtle {
   public Turtle() {
     xCoordinate = 0;
     yCoordinate = 0;
-    orientation = Math.PI / 2;
+    orientation = 90.0;
   }
 
   public double getOrientation() {
@@ -21,7 +21,13 @@ public class Turtle {
   }
 
   public void setOrientation(double orientation) {
-    this.orientation = orientation;
+    if (orientation > 360) {
+      this.orientation = orientation - 360;
+    } else if (orientation < 0) {
+      this.orientation = 360 + orientation;
+    } else {
+      this.orientation = orientation;
+    }
   }
 
   public void setLocation(int[] newLocation) {
