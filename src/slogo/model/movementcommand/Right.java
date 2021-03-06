@@ -1,6 +1,7 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
+import slogo.model.Constant;
 import slogo.model.Turtle;
 
 /**
@@ -20,8 +21,8 @@ public class Right extends MovementCommand implements Command {
      *
      * @param argument Constant command type containing the number of pixels to move the turtle
      */
-    public Right(Command argument) {
-        this.argument = argument;
+    public Right(Constant pixels) {
+        this.pixels = pixels.getValue();
     }
 
     /**
@@ -42,7 +43,6 @@ public class Right extends MovementCommand implements Command {
      * @return number of pixels moved
      */
     public int execute(Turtle turtle) {
-        this.pixels = argument.execute(turtle);
         turtle.setOrientation(turtle.getOrientation() - 90);
         turtle.setLocation(determineLocation(turtle.getLocation(), Math.toRadians(turtle.getOrientation()), pixels));
         return pixels;

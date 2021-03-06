@@ -1,6 +1,7 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
+import slogo.model.Constant;
 import slogo.model.Turtle;
 
 /**
@@ -20,8 +21,8 @@ public class SetHeading implements Command {
      *
      * @param argument Constant command containing value for new orientation
      */
-    public SetHeading(Command argument){
-        this.argument = argument;
+    public SetHeading(Constant orientation){
+        this.orientation = orientation.getValue();
     }
 
     /**
@@ -43,7 +44,6 @@ public class SetHeading implements Command {
      */
     @Override
     public int execute(Turtle turtle) {
-        this.orientation = argument.execute(turtle);
         turtle.setOrientation(orientation);
         return (int) orientation;
     }

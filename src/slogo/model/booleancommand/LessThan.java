@@ -20,6 +20,10 @@ public class LessThan implements Command {
 
   @Override
   public int execute(Turtle turtle) {
-    return 0;
+    if (this.argument1.execute(turtle) < this.argument2.execute(turtle)) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }

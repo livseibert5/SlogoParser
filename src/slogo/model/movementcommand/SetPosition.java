@@ -1,6 +1,7 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
+import slogo.model.Constant;
 import slogo.model.Turtle;
 
 /**
@@ -11,8 +12,8 @@ import slogo.model.Turtle;
  */
 public class SetPosition implements Command {
 
-  Command argumentX;
-  Command argumentY;
+  int argumentX;
+  int argumentY;
 
   /**
    * Constructor for SetPosition command that takes in two constant commands as arguments to set the
@@ -21,9 +22,9 @@ public class SetPosition implements Command {
    * @param argumentX Constant command with new x coordinate
    * @param argumentY Constant command with new y coordinate
    */
-  public SetPosition(Command argumentX, Command argumentY) {
-    this.argumentX = argumentX;
-    this.argumentY = argumentY;
+  public SetPosition(Constant argumentX, Constant argumentY) {
+    this.argumentX = argumentX.getValue();
+    this.argumentY = argumentY.getValue();
   }
 
   /**
@@ -46,7 +47,7 @@ public class SetPosition implements Command {
   @Override
   public int execute(Turtle turtle) {
     int[] oldLocation = turtle.getLocation();
-    turtle.setLocation(new int[]{argumentX.execute(turtle), argumentY.execute(turtle)});
+    turtle.setLocation(new int[]{argumentX, argumentY});
     return (int) Math.sqrt(
         Math.pow(oldLocation[0] - turtle.getXCoordinate(), 2) + Math.pow(oldLocation[1] - turtle
             .getYCoordinate(), 2));
