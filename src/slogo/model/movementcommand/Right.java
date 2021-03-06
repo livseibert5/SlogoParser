@@ -19,7 +19,7 @@ public class Right extends MovementCommand implements Command {
      * Constructor for the Right command, takes a constant as an argument
      * and gets its value by executing the Constant command.
      *
-     * @param argument Constant command type containing the number of pixels to move the turtle
+     * @param pixels Constant containing the number of pixels to move the turtle
      */
     public Right(Constant pixels) {
         this.pixels = pixels.getValue();

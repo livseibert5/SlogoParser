@@ -19,7 +19,7 @@ public class SetHeading implements Command {
      * Constructor for the SetHeading command, takes a constant as an argument
      * and later gets its value for the new orientation by executing the argument.
      *
-     * @param argument Constant command containing value for new orientation
+     * @param orientation Constant containing value for new orientation
      */
     public SetHeading(Constant orientation){
         this.orientation = orientation.getValue();

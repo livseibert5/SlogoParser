@@ -18,7 +18,7 @@ public class Left extends MovementCommand implements Command {
      * Constructor for the Left command, takes a constant as an argument
      * and gets its value by executing the Constant command.
      *
-     * @param argument Constant command type containing the number of pixels to move the turtle
+     * @param pixels Constant containing the number of pixels to move the turtle
      */
     public Left(Constant pixels) {
         this.pixels = pixels.getValue();

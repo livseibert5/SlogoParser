@@ -19,8 +19,8 @@ public class SetPosition implements Command {
    * Constructor for SetPosition command that takes in two constant commands as arguments to set the
    * new position for the x and y coordinate of the turtle.
    *
-   * @param argumentX Constant command with new x coordinate
-   * @param argumentY Constant command with new y coordinate
+   * @param argumentX Constant with new x coordinate
+   * @param argumentY Constant with new y coordinate
    */
   public SetPosition(Constant argumentX, Constant argumentY) {
     this.argumentX = argumentX.getValue();
