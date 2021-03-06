@@ -1,21 +1,23 @@
-package slogo.model;
+package slogo.model.movementcommand;
 
-public class Backward extends MovementCommand implements Command {
+import slogo.model.Command;
+
+public class Forward extends MovementCommand implements Command {
 
   private int pixels;
 
-  public Backward(Command argument) {
+  public Forward(Command argument) {
     this.pixels = argument.execute();
   }
 
+  @Override
   public int getNumberParameters() {
     return 1;
   }
 
+  @Override
   public int execute() {
     int[] newLocation = determineLocation(turtle.getLocation(), turtle.getOrientation(), pixels);
-    newLocation[0] *= -1;
-    newLocation[1] *= -1;
     return pixels;
   }
 }
