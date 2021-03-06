@@ -30,9 +30,26 @@ public class SetTowards implements Command {
     public int execute(Turtle turtle) {
         this.x = argument1.execute(turtle);
         this.y = argument2.execute(turtle);
-        int xdiff = x - turtle.getXCoordinate();
-        int ydiff = y - turtle.getYCoordinate();
-        int degree = (int) Math.atan(ydiff/xdiff);
+        double xdiff = x - turtle.getXCoordinate();
+        double ydiff = y - turtle.getYCoordinate();
+        int degree;
+        if(xdiff == 0){
+            if(ydiff > 0){
+                degree = 90;
+            }
+            else{
+                degree = 270;
+            }
+        }
+        else {
+            degree = (int) Math.toDegrees((Math.atan(ydiff/xdiff)));
+            if(xdiff < 0){
+                degree += 180;
+            }
+            else if(ydiff < 0){
+                degree += 360;
+            }
+        }
         turtle.setOrientation(degree);
         return degree;
     }
