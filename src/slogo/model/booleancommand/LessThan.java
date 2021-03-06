@@ -4,6 +4,12 @@ import slogo.model.Command;
 import slogo.model.Constant;
 import slogo.model.Turtle;
 
+/**
+ * LessThan class is the Command subclass that returns 1 if the first argument
+ * is less than the second argument, and returns 0 otherwise.
+ *
+ * @author Livia Seibert
+ */
 public class LessThan implements Command {
 
   int argument1;
