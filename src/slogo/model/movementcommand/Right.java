@@ -44,7 +44,7 @@ public class Right extends MovementCommand implements Command {
     public int execute(Turtle turtle) {
         this.pixels = argument.execute(turtle);
         turtle.setOrientation(turtle.getOrientation() - 90);
-        int[] newLocation = determineLocation(turtle.getLocation(), turtle.getOrientation(), pixels);
+        turtle.setLocation(determineLocation(turtle.getLocation(), Math.toRadians(turtle.getOrientation()), pixels));
         return pixels;
     }
 }
