@@ -18,7 +18,7 @@ public class SetPositionTest {
   @Test
   void moveToCurrentLocation() {
     setPosition = new SetPosition(new Constant(0), new Constant(0));
-    setPosition.execute(turtle);
+    assertEquals(0, setPosition.execute(turtle));
     assertEquals(0, turtle.getXCoordinate());
     assertEquals(0, turtle.getYCoordinate());
   }
@@ -26,7 +26,7 @@ public class SetPositionTest {
   @Test
   void moveToNewLocation() {
     setPosition = new SetPosition(new Constant(10), new Constant(15));
-    setPosition.execute(turtle);
+    assertEquals(18, setPosition.execute(turtle));
     assertEquals(10, turtle.getXCoordinate());
     assertEquals(15, turtle.getYCoordinate());
   }
