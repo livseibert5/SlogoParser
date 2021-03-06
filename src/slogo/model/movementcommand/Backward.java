@@ -46,7 +46,7 @@ public class Backward extends MovementCommand implements Command {
   public int execute(Turtle turtle) {
     this.pixels = argument.execute(turtle);
     turtle.setOrientation(turtle.getOrientation() + 180);
-    int[] newLocation = determineLocation(turtle.getLocation(), turtle.getOrientation(), pixels);
+    int[] newLocation = determineLocation(turtle.getLocation(), Math.toRadians(turtle.getOrientation()), pixels);
     return pixels;
   }
 }
