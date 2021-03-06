@@ -2,6 +2,7 @@ package slogo;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import slogo.view.WindowControl;
 
 /**
  * Initializes window.
@@ -16,6 +17,6 @@ public class Main extends Application {
 
   @Override
   public void start(Stage stage) {
-    Control control = new Control();
+    WindowControl control = new WindowControl();
   }
 }
