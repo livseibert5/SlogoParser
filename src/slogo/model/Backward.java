@@ -1,6 +1,6 @@
 package slogo.model;
 
-public class Backward implements Command {
+public class Backward extends MovementCommand implements Command {
 
   private int pixels;
 
@@ -13,10 +13,9 @@ public class Backward implements Command {
   }
 
   public int execute() {
-    turtle.setOrientation(turtle.getOrientation() + 180.0)
-    int[] currentLocation = turtle.getLocation();
-    double currentOrientation = turtle.getOrientation();
-    turtle.move(pixels * Math.cos(currentOrientation), pixels * Math.sin(currentOrientation));
+    int[] newLocation = determineLocation(turtle.getLocation(), turtle.getOrientation(), pixels);
+    newLocation[0] *= -1;
+    newLocation[1] *= -1;
     return pixels;
   }
 }
