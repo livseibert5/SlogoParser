@@ -63,4 +63,28 @@ public class ForwardTest {
     assertEquals(35, turtle.getXCoordinate());
     assertEquals(35, turtle.getYCoordinate());
   }
+
+  @Test
+  void testMoveDiagonallyStraightFrom135() {
+    turtle.setOrientation(135);
+    forward.execute(turtle);
+    assertEquals(-35, turtle.getXCoordinate());
+    assertEquals(35, turtle.getYCoordinate());
+  }
+
+  @Test
+  void testMoveDiagonallyStraightFrom225() {
+    turtle.setOrientation(225);
+    forward.execute(turtle);
+    assertEquals(-35, turtle.getXCoordinate());
+    assertEquals(-35, turtle.getYCoordinate());
+  }
+
+  @Test
+  void testMoveDiagonallyStraightFrom315() {
+    turtle.setOrientation(315);
+    forward.execute(turtle);
+    assertEquals(35, turtle.getXCoordinate());
+    assertEquals(-35, turtle.getYCoordinate());
+  }
 }
