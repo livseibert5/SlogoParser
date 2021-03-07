@@ -1,6 +1,8 @@
 package slogo.model;
 
 public interface Command {
-  public int getNumberParameters();
+  public default int getNumberParameters() {
+    return 0;
+  }
   public double execute(Turtle turtle);
 }

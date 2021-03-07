@@ -5,6 +5,8 @@ public class Turtle {
   private double xCoordinate;
   private double yCoordinate;
   private double orientation;
+  private boolean penDown;
+  private boolean isShowing;
 
   public Turtle() {
     xCoordinate = 0;
@@ -33,6 +35,14 @@ public class Turtle {
   public void setLocation(double[] newLocation) {
     xCoordinate = newLocation[0];
     yCoordinate = newLocation[1];
+  }
+
+  public boolean penIsDown() {
+    return penDown;
+  }
+
+  public boolean isShowing() {
+    return isShowing;
   }
 
   public double getXCoordinate() {
