@@ -30,7 +30,7 @@ public class CommandFactory {
     }
   }
 
-  private Object makeClass(Class<?> clazz, List<Constant> arguments)
+  private Object makeClass(Class<?> clazz, List<Object> arguments)
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
     if (arguments.size() == 2) {
       return clazz.getDeclaredConstructor(Constant.class, Constant.class).newInstance(arguments.get(0), arguments.get(1));
@@ -45,10 +45,16 @@ public class CommandFactory {
     return constructors[0].getParameterCount();
   }
 
-  public Object createCommand(String commandType, List<Constant> arguments)
+  public Object createCommand(String commandType, List<Object> arguments)
       throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
     var clazz = Class.forName(mySymbols.get(commandType));
-    Object command = makeClass(clazz, arguments);
+    Object command;
+    if (commandType.equals("Repeat")) {
+      command = clazz.getDeclaredConstructor(Constant.class, CommandBlock.class).newInstance(arguments.get(0), arguments.get(1));
+    } else {
+      command = makeClass(clazz, arguments);
+    }
+    //Object command = makeClass(clazz, arguments);
     return command;
   }
 }
