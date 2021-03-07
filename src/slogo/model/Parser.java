@@ -23,9 +23,9 @@ public class Parser {
     }
     return 0;
   }
-/*
+
   public static void main(String[] args) {
-    Parser parser = new Parser();
+    Parser parser = new Parser(new Controller());
     parser.parse("fd * greater? 3 5 100");
-  }*/
+  }
 }

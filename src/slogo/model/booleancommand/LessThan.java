@@ -14,7 +14,7 @@ public class LessThan implements Command {
 
   int argument1;
   int argument2;
-  
+
   public LessThan(Constant argument1, Constant argument2) {
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();

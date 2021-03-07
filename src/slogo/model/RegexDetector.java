@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import slogo.Main;
 
 public class RegexDetector {
-  private static final String RESOURCES_PACKAGE = RegexDetector.class.getPackageName() + ".resources.languages.";
+  private static final String RESOURCES_PACKAGE = "resources.languages.";
   private List<Entry<String, Pattern>> mySymbols;
 
   public RegexDetector() {
