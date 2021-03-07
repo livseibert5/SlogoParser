@@ -15,16 +15,33 @@ public class And implements Command {
   int argument1;
   int argument2;
 
+  /**
+   * Constructor for And argument, takes in two constants to compare.
+   *
+   * @param argument1 first constant to compare
+   * @param argument2 second constant to compare
+   */
   public And(Constant argument1, Constant argument2) {
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();
   }
 
+  /**
+   * And compares two constants, so it takes 2 arguments.
+   *
+   * @return 2 since And compares two constants
+   */
   @Override
   public int getNumberParameters() {
-    return 0;
+    return 2;
   }
 
+  /**
+   * Returns 1 if both arguments are non-zero and returns 0 otherwise.
+   *
+   * @param turtle current turtle object
+   * @return 1 if both arguments non-zero, else 0
+   */
   @Override
   public double execute(Turtle turtle) {
     return this.argument1 != 0 && this.argument2 != 0 ? 1 : 0;
