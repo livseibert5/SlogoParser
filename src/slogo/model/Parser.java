@@ -1,5 +1,6 @@
 package slogo.model;
 
+import java.util.Stack;
 import slogo.controller.Controller;
 
 public class Parser {
@@ -19,13 +20,13 @@ public class Parser {
     for (String commandComponent: commandComponents) {
       String commandType = regexDetector.getSymbol(commandComponent);
       System.out.println(commandType);
-      Command newCommand = commandFactory.createCommand(commandType);
+      //Command newCommand = commandFactory.createCommand(commandType);
     }
     return 0;
   }
 
   public static void main(String[] args) {
     Parser parser = new Parser(new Controller());
-    parser.parse("fd * greater? 3 5 100");
+    parser.parse("fd sum sum sum sum 10 20 30 5 5");
   }
 }
