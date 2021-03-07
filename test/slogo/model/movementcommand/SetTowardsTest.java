@@ -44,7 +44,7 @@ public class SetTowardsTest {
 
   @Test
   public void testSetTowardsFirstQuadrant(){
-    turtle.setOrientation(0);
+    turtle.setOrientation(90);
     setTowards = new SetTowards(new Constant(3), new Constant(2));
     setTowards.execute(turtle);
     assertEquals(33, turtle.getOrientation());
@@ -52,7 +52,7 @@ public class SetTowardsTest {
 
   @Test
   public void testSetTowardsSecondQuadrant(){
-    turtle.setOrientation(0);
+    turtle.setOrientation(3);
     setTowards = new SetTowards(new Constant(-3), new Constant(2));
     setTowards.execute(turtle);
     assertEquals(147, turtle.getOrientation());
@@ -60,7 +60,7 @@ public class SetTowardsTest {
 
   @Test
   public void testSetTowardsThirdQuadrant(){
-    turtle.setOrientation(0);
+    turtle.setOrientation(170);
     setTowards = new SetTowards(new Constant(-3), new Constant(-2));
     setTowards.execute(turtle);
     assertEquals(213, turtle.getOrientation());
