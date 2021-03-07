@@ -4,15 +4,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.model.Constant;
 import slogo.model.Turtle;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for Right class.
+ *
+ * @author Rachel Luria
+ */
 public class RightTest {
 
   private Turtle turtle = new Turtle();
   private Right right;
 
   @BeforeEach
-  void setUp() {right = new Right(new Constant(50));}
+  void setUp() {
+    right = new Right(new Constant(50));
+  }
 
   @Test
   void testMoveRightFrom0() {
@@ -44,6 +52,38 @@ public class RightTest {
     right.execute(turtle);
     assertEquals(-50, turtle.getXCoordinate());
     assertEquals(0, turtle.getYCoordinate());
+  }
+
+  @Test
+  void testMoveRightFrom45() {
+    turtle.setOrientation(45);
+    right.execute(turtle);
+    assertEquals(35, Math.round(turtle.getXCoordinate()));
+    assertEquals(-35, Math.round(turtle.getYCoordinate()));
+  }
+
+  @Test
+  void testMoveRightFrom135() {
+    turtle.setOrientation(135);
+    right.execute(turtle);
+    assertEquals(35, Math.round(turtle.getXCoordinate()));
+    assertEquals(35, Math.round(turtle.getYCoordinate()));
+  }
+
+  @Test
+  void testMoveRightFrom225() {
+    turtle.setOrientation(225);
+    right.execute(turtle);
+    assertEquals(-35, Math.round(turtle.getXCoordinate()));
+    assertEquals(35, Math.round(turtle.getYCoordinate()));
+  }
+
+  @Test
+  void testMoveRightFrom315() {
+    turtle.setOrientation(315);
+    right.execute(turtle);
+    assertEquals(-35, Math.round(turtle.getXCoordinate()));
+    assertEquals(-35, Math.round(turtle.getYCoordinate()));
   }
 
 }
