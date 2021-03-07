@@ -15,11 +15,6 @@ public class Difference implements Command{
   }
 
   @Override
-  public int getNumberParameters() {
-    return 2;
-  }
-
-  @Override
   public double execute(Turtle turtle) {
     return argument1 - argument2;
   }

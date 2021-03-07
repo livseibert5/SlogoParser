@@ -27,11 +27,6 @@ public class Or implements Command {
   }
 
   @Override
-  public int getNumberParameters() {
-    return 2;
-  }
-
-  @Override
   public double execute(Turtle turtle) {
     return this.argument1 != 0 || this.argument2 != 0 ? 1 : 0;
   }

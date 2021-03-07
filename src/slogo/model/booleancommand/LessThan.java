@@ -21,11 +21,6 @@ public class LessThan implements Command {
   }
 
   @Override
-  public int getNumberParameters() {
-    return 2;
-  }
-
-  @Override
   public double execute(Turtle turtle) {
     return this.argument1 < this.argument2 ? 1 : 0;
   }

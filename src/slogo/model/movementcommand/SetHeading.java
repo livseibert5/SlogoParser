@@ -25,17 +25,6 @@ public class SetHeading implements Command {
     }
 
     /**
-     * Allows access to number of parameters SetHeading requires so Parser can determine when
-     * the proper argument is available to execute the set heading command.
-     *
-     * @return 1, as SetHeading's only parameter is the new orientation
-     */
-    @Override
-    public int getNumberParameters() {
-        return 1;
-    }
-
-    /**
      * Set's turtle's orientation to be the new orientation specified by the argument.
      *
      * @param turtle turtle object to change orientation of

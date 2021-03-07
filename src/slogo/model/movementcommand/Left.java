@@ -25,17 +25,6 @@ public class Left extends MovementCommand implements Command {
     }
 
     /**
-     * Allows access to number of parameters Left requires so Parser can determine when
-     * the proper argument is available to execute the left command.
-     *
-     * @return 1, as Left's only parameter is pixels to be moved
-     */
-    @Override
-    public int getNumberParameters() {
-        return 1;
-    }
-
-    /**
      * Turns turtle to the left, then calculates the end location of the turtle based on the
      * number of pixels passed as an argument.
      *

@@ -27,16 +27,6 @@ public class And implements Command {
   }
 
   /**
-   * And compares two constants, so it takes 2 arguments.
-   *
-   * @return 2 since And compares two constants
-   */
-  @Override
-  public int getNumberParameters() {
-    return 2;
-  }
-
-  /**
    * Returns 1 if both arguments are non-zero and returns 0 otherwise.
    *
    * @param turtle current turtle object

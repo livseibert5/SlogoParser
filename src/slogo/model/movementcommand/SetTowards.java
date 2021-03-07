@@ -21,11 +21,6 @@ public class SetTowards implements Command {
     }
 
     @Override
-    public int getNumberParameters() {
-        return 2;
-    }
-
-    @Override
     public double execute(Turtle turtle) {
         double xdiff = x - turtle.getXCoordinate();
         double ydiff = y - turtle.getYCoordinate();

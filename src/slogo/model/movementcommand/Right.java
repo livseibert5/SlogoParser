@@ -25,16 +25,6 @@ public class Right extends MovementCommand implements Command {
     }
 
     /**
-     * Allows access to number of parameters Right requires so Parser can determine when
-     * the proper argument is available to execute the right command.
-     *
-     * @return 1, as Right's only parameter is pixels to be moved
-     */
-    public int getNumberParameters() {
-        return 1;
-    }
-
-    /**
      * Turns turtle to the right, then calculates the end location of the turtle based on the
      * number of pixels passed as an argument.
      *

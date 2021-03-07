@@ -13,11 +13,6 @@ public class Minus implements Command{
   }
 
   @Override
-  public int getNumberParameters() {
-    return 1;
-  }
-
-  @Override
   public double execute(Turtle turtle) {
     return -1 * argument;
   }

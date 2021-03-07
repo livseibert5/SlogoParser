@@ -25,17 +25,6 @@ public class Forward extends MovementCommand implements Command {
   }
 
   /**
-   * Allows access to number of parameters Forward requires so Parser can determine when
-   * the proper argument is available to execute the forward command.
-   *
-   * @return 1, as Forward's only parameter is pixels to be moved
-   */
-  @Override
-  public int getNumberParameters() {
-    return 1;
-  }
-
-  /**
    * Calculates the end location of the turtle based on its orientation and number of pixels
    * to be moved.
    *

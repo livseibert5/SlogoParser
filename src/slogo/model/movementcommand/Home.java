@@ -11,16 +11,6 @@ import slogo.model.Turtle;
 public class Home implements Command {
 
   /**
-   * Home is always at (0, 0), so no parameter is needed.
-   *
-   * @return 0, as home location never changes
-   */
-  @Override
-  public int getNumberParameters() {
-    return 0;
-  }
-
-  /**
    * Sets turtle's location to (0, 0).
    *
    * @param turtle turtle to move to home location

@@ -13,11 +13,6 @@ public class Random implements Command{
   }
 
   @Override
-  public int getNumberParameters() {
-    return 1;
-  }
-
-  @Override
   public double execute(Turtle turtle) {
     return Math.random() * argument;
   }

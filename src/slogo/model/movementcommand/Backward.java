@@ -25,17 +25,6 @@ public class Backward extends MovementCommand implements Command {
   }
 
   /**
-   * Allows access to number of parameters Backward requires so Parser can determine when the proper
-   * argument is available to execute the backward command.
-   *
-   * @return 1, as Backward's only parameter is pixels to be moved
-   */
-  @Override
-  public int getNumberParameters() {
-    return 1;
-  }
-
-  /**
    * Inverts the turtles orientation and calculates the coordinates of its end location after
    * moving.
    *

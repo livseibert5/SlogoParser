@@ -19,11 +19,6 @@ public class Not implements Command {
   }
 
   @Override
-  public int getNumberParameters() {
-    return 1;
-  }
-
-  @Override
   public double execute(Turtle turtle) {
     return this.argument == 0 ? 1 : 0;
   }

@@ -15,11 +15,6 @@ public class Power implements Command{
   }
 
   @Override
-  public int getNumberParameters() {
-    return 2;
-  }
-
-  @Override
   public double execute(Turtle turtle) {
     return Math.pow(base, exponent);
   }

@@ -28,17 +28,6 @@ public class SetPosition implements Command {
   }
 
   /**
-   * Allows access to number of parameters SetPosition requires so Parser can determine when the
-   * proper argument is available to execute the set position command.
-   *
-   * @return 2, as SetPosition takes in a new x and y value
-   */
-  @Override
-  public int getNumberParameters() {
-    return 2;
-  }
-
-  /**
    * Places turtle at new location specified by arguments.
    *
    * @param turtle turtle object to place at new location

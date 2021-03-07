@@ -15,13 +15,19 @@ public class Parser {
   private Stack<String> commandStack;
   private Stack<Constant> argumentStack;
   private static final String RESOURCES_PACKAGE = "resources.languages.";
+  private Turtle turtle;
 
   public Parser(Controller controller) {
     this.controller = controller;
+    turtle = controller.getTurtleHandler().getTurtle();
     commandStack = new Stack<>();
     argumentStack = new Stack<>();
     regexDetector.addPatterns("English");
     regexDetector.addPatterns("Syntax");
+  }
+
+  public Parser(Turtle turtle) {
+    this.turtle = turtle;
   }
 
   public int parse(String command)
@@ -57,7 +63,7 @@ public class Parser {
         }
         Command newCommand = (Command) commandFactory.createCommand(command, parameters);
         argumentStack.push(new Constant(
-            (int) newCommand.execute(controller.getTurtleHandler().getTurtle())));
+            (int) newCommand.execute(turtle)));
         // Object newCommand = commandFactory.createCommand(commandStack.pop(), )
         // pop command off command stack and determine how many arguments it takes
         // if the argument stack is greater than or equal to the number of arguments needed, create

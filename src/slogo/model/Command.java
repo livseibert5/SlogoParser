@@ -1,8 +1,8 @@
 package slogo.model;
 
+import java.lang.reflect.InvocationTargetException;
+
 public interface Command {
-  public default int getNumberParameters() {
-    return 0;
-  }
-  public double execute(Turtle turtle);
+  public double execute(Turtle turtle)
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
 }
