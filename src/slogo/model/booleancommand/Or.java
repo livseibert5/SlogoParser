@@ -25,7 +25,7 @@ public class Or implements Command {
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();
   }
-  
+
   @Override
   public int getNumberParameters() {
     return 2;
