@@ -3,7 +3,7 @@ package slogo.model.movementcommand;
 import org.junit.jupiter.api.Test;
 import slogo.model.Constant;
 import slogo.model.Turtle;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SetTowardsTest {
 

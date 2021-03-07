@@ -52,4 +52,20 @@ public class Turtle {
   public double getYCoordinate() {
     return yCoordinate;
   }
+
+  public void setPenDown() {
+    penDown = true;
+  }
+
+  public void setPenUp() {
+    penDown = false;
+  }
+
+  public void showTurtle() {
+    isShowing = true;
+  }
+
+  public void hideTurtle() {
+    isShowing = false;
+  }
 }
