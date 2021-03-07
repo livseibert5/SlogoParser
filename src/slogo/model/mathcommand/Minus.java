@@ -6,7 +6,7 @@ import slogo.model.Turtle;
 
 public class Minus implements Command{
 
-  private int argument;
+  private final double argument;
 
   public Minus(Constant argument){
     this.argument = argument.getValue();
@@ -18,7 +18,7 @@ public class Minus implements Command{
   }
 
   @Override
-  public int execute(Turtle turtle) {
-    return ~argument;
+  public double execute(Turtle turtle) {
+    return -1 * argument;
   }
 }

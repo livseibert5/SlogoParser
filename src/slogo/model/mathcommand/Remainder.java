@@ -6,8 +6,8 @@ import slogo.model.Turtle;
 
 public class Remainder implements Command{
 
-  private int argument1;
-  private int argument2;
+  private final double argument1;
+  private final double argument2;
 
   public Remainder(Constant argument1, Constant argument2){
     this.argument1 = argument1.getValue();
@@ -20,7 +20,7 @@ public class Remainder implements Command{
   }
 
   @Override
-  public int execute(Turtle turtle) {
+  public double execute(Turtle turtle) {
     return argument1 % argument2;
   }
 }

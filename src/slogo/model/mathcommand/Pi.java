@@ -1,7 +1,6 @@
 package slogo.model.mathcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
 
 public class Pi implements Command{
@@ -12,7 +11,7 @@ public class Pi implements Command{
   }
 
   @Override
-  public int execute(Turtle turtle) {
-    return (int) Math.PI;
+  public double execute(Turtle turtle) {
+    return Math.PI;
   }
 }

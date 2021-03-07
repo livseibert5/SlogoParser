@@ -6,7 +6,7 @@ import slogo.model.Turtle;
 
 public class ArcTangent implements Command{
 
-  private int argument;
+  private final double argument;
 
   public ArcTangent(Constant argument){
     this.argument = argument.getValue();
@@ -18,7 +18,7 @@ public class ArcTangent implements Command{
   }
 
   @Override
-  public int execute(Turtle turtle) {
-    return (int) Math.toDegrees(Math.atan(argument));
+  public double execute(Turtle turtle) {
+    return Math.toDegrees(Math.atan(argument));
   }
 }
