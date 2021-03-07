@@ -13,7 +13,6 @@ import slogo.model.Turtle;
 public class SetHeading implements Command {
 
     double orientation;
-    private Command argument;
 
     /**
      * Constructor for the SetHeading command, takes a constant as an argument

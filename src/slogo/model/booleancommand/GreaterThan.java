@@ -15,6 +15,13 @@ public class GreaterThan implements Command {
   int argument1;
   int argument2;
 
+  /**
+   * Constructor for GreaterThan command, takes in 2 arguments to
+   * compare magnitude of.
+   *
+   * @param argument1 first argument to compare
+   * @param argument2 second argument to compare
+   */
   public GreaterThan(Constant argument1, Constant argument2) {
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();

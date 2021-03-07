@@ -15,6 +15,13 @@ public class Equal implements Command {
   int argument1;
   int argument2;
 
+  /**
+   * Constructor for Equal command, takes in two constants to determine
+   * equality of.
+   *
+   * @param argument1 first argument to compare
+   * @param argument2 second argument to compare
+   */
   public Equal(Constant argument1, Constant argument2) {
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();
