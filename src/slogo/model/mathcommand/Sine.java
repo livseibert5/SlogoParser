@@ -19,6 +19,6 @@ public class Sine implements Command{
 
   @Override
   public double execute(Turtle turtle) {
-    return Math.toDegrees(Math.sin(argument));
+    return Math.sin(Math.toRadians(argument));
   }
 }

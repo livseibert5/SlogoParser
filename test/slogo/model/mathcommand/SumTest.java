@@ -7,9 +7,9 @@ import slogo.model.Constant;
 import slogo.model.Turtle;
 
 /**
- * Tests for Backward class.
+ * Tests for Sum class.
  *
- * @author Livia Seibert
+ * @author Rachel Luria
  */
 public class SumTest {
 
