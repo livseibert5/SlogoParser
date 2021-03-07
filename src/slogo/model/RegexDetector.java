@@ -8,9 +8,12 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import slogo.Main;
+import slogo.model.backendexceptions.RegexDetectorError;
 
 public class RegexDetector {
+
   private static final String RESOURCES_PACKAGE = "resources.languages.";
+  private final String ERROR_MESSAGE = "RegexDetector didn't find a match for %s.";
   private List<Entry<String, Pattern>> mySymbols;
 
   public RegexDetector() {
@@ -25,15 +28,13 @@ public class RegexDetector {
     }
   }
 
-  public String getSymbol (String text) {
-    final String ERROR = "NO MATCH";
+  public String getSymbol (String text) throws RegexDetectorError {
     for (Entry<String, Pattern> e : mySymbols) {
       if (match(text, e.getValue())) {
         return e.getKey();
       }
     }
-    // FIXME: perhaps throw an exception instead
-    return ERROR;
+    throw new RegexDetectorError(ERROR_MESSAGE, text);
   }
 
   private boolean match (String text, Pattern regex) {
