@@ -45,10 +45,10 @@ public class SetPosition implements Command {
    * @return distance turtle moved
    */
   @Override
-  public int execute(Turtle turtle) {
-    int[] oldLocation = turtle.getLocation();
-    turtle.setLocation(new int[]{argumentX, argumentY});
-    return (int) Math.sqrt(
+  public double execute(Turtle turtle) {
+    double[] oldLocation = turtle.getLocation();
+    turtle.setLocation(new double[]{argumentX, argumentY});
+    return Math.sqrt(
         Math.pow(oldLocation[0] - turtle.getXCoordinate(), 2) + Math.pow(oldLocation[1] - turtle
             .getYCoordinate(), 2));
   }

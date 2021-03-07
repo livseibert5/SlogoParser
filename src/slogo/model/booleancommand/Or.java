@@ -32,7 +32,7 @@ public class Or implements Command {
   }
 
   @Override
-  public int execute(Turtle turtle) {
+  public double execute(Turtle turtle) {
     return this.argument1 != 0 || this.argument2 != 0 ? 1 : 0;
   }
 }

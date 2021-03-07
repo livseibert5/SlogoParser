@@ -43,7 +43,7 @@ public class Left extends MovementCommand implements Command {
      * @return number of pixels moved
      */
     @Override
-    public int execute(Turtle turtle) {
+    public double execute(Turtle turtle) {
         turtle.setOrientation(turtle.getOrientation() + 90);
         turtle.setLocation(determineLocation(turtle.getLocation(), Math.toRadians(turtle.getOrientation()), pixels));
         return pixels;

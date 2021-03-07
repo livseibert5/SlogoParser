@@ -24,8 +24,8 @@ public class HomeTest {
 
   @Test
   void movesHomeFromElseWhere() {
-    turtle.setLocation(new int[]{10, 15});
-    assertEquals(18, home.execute(turtle));
+    turtle.setLocation(new double[]{10, 15});
+    assertEquals(18, Math.round(home.execute(turtle)));
     assertEquals(0, turtle.getXCoordinate());
     assertEquals(0, turtle.getYCoordinate());
   }

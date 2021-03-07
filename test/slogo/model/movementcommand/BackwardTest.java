@@ -72,8 +72,8 @@ public class BackwardTest {
     turtle.setOrientation(45);
     backward.execute(turtle);
     assertEquals(225, turtle.getOrientation());
-    assertEquals(-35, turtle.getXCoordinate());
-    assertEquals(-35, turtle.getYCoordinate());
+    assertEquals(-35, Math.round(turtle.getXCoordinate()));
+    assertEquals(-35, Math.round(turtle.getYCoordinate()));
   }
 
   @Test
@@ -81,8 +81,8 @@ public class BackwardTest {
     turtle.setOrientation(135);
     backward.execute(turtle);
     assertEquals(315, turtle.getOrientation());
-    assertEquals(35, turtle.getXCoordinate());
-    assertEquals(-35, turtle.getYCoordinate());
+    assertEquals(35, Math.round(turtle.getXCoordinate()));
+    assertEquals(-35, Math.round(turtle.getYCoordinate()));
   }
 
   @Test
@@ -90,8 +90,8 @@ public class BackwardTest {
     turtle.setOrientation(225);
     backward.execute(turtle);
     assertEquals(45, turtle.getOrientation());
-    assertEquals(35, turtle.getXCoordinate());
-    assertEquals(35, turtle.getYCoordinate());
+    assertEquals(35, Math.round(turtle.getXCoordinate()));
+    assertEquals(35, Math.round(turtle.getYCoordinate()));
   }
 
   @Test
@@ -99,7 +99,7 @@ public class BackwardTest {
     turtle.setOrientation(315);
     backward.execute(turtle);
     assertEquals(135, turtle.getOrientation());
-    assertEquals(-35, turtle.getXCoordinate());
-    assertEquals(35, turtle.getYCoordinate());
+    assertEquals(-35, Math.round(turtle.getXCoordinate()));
+    assertEquals(35, Math.round(turtle.getYCoordinate()));
   }
 }

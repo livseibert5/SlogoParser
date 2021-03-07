@@ -24,7 +24,7 @@ public class Not implements Command {
   }
 
   @Override
-  public int execute(Turtle turtle) {
+  public double execute(Turtle turtle) {
     return this.argument == 0 ? 1 : 0;
   }
 }
