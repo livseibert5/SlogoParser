@@ -43,7 +43,7 @@ public class SetHeading implements Command {
      * @return new orientation
      */
     @Override
-    public int execute(Turtle turtle) {
+    public double execute(Turtle turtle) {
         turtle.setOrientation(orientation);
         return (int) orientation;
     }

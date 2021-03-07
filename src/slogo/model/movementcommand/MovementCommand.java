@@ -7,11 +7,11 @@ abstract class MovementCommand {
   private double orientationDirection;
   private static final double NEGLIGIBLE_DIFFERENCE = .0001;
 
-  protected int[] determineLocation(int[] currentLocation, double orientation, int pixels) {
+  protected double[] determineLocation(double[] currentLocation, double orientation, int pixels) {
     findQuadrantDirection(orientation);
     double xDiff = isZero(Math.cos(orientationDirection)) ? 0 : Math.cos(orientationDirection);
     double yDiff = isZero(Math.sin(orientationDirection)) ? 0 : Math.sin(orientationDirection);
-    return new int[]{(int) (deltaX * pixels * xDiff), (int) (deltaY * pixels * yDiff)};
+    return new double[]{round(deltaX * pixels * xDiff), round(deltaY * pixels * yDiff)};
   }
 
   protected void findQuadrantDirection(double orientation) {
@@ -36,5 +36,9 @@ abstract class MovementCommand {
 
   private boolean isZero(double value) {
     return Math.abs(value - 0) < NEGLIGIBLE_DIFFERENCE;
+  }
+
+  private double round(double value) {
+    return Math.round(value * 100.0) / 100.0;
   }
 }

@@ -27,9 +27,9 @@ public class Home implements Command {
    * @return distance turtle moved to get home
    */
   @Override
-  public int execute(Turtle turtle) {
-    int[] oldLocation = turtle.getLocation();
-    turtle.setLocation(new int[]{0, 0});
-    return (int) Math.sqrt(Math.pow(oldLocation[0] - 0, 2) + Math.pow(oldLocation[1] - 0, 2));
+  public double execute(Turtle turtle) {
+    double[] oldLocation = turtle.getLocation();
+    turtle.setLocation(new double[]{0, 0});
+    return Math.sqrt(Math.pow(oldLocation[0] - 0, 2) + Math.pow(oldLocation[1] - 0, 2));
   }
 }

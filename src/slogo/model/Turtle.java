@@ -2,8 +2,8 @@ package slogo.model;
 
 public class Turtle {
 
-  private int xCoordinate;
-  private int yCoordinate;
+  private double xCoordinate;
+  private double yCoordinate;
   private double orientation;
 
   public Turtle() {
@@ -16,8 +16,8 @@ public class Turtle {
     return orientation;
   }
 
-  public int[] getLocation() {
-    return new int[]{xCoordinate, yCoordinate};
+  public double[] getLocation() {
+    return new double[]{xCoordinate, yCoordinate};
   }
 
   public void setOrientation(double orientation) {
@@ -30,16 +30,16 @@ public class Turtle {
     }
   }
 
-  public void setLocation(int[] newLocation) {
+  public void setLocation(double[] newLocation) {
     xCoordinate = newLocation[0];
     yCoordinate = newLocation[1];
   }
 
-  public int getXCoordinate() {
+  public double getXCoordinate() {
     return xCoordinate;
   }
 
-  public int getYCoordinate() {
+  public double getYCoordinate() {
     return yCoordinate;
   }
 }
