@@ -24,6 +24,24 @@ public class SumTest {
     assertEquals(0, sum.execute(turtle));
   }
 
+  @Test
+  void testSumSmallNumbers() {
+    sum = new Sum(new Constant(3), new Constant(4));
+    assertEquals(7, sum.execute(turtle));
+  }
+
+  @Test
+  void testSumLargeNumbers() {
+    sum = new Sum(new Constant(1893), new Constant(4381));
+    assertEquals(6274, sum.execute(turtle));
+  }
+
+  @Test
+  void testSumNegativeNumbers() {
+    sum = new Sum(new Constant(-10), new Constant(-33));
+    assertEquals(-43, sum.execute(turtle));
+  }
+
 }
 
 
