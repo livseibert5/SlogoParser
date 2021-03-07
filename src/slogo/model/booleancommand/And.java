@@ -4,6 +4,12 @@ import slogo.model.Command;
 import slogo.model.Constant;
 import slogo.model.Turtle;
 
+/**
+ * And class is the Command subclass that returns 1 if both constants are non-zero and
+ * 0 otherwise.
+ *
+ * @author Livia Seibert
+ */
 public class And implements Command {
 
   int argument1;

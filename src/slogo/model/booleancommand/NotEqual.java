@@ -4,6 +4,12 @@ import slogo.model.Command;
 import slogo.model.Constant;
 import slogo.model.Turtle;
 
+/**
+ * NotEqual class is the Command subclass that returns 1 if the two arguments are
+ * not equal to each other.
+ *
+ * @author Livia Seibert
+ */
 public class NotEqual implements Command {
 
   int argument1;
