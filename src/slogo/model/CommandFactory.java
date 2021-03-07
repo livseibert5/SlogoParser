@@ -14,7 +14,7 @@ import slogo.model.movementcommand.Forward;
 
 public class CommandFactory {
 
-  private static final String RESOURCES_PACKAGE = "resources.CommandFactory.properties";
+  private static final String RESOURCES_PACKAGE = CommandFactory.class.getPackageName() + ".resources.";
   private Map<String, String> mySymbols;
 
   public CommandFactory() {
@@ -22,11 +22,24 @@ public class CommandFactory {
   }
 
   public void addCommandClasses() {
-    ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE);
+    ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + "CommandFactory");
     for (String key : Collections.list(resources.getKeys())) {
       String className = resources.getString(key);
       mySymbols.put(key, className);
     }
+  }
+
+  private Object makeClass(Class<?> clazz)
+      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    return clazz.getDeclaredConstructor(Constant.class).newInstance(new Constant(5));
+  }
+
+  public Object createCommand(String commandType)
+      throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    addCommandClasses();
+    var clazz = Class.forName(mySymbols.get(commandType));
+    Object command = makeClass(clazz);
+    return command;
   }
 
   /**
