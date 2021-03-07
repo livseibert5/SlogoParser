@@ -6,8 +6,8 @@ import slogo.model.Turtle;
 
 public class Power implements Command{
 
-  private int base;
-  private int exponent;
+  private final double base;
+  private final double exponent;
 
   public Power(Constant base, Constant exponent){
     this.base = base.getValue();
@@ -20,7 +20,7 @@ public class Power implements Command{
   }
 
   @Override
-  public int execute(Turtle turtle) {
-    return (int) Math.pow(base, exponent);
+  public double execute(Turtle turtle) {
+    return Math.pow(base, exponent);
   }
 }

@@ -6,7 +6,7 @@ import slogo.model.Turtle;
 
 public class NaturalLog implements Command{
 
-  private int argument;
+  private final double argument;
 
   public NaturalLog(Constant argument){
     this.argument = argument.getValue();
@@ -18,7 +18,7 @@ public class NaturalLog implements Command{
   }
 
   @Override
-  public int execute(Turtle turtle) {
-    return (int) Math.log(argument);
+  public double execute(Turtle turtle) {
+    return Math.log(argument);
   }
 }
