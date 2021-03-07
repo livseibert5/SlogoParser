@@ -1,8 +1,10 @@
 package slogo.model;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -24,15 +26,25 @@ public class CommandFactory {
     }
   }
 
-  private Object makeClass(Class<?> clazz)
+  private Object makeClass(Class<?> clazz, List<Constant> arguments)
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-    return clazz.getDeclaredConstructor(Constant.class).newInstance(new Constant(5));
+    if (arguments.size() == 2) {
+      return clazz.getDeclaredConstructor(Constant.class, Constant.class).newInstance(arguments.get(0), arguments.get(1));
+    } else {
+      return clazz.getDeclaredConstructor(Constant.class).newInstance(arguments.get(0));
+    }
   }
 
-  public Object createCommand(String commandType)
+  public int determineNumberParameters(String commandType) throws ClassNotFoundException {
+    var clazz = Class.forName(mySymbols.get(commandType));
+    Constructor[] constructors = clazz.getConstructors();
+    return constructors[0].getParameterCount();
+  }
+
+  public Object createCommand(String commandType, List<Constant> arguments)
       throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
     var clazz = Class.forName(mySymbols.get(commandType));
-    Object command = makeClass(clazz);
+    Object command = makeClass(clazz, arguments);
     return command;
   }
 }
