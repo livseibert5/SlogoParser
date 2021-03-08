@@ -1,6 +1,6 @@
 package slogo.model;
 
-public class Constant implements Command {
+public class Constant {
 
   private int value;
 
@@ -8,11 +8,7 @@ public class Constant implements Command {
     this.value = value;
   }
 
-  public int getNumberParameters() {
-    return 0;
-  }
-
-  public int execute(Turtle turtle) {
+  public int getValue() {
     return value;
   }
 }

@@ -14,4 +14,8 @@ public class TurtleHandler {
   public void addTurtle() {
 
   }
+
+  public Turtle getTurtle() {
+    return new Turtle();
+  }
 }

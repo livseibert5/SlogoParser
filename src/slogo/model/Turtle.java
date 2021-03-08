@@ -2,9 +2,11 @@ package slogo.model;
 
 public class Turtle {
 
-  private int xCoordinate;
-  private int yCoordinate;
+  private double xCoordinate;
+  private double yCoordinate;
   private double orientation;
+  private boolean penDown;
+  private boolean isShowing;
 
   public Turtle() {
     xCoordinate = 0;
@@ -13,22 +15,57 @@ public class Turtle {
   }
 
   public double getOrientation() {
-    return 0.0;
+    return orientation;
   }
 
-  public int[] getLocation() {
-    return new int[]{0, 0};
+  public double[] getLocation() {
+    return new double[]{xCoordinate, yCoordinate};
   }
 
   public void setOrientation(double orientation) {
-    this.orientation = orientation;
+    if (orientation > 360) {
+      this.orientation = orientation - 360;
+    } else if (orientation < 0) {
+      this.orientation = 360 + orientation;
+    } else {
+      this.orientation = orientation;
+    }
   }
 
-  public int getXCoordinate() {
+  public void setLocation(double[] newLocation) {
+    xCoordinate = newLocation[0];
+    yCoordinate = newLocation[1];
+  }
+
+  public boolean penIsDown() {
+    return penDown;
+  }
+
+  public boolean isShowing() {
+    return isShowing;
+  }
+
+  public double getXCoordinate() {
     return xCoordinate;
   }
 
-  public int getYCoordinate() {
+  public double getYCoordinate() {
     return yCoordinate;
+  }
+
+  public void setPenDown() {
+    penDown = true;
+  }
+
+  public void setPenUp() {
+    penDown = false;
+  }
+
+  public void showTurtle() {
+    isShowing = true;
+  }
+
+  public void hideTurtle() {
+    isShowing = false;
   }
 }
