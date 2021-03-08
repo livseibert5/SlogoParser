@@ -1,5 +1,14 @@
 package slogo.model.controlcommand;
 
-public class DoTimes {
+import java.lang.reflect.InvocationTargetException;
+import slogo.model.Command;
+import slogo.model.Turtle;
 
+public class DoTimes implements Command {
+
+  @Override
+  public double execute(Turtle turtle)
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    return 0;
+  }
 }
