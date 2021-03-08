@@ -14,4 +14,13 @@ public class VariableHandler {
   public void addVariable(Variable variable) {
     variables.add(variable);
   }
+
+  public double getVariableWithName(String name) {
+    for (Variable var: variables) {
+      if (var.getName().equals(name)) {
+        return var.getValue();
+      }
+    }
+    return -1;
+  }
 }

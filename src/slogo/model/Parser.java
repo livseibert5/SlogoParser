@@ -108,7 +108,11 @@ public class Parser {
       commandStack.push(listToCommandBlock(commandList));
       return endIndex;
     } else if (commandType.equals("Variable")) {
-      commandStack.push(new Variable(commandComponents[index]));
+      if (controller.getVariableHandler().getVariableWithName(commandComponents[index]) != -1) {
+        commandStack.push(new Constant((int) controller.getVariableHandler().getVariableWithName(commandComponents[index])));
+      } else {
+        commandStack.push(new Variable(commandComponents[index]));
+      }
     }
     return index;
   }
@@ -169,7 +173,6 @@ public class Parser {
         List<Object> parameters = new ArrayList<>();
         int numParameters = commandFactory.determineNumberParameters((String) command);
         if (command.equals("MakeVariable")) {
-          System.out.println("here");
           for (int i = 0; i < 2; i++) {
             parameters.add(argumentStack.pop());
           }
@@ -178,15 +181,11 @@ public class Parser {
             parameters.add(argumentStack.pop());
           }
         }
-        System.out.println(command);
-        //System.out.println(parameters);
         if (command.equals("MakeVariable")) {
-          System.out.println("here");
           parameters.add(0, controller);
         }
         Command newCommand = (Command) commandFactory.createCommand((String) command, parameters);
         argumentStack.push(new Constant((int) newCommand.execute(turtle)));
-        System.out.println(argumentStack.peek());
       }
     }
   }
@@ -195,6 +194,7 @@ public class Parser {
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     Parser parser = new Parser(new Controller());
     //parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]");
-    //parser.parse("make :random sum 1 random 100");
+    parser.parse("make :random sum 1 random 100");
+    parser.parse("fd :random");
   }
 }
