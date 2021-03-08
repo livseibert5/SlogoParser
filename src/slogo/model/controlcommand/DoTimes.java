@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.CommandBlock;
-import slogo.model.Parser;
+import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 import slogo.model.Variable;
 

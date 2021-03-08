@@ -1,4 +1,4 @@
-package slogo.model;
+package slogo.model.parser;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import slogo.model.Variable;
 
 /**
  * Creates instances of the appropriate command for use in the Parser.
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
  */
 public class CommandFactory {
 
-  private static final String RESOURCES_PACKAGE = CommandFactory.class.getPackageName() + ".resources.";
+  private static final String RESOURCES_PACKAGE = "slogo.model.resources.";
   private Map<String, String> mySymbols;
   private List<Variable> variables;
 

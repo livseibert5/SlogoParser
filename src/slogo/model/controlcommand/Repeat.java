@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import slogo.model.Command;
 import slogo.model.CommandBlock;
 import slogo.model.Constant;
-import slogo.model.Parser;
+import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 
 public class Repeat implements Command {

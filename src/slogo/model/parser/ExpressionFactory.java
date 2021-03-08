@@ -1,12 +1,15 @@
-package slogo.model;
+package slogo.model.parser;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import slogo.model.CommandBlock;
+import slogo.model.Constant;
+import slogo.model.Variable;
+import slogo.model.VariableHandler;
 
 public class ExpressionFactory {
 
-  private static final String RESOURCES_PACKAGE = ExpressionFactory.class.getPackageName() + ".resources.";
-  ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ExpressionFactory");
+  ResourceBundle resources = ResourceBundle.getBundle("slogo.model.resources.ExpressionFactory");
 
   public Constant makeConstant(int value) {
     return new Constant(value);

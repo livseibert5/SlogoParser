@@ -1,4 +1,4 @@
-package slogo.model;
+package slogo.model.parser;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
 import slogo.controller.Controller;
+import slogo.model.Command;
+import slogo.model.Expression;
+import slogo.model.Turtle;
 
 /**
  * Parser takes in a user input String from the front end using the .parse function
@@ -23,10 +26,10 @@ public class Parser {
   private ExpressionFactory expressionFactory;
   private Stack<Object> commandStack;
   private Stack<Object> argumentStack;
-  private static final String RESOURCES_PACKAGE = "resources.languages.";
-  ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + "English");
-  ResourceBundle controlCommands = ResourceBundle.getBundle(Parser.class.getPackageName() + ".resources.ControlCommands");
-  ResourceBundle expressionFactoryTypes = ResourceBundle.getBundle(Parser.class.getPackageName() + ".resources.ExpressionFactory");
+  private static final String RESOURCE_FOLDER = "slogo.model.resources.";
+  ResourceBundle resources = ResourceBundle.getBundle("resources.languages.English");
+  ResourceBundle controlCommands = ResourceBundle.getBundle(RESOURCE_FOLDER + "ControlCommands");
+  ResourceBundle expressionFactoryTypes = ResourceBundle.getBundle(RESOURCE_FOLDER + "ExpressionFactory");
   private Turtle turtle;
 
   /**
