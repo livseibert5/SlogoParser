@@ -14,14 +14,6 @@ public class Turtle {
     orientation = 90.0;
   }
 
-  public double getOrientation() {
-    return orientation;
-  }
-
-  public double[] getLocation() {
-    return new double[]{xCoordinate, yCoordinate};
-  }
-
   public void setOrientation(double orientation) {
     if (orientation > 360) {
       this.orientation = orientation - 360;
@@ -35,6 +27,14 @@ public class Turtle {
   public void setLocation(double[] newLocation) {
     xCoordinate = newLocation[0];
     yCoordinate = newLocation[1];
+  }
+
+  public double getOrientation() {
+    return orientation;
+  }
+
+  public double[] getLocation() {
+    return new double[]{xCoordinate, yCoordinate};
   }
 
   public boolean penIsDown() {
