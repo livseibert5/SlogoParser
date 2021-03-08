@@ -1,20 +1,21 @@
 package slogo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import slogo.model.TurtleHandler;
+import slogo.model.VariableHandler;
 
 public class Controller {
-  List<Variable> variables = new ArrayList<>();
 
   private TurtleHandler turtleHandler;
+  private VariableHandler variableHandler;
 
   public Controller() {
     turtleHandler = new TurtleHandler();
+    variableHandler = new VariableHandler();
   }
 
-  public Controller(Variable variable) {
-    variables.add(variable);}
+  public VariableHandler getVariableHandler() {
+    return variableHandler;
+  }
 
   public TurtleHandler getTurtleHandler() {
     return turtleHandler;
