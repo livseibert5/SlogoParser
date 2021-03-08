@@ -16,11 +16,11 @@ import slogo.model.Turtle;
 public class TurtleDisplay {
 
   private final Map<Integer, Turtle> turtleMap;
-  private Map<Integer, ImageView> turtleViewMap = new HashMap<>();
+  private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
   private String IMAGE_FILE;
 
   private double dimensionSize;
-  private Group myRoot;
+  private final Group myRoot;
 
   private Color lineColor;
 
@@ -62,6 +62,8 @@ public class TurtleDisplay {
     turtleView.setFitWidth(dimensionSize);
 
     turtleView.setRotate(turtle.getOrientation());
+
+    turtleViewMap.put(turtle.getID(), turtleView);
   }
 
   /**
@@ -70,7 +72,7 @@ public class TurtleDisplay {
   public void step() {}
 
   /**
-   * Updates movement of a given turtle. Assumes turtles in turtleMap have been updated.
+   * Updates state of a given turtle. Assumes turtles in turtleMap have been updated. TODO use observer
    *
    * @param id turtle id in hashmaps
    */
@@ -79,28 +81,39 @@ public class TurtleDisplay {
     ImageView currTurtleView = turtleViewMap.get(id);
 
     if (updatedTurtle.penIsDown()) {
-      drawNewLine(updatedTurtle, currTurtleView);
+      drawNewLine(updatedTurtle.getLocation(), currTurtleView);
     }
 
-    rotateTurtleView(updatedTurtle, currTurtleView);
-    moveTurtleView(updatedTurtle, currTurtleView);
+    rotateTurtleView(updatedTurtle.getOrientation(), currTurtleView);
+    moveTurtleView(updatedTurtle.getLocation(), currTurtleView);
+    updateTurtleViewVisibility(updatedTurtle.isShowing(), currTurtleView);
+  }
+
+  /**
+   * Changes visiblity of TurtleView.
+   *
+   * @param visible boolean
+   * @param currTurtleView needs to be updated view
+   */
+  private void updateTurtleViewVisibility(boolean visible, ImageView currTurtleView) {
+    currTurtleView.setVisible(visible);
   }
 
   /**
    * Draws line from original location to new location.
    *
-   * @param updatedTurtle already updated turtle object
+   * @param newLocation double array
    * @param currTurtleView needs to be updated view
    */
-  private void drawNewLine(Turtle updatedTurtle, ImageView currTurtleView) {
+  private void drawNewLine(double[] newLocation, ImageView currTurtleView) {
     Line newLine = new Line();
 
     newLine.setFill(lineColor);
     newLine.setStroke(lineColor);
     newLine.setStartX(currTurtleView.getX());
     newLine.setStartY(currTurtleView.getY());
-    newLine.setEndX(updatedTurtle.getLocation()[0]);
-    newLine.setEndY(updatedTurtle.getLocation()[1]);
+    newLine.setEndX(newLocation[0]);
+    newLine.setEndY(newLocation[1]);
 
     myRoot.getChildren().add(newLine);
   }
@@ -108,22 +121,22 @@ public class TurtleDisplay {
   /**
    * Rotates TurtleView orientation.
    *
-   * @param updatedTurtle already updated turtle object
+   * @param newOrientation boolean
    * @param currTurtleView needs to be updated view
    */
-  private void rotateTurtleView(Turtle updatedTurtle, ImageView currTurtleView) {
-    currTurtleView.setRotate(updatedTurtle.getOrientation());
+  private void rotateTurtleView(double newOrientation, ImageView currTurtleView) {
+    currTurtleView.setRotate(newOrientation);
   }
 
   /**
    * Moves TurtleView.
    *
-   * @param updatedTurtle already updated turtle object
+   * @param newLocation double array
    * @param currTurtleView needs to be updated view
    */
-  private void moveTurtleView(Turtle updatedTurtle, ImageView currTurtleView) {
-    currTurtleView.setX(updatedTurtle.getLocation()[0]);
-    currTurtleView.setY(updatedTurtle.getLocation()[1]);
+  private void moveTurtleView(double[] newLocation, ImageView currTurtleView) {
+    currTurtleView.setX(newLocation[0]);
+    currTurtleView.setY(newLocation[1]);
   }
 
   /**
