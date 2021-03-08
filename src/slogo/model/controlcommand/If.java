@@ -32,6 +32,7 @@ public class If implements Command {
 
   /**
    * Sends the code block to the parser to be executed if the value is non-zero.
+   *
    * @param turtle turtle object to execute command on
    * @return result of executing command, 0 otherwise
    * @throws ClassNotFoundException
