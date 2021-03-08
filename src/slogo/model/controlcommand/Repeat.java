@@ -22,7 +22,7 @@ public class Repeat implements Command {
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     Parser parser = new Parser(turtle);
     for(int i = 0; i < count; i++){
-      parser.parse(list.toString());
+      return parser.parse(list.toString());
     }
     return 0;
   }

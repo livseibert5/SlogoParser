@@ -15,12 +15,21 @@ public class VariableHandler {
     variables.add(variable);
   }
 
-  public double getVariableWithName(String name) {
+  public double getVariableValueWithName(String name) {
     for (Variable var: variables) {
       if (var.getName().equals(name)) {
         return var.getValue();
       }
     }
     return -1;
+  }
+
+  public Variable getVariableWithName(String name) {
+    for (Variable var: variables) {
+      if (var.getName().equals(name)) {
+        return var;
+      }
+    }
+    return null;
   }
 }

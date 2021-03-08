@@ -80,6 +80,7 @@ public class Parser {
     int index = 0;
     while (index < commandComponents.length) {
       String commandType = regexDetector.getSymbol(commandComponents[index]);
+      System.out.println(commandComponents[index]);
       if (resources.containsKey(commandType)) {
         commandStack.push(commandType);
       } else {
@@ -88,7 +89,11 @@ public class Parser {
       index++;
     }
     parseCommandStack();
-    return 0;
+    if (argumentStack.peek() instanceof Constant) {
+      return ((Constant) argumentStack.pop()).getValue();
+    } else {
+      return (int) ((Variable) argumentStack.pop()).getValue();
+    }
   }
 
   /**
@@ -108,8 +113,9 @@ public class Parser {
       commandStack.push(listToCommandBlock(commandList));
       return endIndex;
     } else if (commandType.equals("Variable")) {
-      if (controller.getVariableHandler().getVariableWithName(commandComponents[index]) != -1) {
-        commandStack.push(new Constant((int) controller.getVariableHandler().getVariableWithName(commandComponents[index])));
+      System.out.println("command component " + commandComponents[index]);
+      if (controller.getVariableHandler().getVariableValueWithName(commandComponents[index]) != -1) {
+        commandStack.push(new Constant((int) controller.getVariableHandler().getVariableValueWithName(commandComponents[index])));
       } else {
         commandStack.push(new Variable(commandComponents[index]));
       }
@@ -172,7 +178,7 @@ public class Parser {
         Object command = commandStack.pop();
         List<Object> parameters = new ArrayList<>();
         int numParameters = commandFactory.determineNumberParameters((String) command);
-        if (command.equals("MakeVariable")) {
+        if (command.equals("MakeVariable") || command.equals("DoTimes")) {
           for (int i = 0; i < 2; i++) {
             parameters.add(argumentStack.pop());
           }
@@ -181,7 +187,7 @@ public class Parser {
             parameters.add(argumentStack.pop());
           }
         }
-        if (command.equals("MakeVariable")) {
+        if (command.equals("MakeVariable") || command.equals("DoTimes")) {
           parameters.add(0, controller);
         }
         Command newCommand = (Command) commandFactory.createCommand((String) command, parameters);
@@ -193,8 +199,10 @@ public class Parser {
   public static void main(String[] args)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     Parser parser = new Parser(new Controller());
-    //parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]");
-    parser.parse("make :random sum 1 random 100");
-    parser.parse("fd :random");
+    //System.out.println(parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]"));
+    //System.out.println();
+    //System.out.println(parser.parse("make :random sum 1 random 100"));
+    //System.out.println(parser.parse("fd :random"));
+    System.out.println(parser.parse("dotimes [ :t 360 ] [ fd 1 rt / sin :t 2 ]"));
   }
 }
