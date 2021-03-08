@@ -2,20 +2,24 @@ package slogo.model;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import slogo.controller.Variable;
 
 public class CommandFactory {
 
   private static final String RESOURCES_PACKAGE = CommandFactory.class.getPackageName() + ".resources.";
   private Map<String, String> mySymbols;
+  private List<Variable> variables;
 
   public CommandFactory() {
     mySymbols = new HashMap<>();
     addCommandClasses();
+    variables = new ArrayList<>();
   }
 
   private void addCommandClasses() {
