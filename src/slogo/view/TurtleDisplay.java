@@ -6,6 +6,8 @@ import java.util.Objects;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import slogo.model.Turtle;
 
 /**
@@ -20,6 +22,8 @@ public class TurtleDisplay {
   private double dimensionSize;
   private Group myRoot;
 
+  private Color lineColor;
+
   /**
    * Constructor for TurtleDisplay. Takes in map of turtles from Controller.
    *
@@ -28,6 +32,8 @@ public class TurtleDisplay {
   public TurtleDisplay(Map<Integer, Turtle> turtles, Group root) {
     turtleMap = turtles;
     updateImageMap();
+    myRoot = root;
+    lineColor = Color.BLACK;
   }
 
   /**
@@ -63,5 +69,33 @@ public class TurtleDisplay {
    */
   public void step() {}
 
-  private void drawLine() {}
+
+  /**
+   * Draws line from original location to new location.
+   *
+   * @param id turtle map id
+   * @param x new turtle x coordinate
+   * @param y new turtle y coordinate
+   */
+  private void drawLine(int id, int x, int y) {
+    ImageView currTurtleView = turtleViewMap.get(id);
+    Turtle updatedTurtle = turtleMap.get(id);
+    Line newLine = new Line();
+
+    newLine.setStartX(currTurtleView.getX());
+    newLine.setStartY(currTurtleView.getY());
+    newLine.setEndX(updatedTurtle.getXCoordinate());
+    newLine.setEndY(updatedTurtle.getYCoordinate());
+
+    myRoot.getChildren().add(newLine);
+  }
+
+  /**
+   * Called by SceneBuilder to update line color from GUI. TODO
+   *
+   * @param newColor updated color
+   */
+  public void setLineColor(Color newColor) {
+    lineColor = newColor;
+  }
 }
