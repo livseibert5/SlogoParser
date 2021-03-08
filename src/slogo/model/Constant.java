@@ -8,8 +8,6 @@ package slogo.model;
  */
 public class Constant extends Expression {
 
-  private int value;
-
   /**
    * Constructor for Constant takes in an integer value.
    *
@@ -18,13 +16,4 @@ public class Constant extends Expression {
   public Constant(double value) {
     super(value);
   }
-
-  /**
-   * Allows access to value of Constant.
-   *
-   * @return integer value of the constant
-   */
-  //public double getValue() {
-    //return value;
-  //}
 }
