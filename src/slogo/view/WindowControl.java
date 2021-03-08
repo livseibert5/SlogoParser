@@ -38,17 +38,21 @@ public class WindowControl {
     myStage.setTitle(TITLE);
     myStage.show();
 
-    myTurtleDisplay = new TurtleDisplay(myController.getTurtleMap());
+    //use a group
+    //myTurtleDisplay = new TurtleDisplay(Root, myController.getTurtleHandler());
   }
 
   /**
    * Starts animation for Turtle.
    */
   // on observer change, update! TODO
+/*
   private static void animationStart() {
     KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), event -> myTurtleDisplay.step());
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
   }
+
+ */
 }

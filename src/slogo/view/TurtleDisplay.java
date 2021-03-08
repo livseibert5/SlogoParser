@@ -3,6 +3,7 @@ package slogo.view;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import slogo.model.Turtle;
@@ -17,13 +18,14 @@ public class TurtleDisplay {
   private String IMAGE_FILE;
 
   private double dimensionSize;
+  private Group myRoot;
 
   /**
    * Constructor for TurtleDisplay. Takes in map of turtles from Controller.
    *
    * @param turtles from backend
    */
-  public TurtleDisplay(Map<Integer, Turtle> turtles) {
+  public TurtleDisplay(Map<Integer, Turtle> turtles, Group root) {
     turtleMap = turtles;
     updateImageMap();
   }
