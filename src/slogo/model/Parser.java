@@ -107,6 +107,8 @@ public class Parser {
       List<String> commandList = Arrays.asList(Arrays.copyOfRange(commandComponents, index + 1, findEndOfOuterParenthesesBlock(index, commandComponents)));
       commandStack.push(listToCommandBlock(commandList));
       return endIndex;
+    } else if (commandType.equals("Variable")) {
+      commandStack.push(new Variable(commandComponents[index]));
     }
     return index;
   }
@@ -166,13 +168,25 @@ public class Parser {
         Object command = commandStack.pop();
         List<Object> parameters = new ArrayList<>();
         int numParameters = commandFactory.determineNumberParameters((String) command);
-        if (argumentStack.size() >= numParameters) {
+        if (command.equals("MakeVariable")) {
+          System.out.println("here");
+          for (int i = 0; i < 2; i++) {
+            parameters.add(argumentStack.pop());
+          }
+        } else if (argumentStack.size() >= numParameters) {
           for (int i = 0; i < numParameters; i++) {
             parameters.add(argumentStack.pop());
           }
         }
+        System.out.println(command);
+        //System.out.println(parameters);
+        if (command.equals("MakeVariable")) {
+          System.out.println("here");
+          parameters.add(0, controller);
+        }
         Command newCommand = (Command) commandFactory.createCommand((String) command, parameters);
         argumentStack.push(new Constant((int) newCommand.execute(turtle)));
+        System.out.println(argumentStack.peek());
       }
     }
   }
@@ -180,6 +194,7 @@ public class Parser {
   public static void main(String[] args)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     Parser parser = new Parser(new Controller());
-    parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]");
+    //parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]");
+    //parser.parse("make :random sum 1 random 100");
   }
 }

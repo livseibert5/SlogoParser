@@ -1,7 +1,5 @@
 package slogo.model;
 
-import slogo.controller.Variable;
-
 public class ExpressionFactory {
 
   public Constant makeConstant(int value) {

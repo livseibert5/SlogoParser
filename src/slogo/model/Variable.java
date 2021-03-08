@@ -1,4 +1,4 @@
-package slogo.controller;
+package slogo.model;
 
 public class Variable {
 
@@ -10,11 +10,19 @@ public class Variable {
         this.value = value;
   }
 
+  public Variable(String name) {
+    this.name = name;
+  }
+
   public double getValue(){
     return value;
   }
 
   public String getName() {
     return name;
+  }
+
+  public void setValue(double value) {
+    this.value = value;
   }
 }

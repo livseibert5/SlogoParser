@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import slogo.controller.Variable;
 
 /**
  * Creates instances of the appropriate command for use in the Parser.
@@ -54,9 +53,11 @@ public class CommandFactory {
    * @throws ClassNotFoundException
    */
   private Object makeClass(Class<?> clazz, List<Object> arguments)
-      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException {
+      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
     Class[] argTypes = determineParameterTypes(clazz);
-    if (arguments.size() == 2) {
+    if (arguments.size() == 3) {
+      return clazz.getDeclaredConstructor(argTypes[0], argTypes[1], argTypes[2]).newInstance(arguments.get(0), arguments.get(1), arguments.get(2));
+    } else if (arguments.size() == 2) {
       return clazz.getDeclaredConstructor(argTypes[0], argTypes[1]).newInstance(arguments.get(0), arguments.get(1));
     } else if (arguments.size() == 1) {
       return clazz.getDeclaredConstructor(argTypes[0]).newInstance(arguments.get(0));
