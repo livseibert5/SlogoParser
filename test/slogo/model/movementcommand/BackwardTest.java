@@ -32,6 +32,17 @@ public class BackwardTest {
   }
 
   @Test
+  void testMoveNotFromOrigin() {
+    turtle.setOrientation(45);
+    turtle.setLocation(new double[]{3, 5});
+    backward = new Backward(new Constant(16));
+    assertEquals(16, backward.execute(turtle));
+    assertEquals(225, turtle.getOrientation());
+    assertEquals(-8.31, turtle.getXCoordinate());
+    assertEquals(-6.31, turtle.getYCoordinate());
+  }
+
+  @Test
   void testMoveStraightBackwardFrom90() {
     turtle.setOrientation(90);
     backward.execute(turtle);
