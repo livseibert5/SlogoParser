@@ -69,25 +69,61 @@ public class TurtleDisplay {
    */
   public void step() {}
 
+  /**
+   * Updates movement of a given turtle. Assumes turtles in turtleMap have been updated.
+   *
+   * @param id turtle id in hashmaps
+   */
+  private void updateTurtleView(int id) {
+    Turtle updatedTurtle = turtleMap.get(id);
+    ImageView currTurtleView = turtleViewMap.get(id);
+
+    if (updatedTurtle.penIsDown()) {
+      drawNewLine(updatedTurtle, currTurtleView);
+    }
+
+    rotateTurtleView(updatedTurtle, currTurtleView);
+    moveTurtleView(updatedTurtle, currTurtleView);
+  }
 
   /**
    * Draws line from original location to new location.
    *
-   * @param id turtle map id
-   * @param x new turtle x coordinate
-   * @param y new turtle y coordinate
+   * @param updatedTurtle already updated turtle object
+   * @param currTurtleView needs to be updated view
    */
-  private void drawLine(int id, int x, int y) {
-    ImageView currTurtleView = turtleViewMap.get(id);
-    Turtle updatedTurtle = turtleMap.get(id);
+  private void drawNewLine(Turtle updatedTurtle, ImageView currTurtleView) {
     Line newLine = new Line();
 
+    newLine.setFill(lineColor);
+    newLine.setStroke(lineColor);
     newLine.setStartX(currTurtleView.getX());
     newLine.setStartY(currTurtleView.getY());
-    newLine.setEndX(updatedTurtle.getXCoordinate());
-    newLine.setEndY(updatedTurtle.getYCoordinate());
+    newLine.setEndX(updatedTurtle.getLocation()[0]);
+    newLine.setEndY(updatedTurtle.getLocation()[1]);
 
     myRoot.getChildren().add(newLine);
+  }
+
+  /**
+   * Rotates TurtleView orientation.
+   *
+   * @param updatedTurtle already updated turtle object
+   * @param currTurtleView needs to be updated view
+   */
+  private void rotateTurtleView(Turtle updatedTurtle, ImageView currTurtleView) {
+    currTurtleView.setRotate(updatedTurtle.getOrientation());
+  }
+
+  /**
+   * Moves TurtleView.
+   *
+   * @param updatedTurtle already updated turtle object
+   * @param currTurtleView needs to be updated view
+   */
+  private void moveTurtleView(Turtle updatedTurtle, ImageView currTurtleView) {
+    currTurtleView.setX(updatedTurtle.getLocation()[0]);
+    currTurtleView.setY(updatedTurtle.getLocation()[1]);
   }
 
   /**
