@@ -24,6 +24,7 @@ public class Parser {
   private Stack<Object> commandStack;
   private Stack<Object> argumentStack;
   private static final String RESOURCES_PACKAGE = "resources.languages.";
+  ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + "English");
   private Turtle turtle;
 
   /**
@@ -76,7 +77,6 @@ public class Parser {
   public int parse(String command)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     String[] commandComponents = command.split(" ");
-    ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + "English");
     int index = 0;
     while (index < commandComponents.length) {
       String commandType = regexDetector.getSymbol(commandComponents[index]);
@@ -150,7 +150,7 @@ public class Parser {
 
   /**
    * Pops commands off of the commandStack, passes them their expected parameters, and runs them.
-   * 
+   *
    * @throws ClassNotFoundException
    * @throws NoSuchMethodException
    * @throws InstantiationException
