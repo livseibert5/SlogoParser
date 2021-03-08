@@ -12,8 +12,8 @@ import slogo.model.Turtle;
  */
 public class And implements Command {
 
-  int argument1;
-  int argument2;
+  double argument1;
+  double argument2;
 
   /**
    * Constructor for And argument, takes in two constants to compare.

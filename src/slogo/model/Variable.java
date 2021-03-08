@@ -1,28 +1,26 @@
 package slogo.model;
 
-public class Variable {
+public class Variable extends Expression {
 
   private String name;
-  private double value;
+  //private double value;
 
   public Variable(String name, double value) {
-        this.name = name;
-        this.value = value;
+    super(value);
+    this.name = name;
+     //   this.value = (int) value;
   }
 
   public Variable(String name) {
+    super(0);
     this.name = name;
-  }
-
-  public double getValue(){
-    return value;
   }
 
   public String getName() {
     return name;
   }
 
-  public void setValue(double value) {
-    this.value = value;
-  }
+  //public void setValue(double value) {
+   // this.value = (int) value;
+  //}
 }

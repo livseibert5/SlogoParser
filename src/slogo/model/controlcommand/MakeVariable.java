@@ -17,7 +17,7 @@ public class MakeVariable implements Command {
 
   Controller controller;
   Variable name;
-  int value;
+  double value;
 
   /**
    * MakeVariable constructor takes in a variable name and value, as well as

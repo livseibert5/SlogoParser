@@ -12,8 +12,8 @@ import slogo.model.Turtle;
  */
 public class Or implements Command {
 
-  int argument1;
-  int argument2;
+  private double argument1;
+  private double argument2;
 
   /**
    * Constructor for Or command, takes in the 2 arguments.

@@ -25,6 +25,8 @@ public class Parser {
   private Stack<Object> argumentStack;
   private static final String RESOURCES_PACKAGE = "resources.languages.";
   ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + "English");
+  ResourceBundle controlCommands = ResourceBundle.getBundle(Parser.class.getPackageName() + ".resources.ControlCommands");
+  ResourceBundle expressionFactoryTypes = ResourceBundle.getBundle(Parser.class.getPackageName() + ".resources.ExpressionFactory");
   private Turtle turtle;
 
   /**
@@ -77,6 +79,17 @@ public class Parser {
   public int parse(String command)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     String[] commandComponents = command.split(" ");
+    createCommandStack(commandComponents);
+    parseCommandStack();
+    return (int) ((Expression) argumentStack.pop()).getValue();
+  }
+
+  /**
+   * Pushes Objects to the command stack to be executed.
+   *
+   * @param commandComponents list of command components to parse
+   */
+  private void createCommandStack(String[] commandComponents) {
     int index = 0;
     while (index < commandComponents.length) {
       String commandType = regexDetector.getSymbol(commandComponents[index]);
@@ -87,12 +100,6 @@ public class Parser {
         index = handleNonCommandExpressionComponents(commandType, commandComponents, index);
       }
       index++;
-    }
-    parseCommandStack();
-    if (argumentStack.peek() instanceof Constant) {
-      return ((Constant) argumentStack.pop()).getValue();
-    } else {
-      return (int) ((Variable) argumentStack.pop()).getValue();
     }
   }
 
@@ -108,56 +115,15 @@ public class Parser {
     if (commandType.equals("Constant")) {
       commandStack.push(expressionFactory.makeConstant(Integer.parseInt(commandComponents[index])));
     } else if (commandType.equals("ListStart")) {
-      int endIndex = findEndOfOuterParenthesesBlock(index, commandComponents);
-      List<String> commandList = Arrays.asList(Arrays.copyOfRange(commandComponents, index + 1, findEndOfOuterParenthesesBlock(index, commandComponents)));
-      commandStack.push(listToCommandBlock(commandList));
+      int endIndex = expressionFactory.findEndOfCommandBlock(index, commandComponents, regexDetector);
+      List<String> commandList = Arrays.asList(Arrays.copyOfRange(commandComponents, index + 1, endIndex));
+      commandStack.push(expressionFactory.makeCommandBlock(commandList));
       return endIndex;
     } else if (commandType.equals("Variable")) {
+      commandStack.push(expressionFactory.makeVariable(commandComponents[index], controller.getVariableHandler()));
       System.out.println("command component " + commandComponents[index]);
-      if (controller.getVariableHandler().getVariableValueWithName(commandComponents[index]) != -1) {
-        commandStack.push(new Constant((int) controller.getVariableHandler().getVariableValueWithName(commandComponents[index])));
-      } else {
-        commandStack.push(new Variable(commandComponents[index]));
-      }
     }
     return index;
-  }
-
-  /**
-   * Determines the bounds of a code block to assist with running control commands.
-   *
-   * @param index starting index of code block
-   * @param commandComponents array of commands to be parsed
-   * @return end index of code block
-   */
-  private int findEndOfOuterParenthesesBlock(int index, String[] commandComponents) {
-    int parenCount = 1;
-    while (parenCount != 0) {
-      index++;
-      String commandType = regexDetector.getSymbol(commandComponents[index]);
-      if (commandType.equals("ListStart")) {
-        parenCount++;
-      } else if (commandType.equals("ListEnd")) {
-        parenCount--;
-      }
-    }
-    return index;
-  }
-
-  /**
-   * Turns a list of commands into a CommandBlock object to assist with running control commands.
-   *
-   * @param commandList list of commands to be put in the CommandBlock
-   * @return new CommandBlock object containing all the commands as a String
-   */
-  private CommandBlock listToCommandBlock(List<String> commandList) {
-    StringBuilder block = new StringBuilder();
-    for (String commandPiece: commandList) {
-      block.append(commandPiece);
-      block.append(" ");
-    }
-    block.deleteCharAt(block.length() - 1);
-    return new CommandBlock(block.toString());
   }
 
   /**
@@ -172,28 +138,34 @@ public class Parser {
   private void parseCommandStack()
       throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
     while (!commandStack.isEmpty()) {
-      if (!(commandStack.peek() instanceof Command) && !(commandStack.peek() instanceof String)) {
+      if (expressionFactoryTypes.containsKey(commandStack.peek().getClass().getName())) {
         argumentStack.push(commandStack.pop());
       } else {
         Object command = commandStack.pop();
-        List<Object> parameters = new ArrayList<>();
-        int numParameters = commandFactory.determineNumberParameters((String) command);
-        if (command.equals("MakeVariable") || command.equals("DoTimes")) {
-          for (int i = 0; i < 2; i++) {
-            parameters.add(argumentStack.pop());
-          }
-        } else if (argumentStack.size() >= numParameters) {
-          for (int i = 0; i < numParameters; i++) {
-            parameters.add(argumentStack.pop());
-          }
-        }
-        if (command.equals("MakeVariable") || command.equals("DoTimes")) {
-          parameters.add(0, controller);
-        }
+        List<Object> parameters = generateParameters((String) command, commandFactory.determineNumberParameters((String) command));
         Command newCommand = (Command) commandFactory.createCommand((String) command, parameters);
-        argumentStack.push(new Constant((int) newCommand.execute(turtle)));
+        argumentStack.push(expressionFactory.makeConstant((int) newCommand.execute(turtle)));
       }
     }
+  }
+
+  /**
+   * Creates the list of parameters for a new command object.
+   *
+   * @param command type of command to be created
+   * @param numParameters number of parameters command expects
+   * @return list of parameters for command
+   */
+  private List<Object> generateParameters(String command, int numParameters) {
+    List<Object> parameters = new ArrayList<>();
+    if (controlCommands.containsKey(command)) {
+      parameters.add(controller);
+      numParameters--;
+    }
+    for (int i = 0; i < numParameters; i++) {
+      parameters.add(argumentStack.pop());
+    }
+    return parameters;
   }
 
   public static void main(String[] args)

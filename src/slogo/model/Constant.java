@@ -6,7 +6,7 @@ package slogo.model;
  *
  * @author Rachel Luria and Livia Seibert
  */
-public class Constant {
+public class Constant extends Expression {
 
   private int value;
 
@@ -15,8 +15,8 @@ public class Constant {
    *
    * @param value integer value of the constant
    */
-  public Constant(int value) {
-    this.value = value;
+  public Constant(double value) {
+    super(value);
   }
 
   /**
@@ -24,7 +24,7 @@ public class Constant {
    *
    * @return integer value of the constant
    */
-  public int getValue() {
-    return value;
-  }
+  //public double getValue() {
+    //return value;
+  //}
 }

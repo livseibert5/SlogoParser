@@ -13,7 +13,7 @@ public class Repeat implements Command {
   private CommandBlock list;
 
   public Repeat(Constant argument, CommandBlock list) {
-    count = argument.getValue();
+    count = (int) argument.getValue();
     this.list = list;
   }
 

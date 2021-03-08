@@ -12,7 +12,7 @@ import slogo.model.Turtle;
  */
 public class Not implements Command {
 
-  int argument;
+  private double argument;
 
   public Not(Constant argument) {
     this.argument = argument.getValue();

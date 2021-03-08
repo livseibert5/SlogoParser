@@ -15,7 +15,7 @@ import slogo.model.Turtle;
  */
 public class IfElse implements Command {
 
-  private int value;
+  private double value;
   private CommandBlock trueBlock;
   private CommandBlock falseBlock;
 
