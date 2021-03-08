@@ -42,7 +42,7 @@ public class TurtleDisplay {
   private void updateImageMap() {
     for (Integer i : turtleMap.keySet()) {
       if (turtleViewMap.get(i) == null) {
-        addTurtleView(turtleMap.get(i));
+        addTurtleView(i);
       }
     }
   }
@@ -50,20 +50,21 @@ public class TurtleDisplay {
   /**
    * Instantiates imageview objects for turtles in turtleViewMap.
    */
-  private void addTurtleView(Turtle turtle) {
+  private void addTurtleView(int id) {
+    Turtle toAddTurtle = turtleMap.get(id);
     ImageView turtleView = new ImageView();
     turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getClassLoader()
         .getResourceAsStream(IMAGE_FILE))));
 
-    turtleView.setX(turtle.getXCoordinate());
-    turtleView.setY(turtle.getYCoordinate());
+    turtleView.setX(toAddTurtle.getXCoordinate());
+    turtleView.setY(toAddTurtle.getYCoordinate());
 
     turtleView.setFitHeight(dimensionSize);
     turtleView.setFitWidth(dimensionSize);
 
-    turtleView.setRotate(turtle.getOrientation());
+    turtleView.setRotate(toAddTurtle.getOrientation());
 
-    turtleViewMap.put(turtle.getID(), turtleView);
+    turtleViewMap.put(id, turtleView);
   }
 
   /**
