@@ -12,7 +12,7 @@ import slogo.model.Turtle;
  */
 public class Backward extends MovementCommand implements Command {
 
-  private int pixels;
+  private double pixels;
 
   /**
    * Constructor for the Backward command, takes a constant as an argument and gets its value by

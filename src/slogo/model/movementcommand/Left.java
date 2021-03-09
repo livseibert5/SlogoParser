@@ -12,7 +12,7 @@ import slogo.model.Turtle;
  */
 public class Left extends MovementCommand implements Command {
 
-    private int pixels;
+    private double pixels;
 
     /**
      * Constructor for the Left command, takes a constant as an argument

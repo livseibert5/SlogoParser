@@ -12,8 +12,8 @@ import slogo.model.Turtle;
  */
 public class NotEqual implements Command {
 
-  int argument1;
-  int argument2;
+  double argument1;
+  double argument2;
 
   public NotEqual(Constant argument1, Constant argument2) {
     this.argument1 = argument1.getValue();

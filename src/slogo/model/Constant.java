@@ -1,14 +1,19 @@
 package slogo.model;
 
-public class Constant {
+/**
+ * Constant holds an integer value to be used as a parameter for
+ * a Command type.
+ *
+ * @author Rachel Luria and Livia Seibert
+ */
+public class Constant extends Expression {
 
-  private int value;
-
-  public Constant(int value) {
-    this.value = value;
-  }
-
-  public int getValue() {
-    return value;
+  /**
+   * Constructor for Constant takes in an integer value.
+   *
+   * @param value integer value of the constant
+   */
+  public Constant(double value) {
+    super(value);
   }
 }

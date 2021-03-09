@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import slogo.model.Command;
 import slogo.model.CommandBlock;
 import slogo.model.Constant;
-import slogo.model.Parser;
+import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 
 public class Repeat implements Command {
@@ -13,7 +13,7 @@ public class Repeat implements Command {
   private CommandBlock list;
 
   public Repeat(Constant argument, CommandBlock list) {
-    count = argument.getValue();
+    count = (int) argument.getValue();
     this.list = list;
   }
 
@@ -22,7 +22,7 @@ public class Repeat implements Command {
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     Parser parser = new Parser(turtle);
     for(int i = 0; i < count; i++){
-      parser.parse(list.toString());
+      return parser.parse(list.toString());
     }
     return 0;
   }

@@ -12,8 +12,8 @@ import slogo.model.Turtle;
  */
 public class SetPosition implements Command {
 
-  int argumentX;
-  int argumentY;
+  double argumentX;
+  double argumentY;
 
   /**
    * Constructor for SetPosition command that takes in two constant commands as arguments to set the
