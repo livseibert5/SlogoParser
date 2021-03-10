@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import slogo.model.CommandBlock;
 import slogo.model.Constant;
 import slogo.model.Variable;
-import slogo.model.VariableHandler;
+import slogo.model.handlers.VariableHandler;
 
 public class ExpressionFactory {
 

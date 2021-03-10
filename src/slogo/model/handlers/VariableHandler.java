@@ -1,7 +1,8 @@
-package slogo.model;
+package slogo.model.handlers;
 
 import java.util.ArrayList;
 import java.util.List;
+import slogo.model.Variable;
 
 public class VariableHandler {
 

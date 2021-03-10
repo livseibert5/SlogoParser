@@ -56,7 +56,10 @@ public class CommandFactory {
   private Object makeClass(Class<?> clazz, List<Object> arguments)
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
     Class[] argTypes = determineParameterTypes(clazz);
-    if (arguments.size() == 3) {
+    if (arguments.size() == 4) {
+      return clazz.getDeclaredConstructor(argTypes[0], argTypes[1], argTypes[2], argTypes[3])
+          .newInstance(arguments.get(0), arguments.get(1), arguments.get(2), arguments.get(3));
+    } else if (arguments.size() == 3) {
       return clazz.getDeclaredConstructor(argTypes[0], argTypes[1], argTypes[2]).newInstance(arguments.get(0), arguments.get(1), arguments.get(2));
     } else if (arguments.size() == 2) {
       return clazz.getDeclaredConstructor(argTypes[0], argTypes[1]).newInstance(arguments.get(0), arguments.get(1));

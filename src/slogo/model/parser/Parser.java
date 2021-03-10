@@ -8,8 +8,10 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 import slogo.controller.Controller;
 import slogo.model.Command;
+import slogo.model.Constant;
 import slogo.model.Expression;
 import slogo.model.Turtle;
+import slogo.model.UserDefinedCommand;
 
 /**
  * Parser takes in a user input String from the front end using the .parse function
@@ -99,6 +101,8 @@ public class Parser {
       System.out.println(commandComponents[index]);
       if (resources.containsKey(commandType)) {
         commandStack.push(commandType);
+      } else if (commandType.equals("Command")) {
+        commandStack.push(commandComponents[index]);
       } else {
         index = handleNonCommandExpressionComponents(commandType, commandComponents, index);
       }
@@ -143,11 +147,23 @@ public class Parser {
     while (!commandStack.isEmpty()) {
       if (expressionFactoryTypes.containsKey(commandStack.peek().getClass().getName())) {
         argumentStack.push(commandStack.pop());
-      } else {
+      } else if (controller.getUserDefinedCommandHandler().containsCommand((String) commandStack.peek())) {
         Object command = commandStack.pop();
+        UserDefinedCommand userCommand = controller.getUserDefinedCommandHandler().getCommand((String) command);
+        List<Object> parameters = generateParameters((String) command,
+            userCommand.getNumberParameters());
+        String newCommand = userCommand.generateCommand(parameters);
+        System.out.println(newCommand);
+        Constant result = new Constant(parse(newCommand));
+        argumentStack.push(result);
+      } else if (resources.containsKey((String) commandStack.peek())){
+        Object command = commandStack.pop();
+        System.out.println("HERE " + command);
         List<Object> parameters = generateParameters((String) command, commandFactory.determineNumberParameters((String) command));
         Command newCommand = (Command) commandFactory.createCommand((String) command, parameters);
         argumentStack.push(expressionFactory.makeConstant((int) newCommand.execute(turtle)));
+      } else {
+        argumentStack.push(commandStack.pop());
       }
     }
   }
@@ -166,6 +182,7 @@ public class Parser {
       numParameters--;
     }
     for (int i = 0; i < numParameters; i++) {
+      System.out.println(argumentStack.peek());
       parameters.add(argumentStack.pop());
     }
     return parameters;
@@ -178,6 +195,9 @@ public class Parser {
     //System.out.println();
     //System.out.println(parser.parse("make :random sum 1 random 100"));
     //System.out.println(parser.parse("fd :random"));
-    System.out.println(parser.parse("dotimes [ :t 360 ] [ fd 1 rt / sin :t 2 ]"));
+    //System.out.println(parser.parse("dotimes [ :t 360 ] [ fd 1 rt / sin :t 2 ]"));
+    //System.out.println(parser.parse("dash"));
+    System.out.println(parser.parse("to dash [ :count ] [ repeat :count [ pu fd 4 pd fd 4 ] ]"));
+    System.out.println(parser.parse("dash 10"));
   }
 }
