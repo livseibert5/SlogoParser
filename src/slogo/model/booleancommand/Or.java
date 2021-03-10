@@ -26,6 +26,12 @@ public class Or implements Command {
     this.argument2 = argument2.getValue();
   }
 
+  /**
+   * Returns 1 if either argument is non-zero, otherwise returns 0.
+   *
+   * @param turtle turtle object to execute command on
+   * @return 1 if either argument non-zero, 0 otherwise
+   */
   @Override
   public double execute(Turtle turtle) {
     return this.argument1 != 0 || this.argument2 != 0 ? 1 : 0;
