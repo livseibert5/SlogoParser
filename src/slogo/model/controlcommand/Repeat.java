@@ -25,7 +25,7 @@ public class Repeat implements Command {
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     Parser parser = new Parser(controller);
     for(int i = 0; i < count; i++){
-      return parser.parse(list.toString());
+      parser.parse(list.toString());
     }
     return 0;
   }
