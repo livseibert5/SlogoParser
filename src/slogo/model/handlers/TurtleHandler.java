@@ -23,6 +23,6 @@ public class TurtleHandler {
 
   // TODO: once front end works, change this function to get a turtle with a specific id
   public Turtle getTurtle() {
-    return turtles.get(0);
+    return turtles.get(1);
   }
 }
