@@ -197,7 +197,8 @@ public class Parser {
     //System.out.println(parser.parse("fd :random"));
     //System.out.println(parser.parse("dotimes [ :t 360 ] [ fd 1 rt / sin :t 2 ]"));
     //System.out.println(parser.parse("dash"));
-    System.out.println(parser.parse("to dash [ :count ] [ repeat :count [ pu fd 4 pd fd 4 ] ]"));
-    System.out.println(parser.parse("dash 10"));
+    //System.out.println(parser.parse("to dash [ :count ] [ repeat :count [ pu fd 4 pd fd 4 ] ]"));
+    //System.out.println(parser.parse("dash 10"));
+    System.out.println(parser.parse("fd rt 100"));
   }
 }

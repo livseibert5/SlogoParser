@@ -16,73 +16,20 @@ public class RightTest {
   private Turtle turtle = new Turtle();
   private Right right;
 
-  @BeforeEach
-  void setUp() {
-    right = new Right(new Constant(50));
-  }
-
   @Test
-  void testMoveRightFrom0() {
+  void testTurnRight90From0() {
     turtle.setOrientation(0);
-    right.execute(turtle);
-    assertEquals(0, turtle.getXCoordinate());
-    assertEquals(-50, turtle.getYCoordinate());
+    right = new Right(new Constant(90));
+    assertEquals(90, right.execute(turtle));
+    assertEquals(270, turtle.getOrientation());
   }
 
   @Test
-  void testMoveRightFrom90() {
+  void testTurnRight90From90() {
     turtle.setOrientation(90);
-    right.execute(turtle);
-    assertEquals(50, turtle.getXCoordinate());
-    assertEquals(0, turtle.getYCoordinate());
-  }
-
-  @Test
-  void testMoveRightFrom180() {
-    turtle.setOrientation(180);
-    right.execute(turtle);
-    assertEquals(0, turtle.getXCoordinate());
-    assertEquals(50, turtle.getYCoordinate());
-  }
-
-  @Test
-  void testMoveRightFrom270() {
-    turtle.setOrientation(270);
-    right.execute(turtle);
-    assertEquals(-50, turtle.getXCoordinate());
-    assertEquals(0, turtle.getYCoordinate());
-  }
-
-  @Test
-  void testMoveRightFrom45() {
-    turtle.setOrientation(45);
-    right.execute(turtle);
-    assertEquals(35, Math.round(turtle.getXCoordinate()));
-    assertEquals(-35, Math.round(turtle.getYCoordinate()));
-  }
-
-  @Test
-  void testMoveRightFrom135() {
-    turtle.setOrientation(135);
-    right.execute(turtle);
-    assertEquals(35, Math.round(turtle.getXCoordinate()));
-    assertEquals(35, Math.round(turtle.getYCoordinate()));
-  }
-
-  @Test
-  void testMoveRightFrom225() {
-    turtle.setOrientation(225);
-    right.execute(turtle);
-    assertEquals(-35, Math.round(turtle.getXCoordinate()));
-    assertEquals(35, Math.round(turtle.getYCoordinate()));
-  }
-
-  @Test
-  void testMoveRightFrom315() {
-    turtle.setOrientation(315);
-    right.execute(turtle);
-    assertEquals(-35, Math.round(turtle.getXCoordinate()));
-    assertEquals(-35, Math.round(turtle.getYCoordinate()));
+    right = new Right(new Constant(90));
+    assertEquals(90, right.execute(turtle));
+    assertEquals(0, turtle.getOrientation());
   }
 
 }
