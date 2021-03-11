@@ -1,0 +1,25 @@
+package slogo.model.booleancommand;
+
+import slogo.model.Command;
+import slogo.model.Constant;
+import slogo.model.Turtle;
+
+/**
+ * Not class is the Command subclass that returns 1 if the argument is 0
+ * and returns 0 if the argument is non-zero.
+ *
+ * @author Livia Seibert
+ */
+public class Not implements Command {
+
+  private double argument;
+
+  public Not(Constant argument) {
+    this.argument = argument.getValue();
+  }
+
+  @Override
+  public double execute(Turtle turtle) {
+    return this.argument == 0 ? 1 : 0;
+  }
+}

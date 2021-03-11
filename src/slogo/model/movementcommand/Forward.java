@@ -1,6 +1,7 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
+import slogo.model.Constant;
 import slogo.model.Turtle;
 
 /**
@@ -11,28 +12,16 @@ import slogo.model.Turtle;
  */
 public class Forward extends MovementCommand implements Command {
 
-  private int pixels;
-  private Command argument;
+  private double pixels;
 
   /**
    * Constructor for the Forward command, takes a constant as an argument
    * and gets its value by executing the Constant command.
    *
-   * @param argument Constant command type containing the number of pixels to move the turtle
+   * @param pixels Constant containing the number of pixels to move the turtle
    */
-  public Forward(Command argument) {
-    this.argument = argument;
-  }
-
-  /**
-   * Allows access to number of parameters Forward requires so Parser can determine when
-   * the proper argument is available to execute the forward command.
-   *
-   * @return 1, as Forward's only parameter is pixels to be moved
-   */
-  @Override
-  public int getNumberParameters() {
-    return 1;
+  public Forward(Constant pixels) {
+    this.pixels = pixels.getValue();
   }
 
   /**
@@ -43,9 +32,8 @@ public class Forward extends MovementCommand implements Command {
    * @return number of pixels moved
    */
   @Override
-  public int execute(Turtle turtle) {
-    this.pixels = argument.execute(turtle);
-    int[] newLocation = determineLocation(turtle.getLocation(), turtle.getOrientation(), pixels);
+  public double execute(Turtle turtle) {
+    turtle.setLocation(determineLocation(turtle.getLocation(), Math.toRadians(turtle.getOrientation()), pixels));
     return pixels;
   }
 }
