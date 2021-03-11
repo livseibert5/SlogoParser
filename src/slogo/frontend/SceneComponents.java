@@ -13,9 +13,7 @@ import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class SceneComponents {
@@ -43,7 +41,8 @@ public class SceneComponents {
     }
 
     private void makeCommandField() {
-        commandLine = new TextArea("Type Commands Here");
+        commandLine = new TextArea();
+        commandLine.setPromptText("Type Commands Here");
         //specifics about the Text Area
         commandLine.setPrefHeight(WINDOW_SIZE/2);
         commandLine.setPrefWidth(WINDOW_SIZE);
