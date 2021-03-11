@@ -1,6 +1,7 @@
 /**
  * Use case: Draw a dotted line using the turtle.
  */
+<<<<<<< Updated upstream
 BackEndExternal.parse(command)
 // Back end internal calls pen up and pen down at intervals to make the line appear dotted.
 BackEndInternal.setPen(true)
