@@ -42,7 +42,7 @@ public class Parser {
    */
   public Parser(Controller controller) {
     this.controller = controller;
-    turtle = controller.getTurtleHandler().getTurtle(0);
+    turtle = controller.getTurtleHandler().getTurtle(1);
     setUpParser();
   }
 
@@ -128,7 +128,6 @@ public class Parser {
       return endIndex;
     } else if (commandType.equals("Variable")) {
       commandStack.push(expressionFactory.makeVariable(commandComponents[index], controller.getVariableHandler()));
-      System.out.println("command component " + commandComponents[index]);
     }
     return index;
   }
@@ -153,7 +152,7 @@ public class Parser {
         List<Object> parameters = generateParameters((String) command,
             userCommand.getNumberParameters());
         String newCommand = userCommand.generateCommand(parameters);
-        System.out.println(newCommand);
+        //System.out.println(newCommand);
         Constant result = new Constant(parse(newCommand));
         argumentStack.push(result);
       } else if (resources.containsKey((String) commandStack.peek())){

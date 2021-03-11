@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Variable;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -32,4 +34,11 @@ public class RightTest {
     assertEquals(0, turtle.getOrientation());
   }
 
+  @Test
+  void worksWithVariable() {
+    turtle.setOrientation(90);
+    right = new Right(new Variable(":var", 90));
+    assertEquals(90, right.execute(turtle));
+    assertEquals(0, turtle.getOrientation());
+  }
 }

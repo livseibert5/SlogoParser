@@ -1,7 +1,7 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
+import slogo.model.Expression;
 import slogo.model.Turtle;
 
 /**
@@ -18,9 +18,9 @@ public class Right extends MovementCommand implements Command {
      * Constructor for the Right command, takes a constant as an argument
      * and gets its value by executing the Constant command.
      *
-     * @param degrees Constant containing the number of pixels to move the turtle
+     * @param degrees Constant or Variable containing the number of pixels to move the turtle
      */
-    public Right(Constant degrees) {
+    public Right(Expression degrees) {
         this.degrees = degrees.getValue();
     }
 

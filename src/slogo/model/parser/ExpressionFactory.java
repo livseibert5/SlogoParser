@@ -49,9 +49,9 @@ public class ExpressionFactory {
    * @param variableHandler variable handler for backend
    * @return new Variable with given name or Constant value of variable with given name
    */
-  public Object makeVariable(String name, VariableHandler variableHandler) {
+  public Variable makeVariable(String name, VariableHandler variableHandler) {
     if (variableHandler.getVariableValueWithName(name) != -1) {
-      return new Constant((int) variableHandler.getVariableValueWithName(name));
+      return variableHandler.getVariableWithName(name);
     } else {
       return new Variable(name);
     }

@@ -19,7 +19,7 @@ public class TurtleHandler {
    */
   public TurtleHandler() {
     turtles = new HashMap<>();
-    turtles.put(1, new Turtle());
+    turtles.put(0, new Turtle());
   }
 
   /**

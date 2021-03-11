@@ -29,12 +29,12 @@ public class DoTimes implements Command {
     Parser parser = new Parser(controller);
     int limitVar = parser.parse(newCommand);
     Variable variable = controller.getVariableHandler().getVariableWithName(varName);
-    System.out.println(variable);
-    for (int i = 1; i < limitVar; i++) {
-      variable.setValue(i);
-      parser.parse(commandBlock.toString());
+    int parseOutput = 0;
+    for (int i = 1; i <= limitVar; i++) {
+      controller.getVariableHandler().getVariableWithName(varName).setValue(i);
+      parseOutput = parser.parse(commandBlock.toString());
     }
     controller.getVariableHandler().removeVariableWithName(varName);
-    return 0;
+    return parseOutput;
   }
 }
