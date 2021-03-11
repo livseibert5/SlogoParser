@@ -1,16 +1,19 @@
 package slogo;
 
-
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import javafx.scene.Scene;
 import slogo.frontend.CreateScene;
 import slogo.frontend.SceneComponents;
 
 /**
- * Feel free to completely change this code or delete it entirely. 
+ * Initializes window.
+ *
+ * @author Jessica Yang
  */
 public class Main extends Application {
+
     /**
      * Start of the program.
      */
