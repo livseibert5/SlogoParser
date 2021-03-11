@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import slogo.model.Command;
 import slogo.model.CommandBlock;
 import slogo.model.Constant;
+import slogo.model.backendexceptions.MathException;
 import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 
@@ -47,7 +48,7 @@ public class IfElse implements Command {
    */
   @Override
   public double execute(Turtle turtle)
-      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
     Parser parser = new Parser(turtle);
     if (value != 0) {
       parser.parse(trueBlock.toString());

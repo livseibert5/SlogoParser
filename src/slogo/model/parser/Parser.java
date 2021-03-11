@@ -12,6 +12,7 @@ import slogo.model.Constant;
 import slogo.model.Expression;
 import slogo.model.Turtle;
 import slogo.model.UserDefinedCommand;
+import slogo.model.backendexceptions.MathException;
 
 /**
  * Parser takes in a user input String from the front end using the .parse function
@@ -82,7 +83,7 @@ public class Parser {
    * @throws IllegalAccessException
    */
   public int parse(String command)
-      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
     String[] commandComponents = command.split(" ");
     createCommandStack(commandComponents);
     parseCommandStack();
@@ -143,7 +144,7 @@ public class Parser {
    * @throws InvocationTargetException
    */
   private void parseCommandStack()
-      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
     while (!commandStack.isEmpty()) {
       if (expressionFactoryTypes.containsKey(commandStack.peek().getClass().getName())) {
         argumentStack.push(commandStack.pop());
@@ -189,7 +190,7 @@ public class Parser {
   }
 
   public static void main(String[] args)
-      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
     Parser parser = new Parser(new Controller());
     //System.out.println(parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]"));
     //System.out.println();
