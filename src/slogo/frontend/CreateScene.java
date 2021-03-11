@@ -12,7 +12,8 @@ import java.util.ResourceBundle;
 
 public class CreateScene {
     private final Group root = new Group();
-    private static final int DEFAULT_SIZE = 1200;
+    private static final int DEFAULT_HEIGHT = 750;
+    private static final int DEFAULT_WIDTH = 1350;
     public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
     public static final String DEFAULT_RESOURCE_FOLDER = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
     public static final String STYLESHEET = "default.css";
@@ -26,21 +27,27 @@ public class CreateScene {
     }
 
     public Scene makeScene() {
-        Scene scene = new Scene(root, DEFAULT_SIZE, DEFAULT_SIZE);
+        Scene scene = new Scene(root, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
         return scene;
     }
     public void displayStage(Scene scene) {
         stage.setScene(scene);
-        stage.setTitle(myResources.getString("MenuTitle"));
+        stage.setTitle("Slogo");
         stage.show();
     }
-    public Timeline makeTimeline() {
+    //FOR TESTING PURPOSES ONLY
+
+    public Group getRoot() {
+        return root;
+    }
+
+/*    public Timeline makeTimeline() {
         Timeline animation = new Timeline();
         KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> update());
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
         return animation;
-    }
+    }*/
 }

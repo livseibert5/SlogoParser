@@ -57,3 +57,8 @@
     -fx-text-alignment: center;
     -fx-font-family: "Segoe UI Semibold";
 }
+#colorlabel {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semibold";
+
+}
