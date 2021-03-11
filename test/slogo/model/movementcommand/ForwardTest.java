@@ -30,6 +30,16 @@ public class ForwardTest {
   }
 
   @Test
+  void testMoveNotFromOrigin() {
+    turtle.setOrientation(45);
+    turtle.setLocation(new double[]{3, 5});
+    forward = new Forward(new Constant(16));
+    assertEquals(16, forward.execute(turtle));
+    assertEquals(14.31, turtle.getXCoordinate());
+    assertEquals(16.31, turtle.getYCoordinate());
+  }
+
+  @Test
   void testMoveStraightForwardFrom90() {
     turtle.setOrientation(90);
     forward.execute(turtle);

@@ -12,8 +12,8 @@ import slogo.model.Turtle;
  */
 public class Or implements Command {
 
-  int argument1;
-  int argument2;
+  private double argument1;
+  private double argument2;
 
   /**
    * Constructor for Or command, takes in the 2 arguments.
@@ -26,6 +26,12 @@ public class Or implements Command {
     this.argument2 = argument2.getValue();
   }
 
+  /**
+   * Returns 1 if either argument is non-zero, otherwise returns 0.
+   *
+   * @param turtle turtle object to execute command on
+   * @return 1 if either argument non-zero, 0 otherwise
+   */
   @Override
   public double execute(Turtle turtle) {
     return this.argument1 != 0 || this.argument2 != 0 ? 1 : 0;

@@ -12,8 +12,8 @@ import slogo.model.Turtle;
  */
 public class GreaterThan implements Command {
 
-  int argument1;
-  int argument2;
+  private double argument1;
+  private double argument2;
 
   /**
    * Constructor for GreaterThan command, takes in 2 arguments to
@@ -27,6 +27,12 @@ public class GreaterThan implements Command {
     this.argument2 = argument2.getValue();
   }
 
+  /**
+   * Return 1 if the first argument is greater than the second, 0 otherwise.
+   *
+   * @param turtle turtle object to execute command on
+   * @return 1 if argument1 is greater than argument2, 0 otherwise
+   */
   @Override
   public double execute(Turtle turtle) {
     return this.argument1 > this.argument2 ? 1 : 0;

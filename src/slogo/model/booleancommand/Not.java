@@ -12,12 +12,23 @@ import slogo.model.Turtle;
  */
 public class Not implements Command {
 
-  int argument;
+  private double argument;
 
+  /**
+   * Not constructor takes in one argument to return the not of.
+   *
+   * @param argument argument to perform not operation on
+   */
   public Not(Constant argument) {
     this.argument = argument.getValue();
   }
 
+  /**
+   * Returns 1 if the argument is 0, 1 otherwise.
+   *
+   * @param turtle turtle object to execute command on
+   * @return 1 if argument is 0, 1 otherwise
+   */
   @Override
   public double execute(Turtle turtle) {
     return this.argument == 0 ? 1 : 0;

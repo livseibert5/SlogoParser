@@ -12,16 +12,16 @@ import slogo.model.Turtle;
  */
 public class Left extends MovementCommand implements Command {
 
-    private int pixels;
+    private double degrees;
 
     /**
      * Constructor for the Left command, takes a constant as an argument
      * and gets its value by executing the Constant command.
      *
-     * @param pixels Constant containing the number of pixels to move the turtle
+     * @param degrees Constant containing the number of pixels to move the turtle
      */
-    public Left(Constant pixels) {
-        this.pixels = pixels.getValue();
+    public Left(Constant degrees) {
+        this.degrees = degrees.getValue();
     }
 
     /**
@@ -33,8 +33,7 @@ public class Left extends MovementCommand implements Command {
      */
     @Override
     public double execute(Turtle turtle) {
-        turtle.setOrientation(turtle.getOrientation() + 90);
-        turtle.setLocation(determineLocation(turtle.getLocation(), Math.toRadians(turtle.getOrientation()), pixels));
-        return pixels;
+        turtle.setOrientation(turtle.getOrientation() + degrees);
+        return degrees;
     }
 }

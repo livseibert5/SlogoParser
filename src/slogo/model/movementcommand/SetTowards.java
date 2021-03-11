@@ -12,8 +12,8 @@ import slogo.model.Turtle;
  */
 public class SetTowards implements Command {
 
-    int x;
-    int y;
+    double x;
+    double y;
 
     public SetTowards(Constant argument1, Constant argument2){
         this.x = argument1.getValue();

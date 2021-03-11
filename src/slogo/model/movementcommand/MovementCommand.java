@@ -29,7 +29,7 @@ abstract class MovementCommand {
    * @param pixels number of pixels to move
    * @return new coordinates of turtle
    */
-  protected double[] determineLocation(double[] currentLocation, double orientation, int pixels) {
+  protected double[] determineLocation(double[] currentLocation, double orientation, double pixels) {
     findQuadrantDirection(orientation);
     double xDiff = isZero(Math.cos(orientationDirection)) ? 0 : Math.cos(orientationDirection);
     double yDiff = isZero(Math.sin(orientationDirection)) ? 0 : Math.sin(orientationDirection);

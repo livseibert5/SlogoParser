@@ -12,7 +12,7 @@ import slogo.model.Turtle;
  */
 public class Forward extends MovementCommand implements Command {
 
-  private int pixels;
+  private double pixels;
 
   /**
    * Constructor for the Forward command, takes a constant as an argument

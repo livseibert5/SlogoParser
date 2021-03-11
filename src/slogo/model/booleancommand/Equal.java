@@ -12,8 +12,8 @@ import slogo.model.Turtle;
  */
 public class Equal implements Command {
 
-  int argument1;
-  int argument2;
+  private double argument1;
+  private double argument2;
 
   /**
    * Constructor for Equal command, takes in two constants to determine
@@ -27,6 +27,12 @@ public class Equal implements Command {
     this.argument2 = argument2.getValue();
   }
 
+  /**
+   * Returns 1 if the two arguments are equal, 0 otherwise.
+   *
+   * @param turtle turtle object to execute command on
+   * @return 1 if arguments equal, otherwise 0
+   */
   @Override
   public double execute(Turtle turtle) {
     return this.argument1 == this.argument2 ? 1 : 0;
