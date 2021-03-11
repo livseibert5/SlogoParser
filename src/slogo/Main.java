@@ -2,11 +2,8 @@ package slogo;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import slogo.view.WindowControl;
 
-import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import slogo.frontend.CreateScene;
 import slogo.frontend.SceneComponents;
 

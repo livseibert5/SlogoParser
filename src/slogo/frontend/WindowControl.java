@@ -1,9 +1,7 @@
-package slogo.view;
+package slogo.frontend;
 
-import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
-import slogo.model.Turtle;
 import slogo.model.parser.Parser;
 
 /**
@@ -17,7 +15,7 @@ public class WindowControl {
   public static final String TITLE = "SLogo";
 
   private Stage myStage;
-  //private CreateScene myScene;
+  private CreateScene myScene;
 
   private Controller myController;
   private Parser myParser;
@@ -41,6 +39,7 @@ public class WindowControl {
     myStage.setTitle(TITLE);
     myStage.show();
 
+    myScene = new CreateScene(myStage);
     myController = new Controller();
     myParser = new Parser(myController);
     myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler().getTurtle(), myScene.getRoot());

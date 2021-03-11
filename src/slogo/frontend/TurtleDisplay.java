@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.frontend;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import slogo.model.Turtle;
-import slogo.model.TurtleHandler;
 
 /**
  * Updates the front-end representation of a turtle.
