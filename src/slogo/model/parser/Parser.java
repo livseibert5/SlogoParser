@@ -42,7 +42,7 @@ public class Parser {
    */
   public Parser(Controller controller) {
     this.controller = controller;
-    turtle = controller.getTurtleHandler().getTurtle();
+    turtle = controller.getTurtleHandler().getTurtle(0);
     setUpParser();
   }
 

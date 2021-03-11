@@ -60,4 +60,13 @@ public class VariableHandler {
     }
     return null;
   }
+
+  public void removeVariableWithName(String name) {
+    for (Variable var: variables) {
+      if (var.getName().equals(name)) {
+        variables.remove(var);
+        break;
+      }
+    }
+  }
 }

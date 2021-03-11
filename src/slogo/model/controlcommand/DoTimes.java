@@ -34,6 +34,7 @@ public class DoTimes implements Command {
       variable.setValue(i);
       parser.parse(commandBlock.toString());
     }
+    controller.getVariableHandler().removeVariableWithName(varName);
     return 0;
   }
 }

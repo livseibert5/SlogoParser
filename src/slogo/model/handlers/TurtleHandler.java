@@ -42,7 +42,7 @@ public class TurtleHandler {
   }
 
   // TODO: once front end works, change this function to get a turtle with a specific id
-  public Turtle getTurtle() {
-    return turtles.get(1);
+  public Turtle getTurtle(int id) {
+    return turtles.get(id);
   }
 }
