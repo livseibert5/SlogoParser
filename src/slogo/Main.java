@@ -4,6 +4,12 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import slogo.view.WindowControl;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import slogo.frontend.CreateScene;
+import slogo.frontend.SceneComponents;
+
 /**
  * Initializes window.
  *
@@ -11,12 +17,18 @@ import slogo.view.WindowControl;
  */
 public class Main extends Application {
 
-  public static void main(String[] args) {
-    launch(args);
-  }
-
-  @Override
-  public void start(Stage stage) {
-    WindowControl control = new WindowControl();
-  }
+    /**
+     * Start of the program.
+     */
+    @Override
+    public void start(Stage stage) {
+        CreateScene newScene = new CreateScene(stage);
+        Scene scene = newScene.makeScene();
+        newScene.displayStage(scene);
+        SceneComponents components = new SceneComponents(newScene.getRoot());
+        components.addEverything();
+    }
+    public static void main (String[] args) {
+        launch(args);
+    }
 }
