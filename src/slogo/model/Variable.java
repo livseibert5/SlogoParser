@@ -3,7 +3,7 @@ package slogo.model;
 /**
  * Variable class stores the name and value of user defined variables.
  *
- * @author Livia Seibert
+ * @author Rachel Luria
  */
 public class Variable extends Expression {
 

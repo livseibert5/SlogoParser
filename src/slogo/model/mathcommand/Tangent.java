@@ -14,6 +14,6 @@ public class Tangent implements Command{
 
   @Override
   public double execute(Turtle turtle) {
-    return Math.toDegrees(Math.tan(argument));
+    return Math.tan(Math.toRadians(argument));
   }
 }

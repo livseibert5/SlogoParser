@@ -14,6 +14,6 @@ public class Cosine implements Command{
 
   @Override
   public double execute(Turtle turtle) {
-    return Math.toDegrees(Math.cos(argument));
+    return Math.cos(Math.toRadians(argument));
   }
 }
