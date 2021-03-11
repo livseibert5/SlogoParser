@@ -27,6 +27,7 @@ public class SceneComponents {
     private static final int DEFAULT_BORDER = 50;
     public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
     private final ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "text");
+    private final ResourceBundle myLanguages = ResourceBundle.getBundle("resources.languages.LangaugeOptions");
     private final Rectangle turtleBox = new Rectangle(WINDOW_SIZE, WINDOW_SIZE, Color.WHITE);
 
     public SceneComponents(Group myRoot) {
@@ -115,22 +116,13 @@ public class SceneComponents {
     }
     private void makeVariableView() {
         TableView table = new TableView();
-    }
-    //https://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
-    private List createLanguageList() {
-        List<String> results = new ArrayList<String>();
-        File[] files = new File("src/resources/languages").listFiles();
-        for (File file : files) {
-            if (file.isFile()) {
-                results.add(file.getName().substring(0, file.getName().lastIndexOf(".")));
-            }
-        }
-        results.remove("LangaugeOptions");
-        return results;
+
     }
 
     private void makeLanguageDropDown() {
-        ComboBox languages = new ComboBox(FXCollections.observableList(createLanguageList()));
+        ArrayList<String> list = new ArrayList<>();
+        list.addAll(myLanguages.keySet());
+        ComboBox languages = new ComboBox(FXCollections.observableList(list));
         languages.setValue("English");
         root.getChildren().add(languages);
     }
