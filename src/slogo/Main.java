@@ -19,7 +19,7 @@ public class Main extends Application {
         CreateScene newScene = new CreateScene(stage);
         Scene scene = newScene.makeScene();
         newScene.displayStage(scene);
-        SceneComponents components = new SceneComponents(newScene.getRoot(), stage);
+        SceneComponents components = new SceneComponents(newScene.getRoot());
         components.addEverything();
     }
     public static void main (String[] args) {

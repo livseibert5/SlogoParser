@@ -1,26 +1,25 @@
 package slogo.frontend;
 
-import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SceneComponents {
     private final Group root;
-    private final Stage stage;
     private TextArea commandLine;
     private static final int DEFAULT_HEIGHT = 750;
     private static final int DEFAULT_WIDTH = 1350;
@@ -30,18 +29,18 @@ public class SceneComponents {
     private final ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "text");
     private final Rectangle turtleBox = new Rectangle(WINDOW_SIZE, WINDOW_SIZE, Color.WHITE);
 
-    public SceneComponents(Group myRoot, Stage myStage) {
+    public SceneComponents(Group myRoot) {
         this.root = myRoot;
-        this.stage = myStage;
     }
     public void addEverything() {
         addTurtleWindow();
         makeCommandField();
+        makeVariableView();
         addButtons();
         addColorPickers();
+        makeLanguageDropDown();
     }
 
-    //terminal (textfield)
     private void makeCommandField() {
         commandLine = new TextArea("Type Commands Here");
         //specifics about the Text Area
@@ -50,7 +49,6 @@ public class SceneComponents {
         commandLine.relocate(DEFAULT_BORDER,DEFAULT_HEIGHT - commandLine.getPrefHeight() - 2*DEFAULT_BORDER); //change this to avoid "magic numbers
         root.getChildren().add(commandLine);
     }
-    //help popup, error popup
 
     private Button makeButton(String name, double x, double y, EventHandler<ActionEvent> handler) {
         Button result = new Button();
@@ -72,7 +70,7 @@ public class SceneComponents {
                 stage.show();
             }
         });
-        Button enter = makeButton("Enter", WINDOW_SIZE/2, DEFAULT_HEIGHT - DEFAULT_BORDER, new EventHandler<ActionEvent>() {
+        Button enter = makeButton("Enter", WINDOW_SIZE/2, DEFAULT_HEIGHT - DEFAULT_BORDER * 1.5, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
 
@@ -81,7 +79,6 @@ public class SceneComponents {
         root.getChildren().addAll(help, enter);
     }
 
-    //pen color dropdown, background color dropdown
     private ColorPicker makeColorPicker(Shape shape, double x, double y) {
         final ColorPicker colorPicker = new ColorPicker();
         colorPicker.setOnAction(new EventHandler() {
@@ -92,6 +89,7 @@ public class SceneComponents {
         colorPicker.relocate(x, y);
         return colorPicker;
     }
+
     private void addColorPickers() {
         double x = turtleBox.getX() + + DEFAULT_BORDER + turtleBox.getWidth()/2;
         Text backgroundTitle = new Text(x, DEFAULT_BORDER/3, "Select Background Color:");
@@ -115,7 +113,27 @@ public class SceneComponents {
         //scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
         return scene;
     }
-    private TableView
+    private void makeVariableView() {
+        TableView table = new TableView();
+    }
+    //https://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
+    private List createLanguageList() {
+        List<String> results = new ArrayList<String>();
+        File[] files = new File("src/resources/languages").listFiles();
+        for (File file : files) {
+            if (file.isFile()) {
+                results.add(file.getName().substring(0, file.getName().lastIndexOf(".")));
+            }
+        }
+        results.remove("LangaugeOptions");
+        return results;
+    }
+
+    private void makeLanguageDropDown() {
+        ComboBox languages = new ComboBox(FXCollections.observableList(createLanguageList()));
+        languages.setValue("English");
+        root.getChildren().add(languages);
+    }
 
 }
 
