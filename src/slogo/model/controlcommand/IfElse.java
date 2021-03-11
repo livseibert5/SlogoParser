@@ -1,6 +1,7 @@
 package slogo.model.controlcommand;
 
 import java.lang.reflect.InvocationTargetException;
+import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.CommandBlock;
 import slogo.model.Constant;
@@ -16,6 +17,7 @@ import slogo.model.Turtle;
 public class IfElse implements Command {
 
   private double value;
+  private Controller controller;
   private CommandBlock trueBlock;
   private CommandBlock falseBlock;
 
@@ -27,7 +29,8 @@ public class IfElse implements Command {
    * @param trueBlock block to run if condition is non-zero
    * @param falseBlock block to run if condition is zeero
    */
-  public IfElse(Constant value, CommandBlock trueBlock, CommandBlock falseBlock) {
+  public IfElse(Controller controller, Constant value, CommandBlock trueBlock, CommandBlock falseBlock) {
+    this.controller = controller;
     this.value = value.getValue();
     this.trueBlock = trueBlock;
     this.falseBlock = falseBlock;
@@ -48,12 +51,13 @@ public class IfElse implements Command {
   @Override
   public double execute(Turtle turtle)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    Parser parser = new Parser(turtle);
+    Parser parser = new Parser(controller);
+    int parserOutput;
     if (value != 0) {
-      parser.parse(trueBlock.toString());
+      parserOutput = parser.parse(trueBlock.toString());
     } else {
-      parser.parse(falseBlock.toString());
+      parserOutput = parser.parse(falseBlock.toString());
     }
-    return 0;
+    return parserOutput;
   }
 }
