@@ -9,15 +9,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import slogo.model.Turtle;
+import slogo.model.TurtleHandler;
 
 /**
  * Updates the front-end representation of a turtle.
  */
 public class TurtleDisplay {
 
-  private final Map<Integer, Turtle> turtleMap;
+  private final Map<Integer, Turtle> turtleMap = new HashMap<>();
   private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
   private String IMAGE_FILE;
+  private String DEFAULT_RESOURCE_BUNDLE = TurtleDisplay.class.getPackageName() + ".resources.Images"; //??
 
   private double dimensionSize;
   private final Group myRoot;
@@ -29,8 +31,8 @@ public class TurtleDisplay {
    *
    * @param turtles from backend
    */
-  public TurtleDisplay(Map<Integer, Turtle> turtles, Group root) {
-    turtleMap = turtles;
+  public TurtleDisplay(Turtle turtle, Group root) {
+    turtleMap.put(1, turtle);
     updateImageMap();
     myRoot = root;
     lineColor = Color.BLACK;
@@ -68,11 +70,6 @@ public class TurtleDisplay {
   }
 
   /**
-   * Step function for updating turtle representation during animation.
-   */
-  public void step() {}
-
-  /**
    * Updates state of a given turtle. Assumes turtles in turtleMap have been updated. TODO use observer
    *
    * @param id turtle id in hashmaps
@@ -91,7 +88,7 @@ public class TurtleDisplay {
   }
 
   /**
-   * Changes visiblity of TurtleView.
+   * Changes visibility of TurtleView.
    *
    * @param visible boolean
    * @param currTurtleView needs to be updated view
