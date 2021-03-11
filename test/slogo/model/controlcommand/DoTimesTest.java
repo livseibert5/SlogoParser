@@ -9,6 +9,11 @@ import slogo.model.Turtle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for DoTimes class.
+ *
+ * @author Livia Seibert
+ */
 public class DoTimesTest {
 
   private Controller controller;

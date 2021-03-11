@@ -9,6 +9,11 @@ import slogo.model.Constant;
 import slogo.model.Turtle;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for If class.
+ *
+ * @author Livia Seibert
+ */
 public class IfTest {
 
   private Controller controller;
