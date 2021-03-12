@@ -14,7 +14,7 @@ public class VariableTest {
   Variable var;
 
   @Test
-  void testVariableGetName(){
+  void testVariableGetName() {
     var = new Variable("move");
     assertEquals("move", var.getName());
   }
