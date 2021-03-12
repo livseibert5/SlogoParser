@@ -14,7 +14,7 @@ public class Controller {
   private TurtleHandler turtleHandler;
   private VariableHandler variableHandler;
   private UserDefinedCommandHandler userDefinedCommandHandler;
-  private String Language;
+  private String language;
 
   /**
    * Defines a new turtleHandler, variableHandler, and userDefinedCommand handler for
@@ -24,7 +24,7 @@ public class Controller {
     turtleHandler = new TurtleHandler();
     variableHandler = new VariableHandler();
     userDefinedCommandHandler = new UserDefinedCommandHandler();
-    Language = "English";
+    language = "English";
   }
 
   /**
@@ -60,6 +60,6 @@ public class Controller {
    * @return language being used
    */
   public String getLanguage(){
-    return Language;
+    return language;
   }
 }
