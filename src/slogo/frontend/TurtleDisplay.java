@@ -1,5 +1,7 @@
 package slogo.frontend;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -13,12 +15,12 @@ import slogo.model.Turtle;
 /**
  * Updates the front-end representation of a turtle.
  */
-public class TurtleDisplay {
+public class TurtleDisplay implements PropertyChangeListener {
 
   private final Map<Integer, Turtle> turtleMap = new HashMap<>();
   private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
-  private String IMAGE_FILE;
-  private String DEFAULT_RESOURCE_BUNDLE = TurtleDisplay.class.getPackageName() + ".resources.Images"; //??
+  private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
+  private String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
 
   private double dimensionSize;
   private final Group myRoot;
@@ -28,7 +30,7 @@ public class TurtleDisplay {
   /**
    * Constructor for TurtleDisplay. Takes in map of turtles from Controller.
    *
-   * @param turtles from backend
+   * @param turtle from backend
    */
   public TurtleDisplay(Turtle turtle, Group root) {
     turtleMap.put(1, turtle);
@@ -54,8 +56,7 @@ public class TurtleDisplay {
   private void addTurtleView(int id) {
     Turtle toAddTurtle = turtleMap.get(id);
     ImageView turtleView = new ImageView();
-    turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getClassLoader()
-        .getResourceAsStream(IMAGE_FILE))));
+    turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(IMAGE_FILE))));
 
     turtleView.setX(toAddTurtle.getXCoordinate());
     turtleView.setY(toAddTurtle.getYCoordinate());
@@ -141,7 +142,12 @@ public class TurtleDisplay {
    *
    * @param newColor updated color
    */
-  public void setLineColor(Color newColor) {
+  private void setLineColor(Color newColor) {
     lineColor = newColor;
+    System.out.printf("new color!");
+  }
+
+  public void propertyChange(PropertyChangeEvent event) {
+    setLineColor((Color) event.getNewValue());
   }
 }
