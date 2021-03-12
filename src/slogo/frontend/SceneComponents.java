@@ -53,7 +53,6 @@ public class SceneComponents extends Observable {
     makeCommandField();
     makeVariableView();
     makeUserCommandView();
-    //addButtons();
     addColorPickers();
     makeLanguageDropDown();
   }
@@ -72,42 +71,9 @@ public class SceneComponents extends Observable {
     return commandLine.getText();
   }
 
-  private Button makeButton(String name, double x, double y, EventHandler<ActionEvent> handler) {
-    Button result = new Button();
-    String label = myResources.getString(name);
-    result.setId(label);
-    result.setText(label);
-    result.setOnAction(handler);
-    result.relocate(x, y);
-    return result;
-  }
-
-  private void addButtons() {
-    Button help = makeButton("Help", turtleBox.getX() + turtleBox.getWidth() / 2,
-        DEFAULT_HEIGHT - DEFAULT_BORDER, new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            Stage stage = new Stage();
-            stage.setScene(makeHelpScene());
-            stage.setTitle("Help" );
-            stage.show();
-          }
-        });
-    Button enter = makeButton("Enter", WINDOW_SIZE / 2, DEFAULT_HEIGHT - DEFAULT_BORDER * 1.5,
-        new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-
-          }
-        });
-    root.getChildren().addAll(help, enter);
-  }
-
   private void makeColorPicker(ColorPicker colorPicker, double x, double y, EventHandler event) {
-    //final ColorPicker colorPicker = new ColorPicker();
     colorPicker.setOnAction(event);
     colorPicker.relocate(x, y);
-    //return colorPicker;
   }
 
   private void addColorPickers() {
@@ -123,8 +89,7 @@ public class SceneComponents extends Observable {
             oldLineColor = pen.getValue();
         }
     });
-    //root.getChildren().addAll(backgroundTitle, background);
-      root.getChildren().add(pen);
+    root.getChildren().add(pen);
   }
 
   private void addTurtleWindow() {
