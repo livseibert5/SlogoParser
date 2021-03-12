@@ -14,6 +14,7 @@ public class Controller {
   private TurtleHandler turtleHandler;
   private VariableHandler variableHandler;
   private UserDefinedCommandHandler userDefinedCommandHandler;
+  private String Language;
 
   /**
    * Defines a new turtleHandler, variableHandler, and userDefinedCommand handler for
@@ -23,6 +24,7 @@ public class Controller {
     turtleHandler = new TurtleHandler();
     variableHandler = new VariableHandler();
     userDefinedCommandHandler = new UserDefinedCommandHandler();
+    Language = "English";
   }
 
   /**
@@ -50,5 +52,14 @@ public class Controller {
    */
   public UserDefinedCommandHandler getUserDefinedCommandHandler() {
     return userDefinedCommandHandler;
+  }
+
+  /**
+   * Allows the front end to set the language for the parser.
+   *
+   * @return language being used
+   */
+  public String getLanguage(){
+    return Language;
   }
 }

@@ -55,7 +55,7 @@ public class Parser {
     poppedStack = new Stack<>();
     result = 0;
     expressionFactory = new ExpressionFactory();
-    regexDetector.addPatterns("English");
+    regexDetector.addPatterns(controller.getLanguage());
     regexDetector.addPatterns("Syntax");
   }
 
