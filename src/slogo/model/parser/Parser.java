@@ -156,6 +156,7 @@ public class Parser {
         poppedStack.push(command);
         //System.out.println(commandStack.size());
         List<Object> args = new ArrayList<>();
+        //System.out.println(args);
         int numArgs = commandFactory.determineNumberParameters((String) command);
         if (controlCommands.containsKey((String) command)) {
           args.add(controller);
@@ -168,11 +169,14 @@ public class Parser {
             args.add(popped);
           }
         }
+        System.out.println(args);
         //System.out.println(args);
         try {
+          System.out.println("try");
           Command commandObj = (Command) commandFactory.createCommand((String) command, args);
           System.out.println("execution " + command);
           result = commandObj.execute(turtle);
+          poppedStack.pop();
           //System.out.println("execution " + command);
           Constant constant = expressionFactory.makeConstant((int) result);
           //System.out.println("sizw " + commandStack.size());
@@ -180,20 +184,38 @@ public class Parser {
           //commandStack.push(constant);
           //System.out.println("execution " + command);
           System.out.println("command stack size " + commandStack.size());
+          System.out.println("popped stack size " + poppedStack.size());
 
-          if (commandStack.isEmpty()) {
-            System.out.println("here");
+          //f (commandStack.isEmpty()) {
+            //System.out.println("here");
             //System.out.println("opt " + 1);
             //argumentStack.push(constant);
-            break;
-          }
+            //break;
+          //}
           //commandStack.push(constant);
+          boolean exists = false;
+          for (Object obj: poppedStack) {
+            if (resources.containsKey((String) obj)) {
+              exists = true;
+            }
+          }
+          for (Object obj: commandStack) {
+            if (resources.containsKey((String) obj)) {
+              exists = true;
+            }
+          }
+          if (exists) {
+            System.out.println("here");
+            poppedStack.push(constant);
+          } else {
+            System.out.println("ret here");
+            return;
+          }
           while (/*!commandStack.isEmpty() &&*/ !poppedStack.isEmpty()) {
-            //System.out.println("pushing " + poppedStack.peek());
             commandStack.push(poppedStack.pop());
           }
         } catch (Exception e) {
-          //commandStack.push(command);
+          //poppedStack.push(command);
           if (controlCommands.containsKey((String) command)) {
             for (int i = args.size() - 1; i >= 1; i--) {
               commandStack.push(args.get(i));
@@ -203,6 +225,7 @@ public class Parser {
               commandStack.push(args.get(i));
             }
           }
+          //poppedStack.push(command);
         }
       } else {
         poppedStack.push(commandStack.pop());
