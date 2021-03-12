@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.CommandBlock;
-import slogo.model.Constant;
+import slogo.model.Value;
 import slogo.model.backendexceptions.MathException;
 import slogo.model.parser.Parser;
 import slogo.model.Turtle;
@@ -30,7 +30,7 @@ public class IfElse implements Command {
    * @param trueBlock block to run if condition is non-zero
    * @param falseBlock block to run if condition is zeero
    */
-  public IfElse(Controller controller, Constant value, CommandBlock trueBlock, CommandBlock falseBlock) {
+  public IfElse(Controller controller, Value value, CommandBlock trueBlock, CommandBlock falseBlock) {
     this.controller = controller;
     this.value = value.getValue();
     this.trueBlock = trueBlock;

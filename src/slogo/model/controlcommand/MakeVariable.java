@@ -2,9 +2,9 @@ package slogo.model.controlcommand;
 
 import java.lang.reflect.InvocationTargetException;
 import slogo.controller.Controller;
+import slogo.model.Value;
 import slogo.model.Variable;
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
 
 /**
@@ -27,7 +27,7 @@ public class MakeVariable implements Command {
    * @param name Variable object with the name set
    * @param value value to put in the variable object
    */
-  public MakeVariable(Controller controller, Variable name, Constant value) {
+  public MakeVariable(Controller controller, Variable name, Value value) {
     this.controller = controller;
     this.name = name;
     this.value = value.getValue();

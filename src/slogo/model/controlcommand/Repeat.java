@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.CommandBlock;
-import slogo.model.Constant;
+import slogo.model.Value;
 import slogo.model.backendexceptions.MathException;
 import slogo.model.parser.Parser;
 import slogo.model.Turtle;
@@ -28,7 +28,7 @@ public class Repeat implements Command {
    * @param argument number of times to run the code block
    * @param list list of commands to run each time
    */
-  public Repeat(Controller controller, Constant argument, CommandBlock list) {
+  public Repeat(Controller controller, Value argument, CommandBlock list) {
     count = (int) argument.getValue();
     this.controller = controller;
     this.list = list;
