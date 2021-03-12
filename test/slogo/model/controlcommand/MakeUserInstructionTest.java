@@ -4,6 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import slogo.controller.Controller;
 import slogo.model.Turtle;
 
+/**
+ * Tests for MakeUserInstruction class.
+ *
+ * @author Livia Seibert
+ */
 public class MakeUserInstructionTest {
 
   private MakeUserInstruction makeUserInstruction;

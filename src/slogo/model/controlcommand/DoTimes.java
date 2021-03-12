@@ -9,6 +9,12 @@ import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 import slogo.model.Variable;
 
+/**
+ * DoTimes is the command subclass that runs a code block from 1 to limit times, setting
+ * the variable in the body of the command to the loop number every time.
+ *
+ * @author Livia Seibert
+ */
 public class DoTimes implements Command {
 
   private Controller controller;

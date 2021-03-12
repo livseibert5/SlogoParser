@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
 import slogo.model.Turtle;
 
+/**
+ * Tests for MakeUserVariable class.
+ *
+ * @author Livia Seibert
+ */
 public class MakeVariableTest {
 
   private MakeVariable makeVariable;

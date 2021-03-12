@@ -9,6 +9,11 @@ import slogo.model.backendexceptions.MathException;
 import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 
+/**
+ * Repeat is the Command subclass that runs a code block the given number of times.
+ *
+ * @author Livia Seibert
+ */
 public class Repeat implements Command {
 
   private int count;
