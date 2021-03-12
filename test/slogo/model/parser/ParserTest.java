@@ -71,4 +71,17 @@ public class ParserTest {
       throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
     assertEquals(100, parser.parse("fd rt 100"));
   }
+
+  @Test
+  void userVariableForward()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    assertEquals(4, parser.parse("make :dist 4"));
+    assertEquals(12, parser.parse("fd :dist rt product :dist 3 "));
+  }
+
+  @Test
+  void forLoop()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    assertEquals(12, parser.parse("for [ :dist 1 5 1 ] [ fd :dist rt product :dist 3 ]"));
+  }
 }
