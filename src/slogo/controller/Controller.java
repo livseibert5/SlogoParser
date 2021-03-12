@@ -58,6 +58,7 @@ public class Controller {
    * Allows the front end to set the language for the parser.
    *
    * @return language being used
+   * @author Rachel Luria
    */
   public String getLanguage(){
     return language;
