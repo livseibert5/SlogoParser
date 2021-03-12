@@ -5,7 +5,7 @@ import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.CommandBlock;
 import slogo.model.Constant;
-import slogo.model.Expression;
+import slogo.model.backendexceptions.MathException;
 import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 
@@ -28,7 +28,7 @@ public class If implements Command {
    * @param value constant that determines whether the code block should be run
    * @param trueBlock block to run if the value is non-zero
    */
-  public If(Controller controller, Expression value, CommandBlock trueBlock) {
+  public If(Controller controller, Constant value, CommandBlock trueBlock) {
     this.controller = controller;
     this.value = value.getValue();
     this.trueBlock = trueBlock;
@@ -47,7 +47,7 @@ public class If implements Command {
    */
   @Override
   public double execute(Turtle turtle)
-      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
     int parserOutput = 0;
     if (value != 0) {
       Parser parser = new Parser(controller);

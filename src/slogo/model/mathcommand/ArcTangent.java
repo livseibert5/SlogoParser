@@ -31,6 +31,6 @@ public class ArcTangent implements Command{
    */
   @Override
   public double execute(Turtle turtle) {
-    return Math.atan(Math.toRadians(argument));
+    return Math.toDegrees(Math.atan(argument));
   }
 }

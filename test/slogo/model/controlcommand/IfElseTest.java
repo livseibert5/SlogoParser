@@ -9,6 +9,7 @@ import slogo.controller.Controller;
 import slogo.model.CommandBlock;
 import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.backendexceptions.MathException;
 
 /**
  * Tests for IfElse class.
@@ -29,7 +30,7 @@ public class IfElseTest {
 
   @Test
   void ifBlockExecutes()
-      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
     Constant trueVar = new Constant(1);
     CommandBlock runTrue = new CommandBlock("fd 50");
     CommandBlock runFalse = new CommandBlock("fd 80");
@@ -39,7 +40,7 @@ public class IfElseTest {
 
   @Test
   void elseBlockExecutes()
-      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
     Constant trueVar = new Constant(0);
     CommandBlock runTrue = new CommandBlock("fd 50");
     CommandBlock runFalse = new CommandBlock("fd 80");

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
 import slogo.model.CommandBlock;
 import slogo.model.Turtle;
+import slogo.model.backendexceptions.MathException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,7 +30,7 @@ public class DoTimesTest {
 
   @Test
   void doTimesWhenLimitLessThan1()
-      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
     CommandBlock limit = new CommandBlock(":lim 0");
     CommandBlock code = new CommandBlock("fd 50");
     doTimes = new DoTimes(controller, limit, code);
@@ -38,7 +39,7 @@ public class DoTimesTest {
 
   @Test
   void doTimesDoesExecute()
-      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
     CommandBlock limit = new CommandBlock(":lim 2");
     CommandBlock code = new CommandBlock("fd 50");
     doTimes = new DoTimes(controller, limit, code);
@@ -49,7 +50,7 @@ public class DoTimesTest {
 
   @Test
   void doTimesDoesExecuteUsesLoopVar()
-      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
     CommandBlock limit = new CommandBlock(":lim 2");
     CommandBlock code = new CommandBlock("rt :lim");
     doTimes = new DoTimes(controller, limit, code);

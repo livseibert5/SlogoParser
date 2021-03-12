@@ -22,12 +22,13 @@ public class ArcTangentTest {
     assertEquals(0, arctan.execute(turtle));
   }
 
-  /*
+
   @Test
   void testArcTan45() {
     arctan = new ArcTangent(new Constant(45));
     assertEquals(88.727, Math.round(arctan.execute(turtle) * 1000.0)/1000.0);
   }
+  /*
 
   @Test
   void testArcTan90() {

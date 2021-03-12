@@ -7,6 +7,8 @@ import slogo.controller.Controller;
 import slogo.model.CommandBlock;
 import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.backendexceptions.MathException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -29,7 +31,7 @@ public class IfTest {
 
   @Test
   void ifBlockExecutes()
-      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
     Constant trueVar = new Constant(1);
     CommandBlock runTrue = new CommandBlock("fd 50");
     ifCommand = new If(controller, trueVar, runTrue);
@@ -38,7 +40,7 @@ public class IfTest {
 
   @Test
   void ifBlockDoesntExecute()
-      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
     Constant trueVar = new Constant(0);
     CommandBlock runTrue = new CommandBlock("fd 50");
     ifCommand = new If(controller, trueVar, runTrue);

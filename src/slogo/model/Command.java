@@ -1,6 +1,7 @@
 package slogo.model;
 
 import java.lang.reflect.InvocationTargetException;
+import slogo.model.backendexceptions.MathException;
 
 /**
  * Command is the interface that all other Command classes implement.
@@ -21,5 +22,5 @@ public interface Command {
    * @throws IllegalAccessException
    */
   double execute(Turtle turtle)
-      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException;
 }

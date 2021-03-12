@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.CommandBlock;
+import slogo.model.backendexceptions.MathException;
 import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 import slogo.model.Variable;
@@ -22,7 +23,7 @@ public class DoTimes implements Command {
 
   @Override
   public double execute(Turtle turtle)
-      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
     String[] doTimesPieces = limit.toString().split(" ");
     String varName = doTimesPieces[0];
     String newCommand = "set " + limit.toString();
