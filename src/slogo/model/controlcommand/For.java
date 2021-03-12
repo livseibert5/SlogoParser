@@ -39,7 +39,7 @@ public class For implements Command {
   /**
    * Configures the loop variables and then runs the commandBlock the given number
    * of times, updating the variable on each loop.
-   *    
+   *
    * @param turtle turtle object to execute command on
    * @return
    * @throws ClassNotFoundException

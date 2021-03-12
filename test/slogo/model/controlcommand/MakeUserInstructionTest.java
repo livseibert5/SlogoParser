@@ -1,8 +1,12 @@
 package slogo.model.controlcommand;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
+import slogo.model.CommandBlock;
 import slogo.model.Turtle;
 
 /**
@@ -24,7 +28,12 @@ public class MakeUserInstructionTest {
   }
 
   @Test
-  void makeNewCommand() {
-
+  void makeNewCommand()
+      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    String name = "dash";
+    CommandBlock header = new CommandBlock(":count");
+    CommandBlock body = new CommandBlock("repeat :count [ pu fd 4 pd fd 4 ]");
+    makeUserInstruction = new MakeUserInstruction(controller, name, header, body);
+    assertEquals(1, makeUserInstruction.execute(turtle));
   }
 }
