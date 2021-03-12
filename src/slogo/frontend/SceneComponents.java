@@ -30,6 +30,7 @@ public class SceneComponents {
 
     public SceneComponents(Group myRoot) {
         this.root = myRoot;
+        addEverything();
     }
     public void addEverything() {
         addTurtleWindow();

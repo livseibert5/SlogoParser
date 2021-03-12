@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import slogo.frontend.CreateScene;
 import slogo.frontend.SceneComponents;
+import slogo.frontend.WindowControl;
 
 /**
  * Initializes window.
@@ -19,11 +20,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
-        CreateScene newScene = new CreateScene(stage);
-        Scene scene = newScene.makeScene();
-        newScene.displayStage(scene);
-        SceneComponents components = new SceneComponents(newScene.getRoot());
-        components.addEverything();
+        WindowControl window = new WindowControl(stage);
     }
     public static void main (String[] args) {
         launch(args);
