@@ -152,70 +152,34 @@ public class Parser {
     while (!commandStack.isEmpty()) {
       if (commandStack.peek() instanceof String && resources.containsKey((String) commandStack.peek())) {
         Object command = commandStack.pop();
-        //System.out.println("popping " + command);
         poppedStack.push(command);
-        //System.out.println(commandStack.size());
+        System.out.println("command stack size: " + commandStack.size());
+        printCommandStack(commandStack);
+        System.out.println("popped stack size: " + poppedStack.size());
+        printCommandStack(poppedStack);
         List<Object> args = new ArrayList<>();
-        //System.out.println(args);
         int numArgs = commandFactory.determineNumberParameters((String) command);
         if (controlCommands.containsKey((String) command)) {
           args.add(controller);
           numArgs--;
         }
-        //System.out.println(commandFactory.determineNumberParameters((String) command));
         if (commandStack.size() >= numArgs) {
           for (int i = 0; i < numArgs; i++) {
             Object popped = commandStack.pop();
             args.add(popped);
           }
         }
-        System.out.println(args);
-        //System.out.println(args);
         try {
-          System.out.println("try");
           Command commandObj = (Command) commandFactory.createCommand((String) command, args);
           System.out.println("execution " + command);
           result = commandObj.execute(turtle);
-          poppedStack.pop();
-          //System.out.println("execution " + command);
           Constant constant = expressionFactory.makeConstant((int) result);
-          //System.out.println("sizw " + commandStack.size());
-          //System.out.println(commandStack);
-          //commandStack.push(constant);
-          //System.out.println("execution " + command);
-          System.out.println("command stack size " + commandStack.size());
-          System.out.println("popped stack size " + poppedStack.size());
-
-          //f (commandStack.isEmpty()) {
-            //System.out.println("here");
-            //System.out.println("opt " + 1);
-            //argumentStack.push(constant);
-            //break;
-          //}
-          //commandStack.push(constant);
-          boolean exists = false;
-          for (Object obj: poppedStack) {
-            if (resources.containsKey((String) obj)) {
-              exists = true;
-            }
-          }
-          for (Object obj: commandStack) {
-            if (resources.containsKey((String) obj)) {
-              exists = true;
-            }
-          }
-          if (exists) {
-            System.out.println("here");
-            poppedStack.push(constant);
-          } else {
-            System.out.println("ret here");
-            return;
-          }
-          while (/*!commandStack.isEmpty() &&*/ !poppedStack.isEmpty()) {
+          poppedStack.pop();
+          commandStack.push(constant);
+          while (!poppedStack.isEmpty()) {
             commandStack.push(poppedStack.pop());
           }
         } catch (Exception e) {
-          //poppedStack.push(command);
           if (controlCommands.containsKey((String) command)) {
             for (int i = args.size() - 1; i >= 1; i--) {
               commandStack.push(args.get(i));
@@ -225,32 +189,10 @@ public class Parser {
               commandStack.push(args.get(i));
             }
           }
-          //poppedStack.push(command);
         }
       } else {
         poppedStack.push(commandStack.pop());
       }
-      /*
-      if (expressionFactoryTypes.containsKey(commandStack.peek().getClass().getName())) {
-        argumentStack.push(commandStack.pop());
-      } else if (controller.getUserDefinedCommandHandler().containsCommand((String) commandStack.peek())) {
-        Object command = commandStack.pop();
-        UserDefinedCommand userCommand = controller.getUserDefinedCommandHandler().getCommand((String) command);
-        List<Object> parameters = generateParameters((String) command,
-            userCommand.getNumberParameters());
-        String newCommand = userCommand.generateCommand(parameters);
-        //System.out.println(newCommand);
-        Constant result = new Constant(parse(newCommand));
-        argumentStack.push(result);
-      } else if (resources.containsKey((String) commandStack.peek())){
-        Object command = commandStack.pop();
-        System.out.println("HERE " + command);
-        List<Object> parameters = generateParameters((String) command, commandFactory.determineNumberParameters((String) command));
-        Command newCommand = (Command) commandFactory.createCommand((String) command, parameters);
-        argumentStack.push(expressionFactory.makeConstant((int) newCommand.execute(turtle)));
-      } else {
-        argumentStack.push(commandStack.pop());
-      }*/
     }
   }
 
@@ -273,6 +215,13 @@ public class Parser {
     }
     return parameters;
   }
+
+  private void printCommandStack(Stack<Object> stack){
+    Object[] arr;
+    arr = stack.toArray(new Object[0]);
+    System.out.println("Stack: " + Arrays.toString(arr));
+  }
+
 
   public static void main(String[] args)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
