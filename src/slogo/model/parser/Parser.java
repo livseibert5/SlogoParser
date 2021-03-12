@@ -8,8 +8,10 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 import slogo.controller.Controller;
 import slogo.model.Command;
-import slogo.model.Expression;
+import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.UserDefinedCommand;
+import slogo.model.backendexceptions.MathException;
 
 /**
  * Parser takes in a user input String from the front end using the .parse function
@@ -25,12 +27,13 @@ public class Parser {
   private Controller controller;
   private ExpressionFactory expressionFactory;
   private Stack<Object> commandStack;
-  private Stack<Object> argumentStack;
+  private Stack<Object> poppedStack;
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
-  ResourceBundle resources = ResourceBundle.getBundle("resources.languages.English");
-  ResourceBundle controlCommands = ResourceBundle.getBundle(RESOURCE_FOLDER + "ControlCommands");
-  ResourceBundle expressionFactoryTypes = ResourceBundle.getBundle(RESOURCE_FOLDER + "ExpressionFactory");
+  private ResourceBundle resources = ResourceBundle.getBundle("resources.languages.English");
+  private ResourceBundle controlCommands = ResourceBundle.getBundle(RESOURCE_FOLDER + "ControlCommands");
+  private ResourceBundle expressionFactoryTypes = ResourceBundle.getBundle(RESOURCE_FOLDER + "ExpressionFactory");
   private Turtle turtle;
+  private double result;
 
   /**
    * When a Parser is instantiated on the front end it is passed a Controller so
@@ -40,19 +43,7 @@ public class Parser {
    */
   public Parser(Controller controller) {
     this.controller = controller;
-    turtle = controller.getTurtleHandler().getTurtle();
-    setUpParser();
-  }
-
-  /**
-   * When a Parser is instantiated within a loop command, the command does not have access to
-   * the controller. However, the command has a reference to the turtle to execute the command on,
-   * so it can pass that turtle to the parser to parse the inner blocks of a loop.
-   *
-   * @param turtle turtle object to execute commands on
-   */
-  public Parser(Turtle turtle) {
-    this.turtle = turtle;
+    turtle = controller.getTurtleHandler().getTurtle(1);
     setUpParser();
   }
 
@@ -61,9 +52,10 @@ public class Parser {
    */
   private void setUpParser() {
     commandStack = new Stack<>();
-    argumentStack = new Stack<>();
+    poppedStack = new Stack<>();
+    result = 0;
     expressionFactory = new ExpressionFactory();
-    regexDetector.addPatterns("English");
+    regexDetector.addPatterns(controller.getLanguage());
     regexDetector.addPatterns("Syntax");
   }
 
@@ -80,11 +72,30 @@ public class Parser {
    * @throws IllegalAccessException
    */
   public int parse(String command)
-      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    String[] commandComponents = command.split(" ");
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
+    String[] commandComponents = removeComments(command).split(" ");
     createCommandStack(commandComponents);
     parseCommandStack();
-    return (int) ((Expression) argumentStack.pop()).getValue();
+    return (int) result;
+  }
+
+  /**
+   * Removes comments from the command so they aren't parsed.
+   *
+   * @param command command to remove comments from
+   * @return command without comments
+   */
+  private String removeComments(String command) {
+    String[] commandLines = command.split("\\n");
+    List<String> newCommandLines = Arrays.asList(commandLines);
+    newCommandLines.stream().filter(line -> !regexDetector.getSymbol(line.split(" ")[0]).equals("Comment"));
+    StringBuilder result = new StringBuilder();
+    for (String line: newCommandLines) {
+      result.append(line);
+      result.append(" ");
+    }
+    result.deleteCharAt(result.length() - 1);
+    return result.toString();
   }
 
   /**
@@ -93,21 +104,23 @@ public class Parser {
    * @param commandComponents list of command components to parse
    */
   private void createCommandStack(String[] commandComponents) {
-    int index = 0;
-    while (index < commandComponents.length) {
+    int index = commandComponents.length - 1;
+    while (index >= 0) {
       String commandType = regexDetector.getSymbol(commandComponents[index]);
-      System.out.println(commandComponents[index]);
+      System.out.println(commandType);
       if (resources.containsKey(commandType)) {
         commandStack.push(commandType);
+      } else if (commandType.equals("Command")) {
+        commandStack.push(commandComponents[index]);
       } else {
         index = handleNonCommandExpressionComponents(commandType, commandComponents, index);
       }
-      index++;
+      index--;
     }
   }
 
   /**
-   * Handles creation of Constants and CommandBlocks.
+   * Handles creation of Constants, CommandBlocks, and Variables.
    *
    * @param commandType type of object to create
    * @param commandComponents list of command pieces
@@ -117,14 +130,13 @@ public class Parser {
   private int handleNonCommandExpressionComponents(String commandType, String[] commandComponents, int index) {
     if (commandType.equals("Constant")) {
       commandStack.push(expressionFactory.makeConstant(Integer.parseInt(commandComponents[index])));
-    } else if (commandType.equals("ListStart")) {
-      int endIndex = expressionFactory.findEndOfCommandBlock(index, commandComponents, regexDetector);
-      List<String> commandList = Arrays.asList(Arrays.copyOfRange(commandComponents, index + 1, endIndex));
+    } else if (commandType.equals("ListEnd")) {
+      int endIndex = expressionFactory.findBeginningOfCommandBlock(index, commandComponents, regexDetector);
+      List<String> commandList = Arrays.asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
       commandStack.push(expressionFactory.makeCommandBlock(commandList));
       return endIndex;
     } else if (commandType.equals("Variable")) {
       commandStack.push(expressionFactory.makeVariable(commandComponents[index], controller.getVariableHandler()));
-      System.out.println("command component " + commandComponents[index]);
     }
     return index;
   }
@@ -139,16 +151,84 @@ public class Parser {
    * @throws InvocationTargetException
    */
   private void parseCommandStack()
-      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
     while (!commandStack.isEmpty()) {
       if (expressionFactoryTypes.containsKey(commandStack.peek().getClass().getName())) {
-        argumentStack.push(commandStack.pop());
+        poppedStack.push(commandStack.pop());
+      } else if (controller.getUserDefinedCommandHandler().containsCommand((String) commandStack.peek())) {
+        executeUserDefinedCommand();
       } else {
-        Object command = commandStack.pop();
-        List<Object> parameters = generateParameters((String) command, commandFactory.determineNumberParameters((String) command));
-        Command newCommand = (Command) commandFactory.createCommand((String) command, parameters);
-        argumentStack.push(expressionFactory.makeConstant((int) newCommand.execute(turtle)));
+        executeSlogoCommand();
       }
+    }
+  }
+
+  /**
+   * Runs a user defined command with the values input at runtime.
+   *
+   * @throws ClassNotFoundException
+   * @throws NoSuchMethodException
+   * @throws MathException
+   * @throws InstantiationException
+   * @throws IllegalAccessException
+   * @throws InvocationTargetException
+   */
+  private void executeUserDefinedCommand()
+      throws ClassNotFoundException, NoSuchMethodException, MathException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    Object command = commandStack.pop();
+    UserDefinedCommand userCommand = controller.getUserDefinedCommandHandler().getCommand((String) command);
+    List<Object> parameters = generateParameters((String) command,
+        userCommand.getNumberParameters());
+    String newCommand = userCommand.generateCommand(parameters);
+    Constant result = new Constant(parse(newCommand));
+    endCommand(result);
+  }
+
+  /**
+   * Executes a slogo command.
+   *
+   * @throws ClassNotFoundException
+   */
+  private void executeSlogoCommand() throws ClassNotFoundException {
+    Object command = commandStack.pop();
+    poppedStack.push(command);
+    int numArgs = commandFactory.determineNumberParameters((String) command);
+    List<Object> args = generateParameters((String) command, numArgs);
+    try {
+      Command commandObj = (Command) commandFactory.createCommand((String) command, args);
+      result = commandObj.execute(turtle);
+      Constant constant = expressionFactory.makeConstant((int) result);
+      System.out.println(constant.getValue());
+      poppedStack.pop();
+      endCommand(constant);
+    } catch (Exception e) {
+      resetArguments((String) command, args);
+    }
+  }
+
+  /**
+   * Handles the rest of command stack after a command is executed.
+   *
+   * @param result constant containing return value of command execution
+   */
+  private void endCommand(Constant result) {
+    commandStack.push(result);
+    while (!poppedStack.isEmpty()) {
+      commandStack.push(poppedStack.pop());
+    }
+  }
+
+  /**
+   * Puts arguments back on the commandStack if they are not the right arguments
+   * for the command.
+   *
+   * @param command command attempted to execute
+   * @param args list of arguments given to command
+   */
+  private void resetArguments(String command, List<Object> args) {
+    int lowerBound = controlCommands.containsKey(command) ? 1 : 0;
+    for (int i = args.size() - 1; i >= lowerBound; i--) {
+      commandStack.push(args.get(i));
     }
   }
 
@@ -156,28 +236,20 @@ public class Parser {
    * Creates the list of parameters for a new command object.
    *
    * @param command type of command to be created
-   * @param numParameters number of parameters command expects
    * @return list of parameters for command
    */
-  private List<Object> generateParameters(String command, int numParameters) {
-    List<Object> parameters = new ArrayList<>();
+  private List<Object> generateParameters(String command, int numArgs) {
+    List<Object> args = new ArrayList<>();
     if (controlCommands.containsKey(command)) {
-      parameters.add(controller);
-      numParameters--;
+      args.add(controller);
+      numArgs--;
     }
-    for (int i = 0; i < numParameters; i++) {
-      parameters.add(argumentStack.pop());
+    if (commandStack.size() >= numArgs) {
+      for (int i = 0; i < numArgs; i++) {
+        Object popped = commandStack.pop();
+        args.add(popped);
+      }
     }
-    return parameters;
-  }
-
-  public static void main(String[] args)
-      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    Parser parser = new Parser(new Controller());
-    //System.out.println(parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]"));
-    //System.out.println();
-    //System.out.println(parser.parse("make :random sum 1 random 100"));
-    //System.out.println(parser.parse("fd :random"));
-    System.out.println(parser.parse("dotimes [ :t 360 ] [ fd 1 rt / sin :t 2 ]"));
+    return args;
   }
 }

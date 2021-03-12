@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import slogo.model.Turtle;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 /**
  * Tests for HideTurtle class.
  *

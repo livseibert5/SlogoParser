@@ -1,8 +1,8 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 /**
  * SetPosition class is the Command subclass that lets the user specify new x and y coordinates for
@@ -22,7 +22,7 @@ public class SetPosition implements Command {
    * @param argumentX Constant with new x coordinate
    * @param argumentY Constant with new y coordinate
    */
-  public SetPosition(Constant argumentX, Constant argumentY) {
+  public SetPosition(Value argumentX, Value argumentY) {
     this.argumentX = argumentX.getValue();
     this.argumentY = argumentY.getValue();
   }

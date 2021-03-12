@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import slogo.controller.Controller;
 import slogo.model.backendexceptions.RegexDetectorError;
 
 /**

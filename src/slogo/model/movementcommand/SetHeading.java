@@ -3,6 +3,7 @@ package slogo.model.movementcommand;
 import slogo.model.Command;
 import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 /**
  * SetHeading is the Command subclass that lets the user set a new orientation for
@@ -20,7 +21,7 @@ public class SetHeading implements Command {
      *
      * @param orientation Constant containing value for new orientation
      */
-    public SetHeading(Constant orientation){
+    public SetHeading(Value orientation){
         this.orientation = orientation.getValue();
     }
 

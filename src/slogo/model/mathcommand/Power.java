@@ -1,15 +1,15 @@
 package slogo.model.mathcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 public class Power implements Command{
 
   private final double base;
   private final double exponent;
 
-  public Power(Constant base, Constant exponent){
+  public Power(Value base, Value exponent){
     this.base = base.getValue();
     this.exponent = exponent.getValue();
   }
