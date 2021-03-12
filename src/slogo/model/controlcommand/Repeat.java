@@ -24,10 +24,11 @@ public class Repeat implements Command {
   @Override
   public double execute(Turtle turtle)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
+    int parserOutput = 0;
     Parser parser = new Parser(controller);
     for(int i = 0; i < count; i++){
-      parser.parse(list.toString());
+      parserOutput = parser.parse(list.toString());
     }
-    return 0;
+    return parserOutput;
   }
 }
