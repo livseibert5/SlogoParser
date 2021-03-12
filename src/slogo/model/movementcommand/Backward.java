@@ -1,8 +1,8 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 /**
  * Backward class is the Command subclass that determines the end location of the turtle when moved
@@ -20,7 +20,7 @@ public class Backward extends MovementCommand implements Command {
    *
    * @param pixels Constant that contains the number of pixels to move
    */
-  public Backward(Constant pixels) {
+  public Backward(Value pixels) {
     this.pixels = pixels.getValue();
   }
 

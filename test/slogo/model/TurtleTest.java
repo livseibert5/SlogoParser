@@ -1,11 +1,22 @@
 package slogo.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for Turtle class.
+ *
+ * @author Livia Seibert
+ */
 public class TurtleTest {
 
-  private Turtle turtle = new Turtle();
+  private Turtle turtle;
+
+  @BeforeEach
+  void setUp() {
+    turtle = new Turtle();
+  }
 
   @Test
   void setOrientationGreaterThan360() {

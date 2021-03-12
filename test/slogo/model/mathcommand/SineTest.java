@@ -34,6 +34,34 @@ public class SineTest {
     assertEquals(1, sin.execute(turtle));
   }
 
+  @Test
+  void testSin135() {
+    sin = new Sine(new Constant(135));
+    assertEquals(0.707, Math.round(sin.execute(turtle) * 1000.0)/1000.0);
+  }
 
+  @Test
+  void testSin180() {
+    sin = new Sine(new Constant(180));
+    assertEquals(0, Math.round(sin.execute(turtle)));
+  }
+
+  @Test
+  void testSin225() {
+    sin = new Sine(new Constant(225));
+    assertEquals(-0.707, Math.round(sin.execute(turtle) * 1000.0)/1000.0);
+  }
+
+  @Test
+  void testSin270() {
+    sin = new Sine(new Constant(270));
+    assertEquals(-1, sin.execute(turtle));
+  }
+
+  @Test
+  void testSin315() {
+    sin = new Sine(new Constant(315));
+    assertEquals(-0.707, Math.round(sin.execute(turtle) * 1000.0)/1000.0);
+  }
 
 }

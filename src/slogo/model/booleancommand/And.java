@@ -1,8 +1,8 @@
 package slogo.model.booleancommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 /**
  * And class is the Command subclass that returns 1 if both constants are non-zero and
@@ -21,7 +21,7 @@ public class And implements Command {
    * @param argument1 first constant to compare
    * @param argument2 second constant to compare
    */
-  public And(Constant argument1, Constant argument2) {
+  public And(Value argument1, Value argument2) {
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();
   }

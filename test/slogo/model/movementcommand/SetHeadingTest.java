@@ -5,6 +5,11 @@ import slogo.model.Constant;
 import slogo.model.Turtle;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for SetHeading class.
+ *
+ * @author Rachel Luria
+ */
 public class SetHeadingTest {
 
   private Turtle turtle = new Turtle();

@@ -1,8 +1,8 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 /**
  * SetTowards is the Command subclass that lets the user specify a coordinate that it
@@ -15,7 +15,7 @@ public class SetTowards implements Command {
     double x;
     double y;
 
-    public SetTowards(Constant argument1, Constant argument2){
+    public SetTowards(Value argument1, Value argument2){
         this.x = argument1.getValue();
         this.y = argument2.getValue();
     }

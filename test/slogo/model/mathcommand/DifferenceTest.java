@@ -2,11 +2,9 @@ package slogo.model.mathcommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.model.Constant;
 import slogo.model.Turtle;
-import slogo.model.movementcommand.Left;
 
 /**
  * Tests for Difference class.
