@@ -144,6 +144,7 @@ public class TurtleDisplay implements PropertyChangeListener {
    */
   private void setLineColor(Color newColor) {
     lineColor = newColor;
+    System.out.printf("new color!");
   }
 
   public void propertyChange(PropertyChangeEvent event) {

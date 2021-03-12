@@ -15,14 +15,15 @@ import slogo.frontend.WindowControl;
  */
 public class Main extends Application {
 
-    /**
-     * Start of the program.
-     */
-    @Override
-    public void start(Stage stage) {
-        WindowControl window = new WindowControl(stage);
-    }
-    public static void main (String[] args) {
-        launch(args);
-    }
+  public static void main(String[] args) {
+    launch(args);
+  }
+
+  /**
+   * Start of the program.
+   */
+  @Override
+  public void start(Stage stage) {
+    WindowControl window = new WindowControl(stage);
+  }
 }

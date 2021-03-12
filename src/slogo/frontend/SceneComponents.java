@@ -1,5 +1,7 @@
 package slogo.frontend;
 
+import java.beans.PropertyChangeListener;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -15,131 +17,155 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import slogo.Observable;
 
-public class SceneComponents {
-    private final Group root;
-    private TextArea commandLine;
-    private static final int DEFAULT_HEIGHT = 750;
-    private static final int DEFAULT_WIDTH = 1350;
-    private static final int WINDOW_SIZE = 600;
-    private static final int DEFAULT_BORDER = 50;
-    public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
-    private final ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "text");
-    private final ResourceBundle myLanguages = ResourceBundle.getBundle("resources.languages.LangaugeOptions");
-    private final Rectangle turtleBox = new Rectangle(WINDOW_SIZE, WINDOW_SIZE, Color.WHITE);
+public class SceneComponents extends Observable {
 
-    public SceneComponents(Group myRoot) {
-        this.root = myRoot;
-        addEverything();
-    }
-    public void addEverything() {
-        addTurtleWindow();
-        makeCommandField();
-        makeVariableView();
-        makeUserCommandView();
-        addButtons();
-        addColorPickers();
-        makeLanguageDropDown();
-    }
+  private final Group root;
+  private TextArea commandLine;
+  private static final int DEFAULT_HEIGHT = 750;
+  private static final int DEFAULT_WIDTH = 1350;
+  private static final int WINDOW_SIZE = 600;
+  private static final int DEFAULT_BORDER = 50;
+  public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
+  private final ResourceBundle myResources = ResourceBundle
+      .getBundle(DEFAULT_RESOURCE_PACKAGE + "text" );
+  private final ResourceBundle myLanguages = ResourceBundle
+      .getBundle("resources.languages.LangaugeOptions" );
+  private final Rectangle turtleBox = new Rectangle(WINDOW_SIZE, WINDOW_SIZE, Color.WHITE);
 
-    private void makeCommandField() {
-        commandLine = new TextArea();
-        commandLine.setPromptText("Type Commands Here");
-        commandLine.setPrefHeight(WINDOW_SIZE/2);
-        commandLine.setPrefWidth(WINDOW_SIZE);
-        commandLine.relocate(DEFAULT_BORDER,DEFAULT_HEIGHT - commandLine.getPrefHeight() - 2*DEFAULT_BORDER); //change this to avoid "magic numbers
-        root.getChildren().add(commandLine);
-    }
+  private Color oldLineColor = Color.BLACK;
 
-    private Button makeButton(String name, double x, double y, EventHandler<ActionEvent> handler) {
-        Button result = new Button();
-        String label = myResources.getString(name);
-        result.setId(label);
-        result.setText(label);
-        result.setOnAction(handler);
-        result.relocate(x, y);
-        return result;
-    }
+  public SceneComponents(Group myRoot, List<PropertyChangeListener> listeners) {
+    this.root = myRoot;
+    addEverything();
+    addAllListeners(listeners);
+  }
 
-    private void addButtons() {
-        Button help = makeButton("Help", turtleBox.getX() + turtleBox.getWidth()/2, DEFAULT_HEIGHT - DEFAULT_BORDER, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Stage stage = new Stage();
-                stage.setScene(makeHelpScene());
-                stage.setTitle("Help");
-                stage.show();
-            }
+  private void addAllListeners(List<PropertyChangeListener> listeners) {
+      for (PropertyChangeListener l : listeners) {
+          addListener(l);
+      }
+  }
+
+  public void addEverything() {
+    addTurtleWindow();
+    makeCommandField();
+    makeVariableView();
+    makeUserCommandView();
+    addButtons();
+    addColorPickers();
+    makeLanguageDropDown();
+  }
+
+  private void makeCommandField() {
+    commandLine = new TextArea();
+    commandLine.setPromptText("Type Commands Here" );
+    commandLine.setPrefHeight(WINDOW_SIZE / 2);
+    commandLine.setPrefWidth(WINDOW_SIZE);
+    commandLine.relocate(DEFAULT_BORDER, DEFAULT_HEIGHT - commandLine.getPrefHeight()
+        - 2 * DEFAULT_BORDER); //change this to avoid "magic numbers
+    root.getChildren().add(commandLine);
+  }
+
+  private Button makeButton(String name, double x, double y, EventHandler<ActionEvent> handler) {
+    Button result = new Button();
+    String label = myResources.getString(name);
+    result.setId(label);
+    result.setText(label);
+    result.setOnAction(handler);
+    result.relocate(x, y);
+    return result;
+  }
+
+  private void addButtons() {
+    Button help = makeButton("Help", turtleBox.getX() + turtleBox.getWidth() / 2,
+        DEFAULT_HEIGHT - DEFAULT_BORDER, new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+            Stage stage = new Stage();
+            stage.setScene(makeHelpScene());
+            stage.setTitle("Help" );
+            stage.show();
+          }
         });
-        Button enter = makeButton("Enter", WINDOW_SIZE/2, DEFAULT_HEIGHT - DEFAULT_BORDER * 1.5, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+    Button enter = makeButton("Enter", WINDOW_SIZE / 2, DEFAULT_HEIGHT - DEFAULT_BORDER * 1.5,
+        new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
 
-            }
+          }
         });
-        root.getChildren().addAll(help, enter);
-    }
+    root.getChildren().addAll(help, enter);
+  }
 
-    private ColorPicker makeColorPicker(Shape shape, double x, double y) {
-        final ColorPicker colorPicker = new ColorPicker();
-        colorPicker.setOnAction(new EventHandler() {
-            public void handle(Event t) {
-                shape.setFill(colorPicker.getValue());
-            }
-        });
-        colorPicker.relocate(x, y);
-        return colorPicker;
-    }
+  private void makeColorPicker(ColorPicker colorPicker, double x, double y, EventHandler event) {
+    //final ColorPicker colorPicker = new ColorPicker();
+    colorPicker.setOnAction(event);
+    colorPicker.relocate(x, y);
+    //return colorPicker;
+  }
 
-    private void addColorPickers() {
-        double x = turtleBox.getX() + + DEFAULT_BORDER + turtleBox.getWidth()/2;
-        Text backgroundTitle = new Text(x, DEFAULT_BORDER/3, "Select Background Color:");
-        backgroundTitle.setId("colorlabel");
-        ColorPicker background = makeColorPicker(turtleBox, x, DEFAULT_BORDER/2); //update this location
-        //ColorPicker pen = makeColorPicker();
-        root.getChildren().addAll(backgroundTitle, background);
-    }
+  private void addColorPickers() {
+    double x = turtleBox.getX() + +DEFAULT_BORDER + turtleBox.getWidth() / 2;
+    Text backgroundTitle = new Text(x, DEFAULT_BORDER / 3, "Select Background Color:" );
+    backgroundTitle.setId("colorlabel" );
+    //ColorPicker background = makeColorPicker(turtleBox, x, DEFAULT_BORDER / 2); //update this location
+    final ColorPicker pen = new ColorPicker();
+    makeColorPicker(pen,0, 200, new EventHandler() {
+        @Override
+        public void handle(Event event) {
+            notifyListeners("LINECOLOR", oldLineColor, pen.getValue());
+            oldLineColor = pen.getValue();
+        }
+    });
+    //root.getChildren().addAll(backgroundTitle, background);
+      root.getChildren().add(pen);
+  }
 
-    private void addTurtleWindow() {
-        turtleBox.setFill(Color.WHITE);
-        turtleBox.setStroke(Color.BLACK);
-        turtleBox.setStrokeWidth(2);
-        turtleBox.setX(DEFAULT_WIDTH - turtleBox.getWidth() - DEFAULT_BORDER);
-        turtleBox.setY((DEFAULT_HEIGHT - turtleBox.getHeight())/2);
-        root.getChildren().add(turtleBox);
-    }
-    private Scene makeHelpScene() {
-        Group root = new Group();
-        Scene scene = new Scene(root, WINDOW_SIZE, WINDOW_SIZE);
-        //scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
-        return scene;
-    }
-    private void makeVariableView() {
-        TableView table = new TableView();
-        TableColumn name = new TableColumn("Name");
-        TableColumn type = new TableColumn("Type");
-        TableColumn value = new TableColumn("Value");
-        table.getColumns().addAll(name, type, value);
-        table.setPrefSize((WINDOW_SIZE - DEFAULT_BORDER)/2, (WINDOW_SIZE - DEFAULT_BORDER)/2);
-        table.relocate(DEFAULT_BORDER, DEFAULT_BORDER);
-        root.getChildren().add(table);
-    }
-    private void makeUserCommandView() {
-        TableView table = new TableView();
-        TableColumn command = new TableColumn("Command");
-        TableColumn definition = new TableColumn("Definition");
-        table.getColumns().addAll(command, definition);
-        table.setPrefSize((WINDOW_SIZE - DEFAULT_BORDER)/2, (WINDOW_SIZE - DEFAULT_BORDER)/2);
-        table.relocate(DEFAULT_BORDER*2 + table.getPrefWidth(), DEFAULT_BORDER);
-        root.getChildren().add(table);
-    }
+  private void addTurtleWindow() {
+    turtleBox.setFill(Color.WHITE);
+    turtleBox.setStroke(Color.BLACK);
+    turtleBox.setStrokeWidth(2);
+    turtleBox.setX(DEFAULT_WIDTH - turtleBox.getWidth() - DEFAULT_BORDER);
+    turtleBox.setY((DEFAULT_HEIGHT - turtleBox.getHeight()) / 2);
+    root.getChildren().add(turtleBox);
+  }
 
-    private void makeLanguageDropDown() {
-        ArrayList<String> list = new ArrayList<>(myLanguages.keySet());
-        ComboBox<String> languages = new ComboBox<String>(FXCollections.observableList(list));
-        languages.setValue("English");
-        root.getChildren().add(languages);
-    }
+  private Scene makeHelpScene() {
+    Group root = new Group();
+    Scene scene = new Scene(root, WINDOW_SIZE, WINDOW_SIZE);
+    //scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
+    return scene;
+  }
+
+  private void makeVariableView() {
+    TableView table = new TableView();
+    TableColumn name = new TableColumn("Name" );
+    TableColumn type = new TableColumn("Type" );
+    TableColumn value = new TableColumn("Value" );
+    table.getColumns().addAll(name, type, value);
+    table.setPrefSize((WINDOW_SIZE - DEFAULT_BORDER) / 2, (WINDOW_SIZE - DEFAULT_BORDER) / 2);
+    table.relocate(DEFAULT_BORDER, DEFAULT_BORDER);
+    root.getChildren().add(table);
+  }
+
+  private void makeUserCommandView() {
+    TableView table = new TableView();
+    TableColumn command = new TableColumn("Command" );
+    TableColumn definition = new TableColumn("Definition" );
+    table.getColumns().addAll(command, definition);
+    table.setPrefSize((WINDOW_SIZE - DEFAULT_BORDER) / 2, (WINDOW_SIZE - DEFAULT_BORDER) / 2);
+    table.relocate(DEFAULT_BORDER * 2 + table.getPrefWidth(), DEFAULT_BORDER);
+    root.getChildren().add(table);
+  }
+
+  private void makeLanguageDropDown() {
+    ArrayList<String> list = new ArrayList<>(myLanguages.keySet());
+    ComboBox<String> languages = new ComboBox<String>(FXCollections.observableList(list));
+    languages.setValue("English" );
+    root.getChildren().add(languages);
+  }
 
 }
 

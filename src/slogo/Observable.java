@@ -13,7 +13,7 @@ import java.util.List;
 public class Observable<T> {
   private List<PropertyChangeListener> myListeners;
 
-  private Observable() {
+  public Observable() {
     myListeners = new ArrayList<>();
   }
 
@@ -23,11 +23,17 @@ public class Observable<T> {
    * @param newListener used to listener
    * @throws Exception null pointer exception
    */
-  public void addListener(PropertyChangeListener newListener) throws Exception {
+  public void addListener(PropertyChangeListener newListener) {
+    /*
     try {
       myListeners.add(newListener);
     } catch (NullPointerException e) {
       throw new Exception("Null listener passed.");
+    }
+
+     */
+    if (newListener != null) {
+      myListeners.add(newListener);
     }
   }
 
