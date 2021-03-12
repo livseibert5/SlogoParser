@@ -84,4 +84,11 @@ public class ParserTest {
       throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
     assertEquals(12, parser.parse("for [ :dist 1 5 1 ] [ fd :dist rt product :dist 3 ]"));
   }
+
+  @Test
+  void removesComments()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    String command = "# fd 30\nfd 50";
+    assertEquals(50, parser.parse(command));
+  }
 }

@@ -73,10 +73,29 @@ public class Parser {
    */
   public int parse(String command)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
-    String[] commandComponents = command.split(" ");
+    String[] commandComponents = removeComments(command).split(" ");
     createCommandStack(commandComponents);
     parseCommandStack();
     return (int) result;
+  }
+
+  /**
+   * Removes comments from the command so they aren't parsed.
+   *
+   * @param command command to remove comments from
+   * @return command without comments
+   */
+  private String removeComments(String command) {
+    String[] commandLines = command.split("\\n");
+    List<String> newCommandLines = Arrays.asList(commandLines);
+    newCommandLines.stream().filter(line -> !regexDetector.getSymbol(line.split(" ")[0]).equals("Comment"));
+    StringBuilder result = new StringBuilder();
+    for (String line: newCommandLines) {
+      result.append(line);
+      result.append(" ");
+    }
+    result.deleteCharAt(result.length() - 1);
+    return result.toString();
   }
 
   /**
