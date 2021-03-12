@@ -68,6 +68,16 @@ public class UserDefinedCommand {
         commandBody[i] = runtimeArgs.get(commandBody[i]).toString();
       }
     }
+    return buildString(commandBody);
+  }
+
+  /**
+   * Turns array of commands back into a command string.
+   *
+   * @param commandBody list of commands to include in the string
+   * @return new command string
+   */
+  private String buildString(String[] commandBody) {
     StringBuilder result = new StringBuilder();
     for (String commandItem: commandBody) {
       result.append(commandItem);
