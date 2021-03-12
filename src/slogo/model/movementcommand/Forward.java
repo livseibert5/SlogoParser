@@ -1,8 +1,8 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 /**
  * Forward class is the Command subclass that determines the end location of
@@ -20,7 +20,7 @@ public class Forward extends MovementCommand implements Command {
    *
    * @param pixels Constant containing the number of pixels to move the turtle
    */
-  public Forward(Constant pixels) {
+  public Forward(Value pixels) {
     this.pixels = pixels.getValue();
   }
 

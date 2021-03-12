@@ -1,8 +1,8 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 /**
  * Left class is the Command subclass that determines the end location of
@@ -20,7 +20,7 @@ public class Left extends MovementCommand implements Command {
      *
      * @param degrees Constant containing the number of pixels to move the turtle
      */
-    public Left(Constant degrees) {
+    public Left(Value degrees) {
         this.degrees = degrees.getValue();
     }
 
