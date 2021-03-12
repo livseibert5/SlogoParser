@@ -20,12 +20,32 @@ public class Repeat implements Command {
   private CommandBlock list;
   private Controller controller;
 
+  /**
+   * Repeat constructor needs a controller to execute the command body, an argument to
+   * know how many times to run, and a list of commands to run the given number of times.
+   *
+   * @param controller controller for the current game
+   * @param argument number of times to run the code block
+   * @param list list of commands to run each time
+   */
   public Repeat(Controller controller, Constant argument, CommandBlock list) {
     count = (int) argument.getValue();
     this.controller = controller;
     this.list = list;
   }
 
+  /**
+   * Determines how many times to run the code block and then executes the loop.
+   *
+   * @param turtle turtle object to execute command on
+   * @return result of last command
+   * @throws ClassNotFoundException
+   * @throws NoSuchMethodException
+   * @throws InvocationTargetException
+   * @throws InstantiationException
+   * @throws IllegalAccessException
+   * @throws MathException
+   */
   @Override
   public double execute(Turtle turtle)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {

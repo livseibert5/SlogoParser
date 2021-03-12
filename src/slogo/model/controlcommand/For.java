@@ -10,18 +10,45 @@ import slogo.model.Variable;
 import slogo.model.backendexceptions.MathException;
 import slogo.model.parser.Parser;
 
+/**
+ * For is the command subclass that runs for each value specified in the range start-end
+ * going by increment.
+ *
+ * @author Livia Seibert
+ */
 public class For implements Command {
 
   private Controller controller;
   private CommandBlock header;
   private CommandBlock body;
 
+  /**
+   * For constructor needs a controller to parse the command body of the for loop, a header
+   * to determine the bounds and increment of the for loop, and a body block to execute.
+   *
+   * @param controller controller of current game
+   * @param header command block with information on the bounds and increment of the loop
+   * @param body block of code to execute on each loop
+   */
   public For(Controller controller, CommandBlock header, CommandBlock body) {
     this.controller =  controller;
     this.header = header;
     this.body = body;
   }
 
+  /**
+   * Configures the loop variables and then runs the commandBlock the given number
+   * of times, updating the variable on each loop.
+   *    
+   * @param turtle turtle object to execute command on
+   * @return
+   * @throws ClassNotFoundException
+   * @throws NoSuchMethodException
+   * @throws InvocationTargetException
+   * @throws InstantiationException
+   * @throws IllegalAccessException
+   * @throws MathException
+   */
   @Override
   public double execute(Turtle turtle)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {

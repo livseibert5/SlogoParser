@@ -6,7 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
-import slogo.model.Command;
 import slogo.model.CommandBlock;
 import slogo.model.Turtle;
 import slogo.model.backendexceptions.MathException;

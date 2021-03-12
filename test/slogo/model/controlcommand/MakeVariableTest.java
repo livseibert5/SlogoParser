@@ -23,4 +23,8 @@ public class MakeVariableTest {
     turtle = controller.getTurtleHandler().getTurtle(1);
   }
 
+  @Test
+  void makeNewVariable() {
+
+  }
 }

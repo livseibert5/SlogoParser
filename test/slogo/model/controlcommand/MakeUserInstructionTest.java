@@ -1,6 +1,7 @@
 package slogo.model.controlcommand;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
 import slogo.model.Turtle;
 
@@ -20,5 +21,10 @@ public class MakeUserInstructionTest {
     controller = new Controller();
     controller.getTurtleHandler().addTurtle(1, new Turtle());
     turtle = controller.getTurtleHandler().getTurtle(1);
+  }
+
+  @Test
+  void makeNewCommand() {
+
   }
 }
