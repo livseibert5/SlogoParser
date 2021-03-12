@@ -1,5 +1,6 @@
 package slogo.frontend;
 
+import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -25,16 +26,23 @@ public class TurtleDisplay {
 
   private Color lineColor;
 
+  private PropertyChangeSupport lineColorSupport;
+
   /**
    * Constructor for TurtleDisplay. Takes in map of turtles from Controller.
    *
-   * @param turtles from backend
+   * @param turtle from backend
    */
   public TurtleDisplay(Turtle turtle, Group root) {
     turtleMap.put(1, turtle);
     updateImageMap();
     myRoot = root;
     lineColor = Color.BLACK;
+    lineColorSupport = new PropertyChangeSupport(this);
+  }
+
+  private void configureSupport() {
+    lineColorSupport.addPropertyChangeListener();
   }
 
   /**
