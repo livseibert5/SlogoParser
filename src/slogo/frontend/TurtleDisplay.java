@@ -74,7 +74,7 @@ public class TurtleDisplay implements PropertyChangeListener {
    *
    * @param id turtle id in hashmaps
    */
-  private void updateTurtleView(int id) {
+  public void updateTurtleView(int id) {
     Turtle updatedTurtle = turtleMap.get(id);
     ImageView currTurtleView = turtleViewMap.get(id);
 
