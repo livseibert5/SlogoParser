@@ -1,5 +1,6 @@
 package slogo.frontend;
 
+import javafx.scene.Group;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
 import slogo.model.parser.Parser;
@@ -14,8 +15,8 @@ public class WindowControl {
 
   public static final String TITLE = "SLogo";
 
-  private Stage myStage;
   private CreateScene myScene;
+  private Group root = new Group();
 
   private Controller myController;
   private Parser myParser;
@@ -31,17 +32,11 @@ public class WindowControl {
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
    */
-  public WindowControl() {
-    myStage = new Stage();
-    myStage.setResizable(false);
+  public WindowControl(Stage myStage) {
 
-    //myStage.setScene(myScene.getScene());
-    myStage.setTitle(TITLE);
-    myStage.show();
-
-    myScene = new CreateScene(myStage);
+    myScene = new CreateScene(myStage, root);
     myController = new Controller();
     myParser = new Parser(myController);
-    myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler().getTurtle(1), myScene.getRoot());
+    myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler().getTurtle(1), root);
   }
 }

@@ -30,11 +30,13 @@ public class SceneComponents {
 
     public SceneComponents(Group myRoot) {
         this.root = myRoot;
+        addEverything();
     }
     public void addEverything() {
         addTurtleWindow();
         makeCommandField();
         makeVariableView();
+        makeUserCommandView();
         addButtons();
         addColorPickers();
         makeLanguageDropDown();
@@ -43,7 +45,6 @@ public class SceneComponents {
     private void makeCommandField() {
         commandLine = new TextArea();
         commandLine.setPromptText("Type Commands Here");
-        //specifics about the Text Area
         commandLine.setPrefHeight(WINDOW_SIZE/2);
         commandLine.setPrefWidth(WINDOW_SIZE);
         commandLine.relocate(DEFAULT_BORDER,DEFAULT_HEIGHT - commandLine.getPrefHeight() - 2*DEFAULT_BORDER); //change this to avoid "magic numbers
@@ -115,13 +116,27 @@ public class SceneComponents {
     }
     private void makeVariableView() {
         TableView table = new TableView();
-
+        TableColumn name = new TableColumn("Name");
+        TableColumn type = new TableColumn("Type");
+        TableColumn value = new TableColumn("Value");
+        table.getColumns().addAll(name, type, value);
+        table.setPrefSize((WINDOW_SIZE - DEFAULT_BORDER)/2, (WINDOW_SIZE - DEFAULT_BORDER)/2);
+        table.relocate(DEFAULT_BORDER, DEFAULT_BORDER);
+        root.getChildren().add(table);
+    }
+    private void makeUserCommandView() {
+        TableView table = new TableView();
+        TableColumn command = new TableColumn("Command");
+        TableColumn definition = new TableColumn("Definition");
+        table.getColumns().addAll(command, definition);
+        table.setPrefSize((WINDOW_SIZE - DEFAULT_BORDER)/2, (WINDOW_SIZE - DEFAULT_BORDER)/2);
+        table.relocate(DEFAULT_BORDER*2 + table.getPrefWidth(), DEFAULT_BORDER);
+        root.getChildren().add(table);
     }
 
     private void makeLanguageDropDown() {
-        ArrayList<String> list = new ArrayList<>();
-        list.addAll(myLanguages.keySet());
-        ComboBox languages = new ComboBox(FXCollections.observableList(list));
+        ArrayList<String> list = new ArrayList<>(myLanguages.keySet());
+        ComboBox<String> languages = new ComboBox<String>(FXCollections.observableList(list));
         languages.setValue("English");
         root.getChildren().add(languages);
     }
