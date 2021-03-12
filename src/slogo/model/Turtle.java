@@ -11,6 +11,7 @@ public class Turtle {
   private double orientation;
   private boolean penDown;
   private boolean isShowing;
+  private static final int TURTLE_BOUNDARY = 300;
 
   /**
    * Constructor for Turtle object, puts turtle in the middle of the canvas and
@@ -26,7 +27,7 @@ public class Turtle {
    * Allows Command classes to set a new orientation for the turtle.
    * Makes sure this new orientation is positive and less than 360.
    *
-   * @param orientation new turtle orientation in degreees
+   * @param orientation new turtle orientation in degrees
    */
   public void setOrientation(double orientation) {
     if (orientation > 360) {
@@ -44,8 +45,10 @@ public class Turtle {
    * @param newLocation x-coordinate and y-coordinate of new location for turtle
    */
   public void setLocation(double[] newLocation) {
-    xCoordinate = newLocation[0];
-    yCoordinate = newLocation[1];
+    xCoordinate = newLocation[0] > TURTLE_BOUNDARY ? TURTLE_BOUNDARY : newLocation[0];
+    xCoordinate = newLocation[0] < -1 * TURTLE_BOUNDARY ? -1 * TURTLE_BOUNDARY : xCoordinate;
+    yCoordinate = newLocation[1] > TURTLE_BOUNDARY ? TURTLE_BOUNDARY : newLocation[1];
+    yCoordinate = newLocation[1] < -1 * TURTLE_BOUNDARY ? -1 * TURTLE_BOUNDARY : yCoordinate;
   }
 
   /**
