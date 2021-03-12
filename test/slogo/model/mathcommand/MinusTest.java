@@ -21,7 +21,12 @@ public class MinusTest {
   void testMinusZero() {
     minus = new Minus(new Constant(0));
     assertEquals(0, minus.execute(turtle));
-    //should throw an error
+  }
+
+  @Test
+  void testMinusOne() {
+    minus = new Minus(new Constant(1));
+    assertEquals(-1, minus.execute(turtle));
   }
 
 }

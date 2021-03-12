@@ -14,6 +14,11 @@ public class Minus implements Command{
 
   @Override
   public double execute(Turtle turtle) {
-    return -1 * argument;
+    if(argument == 0){
+      return 0;
+    }
+    else {
+      return -1 * argument;
+    }
   }
 }
