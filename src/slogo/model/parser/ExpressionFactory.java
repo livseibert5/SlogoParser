@@ -66,14 +66,14 @@ public class ExpressionFactory {
    * @param regexDetector regex detector to determine if a bracket is a list ending bracket
    * @return index of end of command block
    */
-  public int findEndOfCommandBlock(int index, String[] commandComponents, RegexDetector regexDetector) {
+  public int findBeginningOfCommandBlock(int index, String[] commandComponents, RegexDetector regexDetector) {
     int parenCount = 1;
     while (parenCount != 0) {
-      index++;
+      index--;
       String commandType = regexDetector.getSymbol(commandComponents[index]);
-      if (commandType.equals("ListStart")) {
+      if (commandType.equals("ListEnd")) {
         parenCount++;
-      } else if (commandType.equals("ListEnd")) {
+      } else if (commandType.equals("ListStart")) {
         parenCount--;
       }
     }

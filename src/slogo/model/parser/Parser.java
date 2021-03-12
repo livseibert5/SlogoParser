@@ -27,6 +27,7 @@ public class Parser {
   private Controller controller;
   private ExpressionFactory expressionFactory;
   private Stack<Object> commandStack;
+  private Stack<Object> poppedStack;
   private Stack<Object> argumentStack;
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
   ResourceBundle resources = ResourceBundle.getBundle("resources.languages.English");
@@ -63,6 +64,7 @@ public class Parser {
    */
   private void setUpParser() {
     commandStack = new Stack<>();
+    poppedStack = new Stack<>();
     argumentStack = new Stack<>();
     expressionFactory = new ExpressionFactory();
     regexDetector.addPatterns("English");
@@ -95,10 +97,10 @@ public class Parser {
    * @param commandComponents list of command components to parse
    */
   private void createCommandStack(String[] commandComponents) {
-    int index = 0;
-    while (index < commandComponents.length) {
+    int index = commandComponents.length - 1;
+    while (index >= 0) {
       String commandType = regexDetector.getSymbol(commandComponents[index]);
-      System.out.println(commandComponents[index]);
+      //System.out.println(commandComponents[index]);
       if (resources.containsKey(commandType)) {
         commandStack.push(commandType);
       } else if (commandType.equals("Command")) {
@@ -106,7 +108,7 @@ public class Parser {
       } else {
         index = handleNonCommandExpressionComponents(commandType, commandComponents, index);
       }
-      index++;
+      index--;
     }
   }
 
@@ -121,10 +123,11 @@ public class Parser {
   private int handleNonCommandExpressionComponents(String commandType, String[] commandComponents, int index) {
     if (commandType.equals("Constant")) {
       commandStack.push(expressionFactory.makeConstant(Integer.parseInt(commandComponents[index])));
-    } else if (commandType.equals("ListStart")) {
-      int endIndex = expressionFactory.findEndOfCommandBlock(index, commandComponents, regexDetector);
-      List<String> commandList = Arrays.asList(Arrays.copyOfRange(commandComponents, index + 1, endIndex));
+    } else if (commandType.equals("ListEnd")) {
+      int endIndex = expressionFactory.findBeginningOfCommandBlock(index, commandComponents, regexDetector);
+      List<String> commandList = Arrays.asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
       commandStack.push(expressionFactory.makeCommandBlock(commandList));
+      System.out.println("HERE" + expressionFactory.makeCommandBlock(commandList).toString());
       return endIndex;
     } else if (commandType.equals("Variable")) {
       commandStack.push(expressionFactory.makeVariable(commandComponents[index], controller.getVariableHandler()));
@@ -144,6 +147,62 @@ public class Parser {
   private void parseCommandStack()
       throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
     while (!commandStack.isEmpty()) {
+      if (commandStack.peek() instanceof String && resources.containsKey((String) commandStack.peek())) {
+        Object command = commandStack.pop();
+        System.out.println("popping " + command);
+        poppedStack.push(command);
+        //System.out.println(commandStack.size());
+        List<Object> args = new ArrayList<>();
+        int numArgs = commandFactory.determineNumberParameters((String) command);
+        if (controlCommands.containsKey((String) command)) {
+          args.add(controller);
+          numArgs--;
+        }
+        //System.out.println(commandFactory.determineNumberParameters((String) command));
+        if (commandStack.size() >= numArgs) {
+          for (int i = 0; i < numArgs; i++) {
+            Object popped = commandStack.pop();
+            args.add(popped);
+          }
+        }
+        //System.out.println(args);
+        try {
+          Command commandObj = (Command) commandFactory.createCommand((String) command, args);
+          double result = commandObj.execute(turtle);
+          Constant constant = expressionFactory.makeConstant((int) result);
+          //System.out.println("sizw " + commandStack.size());
+          //System.out.println(commandStack);
+          //commandStack.push(constant);
+          System.out.println("execution " + command);
+          System.out.println("command stack size " + commandStack.size());
+
+          if (commandStack.isEmpty()) {
+            System.out.println("here");
+            //System.out.println("opt " + 1);
+            argumentStack.push(constant);
+            return;
+          }
+          //commandStack.push(constant);
+          while (/*!commandStack.isEmpty() &&*/ !poppedStack.isEmpty()) {
+            //System.out.println("pushing " + poppedStack.peek());
+            commandStack.push(poppedStack.pop());
+          }
+        } catch (Exception e) {
+          //commandStack.push(command);
+          if (controlCommands.containsKey((String) command)) {
+            for (int i = args.size() - 1; i >= 1; i--) {
+              commandStack.push(args.get(i));
+            }
+          } else {
+            for (int i = args.size() - 1; i >= 0; i--) {
+              commandStack.push(args.get(i));
+            }
+          }
+        }
+      } else {
+        poppedStack.push(commandStack.pop());
+      }
+      /*
       if (expressionFactoryTypes.containsKey(commandStack.peek().getClass().getName())) {
         argumentStack.push(commandStack.pop());
       } else if (controller.getUserDefinedCommandHandler().containsCommand((String) commandStack.peek())) {
@@ -163,7 +222,7 @@ public class Parser {
         argumentStack.push(expressionFactory.makeConstant((int) newCommand.execute(turtle)));
       } else {
         argumentStack.push(commandStack.pop());
-      }
+      }*/
     }
   }
 
@@ -190,7 +249,7 @@ public class Parser {
   public static void main(String[] args)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     Parser parser = new Parser(new Controller());
-    //System.out.println(parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]"));
+    System.out.println(parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]"));
     //System.out.println();
     //System.out.println(parser.parse("make :random sum 1 random 100"));
     //System.out.println(parser.parse("fd :random"));
@@ -198,6 +257,6 @@ public class Parser {
     //System.out.println(parser.parse("dash"));
     //System.out.println(parser.parse("to dash [ :count ] [ repeat :count [ pu fd 4 pd fd 4 ] ]"));
     //System.out.println(parser.parse("dash 10"));
-    System.out.println(parser.parse("fd rt 100"));
+    //System.out.println(parser.parse("fd rt 100"));
   }
 }

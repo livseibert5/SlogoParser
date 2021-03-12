@@ -42,6 +42,6 @@ public class WindowControl {
     myScene = new CreateScene(myStage);
     myController = new Controller();
     myParser = new Parser(myController);
-    myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler().getTurtle(), myScene.getRoot());
+    myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler().getTurtle(1), myScene.getRoot());
   }
 }
