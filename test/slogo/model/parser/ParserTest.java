@@ -3,6 +3,7 @@ package slogo.model.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.InvocationTargetException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
 import slogo.model.backendexceptions.MathException;
@@ -14,7 +15,12 @@ import slogo.model.backendexceptions.MathException;
  */
 public class ParserTest {
 
-  private Parser parser = new Parser(new Controller());
+  private Parser parser;
+
+  @BeforeEach
+  void setUp() {
+    parser = new Parser(new Controller());
+  }
 
   @Test
   void testFd50()
