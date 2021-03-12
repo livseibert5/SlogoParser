@@ -154,7 +154,10 @@ public class Parser {
         Object command = commandStack.pop();
         //System.out.println("popping " + command);
         poppedStack.push(command);
-        //System.out.println(commandStack.size());
+        System.out.println("command stack size: " + commandStack.size());
+        printCommandStack(commandStack);
+        System.out.println("popped stack size: " + poppedStack.size());
+        printCommandStack(poppedStack);
         List<Object> args = new ArrayList<>();
         int numArgs = commandFactory.determineNumberParameters((String) command);
         if (controlCommands.containsKey((String) command)) {
@@ -175,19 +178,20 @@ public class Parser {
           result = commandObj.execute(turtle);
           //System.out.println("execution " + command);
           Constant constant = expressionFactory.makeConstant((int) result);
-          //System.out.println("sizw " + commandStack.size());
+          //System.out.println("size " + commandStack.size());
+          poppedStack.pop();
           //System.out.println(commandStack);
           //commandStack.push(constant);
           //System.out.println("execution " + command);
-          System.out.println("command stack size " + commandStack.size());
+          //System.out.println("command stack size " + commandStack.size());
 
           if (commandStack.isEmpty()) {
             System.out.println("here");
             //System.out.println("opt " + 1);
             //argumentStack.push(constant);
-            break;
+            //break;
           }
-          //commandStack.push(constant);
+          commandStack.push(constant);
           while (/*!commandStack.isEmpty() &&*/ !poppedStack.isEmpty()) {
             //System.out.println("pushing " + poppedStack.peek());
             commandStack.push(poppedStack.pop());
@@ -250,6 +254,13 @@ public class Parser {
     }
     return parameters;
   }
+
+  private void printCommandStack(Stack<Object> stack){
+    Object[] arr;
+    arr = stack.toArray(new Object[0]);
+    System.out.println("Stack: " + Arrays.toString(arr));
+  }
+
 
   public static void main(String[] args)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
