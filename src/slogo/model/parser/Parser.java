@@ -31,9 +31,9 @@ public class Parser {
   private Stack<Object> poppedStack;
   private Stack<Object> argumentStack;
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
-  ResourceBundle resources = ResourceBundle.getBundle("resources.languages.English");
-  ResourceBundle controlCommands = ResourceBundle.getBundle(RESOURCE_FOLDER + "ControlCommands");
-  ResourceBundle expressionFactoryTypes = ResourceBundle.getBundle(RESOURCE_FOLDER + "ExpressionFactory");
+  private ResourceBundle resources = ResourceBundle.getBundle("resources.languages.English");
+  private ResourceBundle controlCommands = ResourceBundle.getBundle(RESOURCE_FOLDER + "ControlCommands");
+  private ResourceBundle expressionFactoryTypes = ResourceBundle.getBundle(RESOURCE_FOLDER + "ExpressionFactory");
   private Turtle turtle;
   private double result;
 
@@ -151,25 +151,26 @@ public class Parser {
   private void parseCommandStack()
       throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
     while (!commandStack.isEmpty()) {
-      if (commandStack.peek() instanceof String && resources.containsKey((String) commandStack.peek())) {
+      if (expressionFactoryTypes.containsKey(commandStack.peek().getClass().getName())) {
+        poppedStack.push(commandStack.pop());
+      } else if (controller.getUserDefinedCommandHandler().containsCommand((String) commandStack.peek())) {
+        Object command = commandStack.pop();
+        UserDefinedCommand userCommand = controller.getUserDefinedCommandHandler().getCommand((String) command);
+        List<Object> parameters = generateParameters((String) command,
+            userCommand.getNumberParameters());
+        String newCommand = userCommand.generateCommand(parameters);
+        Constant result = new Constant(parse(newCommand));
+        commandStack.push(result);
+        while (!poppedStack.isEmpty()) {
+          commandStack.push(poppedStack.pop());
+        }
+      } else {
         Object command = commandStack.pop();
         poppedStack.push(command);
-        System.out.println("command stack size: " + commandStack.size());
         printCommandStack(commandStack);
-        System.out.println("popped stack size: " + poppedStack.size());
         printCommandStack(poppedStack);
-        List<Object> args = new ArrayList<>();
         int numArgs = commandFactory.determineNumberParameters((String) command);
-        if (controlCommands.containsKey((String) command)) {
-          args.add(controller);
-          numArgs--;
-        }
-        if (commandStack.size() >= numArgs) {
-          for (int i = 0; i < numArgs; i++) {
-            Object popped = commandStack.pop();
-            args.add(popped);
-          }
-        }
+        List<Object> args = generateParameters((String) command, numArgs);
         try {
           Command commandObj = (Command) commandFactory.createCommand((String) command, args);
           System.out.println("execution " + command);
@@ -181,40 +182,69 @@ public class Parser {
             commandStack.push(poppedStack.pop());
           }
         } catch (Exception e) {
-          if (controlCommands.containsKey((String) command)) {
-            for (int i = args.size() - 1; i >= 1; i--) {
-              commandStack.push(args.get(i));
-            }
-          } else {
-            for (int i = args.size() - 1; i >= 0; i--) {
-              commandStack.push(args.get(i));
-            }
+          int lowerBound = controlCommands.containsKey((String) command) ? 1 : 0;
+          for (int i = args.size() - 1; i >= lowerBound; i--) {
+            commandStack.push(args.get(i));
+          }
+        }
+      }
+      /*
+      if (commandStack.peek() instanceof String && resources.containsKey((String) commandStack.peek())) {
+        Object command = commandStack.pop();
+        poppedStack.push(command);
+        printCommandStack(commandStack);
+        printCommandStack(poppedStack);
+        List<Object> args = generateParameters((String) command);
+        try {
+          Command commandObj = (Command) commandFactory.createCommand((String) command, args);
+          System.out.println("execution " + command);
+          result = commandObj.execute(turtle);
+          Constant constant = expressionFactory.makeConstant((int) result);
+          poppedStack.pop();
+          commandStack.push(constant);
+          while (!poppedStack.isEmpty()) {
+            commandStack.push(poppedStack.pop());
+          }
+        } catch (Exception e) {
+          int lowerBound = controlCommands.containsKey((String) command) ? 1 : 0;
+          for (int i = args.size() - 1; i >= lowerBound; i--) {
+            commandStack.push(args.get(i));
           }
         }
       } else {
         poppedStack.push(commandStack.pop());
-      }
+      }*/
     }
+  }
+
+  private void executeUserDefinedCommand() {
+
+  }
+
+  private void executeSlogoCommand() {
+
   }
 
   /**
    * Creates the list of parameters for a new command object.
    *
    * @param command type of command to be created
-   * @param numParameters number of parameters command expects
    * @return list of parameters for command
    */
-  private List<Object> generateParameters(String command, int numParameters) {
-    List<Object> parameters = new ArrayList<>();
+  private List<Object> generateParameters(String command, int numArgs)
+      throws ClassNotFoundException {
+    List<Object> args = new ArrayList<>();
     if (controlCommands.containsKey(command)) {
-      parameters.add(controller);
-      numParameters--;
+      args.add(controller);
+      numArgs--;
     }
-    for (int i = 0; i < numParameters; i++) {
-      System.out.println(argumentStack.peek());
-      parameters.add(argumentStack.pop());
+    if (commandStack.size() >= numArgs) {
+      for (int i = 0; i < numArgs; i++) {
+        Object popped = commandStack.pop();
+        args.add(popped);
+      }
     }
-    return parameters;
+    return args;
   }
 
   private void printCommandStack(Stack<Object> stack){
@@ -227,14 +257,14 @@ public class Parser {
   public static void main(String[] args)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
     Parser parser = new Parser(new Controller());
-    System.out.println(parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]"));
+    //System.out.println(parser.parse("repeat 3 [ repeat 2 [ fd 1 rt 2 ] rt 40 ]"));
     //System.out.println();
     //System.out.println(parser.parse("make :random sum 1 random 100"));
     //System.out.println(parser.parse("fd :random"));
     //System.out.println(parser.parse("dotimes [ :t 360 ] [ fd 1 rt / sin :t 2 ]"));
     //System.out.println(parser.parse("dash"));
-    //System.out.println(parser.parse("to dash [ :count ] [ repeat :count [ pu fd 4 pd fd 4 ] ]"));
-    //System.out.println(parser.parse("dash 10"));
+    System.out.println(parser.parse("to dash [ :count ] [ repeat :count [ pu fd 4 pd fd 4 ] ]"));
+    System.out.println(parser.parse("dash 10"));
     //System.out.println(parser.parse("fd rt 100"));
   }
 }
