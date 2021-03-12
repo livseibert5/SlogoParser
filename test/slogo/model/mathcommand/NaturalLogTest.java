@@ -30,7 +30,7 @@ public class NaturalLogTest {
     log = new NaturalLog(new Constant(0));
     assertThrows(MathException.class, () -> {log.execute(turtle);});
   }
-  
+
   @Test
   void testLogNegative() throws MathException {
     log = new NaturalLog(new Constant(-10));
