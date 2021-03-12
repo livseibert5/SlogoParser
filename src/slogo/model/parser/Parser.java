@@ -107,7 +107,6 @@ public class Parser {
     int index = commandComponents.length - 1;
     while (index >= 0) {
       String commandType = regexDetector.getSymbol(commandComponents[index]);
-      System.out.println(commandType);
       if (resources.containsKey(commandType)) {
         commandStack.push(commandType);
       } else if (commandType.equals("Command")) {
@@ -198,7 +197,6 @@ public class Parser {
       Command commandObj = (Command) commandFactory.createCommand((String) command, args);
       result = commandObj.execute(turtle);
       Constant constant = expressionFactory.makeConstant((int) result);
-      System.out.println(constant.getValue());
       poppedStack.pop();
       endCommand(constant);
     } catch (Exception e) {
