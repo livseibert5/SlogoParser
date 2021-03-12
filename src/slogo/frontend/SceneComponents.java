@@ -53,7 +53,7 @@ public class SceneComponents extends Observable {
     makeCommandField();
     makeVariableView();
     makeUserCommandView();
-    addButtons();
+    //addButtons();
     addColorPickers();
     makeLanguageDropDown();
   }
@@ -66,6 +66,10 @@ public class SceneComponents extends Observable {
     commandLine.relocate(DEFAULT_BORDER, DEFAULT_HEIGHT - commandLine.getPrefHeight()
         - 2 * DEFAULT_BORDER); //change this to avoid "magic numbers
     root.getChildren().add(commandLine);
+  }
+
+  public String getTextInput() {
+    return commandLine.getText();
   }
 
   private Button makeButton(String name, double x, double y, EventHandler<ActionEvent> handler) {
