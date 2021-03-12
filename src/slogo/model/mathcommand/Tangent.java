@@ -1,8 +1,8 @@
 package slogo.model.mathcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 import slogo.model.backendexceptions.MathException;
 
 public class Tangent implements Command{
@@ -10,7 +10,7 @@ public class Tangent implements Command{
   private final double argument;
   private final String ERROR_MESSAGE = "Invalid Tangent Input";
 
-  public Tangent(Constant argument){
+  public Tangent(Value argument){
     this.argument = argument.getValue();
   }
 

@@ -1,8 +1,8 @@
 package slogo.model.mathcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 import slogo.model.backendexceptions.MathException;
 
 public class NaturalLog implements Command{
@@ -10,7 +10,7 @@ public class NaturalLog implements Command{
   private final double argument;
   private final String ERROR_MESSAGE = "Invalid Log Input";
 
-  public NaturalLog(Constant argument){
+  public NaturalLog(Value argument){
     this.argument = argument.getValue();
   }
 

@@ -1,8 +1,8 @@
 package slogo.model.mathcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 /**
  * ArcTangent is the Command subclass that finds the arctangent of a given input.
@@ -19,7 +19,7 @@ public class ArcTangent implements Command{
    *
    * @param argument Constant that is the number to take the arctangent of
    */
-  public ArcTangent(Constant argument){
+  public ArcTangent(Value argument){
     this.argument = argument.getValue();
   }
 
