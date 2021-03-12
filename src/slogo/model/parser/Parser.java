@@ -34,6 +34,7 @@ public class Parser {
   ResourceBundle controlCommands = ResourceBundle.getBundle(RESOURCE_FOLDER + "ControlCommands");
   ResourceBundle expressionFactoryTypes = ResourceBundle.getBundle(RESOURCE_FOLDER + "ExpressionFactory");
   private Turtle turtle;
+  private double result;
 
   /**
    * When a Parser is instantiated on the front end it is passed a Controller so
@@ -66,6 +67,7 @@ public class Parser {
     commandStack = new Stack<>();
     poppedStack = new Stack<>();
     argumentStack = new Stack<>();
+    result = 0;
     expressionFactory = new ExpressionFactory();
     regexDetector.addPatterns("English");
     regexDetector.addPatterns("Syntax");
@@ -88,7 +90,8 @@ public class Parser {
     String[] commandComponents = command.split(" ");
     createCommandStack(commandComponents);
     parseCommandStack();
-    return (int) ((Expression) argumentStack.pop()).getValue();
+    return (int) result;
+    //return (int) ((Expression) argumentStack.pop()).getValue();
   }
 
   /**
@@ -149,7 +152,7 @@ public class Parser {
     while (!commandStack.isEmpty()) {
       if (commandStack.peek() instanceof String && resources.containsKey((String) commandStack.peek())) {
         Object command = commandStack.pop();
-        System.out.println("popping " + command);
+        //System.out.println("popping " + command);
         poppedStack.push(command);
         //System.out.println(commandStack.size());
         List<Object> args = new ArrayList<>();
@@ -168,19 +171,21 @@ public class Parser {
         //System.out.println(args);
         try {
           Command commandObj = (Command) commandFactory.createCommand((String) command, args);
-          double result = commandObj.execute(turtle);
+          System.out.println("execution " + command);
+          result = commandObj.execute(turtle);
+          //System.out.println("execution " + command);
           Constant constant = expressionFactory.makeConstant((int) result);
           //System.out.println("sizw " + commandStack.size());
           //System.out.println(commandStack);
           //commandStack.push(constant);
-          System.out.println("execution " + command);
+          //System.out.println("execution " + command);
           System.out.println("command stack size " + commandStack.size());
 
           if (commandStack.isEmpty()) {
             System.out.println("here");
             //System.out.println("opt " + 1);
-            argumentStack.push(constant);
-            return;
+            //argumentStack.push(constant);
+            break;
           }
           //commandStack.push(constant);
           while (/*!commandStack.isEmpty() &&*/ !poppedStack.isEmpty()) {
