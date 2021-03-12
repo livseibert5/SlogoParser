@@ -1,8 +1,8 @@
 package slogo.model.booleancommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 /**
  * Not class is the Command subclass that returns 1 if the argument is 0
@@ -19,7 +19,7 @@ public class Not implements Command {
    *
    * @param argument argument to perform not operation on
    */
-  public Not(Constant argument) {
+  public Not(Value argument) {
     this.argument = argument.getValue();
   }
 

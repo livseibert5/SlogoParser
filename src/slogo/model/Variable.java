@@ -5,7 +5,7 @@ package slogo.model;
  *
  * @author Rachel Luria
  */
-public class Variable extends Expression {
+public class Variable extends Value {
 
   private String name;
 

@@ -1,16 +1,15 @@
 package slogo.model.mathcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
-import slogo.model.Expression;
 import slogo.model.Turtle;
+import slogo.model.Value;
 
 public class Product implements Command{
 
   private final double argument1;
   private final double argument2;
 
-  public Product(Expression argument1, Expression argument2){
+  public Product(Value argument1, Value argument2){
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();
   }

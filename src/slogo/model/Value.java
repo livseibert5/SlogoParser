@@ -1,10 +1,10 @@
 package slogo.model;
 
-public class Expression {
+public class Value {
 
   private double value;
 
-  public Expression(double value) {
+  public Value(double value) {
     this.value = value;
   }
 

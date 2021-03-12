@@ -6,7 +6,7 @@ package slogo.model;
  *
  * @author Rachel Luria and Livia Seibert
  */
-public class Constant extends Expression {
+public class Constant extends Value {
 
   /**
    * Constructor for Constant takes in an integer value.

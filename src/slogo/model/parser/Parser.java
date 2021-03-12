@@ -9,7 +9,6 @@ import java.util.Stack;
 import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.Constant;
-import slogo.model.Expression;
 import slogo.model.Turtle;
 import slogo.model.UserDefinedCommand;
 import slogo.model.backendexceptions.MathException;
