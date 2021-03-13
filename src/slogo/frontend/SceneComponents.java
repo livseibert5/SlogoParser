@@ -64,6 +64,7 @@ public class SceneComponents extends Observable {
     commandLine.setPrefWidth(WINDOW_SIZE);
     commandLine.relocate(DEFAULT_BORDER, DEFAULT_HEIGHT - commandLine.getPrefHeight()
         - 2 * DEFAULT_BORDER); //change this to avoid "magic numbers
+    commandLine.setId("commandLine");
     root.getChildren().add(commandLine);
   }
 
