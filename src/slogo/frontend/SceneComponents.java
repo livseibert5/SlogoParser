@@ -64,6 +64,7 @@ public class SceneComponents extends Observable {
     commandLine.setPrefWidth(WINDOW_SIZE);
     commandLine.relocate(DEFAULT_BORDER, DEFAULT_HEIGHT - commandLine.getPrefHeight()
         - 2 * DEFAULT_BORDER); //change this to avoid "magic numbers
+    commandLine.setId("commandLine");
     root.getChildren().add(commandLine);
   }
 
@@ -77,10 +78,17 @@ public class SceneComponents extends Observable {
   }
 
   private void addColorPickers() {
-    double x = turtleBox.getX() + +DEFAULT_BORDER + turtleBox.getWidth() / 2;
+    double x = turtleBox.getX() + DEFAULT_BORDER + turtleBox.getWidth() / 2;
     Text backgroundTitle = new Text(x, DEFAULT_BORDER / 3, "Select Background Color:" );
-    backgroundTitle.setId("colorlabel" );
-    //ColorPicker background = makeColorPicker(turtleBox, x, DEFAULT_BORDER / 2); //update this location
+    backgroundTitle.setId("colorlabel");
+    final ColorPicker background = new ColorPicker();
+    makeColorPicker(background, x, DEFAULT_BORDER / 2, new EventHandler() {
+      @Override
+      public void handle(Event event) {
+        turtleBox.setFill(background.getValue());
+      }
+    });
+    background.setId("background");
     final ColorPicker pen = new ColorPicker();
     makeColorPicker(pen,0, 200, new EventHandler() {
         @Override
@@ -89,7 +97,8 @@ public class SceneComponents extends Observable {
             oldLineColor = pen.getValue();
         }
     });
-    root.getChildren().add(pen);
+    pen.setId("pen");
+    root.getChildren().addAll(backgroundTitle, background, pen);
   }
 
   private void addTurtleWindow() {
@@ -99,6 +108,7 @@ public class SceneComponents extends Observable {
     turtleBox.setX(DEFAULT_WIDTH - turtleBox.getWidth() - DEFAULT_BORDER);
     turtleBox.setY((DEFAULT_HEIGHT - turtleBox.getHeight()) / 2);
     root.getChildren().add(turtleBox);
+    turtleBox.toBack();
   }
 
   private Scene makeHelpScene() {
@@ -133,6 +143,7 @@ public class SceneComponents extends Observable {
     ArrayList<String> list = new ArrayList<>(myLanguages.keySet());
     ComboBox<String> languages = new ComboBox<String>(FXCollections.observableList(list));
     languages.setValue("English" );
+    languages.setId("language");
     root.getChildren().add(languages);
   }
 
