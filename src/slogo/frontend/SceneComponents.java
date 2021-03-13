@@ -107,6 +107,7 @@ public class SceneComponents extends Observable {
     turtleBox.setStrokeWidth(2);
     turtleBox.setX(DEFAULT_WIDTH - turtleBox.getWidth() - DEFAULT_BORDER);
     turtleBox.setY((DEFAULT_HEIGHT - turtleBox.getHeight()) / 2);
+    turtleBox.setId("turtleBox");
     root.getChildren().add(turtleBox);
     turtleBox.toBack();
   }

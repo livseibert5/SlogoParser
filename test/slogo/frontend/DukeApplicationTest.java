@@ -36,7 +36,7 @@ import org.testfx.util.WaitForAsyncUtils;
  *
  * Taken fom lab_testing in class.
  *
- * @author Robert C. Duvall
+ * @author Robert C. Duvall, Jessica Yang
  */
 public class DukeApplicationTest extends ApplicationTest {
   // typical dialog box submit button text, perhaps should be a parameter?
@@ -115,8 +115,17 @@ public class DukeApplicationTest extends ApplicationTest {
     simulateAction(lv, () -> lv.getSelectionModel().select(value));
   }
 
+  /**
+   * Testing method for changing colors in ColorPicker objects.
+   *
+   * @param cp ColorPicker object
+   * @param value new color value in hex
+   */
   protected void select(ColorPicker cp, String value) {
-    simulateAction(cp, () -> cp.setValue(Color.valueOf(value)));
+    simulateAction(cp, () -> {
+      cp.setValue(Color.valueOf(value));
+      cp.fireEvent(new ActionEvent());
+    });
   }
 
   // input given text into input dialog box

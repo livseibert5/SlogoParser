@@ -6,7 +6,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,6 +27,7 @@ public class FrontEndTest extends DukeApplicationTest {
   private ComboBox languageSelector;
   private ImageView turtle1;
   private TextArea commandLine;
+  private Rectangle turtleBox;
 
   @Override
   public void start(Stage stage) {
@@ -38,6 +40,7 @@ public class FrontEndTest extends DukeApplicationTest {
     languageSelector = lookup("#language").query();
     turtle1 = lookup("#turtle1").query();
     commandLine = lookup("#commandLine").query();
+    turtleBox = lookup("#turtleBox").query();
   }
 
   @Test
@@ -69,6 +72,17 @@ public class FrontEndTest extends DukeApplicationTest {
   void changePenColor() {
     String newColor = "#ff6666";
     select(penColor, newColor);
-    assertTrue(penColor.getValue().toString().equals(Color.valueOf(newColor).toString()));
+    commandLine.setText("fd 50");
+    clickOn(enterButton);
+    Line newLine = lookup("#line").query();
+    assertTrue(newLine.getFill().toString().equals(Color.valueOf(newColor).toString()));
+  }
+
+  @Test
+  // scenario: user changes the color of the background
+  void changeBackgroundColor() {
+    String newColor = "#ff1253";
+    select(backgroundColor, newColor);
+    assertTrue(turtleBox.getFill().toString().equals(Color.valueOf(newColor).toString()));
   }
 }

@@ -124,6 +124,7 @@ public class TurtleDisplay implements PropertyChangeListener {
     newLine.setEndX(newLocation[0] + X_CENTER_OFFSET + TURTLE_OFFSET);
     newLine.setEndY(-1 * newLocation[1] + Y_CENTER_OFFSET + TURTLE_OFFSET);
 
+    newLine.setId("line");
     myRoot.getChildren().add(newLine);
   }
 
@@ -155,7 +156,6 @@ public class TurtleDisplay implements PropertyChangeListener {
    */
   private void setLineColor(Color newColor) {
     lineColor = newColor;
-    System.out.printf("new color!");
   }
 
   public void propertyChange(PropertyChangeEvent event) {
