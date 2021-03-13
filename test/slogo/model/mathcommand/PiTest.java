@@ -19,7 +19,7 @@ public class PiTest {
   @Test
   void testPi() {
     pi = new Pi();
-    assertEquals(3.14, Math.round(pi.execute(turtle) * 100.0)/100.0);
+    assertEquals(3.14, Math.round(pi.execute(turtle) * 100.0) / 100.0);
   }
 
 }

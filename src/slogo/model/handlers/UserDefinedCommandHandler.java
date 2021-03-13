@@ -37,7 +37,7 @@ public class UserDefinedCommandHandler {
    * @return UserDefinedCommandObject with given name
    */
   public UserDefinedCommand getCommand(String commandName) {
-    for (UserDefinedCommand command: userDefinedCommandList) {
+    for (UserDefinedCommand command : userDefinedCommandList) {
       if (command.getCommandName().equals(commandName)) {
         return command;
       }
@@ -52,7 +52,7 @@ public class UserDefinedCommandHandler {
    * @return true if command is in list, false otherwise
    */
   public boolean containsCommand(String commandName) {
-    for (UserDefinedCommand command: userDefinedCommandList) {
+    for (UserDefinedCommand command : userDefinedCommandList) {
       if (command.getCommandName().equals(commandName)) {
         return true;
       }

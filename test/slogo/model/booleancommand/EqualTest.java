@@ -1,6 +1,7 @@
 package slogo.model.booleancommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import slogo.model.Constant;
 import slogo.model.Turtle;

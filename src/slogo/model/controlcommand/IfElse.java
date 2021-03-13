@@ -10,8 +10,8 @@ import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 
 /**
- * IfElse is the Command subclass that runs one block of commands if the condition passed
- * in is true, and the other block if the condition is false.
+ * IfElse is the Command subclass that runs one block of commands if the condition passed in is
+ * true, and the other block if the condition is false.
  *
  * @author Livia Seibert
  */
@@ -23,14 +23,15 @@ public class IfElse implements Command {
   private CommandBlock falseBlock;
 
   /**
-   * Constructor for IfElse command takes in a constant as the condition, a block to
-   * execute if the condition is true, and a block to execute if the condition is false.
+   * Constructor for IfElse command takes in a constant as the condition, a block to execute if the
+   * condition is true, and a block to execute if the condition is false.
    *
-   * @param value condition for if else statement
-   * @param trueBlock block to run if condition is non-zero
+   * @param value      condition for if else statement
+   * @param trueBlock  block to run if condition is non-zero
    * @param falseBlock block to run if condition is zeero
    */
-  public IfElse(Controller controller, Value value, CommandBlock trueBlock, CommandBlock falseBlock) {
+  public IfElse(Controller controller, Value value, CommandBlock trueBlock,
+      CommandBlock falseBlock) {
     this.controller = controller;
     this.value = value.getValue();
     this.trueBlock = trueBlock;

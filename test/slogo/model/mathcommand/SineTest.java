@@ -13,6 +13,7 @@ import slogo.model.Turtle;
  */
 
 public class SineTest {
+
   private Turtle turtle = new Turtle();
   private Sine sin;
 
@@ -25,7 +26,7 @@ public class SineTest {
   @Test
   void testSin45() {
     sin = new Sine(new Constant(45));
-    assertEquals(0.707, Math.round(sin.execute(turtle) * 1000.0)/1000.0);
+    assertEquals(0.707, Math.round(sin.execute(turtle) * 1000.0) / 1000.0);
   }
 
   @Test
@@ -37,7 +38,7 @@ public class SineTest {
   @Test
   void testSin135() {
     sin = new Sine(new Constant(135));
-    assertEquals(0.707, Math.round(sin.execute(turtle) * 1000.0)/1000.0);
+    assertEquals(0.707, Math.round(sin.execute(turtle) * 1000.0) / 1000.0);
   }
 
   @Test
@@ -49,7 +50,7 @@ public class SineTest {
   @Test
   void testSin225() {
     sin = new Sine(new Constant(225));
-    assertEquals(-0.707, Math.round(sin.execute(turtle) * 1000.0)/1000.0);
+    assertEquals(-0.707, Math.round(sin.execute(turtle) * 1000.0) / 1000.0);
   }
 
   @Test
@@ -61,7 +62,7 @@ public class SineTest {
   @Test
   void testSin315() {
     sin = new Sine(new Constant(315));
-    assertEquals(-0.707, Math.round(sin.execute(turtle) * 1000.0)/1000.0);
+    assertEquals(-0.707, Math.round(sin.execute(turtle) * 1000.0) / 1000.0);
   }
 
 }

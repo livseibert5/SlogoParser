@@ -39,6 +39,7 @@ public class ProductTest {
     product = new Product(new Constant(-10), new Constant(-33));
     assertEquals(330, product.execute(turtle));
   }
+
   @Test
   void testProductOneNegativeNumber() {
     product = new Product(new Constant(-10), new Constant(33));

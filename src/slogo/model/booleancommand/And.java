@@ -5,8 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * And class is the Command subclass that returns 1 if both constants are non-zero and
- * 0 otherwise.
+ * And class is the Command subclass that returns 1 if both constants are non-zero and 0 otherwise.
  *
  * @author Livia Seibert
  */

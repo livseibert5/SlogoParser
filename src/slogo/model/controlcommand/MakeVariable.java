@@ -8,8 +8,8 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * MakeVariable is the Command subclass that lets the user define a command and save the value
- * for later use.
+ * MakeVariable is the Command subclass that lets the user define a command and save the value for
+ * later use.
  *
  * @author Livia Seibert
  */
@@ -20,12 +20,12 @@ public class MakeVariable implements Command {
   double value;
 
   /**
-   * MakeVariable constructor takes in a variable name and value, as well as
-   * a reference to the controller so it can add the variable to the VariableHandler.
+   * MakeVariable constructor takes in a variable name and value, as well as a reference to the
+   * controller so it can add the variable to the VariableHandler.
    *
    * @param controller Controller is needed to access the VariableHandler
-   * @param name Variable object with the name set
-   * @param value value to put in the variable object
+   * @param name       Variable object with the name set
+   * @param value      value to put in the variable object
    */
   public MakeVariable(Controller controller, Variable name, Value value) {
     this.controller = controller;

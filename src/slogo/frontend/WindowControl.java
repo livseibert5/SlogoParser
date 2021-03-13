@@ -58,7 +58,6 @@ public class WindowControl {
     List<PropertyChangeListener> listenerList = new ArrayList<>();
     listenerList.add(myTurtleDisplay);
     myComponents = new SceneComponents(root, listenerList);
-    //myTurtleDisplay.updateTurtleView(1);
 
     uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, new EventHandler<ActionEvent>() {
       @Override

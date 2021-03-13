@@ -12,6 +12,7 @@ import slogo.model.Turtle;
  * @author Rachel Luria
  */
 public class RandomTest {
+
   private Turtle turtle = new Turtle();
   private Random random;
 

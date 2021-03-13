@@ -3,8 +3,19 @@ package slogo.model.mathcommand;
 import slogo.model.Command;
 import slogo.model.Turtle;
 
-public class Pi implements Command{
+/**
+ * Pi is the Command subclass that finds the value of Pi.
+ *
+ * @author Rachel Luria
+ */
+public class Pi implements Command {
 
+  /**
+   * Finds the value of pi
+   *
+   * @param turtle turtle object to execute command on
+   * @return pi
+   */
   @Override
   public double execute(Turtle turtle) {
     return Math.PI;

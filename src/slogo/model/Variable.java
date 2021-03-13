@@ -7,12 +7,12 @@ package slogo.model;
  */
 public class Variable extends Value {
 
-  private String name;
+  private final String name;
 
   /**
    * Variable constructor takes in a name and value.
    *
-   * @param name name of variable
+   * @param name  name of variable
    * @param value value of variable
    */
   public Variable(String name, double value) {
