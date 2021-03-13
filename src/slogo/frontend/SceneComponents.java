@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -72,6 +73,18 @@ public class SceneComponents extends Observable {
     commandLine.relocate(DEFAULT_BORDER, DEFAULT_HEIGHT - commandLine.getPrefHeight()
         - 2 * DEFAULT_BORDER); //change this to avoid "magic numbers
     root.getChildren().add(commandLine);
+  }
+
+  public void getReturnValue(int value) {
+    System.out.println(value);
+    commandLine.setText(String.valueOf(value));
+    System.out.println(commandLine.getText());
+    commandLine.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        commandLine.clear();
+      }
+    });
   }
 
   private void showPastCommands() {
