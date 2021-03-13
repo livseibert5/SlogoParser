@@ -83,6 +83,23 @@ public class FrontEndTest extends DukeApplicationTest {
   }
 
   @Test
+  // scenario: user removes turtle from view, moves, then adds it back to view
+  void hideTurtle() {
+    commandLine.setText("pd");
+    clickOn(enterButton);
+    assertTrue(commandLine.getText().equals(Integer.toString(1)));
+    commandLine.setText("hideturtle");
+    clickOn(enterButton);
+    assertTrue(commandLine.getText().equals(Integer.toString(0)));
+    commandLine.setText("fd 50");
+    clickOn(enterButton);
+    assertTrue(commandLine.getText().equals(Integer.toString(50)));
+    commandLine.setText("st");
+    clickOn(enterButton);
+    assertTrue(commandLine.getText().equals(Integer.toString(1)));
+  }
+
+  @Test
   // scenario: user presses the enter button, with a non-valid command in the text field
   void invalidCommand() {
     commandLine.setText("asdfasdfa");
