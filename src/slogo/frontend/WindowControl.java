@@ -1,6 +1,7 @@
 package slogo.frontend;
 
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
 import slogo.model.parser.Parser;
@@ -30,6 +32,7 @@ public class WindowControl {
 
   private CreateScene myScene;
   private Group root = new Group();
+  private Stage stage = new Stage();
 
   private Controller myController;
   private Parser myParser;
@@ -38,6 +41,10 @@ public class WindowControl {
   private HelpButtonMaker helpButton;
   private EnterButtonMaker enterButton;
   private UploadButtonMaker uploadButton;
+  private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
+  private int imageNumber;
+  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage";
+
 
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
@@ -51,7 +58,24 @@ public class WindowControl {
     listenerList.add(myTurtleDisplay);
     myComponents = new SceneComponents(root, listenerList);
 
-    uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root);
+    uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Upload Turtle Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+          imageNumber++;
+          System.out.println(imageNumber);
+          System.out.println(USER_FILE + imageNumber + ".jpg");
+          boolean isMoved = file.renameTo(new File(USER_FILE + imageNumber + ".jpg"));
+          System.out.println(isMoved);
+          myTurtleDisplay.updateImageView(USER_FILE + imageNumber + ".jpg");
+        }
+      }
+    });
     helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
     enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, new EventHandler<ActionEvent>() {
       @Override

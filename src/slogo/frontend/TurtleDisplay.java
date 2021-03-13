@@ -23,6 +23,7 @@ public class TurtleDisplay implements PropertyChangeListener {
   private static final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName()
       + ".resources.images.").replace('.', '/');
   private static final String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
+  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
   private final Map<Integer, Turtle> turtleMap = new HashMap<>();
   private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
@@ -158,7 +159,23 @@ public class TurtleDisplay implements PropertyChangeListener {
     lineColor = newColor;
   }
 
+  /**
+   * Updates linecolor of turtles upon change in ColorPicker.
+   *
+   * @param event triggered when ColorPicker value changes
+   */
   public void propertyChange(PropertyChangeEvent event) {
     setLineColor((Color) event.getNewValue());
+  }
+
+  /**
+   * Updates image file used for turtles in the box.
+   * 
+   * @param string filepath for new image
+   */
+  public void updateImageView(String string) {
+    for (Integer i : turtleViewMap.keySet()) {
+      turtleViewMap.get(i).setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(string))));
+    }
   }
 }
