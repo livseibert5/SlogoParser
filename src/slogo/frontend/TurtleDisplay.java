@@ -24,7 +24,6 @@ public class TurtleDisplay implements PropertyChangeListener {
 
   private final double X_CENTER_OFFSET = 1000;
   private final double Y_CENTER_OFFSET = 375;
-  private final double ROTATION_OFFSET = 90;
 
   private double dimensionSize = 50;
   private final Group myRoot;
@@ -68,7 +67,7 @@ public class TurtleDisplay implements PropertyChangeListener {
     turtleView.setFitHeight(dimensionSize);
     turtleView.setFitWidth(dimensionSize);
 
-    turtleView.setRotate(toAddTurtle.getOrientation() - ROTATION_OFFSET);
+    turtleView.setRotate(toAddTurtle.getOrientation() * -1);
     turtleView.setId("turtle" + id);
     turtleViewMap.put(id, turtleView);
     myRoot.getChildren().add(turtleView);
@@ -88,7 +87,7 @@ public class TurtleDisplay implements PropertyChangeListener {
       drawNewLine(updatedTurtle.getLocation(), currTurtleView);
     }
 
-    rotateTurtleView(updatedTurtle.getOrientation() - ROTATION_OFFSET, currTurtleView);
+    rotateTurtleView(updatedTurtle.getOrientation() * -1, currTurtleView);
     moveTurtleView(updatedTurtle.getLocation(), currTurtleView);
     updateTurtleViewVisibility(updatedTurtle.isShowing(), currTurtleView);
   }
