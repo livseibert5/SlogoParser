@@ -1,9 +1,12 @@
 package slogo.frontend;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.ApplicationExtension;
+import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.framework.junit5.Start;
 
 /**
@@ -12,10 +15,24 @@ import org.testfx.framework.junit5.Start;
  * @author Jessica Yang
  */
 @ExtendWith(ApplicationExtension.class)
-public class FrontEndTest {
+public class FrontEndTest extends ApplicationTest {
+
+  private Button helpButton;
+  private Button enterButton;
+  private ColorPicker penColor;
+  private ColorPicker backgroundColor;
+  private ComboBox languageSelector;
 
   @Start
   void onStart(Stage stage) {
     WindowControl window = new WindowControl(stage);
+
+    helpButton = lookup("#help").query();
+    enterButton = lookup("#enter").query();
+    penColor = lookup("#pen").query();
+    backgroundColor = lookup("#background").query();
+    languageSelector = lookup("language").query();
   }
+
+
 }

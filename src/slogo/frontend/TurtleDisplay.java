@@ -24,8 +24,9 @@ public class TurtleDisplay implements PropertyChangeListener {
 
   private final double X_CENTER_OFFSET = 1000;
   private final double Y_CENTER_OFFSET = 375;
+  private final double ROTATION_OFFSET = 90;
 
-  private double dimensionSize = 20;
+  private double dimensionSize = 50;
   private final Group myRoot;
 
   private Color lineColor;
@@ -62,15 +63,16 @@ public class TurtleDisplay implements PropertyChangeListener {
     turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(IMAGE_FILE))));
 
     turtleView.setX(toAddTurtle.getXCoordinate() + X_CENTER_OFFSET);
-    turtleView.setY(toAddTurtle.getYCoordinate() + Y_CENTER_OFFSET);
+    turtleView.setY(-1 * toAddTurtle.getYCoordinate() + Y_CENTER_OFFSET);
 
     turtleView.setFitHeight(dimensionSize);
     turtleView.setFitWidth(dimensionSize);
 
-    turtleView.setRotate(toAddTurtle.getOrientation());
+    turtleView.setRotate(toAddTurtle.getOrientation() - ROTATION_OFFSET);
 
     turtleViewMap.put(id, turtleView);
     myRoot.getChildren().add(turtleView);
+    turtleView.toFront();
   }
 
   /**
@@ -86,7 +88,7 @@ public class TurtleDisplay implements PropertyChangeListener {
       drawNewLine(updatedTurtle.getLocation(), currTurtleView);
     }
 
-    rotateTurtleView(updatedTurtle.getOrientation(), currTurtleView);
+    rotateTurtleView(updatedTurtle.getOrientation() - ROTATION_OFFSET, currTurtleView);
     moveTurtleView(updatedTurtle.getLocation(), currTurtleView);
     updateTurtleViewVisibility(updatedTurtle.isShowing(), currTurtleView);
   }
@@ -112,7 +114,7 @@ public class TurtleDisplay implements PropertyChangeListener {
 
     newLine.setFill(lineColor);
     newLine.setStroke(lineColor);
-    newLine.setStartX(currTurtleView.getX()s);
+    newLine.setStartX(currTurtleView.getX());
     newLine.setStartY(currTurtleView.getY());
     newLine.setEndX(newLocation[0] + X_CENTER_OFFSET);
     newLine.setEndY(newLocation[1] + Y_CENTER_OFFSET);
@@ -138,7 +140,7 @@ public class TurtleDisplay implements PropertyChangeListener {
    */
   private void moveTurtleView(double[] newLocation, ImageView currTurtleView) {
     currTurtleView.setX(newLocation[0] + X_CENTER_OFFSET);
-    currTurtleView.setY(newLocation[1] + Y_CENTER_OFFSET);
+    currTurtleView.setY(-1 * newLocation[1] + Y_CENTER_OFFSET);
   }
 
   /**
