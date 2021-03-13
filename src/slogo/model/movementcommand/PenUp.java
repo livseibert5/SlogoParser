@@ -4,8 +4,8 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * PenUp is the Command subclass that lets the user put the turtle's pen up so that
- * it doesn't leave a trail on the canvas.
+ * PenUp is the Command subclass that lets the user put the turtle's pen up so that it doesn't leave
+ * a trail on the canvas.
  *
  * @author Livia Seibert
  */

@@ -10,8 +10,8 @@ import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 
 /**
- * If class is a Command subclass that executes a command block if the constant
- * expression passed is non-zero.
+ * If class is a Command subclass that executes a command block if the constant expression passed is
+ * non-zero.
  *
  * @author Livia Seibert
  */
@@ -22,10 +22,10 @@ public class If implements Command {
   private CommandBlock trueBlock;
 
   /**
-   * Constructor for If command takes in a constant and a block of
-   * commands to execute if the constant is non-zero.
+   * Constructor for If command takes in a constant and a block of commands to execute if the
+   * constant is non-zero.
    *
-   * @param value constant that determines whether the code block should be run
+   * @param value     constant that determines whether the code block should be run
    * @param trueBlock block to run if the value is non-zero
    */
   public If(Controller controller, Constant value, CommandBlock trueBlock) {

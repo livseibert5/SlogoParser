@@ -21,24 +21,26 @@ abstract class MovementCommand {
   private static final double RADIAN_360 = 2 * Math.PI;
 
   /**
-   * Finds new end location for turtle based on current location, orientation, and number of
-   * pixels to move.
+   * Finds new end location for turtle based on current location, orientation, and number of pixels
+   * to move.
    *
    * @param currentLocation current x and y position of turtle
-   * @param orientation current orientation of turtle in radians
-   * @param pixels number of pixels to move
+   * @param orientation     current orientation of turtle in radians
+   * @param pixels          number of pixels to move
    * @return new coordinates of turtle
    */
-  protected double[] determineLocation(double[] currentLocation, double orientation, double pixels) {
+  protected double[] determineLocation(double[] currentLocation, double orientation,
+      double pixels) {
     findQuadrantDirection(orientation);
     double xDiff = isZero(Math.cos(orientationDirection)) ? 0 : Math.cos(orientationDirection);
     double yDiff = isZero(Math.sin(orientationDirection)) ? 0 : Math.sin(orientationDirection);
-    return new double[]{round( currentLocation[0] + deltaX * pixels * xDiff), round(currentLocation[1] + deltaY * pixels * yDiff)};
+    return new double[]{round(currentLocation[0] + deltaX * pixels * xDiff),
+        round(currentLocation[1] + deltaY * pixels * yDiff)};
   }
 
   /**
-   * Determines which quadrant the current orientation of the turtle is in so that the
-   * delta of x and y can be calculated in the correct direction.
+   * Determines which quadrant the current orientation of the turtle is in so that the delta of x
+   * and y can be calculated in the correct direction.
    *
    * @param orientation current orientation of turtle in radians
    */

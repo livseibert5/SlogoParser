@@ -9,19 +9,19 @@ import slogo.model.Value;
  *
  * @author Rachel Luria
  */
-public class Quotient implements Command{
+public class Quotient implements Command {
 
   private final double argument1;
   private final double argument2;
 
   /**
-   * Constructor for the Quotient command, takes two constants as its arguments and
-   * gets their values by executing a constant command
+   * Constructor for the Quotient command, takes two constants as its arguments and gets their
+   * values by executing a constant command
    *
    * @param argument1 number being divided
    * @param argument2 amount argument1 is being divided by
    */
-  public Quotient(Value argument1, Value argument2){
+  public Quotient(Value argument1, Value argument2) {
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();
   }

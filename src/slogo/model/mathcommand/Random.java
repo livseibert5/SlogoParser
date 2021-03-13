@@ -9,17 +9,17 @@ import slogo.model.Value;
  *
  * @author Rachel Luria
  */
-public class Random implements Command{
+public class Random implements Command {
 
   private final double argument;
 
   /**
-   * Constructor for the Random command, takes a constant as its argument and
-   * gets its value by executing a constant command
+   * Constructor for the Random command, takes a constant as its argument and gets its value by
+   * executing a constant command
    *
    * @param argument threshold for Random command
    */
-  public Random(Value argument){
+  public Random(Value argument) {
     this.argument = argument.getValue();
   }
 

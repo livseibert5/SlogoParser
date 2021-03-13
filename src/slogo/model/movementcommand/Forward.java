@@ -5,8 +5,8 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Forward class is the Command subclass that determines the end location of
- * the turtle when moved forwards by a certain number of pixels.
+ * Forward class is the Command subclass that determines the end location of the turtle when moved
+ * forwards by a certain number of pixels.
  *
  * @author Livia Seibert and Rachel Luria
  */
@@ -15,8 +15,8 @@ public class Forward extends MovementCommand implements Command {
   private double pixels;
 
   /**
-   * Constructor for the Forward command, takes a constant as an argument
-   * and gets its value by executing the Constant command.
+   * Constructor for the Forward command, takes a constant as an argument and gets its value by
+   * executing the Constant command.
    *
    * @param pixels Constant containing the number of pixels to move the turtle
    */
@@ -25,15 +25,16 @@ public class Forward extends MovementCommand implements Command {
   }
 
   /**
-   * Calculates the end location of the turtle based on its orientation and number of pixels
-   * to be moved.
+   * Calculates the end location of the turtle based on its orientation and number of pixels to be
+   * moved.
    *
    * @param turtle turtle object to execute command on
    * @return number of pixels moved
    */
   @Override
   public double execute(Turtle turtle) {
-    turtle.setLocation(determineLocation(turtle.getLocation(), Math.toRadians(turtle.getOrientation()), pixels));
+    turtle.setLocation(
+        determineLocation(turtle.getLocation(), Math.toRadians(turtle.getOrientation()), pixels));
     return pixels;
   }
 }

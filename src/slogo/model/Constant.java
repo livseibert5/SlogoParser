@@ -1,8 +1,7 @@
 package slogo.model;
 
 /**
- * Constant holds an integer value to be used as a parameter for
- * a Command type.
+ * Constant holds an integer value to be used as a parameter for a Command type.
  *
  * @author Rachel Luria and Livia Seibert
  */

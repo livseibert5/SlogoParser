@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * UserDefinedCommand class stores information about a user defined command so it can
- * be executed again.
+ * UserDefinedCommand class stores information about a user defined command so it can be executed
+ * again.
  *
  * @author Livia Seibert
  */
@@ -21,12 +21,13 @@ public class UserDefinedCommand {
   /**
    * Constructor for UserDefinedCommand class.
    *
-   * @param commandName name of command to define
+   * @param commandName      name of command to define
    * @param numberParameters number of parameters of new command
-   * @param parameters list of parameter names
-   * @param body body of block to be executed
+   * @param parameters       list of parameter names
+   * @param body             body of block to be executed
    */
-  public UserDefinedCommand(String commandName, int numberParameters, String[] parameters, CommandBlock body) {
+  public UserDefinedCommand(String commandName, int numberParameters, String[] parameters,
+      CommandBlock body) {
     this.commandName = commandName;
     this.numberParameters = numberParameters;
     this.parameters = parameters;
@@ -79,7 +80,7 @@ public class UserDefinedCommand {
    */
   private String buildString(String[] commandBody) {
     StringBuilder result = new StringBuilder();
-    for (String commandItem: commandBody) {
+    for (String commandItem : commandBody) {
       result.append(commandItem);
       result.append(" ");
     }

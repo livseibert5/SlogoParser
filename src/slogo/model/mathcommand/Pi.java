@@ -8,7 +8,7 @@ import slogo.model.Turtle;
  *
  * @author Rachel Luria
  */
-public class Pi implements Command{
+public class Pi implements Command {
 
   /**
    * Finds the value of pi

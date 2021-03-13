@@ -9,17 +9,17 @@ import slogo.model.Value;
  *
  * @author Rachel Luria
  */
-public class Minus implements Command{
+public class Minus implements Command {
 
   private final double argument;
 
   /**
-   * Constructor for the Minus command, takes a constant as its argument and
-   * gets its value by executing a constant command
+   * Constructor for the Minus command, takes a constant as its argument and gets its value by
+   * executing a constant command
    *
    * @param argument Constant that the minus gets taken of
    */
-  public Minus(Value argument){
+  public Minus(Value argument) {
     this.argument = argument.getValue();
   }
 
@@ -31,10 +31,9 @@ public class Minus implements Command{
    */
   @Override
   public double execute(Turtle turtle) {
-    if(argument == 0){
+    if (argument == 0) {
       return 0;
-    }
-    else {
+    } else {
       return -1 * argument;
     }
   }
