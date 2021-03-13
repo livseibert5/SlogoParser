@@ -57,6 +57,7 @@ public class WindowControl {
         try {
           myParser.parse(myComponents.getTextInput());
           myTurtleDisplay.updateTurtleView(1);
+          myComponents.clearTextInput();
         } catch (ClassNotFoundException e) {
           e.printStackTrace();
         } catch (NoSuchMethodException e) {
