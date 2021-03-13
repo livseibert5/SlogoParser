@@ -1,17 +1,17 @@
 package slogo.frontend;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
-import slogo.model.backendexceptions.MathException;
 import slogo.model.parser.Parser;
 
 /**
@@ -56,20 +56,26 @@ public class WindowControl {
         try {
           myParser.parse(myComponents.getTextInput());
           myTurtleDisplay.updateTurtleView(1);
-        } catch (ClassNotFoundException e) {
-          e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-          e.printStackTrace();
-        } catch (InvocationTargetException e) {
-          e.printStackTrace();
-        } catch (InstantiationException e) {
-          e.printStackTrace();
-        } catch (IllegalAccessException e) {
-          e.printStackTrace();
-        } catch (MathException e) {
-          e.printStackTrace();
+        } catch (Exception e) {
+          makeErrorWindow("Invalid command.");
         }
       }
     });
+  }
+
+  private void makeErrorWindow(String errorMessage) {
+    double windowSize = 200;
+    Group errorRoot = new Group();
+    Scene errorScene = new Scene(errorRoot, windowSize, windowSize);
+
+    Text errorText = new Text(windowSize / 2, windowSize / 2, errorMessage);
+    errorText.setFill(Color.BLACK);
+    errorText.setId("errorMessage");
+    errorRoot.getChildren().add(errorText);
+
+    Stage errorWindow = new Stage();
+    errorWindow.setTitle("Error!");
+    errorWindow.setScene(errorScene);
+    errorWindow.show();
   }
 }
