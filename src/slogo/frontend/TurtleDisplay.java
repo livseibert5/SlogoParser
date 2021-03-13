@@ -23,7 +23,7 @@ public class TurtleDisplay implements PropertyChangeListener {
   private static final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName()
       + ".resources.images.").replace('.', '/');
   private static final String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
-  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
+  private static final String USER_IMAGE_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
   private final Map<Integer, Turtle> turtleMap = new HashMap<>();
   private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
@@ -170,7 +170,7 @@ public class TurtleDisplay implements PropertyChangeListener {
 
   /**
    * Updates image file used for turtles in the box.
-   * 
+   *
    * @param string filepath for new image
    */
   public void updateImageView(String string) {
