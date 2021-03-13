@@ -32,7 +32,7 @@ abstract class ButtonMaker {
         button.setOnAction(myHandler);
     }
 
-    private Button makeButton(String name, double x, double y) {
+    public Button makeButton(String name, double x, double y) {
         Button result = new Button();
         String label = name;
         result.setId(label);

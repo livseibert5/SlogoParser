@@ -158,7 +158,7 @@ public class TurtleDisplay implements PropertyChangeListener {
   public void propertyChange(PropertyChangeEvent event) {
     setLineColor((Color) event.getNewValue());
   }
-  public void updateImageView(String string) {
-    turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(string))));
+  public void updateImageView() {
+    turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("src/slogo/frontend/resources/images/UserImage.jpg"))));
   }
 }
