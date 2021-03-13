@@ -35,6 +35,7 @@ public class WindowControl {
   private SceneComponents myComponents;
   private HelpButtonMaker helpButton;
   private EnterButtonMaker enterButton;
+  private UploadButtonMaker uploadButton;
 
 
   /**
@@ -50,6 +51,7 @@ public class WindowControl {
     myComponents = new SceneComponents(root, listenerList);
     //myTurtleDisplay.updateTurtleView(1);
 
+    uploadButton = new UploadButtonMaker("Upload", 0, 400, root);
     helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
     enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, new EventHandler<ActionEvent>() {
       @Override
