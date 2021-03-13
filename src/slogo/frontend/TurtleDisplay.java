@@ -69,7 +69,7 @@ public class TurtleDisplay implements PropertyChangeListener {
     turtleView.setFitWidth(dimensionSize);
 
     turtleView.setRotate(toAddTurtle.getOrientation() - ROTATION_OFFSET);
-
+    turtleView.setId("turtle" + id);
     turtleViewMap.put(id, turtleView);
     myRoot.getChildren().add(turtleView);
     turtleView.toFront();
