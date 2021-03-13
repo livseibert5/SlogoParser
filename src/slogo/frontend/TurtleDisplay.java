@@ -26,6 +26,10 @@ public class TurtleDisplay implements PropertyChangeListener {
 
   private final Map<Integer, Turtle> turtleMap = new HashMap<>();
   private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
+  private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
+  private String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
+  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
+  private ImageView turtleView;
 
   private static final double dimensionSize = 50;
   private static final double TURTLE_OFFSET = dimensionSize / 2;
@@ -63,7 +67,7 @@ public class TurtleDisplay implements PropertyChangeListener {
    */
   private void addTurtleView(int id) {
     Turtle toAddTurtle = turtleMap.get(id);
-    ImageView turtleView = new ImageView();
+    turtleView = new ImageView();
     turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(IMAGE_FILE))));
 
     turtleView.setX(toAddTurtle.getXCoordinate() + X_CENTER_OFFSET);
@@ -159,5 +163,8 @@ public class TurtleDisplay implements PropertyChangeListener {
 
   public void propertyChange(PropertyChangeEvent event) {
     setLineColor((Color) event.getNewValue());
+  }
+  public void updateImageView() {
+    turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("src/slogo/frontend/resources/images/UserImage.jpg"))));
   }
 }
