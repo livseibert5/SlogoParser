@@ -115,6 +115,9 @@ public class DukeApplicationTest extends ApplicationTest {
     simulateAction(lv, () -> lv.getSelectionModel().select(value));
   }
 
+  protected void select(ColorPicker cp, String value) {
+    simulateAction(cp, () -> cp.setValue(Color.valueOf(value)));
+  }
 
   // input given text into input dialog box
   protected void writeInputsToDialog (String ... textInput) {
