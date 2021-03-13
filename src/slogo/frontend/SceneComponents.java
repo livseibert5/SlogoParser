@@ -77,9 +77,9 @@ public class SceneComponents extends Observable {
   }
 
   private void addColorPickers() {
-    double x = turtleBox.getX() + +DEFAULT_BORDER + turtleBox.getWidth() / 2;
+    double x = turtleBox.getX() + DEFAULT_BORDER + turtleBox.getWidth() / 2;
     Text backgroundTitle = new Text(x, DEFAULT_BORDER / 3, "Select Background Color:" );
-    backgroundTitle.setId("colorlabel" );
+    backgroundTitle.setId("colorlabel");
     //ColorPicker background = makeColorPicker(turtleBox, x, DEFAULT_BORDER / 2); //update this location
     final ColorPicker pen = new ColorPicker();
     makeColorPicker(pen,0, 200, new EventHandler() {
