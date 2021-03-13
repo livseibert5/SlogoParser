@@ -22,7 +22,11 @@ public class TurtleDisplay implements PropertyChangeListener {
   private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
   private String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
 
-  private double dimensionSize;
+  private final double X_CENTER_OFFSET = 1000;
+  private final double Y_CENTER_OFFSET = 375;
+  private final double ROTATION_OFFSET = 90;
+
+  private double dimensionSize = 50;
   private final Group myRoot;
 
   private Color lineColor;
@@ -34,8 +38,8 @@ public class TurtleDisplay implements PropertyChangeListener {
    */
   public TurtleDisplay(Turtle turtle, Group root) {
     turtleMap.put(1, turtle);
-    updateImageMap();
     myRoot = root;
+    updateImageMap();
     lineColor = Color.BLACK;
   }
 
@@ -58,15 +62,17 @@ public class TurtleDisplay implements PropertyChangeListener {
     ImageView turtleView = new ImageView();
     turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(IMAGE_FILE))));
 
-    turtleView.setX(toAddTurtle.getXCoordinate());
-    turtleView.setY(toAddTurtle.getYCoordinate());
+    turtleView.setX(toAddTurtle.getXCoordinate() + X_CENTER_OFFSET);
+    turtleView.setY(-1 * toAddTurtle.getYCoordinate() + Y_CENTER_OFFSET);
 
     turtleView.setFitHeight(dimensionSize);
     turtleView.setFitWidth(dimensionSize);
 
-    turtleView.setRotate(toAddTurtle.getOrientation());
+    turtleView.setRotate(toAddTurtle.getOrientation() - ROTATION_OFFSET);
 
     turtleViewMap.put(id, turtleView);
+    myRoot.getChildren().add(turtleView);
+    turtleView.toFront();
   }
 
   /**
@@ -82,7 +88,7 @@ public class TurtleDisplay implements PropertyChangeListener {
       drawNewLine(updatedTurtle.getLocation(), currTurtleView);
     }
 
-    rotateTurtleView(updatedTurtle.getOrientation(), currTurtleView);
+    rotateTurtleView(updatedTurtle.getOrientation() - ROTATION_OFFSET, currTurtleView);
     moveTurtleView(updatedTurtle.getLocation(), currTurtleView);
     updateTurtleViewVisibility(updatedTurtle.isShowing(), currTurtleView);
   }
@@ -110,8 +116,8 @@ public class TurtleDisplay implements PropertyChangeListener {
     newLine.setStroke(lineColor);
     newLine.setStartX(currTurtleView.getX());
     newLine.setStartY(currTurtleView.getY());
-    newLine.setEndX(newLocation[0]);
-    newLine.setEndY(newLocation[1]);
+    newLine.setEndX(newLocation[0] + X_CENTER_OFFSET);
+    newLine.setEndY(newLocation[1] + Y_CENTER_OFFSET);
 
     myRoot.getChildren().add(newLine);
   }
@@ -133,8 +139,8 @@ public class TurtleDisplay implements PropertyChangeListener {
    * @param currTurtleView needs to be updated view
    */
   private void moveTurtleView(double[] newLocation, ImageView currTurtleView) {
-    currTurtleView.setX(newLocation[0]);
-    currTurtleView.setY(newLocation[1]);
+    currTurtleView.setX(newLocation[0] + X_CENTER_OFFSET);
+    currTurtleView.setY(-1 * newLocation[1] + Y_CENTER_OFFSET);
   }
 
   /**

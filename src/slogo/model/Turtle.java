@@ -21,6 +21,8 @@ public class Turtle {
     xCoordinate = 0;
     yCoordinate = 0;
     orientation = 90.0;
+    penDown = true;
+    isShowing = true;
   }
 
   /**
