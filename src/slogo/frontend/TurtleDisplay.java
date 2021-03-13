@@ -13,21 +13,26 @@ import javafx.scene.shape.Line;
 import slogo.model.Turtle;
 
 /**
- * Updates the front-end representation of a turtle.
+ * Updates the front-end representation of a turtle. Assumes turtle image is set to the rightward
+ * direction.
+ *
+ * @author Jessica Yang
  */
 public class TurtleDisplay implements PropertyChangeListener {
 
+  private static final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName()
+      + ".resources.images.").replace('.', '/');
+  private static final String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
+
   private final Map<Integer, Turtle> turtleMap = new HashMap<>();
   private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
-  private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
-  private String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
 
-  private final double X_CENTER_OFFSET = 1000;
-  private final double Y_CENTER_OFFSET = 375;
+  private static final double dimensionSize = 50;
+  private static final double TURTLE_OFFSET = dimensionSize / 2;
+  private static final double X_CENTER_OFFSET = 1000 - TURTLE_OFFSET;
+  private static final double Y_CENTER_OFFSET = 375 - TURTLE_OFFSET;
 
-  private double dimensionSize = 50;
   private final Group myRoot;
-
   private Color lineColor;
 
   /**
@@ -113,10 +118,10 @@ public class TurtleDisplay implements PropertyChangeListener {
 
     newLine.setFill(lineColor);
     newLine.setStroke(lineColor);
-    newLine.setStartX(currTurtleView.getX());
-    newLine.setStartY(currTurtleView.getY());
-    newLine.setEndX(newLocation[0] + X_CENTER_OFFSET);
-    newLine.setEndY(-1 * newLocation[1] + Y_CENTER_OFFSET);
+    newLine.setStartX(currTurtleView.getX() + TURTLE_OFFSET);
+    newLine.setStartY(currTurtleView.getY() + TURTLE_OFFSET);
+    newLine.setEndX(newLocation[0] + X_CENTER_OFFSET + TURTLE_OFFSET);
+    newLine.setEndY(-1 * newLocation[1] + Y_CENTER_OFFSET + TURTLE_OFFSET);
 
     myRoot.getChildren().add(newLine);
   }
