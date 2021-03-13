@@ -86,18 +86,18 @@ public class WindowControl {
           myComponents.clearTextInput();
           myComponents.printReturnValue(value);
         } catch (Exception e) {
-          makeErrorWindow("Invalid command.");
+          makeErrorWindow();
         }
       }
     });
   }
 
-  private void makeErrorWindow(String errorMessage) {
+  private void makeErrorWindow() {
     double windowSize = 200;
     Group errorRoot = new Group();
     Scene errorScene = new Scene(errorRoot, windowSize, windowSize);
 
-    Text errorText = new Text(windowSize / 2, windowSize / 2, errorMessage);
+    Text errorText = new Text(windowSize / 2, windowSize / 2, "Invalid command.");
     errorText.setFill(Color.BLACK);
     errorText.setId("errorMessage");
     errorRoot.getChildren().add(errorText);

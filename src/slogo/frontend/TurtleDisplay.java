@@ -171,11 +171,11 @@ public class TurtleDisplay implements PropertyChangeListener {
   /**
    * Updates image file used for turtles in the box.
    *
-   * @param string filepath for new image
+   * @param filepath filepath for new image
    */
-  public void updateImageView(String string) {
+  public void updateImageView(String filepath) {
     for (Integer i : turtleViewMap.keySet()) {
-      turtleViewMap.get(i).setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(string))));
+      turtleViewMap.get(i).setImage(new Image(filepath));
     }
   }
 }
