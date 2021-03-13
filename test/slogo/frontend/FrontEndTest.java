@@ -71,11 +71,14 @@ public class FrontEndTest extends DukeApplicationTest {
   void drawSquare() {
     commandLine.setText("pd");
     clickOn(enterButton);
+    assertTrue(commandLine.getText().equals(Integer.toString(1)));
     for (int i = 0; i < 4; i++) {
       commandLine.setText("fd 50");
       clickOn(enterButton);
+      assertTrue(commandLine.getText().equals(Integer.toString(50)));
       commandLine.setText("right 90");
       clickOn(enterButton);
+      assertTrue(commandLine.getText().equals(Integer.toString(90)));
     }
   }
 

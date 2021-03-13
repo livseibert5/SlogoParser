@@ -76,7 +76,7 @@ public class SceneComponents extends Observable {
     root.getChildren().add(commandLine);
   }
 
-  public void getReturnValue(int value) {
+  public void printReturnValue(int value) {
     System.out.println(value);
     commandLine.setText(String.valueOf(value));
     System.out.println(commandLine.getText());

@@ -39,7 +39,6 @@ public class WindowControl {
   private EnterButtonMaker enterButton;
   private UploadButtonMaker uploadButton;
 
-
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
    */
@@ -61,7 +60,7 @@ public class WindowControl {
           int value = myParser.parse(myComponents.getTextInput());
           myTurtleDisplay.updateTurtleView(1);
           myComponents.clearTextInput();
-          myComponents.getReturnValue(value);
+          myComponents.printReturnValue(value);
         } catch (Exception e) {
           makeErrorWindow("Invalid command.");
         }
