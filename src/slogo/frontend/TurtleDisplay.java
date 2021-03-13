@@ -117,7 +117,7 @@ public class TurtleDisplay implements PropertyChangeListener {
     newLine.setStartX(currTurtleView.getX());
     newLine.setStartY(currTurtleView.getY());
     newLine.setEndX(newLocation[0] + X_CENTER_OFFSET);
-    newLine.setEndY(newLocation[1] + Y_CENTER_OFFSET);
+    newLine.setEndY(-1 * newLocation[1] + Y_CENTER_OFFSET);
 
     myRoot.getChildren().add(newLine);
   }
