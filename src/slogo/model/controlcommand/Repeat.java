@@ -5,6 +5,7 @@ import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.CommandBlock;
 import slogo.model.Value;
+import slogo.model.Variable;
 import slogo.model.backendexceptions.MathException;
 import slogo.model.parser.Parser;
 import slogo.model.Turtle;
@@ -51,7 +52,9 @@ public class Repeat implements Command {
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
     int parserOutput = 0;
     Parser parser = new Parser(controller);
+    controller.getVariableHandler().addVariable(new Variable(":repcount"));
     for(int i = 0; i < count; i++){
+      controller.getVariableHandler().getVariableWithName(":repcount").setValue(i);
       parserOutput = parser.parse(list.toString());
     }
     return parserOutput;
