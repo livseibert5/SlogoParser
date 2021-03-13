@@ -60,6 +60,26 @@ public class FrontEndTest extends DukeApplicationTest {
   }
 
   @Test
+  // scenario: user moves the turtle back
+  void backNoLine() {
+    commandLine.setText("bk 50");
+    clickOn(enterButton);
+  }
+
+  @Test
+  // scenario: user draws a square
+  void drawSquare() {
+    commandLine.setText("pd");
+    clickOn(enterButton);
+    for (int i = 0; i < 4; i++) {
+      commandLine.setText("fd 50");
+      clickOn(enterButton);
+      commandLine.setText("right 90");
+      clickOn(enterButton);
+    }
+  }
+
+  @Test
   // scenario: user presses the enter button, with a non-valid command in the text field
   void invalidCommand() {
     commandLine.setText("asdfasdfa");
@@ -72,6 +92,8 @@ public class FrontEndTest extends DukeApplicationTest {
   void changePenColor() {
     String newColor = "#ff6666";
     select(penColor, newColor);
+    commandLine.setText("pd");
+    clickOn(enterButton);
     commandLine.setText("fd 50");
     clickOn(enterButton);
     Line newLine = lookup("#line").query();
@@ -79,7 +101,7 @@ public class FrontEndTest extends DukeApplicationTest {
   }
 
   @Test
-  // scenario: user changes the color of the background
+  // scenario: user changes the color of the background and draws a line
   void changeBackgroundColor() {
     String newColor = "#ff1253";
     select(backgroundColor, newColor);
