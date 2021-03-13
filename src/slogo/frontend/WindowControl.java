@@ -48,6 +48,7 @@ public class WindowControl {
     List<PropertyChangeListener> listenerList = new ArrayList<>();
     listenerList.add(myTurtleDisplay);
     myComponents = new SceneComponents(root, listenerList);
+
     helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
     enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, new EventHandler<ActionEvent>() {
       @Override
