@@ -55,7 +55,7 @@ public class WindowControl {
     myParser = new Parser(myController);
     myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler().getTurtle(1), root);
     List<PropertyChangeListener> listenerList = new ArrayList<>();
-    listenerList.add(myTurtleDisplay);
+    listenerList.add(myTurtleDisplay.getLineColorListener());
     myComponents = new SceneComponents(root, listenerList);
 
     uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, new EventHandler<ActionEvent>() {

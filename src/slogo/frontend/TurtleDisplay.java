@@ -18,7 +18,7 @@ import slogo.model.Turtle;
  *
  * @author Jessica Yang
  */
-public class TurtleDisplay implements PropertyChangeListener {
+public class TurtleDisplay {
 
   private static final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName()
       + ".resources.images.").replace('.', '/');
@@ -36,6 +36,8 @@ public class TurtleDisplay implements PropertyChangeListener {
   private final Group myRoot;
   private Color lineColor;
 
+  private PropertyChangeListener lineColorListener;
+
   /**
    * Constructor for TurtleDisplay. Takes in map of turtles from Controller.
    *
@@ -46,6 +48,7 @@ public class TurtleDisplay implements PropertyChangeListener {
     myRoot = root;
     updateImageMap();
     lineColor = Color.BLACK;
+    lineColorListener = evt -> setLineColor((Color) evt.getNewValue());
   }
 
   /**
@@ -151,7 +154,7 @@ public class TurtleDisplay implements PropertyChangeListener {
   }
 
   /**
-   * Called by SceneBuilder to update line color from GUI. TODO
+   * Updates lineColor.
    *
    * @param newColor updated color
    */
@@ -160,12 +163,12 @@ public class TurtleDisplay implements PropertyChangeListener {
   }
 
   /**
-   * Updates linecolor of turtles upon change in ColorPicker.
+   * Returns PropertyChangeListener to update line color from GUI.
    *
-   * @param event triggered when ColorPicker value changes
+   * @return PropertyChangeListener lineColorListener
    */
-  public void propertyChange(PropertyChangeEvent event) {
-    setLineColor((Color) event.getNewValue());
+  public PropertyChangeListener getLineColorListener() {
+    return lineColorListener;
   }
 
   /**
