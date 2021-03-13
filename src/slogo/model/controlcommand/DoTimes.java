@@ -10,8 +10,8 @@ import slogo.model.Turtle;
 import slogo.model.Variable;
 
 /**
- * DoTimes is the command subclass that runs a code block from 1 to limit times, setting
- * the variable in the body of the command to the loop number every time.
+ * DoTimes is the command subclass that runs a code block from 1 to limit times, setting the
+ * variable in the body of the command to the loop number every time.
  *
  * @author Livia Seibert
  */
@@ -22,11 +22,11 @@ public class DoTimes implements Command {
   private CommandBlock commandBlock;
 
   /**
-   * DoTimes Constructor needs a controller to execute the command block, a limit to determine how many
-   * times to run, and a command block to execute.
+   * DoTimes Constructor needs a controller to execute the command block, a limit to determine how
+   * many times to run, and a command block to execute.
    *
-   * @param controller controller for the current game
-   * @param limit loop runs 1-limit (inclusive) times
+   * @param controller   controller for the current game
+   * @param limit        loop runs 1-limit (inclusive) times
    * @param commandBlock commands to execute each time
    */
   public DoTimes(Controller controller, CommandBlock limit, CommandBlock commandBlock) {
@@ -36,8 +36,8 @@ public class DoTimes implements Command {
   }
 
   /**
-   * Configures the loop variables and then runs the commandBlock the given number
-   * of times, updating the variable on each loop.
+   * Configures the loop variables and then runs the commandBlock the given number of times,
+   * updating the variable on each loop.
    *
    * @param turtle turtle object to execute command on
    * @return result of executing last command

@@ -4,8 +4,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * HideTurtle is the Command subclass that lets the user remove the turtle icon
- * from the canvas.
+ * HideTurtle is the Command subclass that lets the user remove the turtle icon from the canvas.
  *
  * @author Livia Seibert
  */

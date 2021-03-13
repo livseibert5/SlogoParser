@@ -4,8 +4,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * ShowTurtle is the Command subclass that lets the user make the turtle visible on
- * the canvas.
+ * ShowTurtle is the Command subclass that lets the user make the turtle visible on the canvas.
  *
  * @author Livia Seibert
  */

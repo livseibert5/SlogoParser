@@ -10,18 +10,18 @@ import slogo.model.backendexceptions.MathException;
  *
  * @author Rachel Luria
  */
-public class Tangent implements Command{
+public class Tangent implements Command {
 
   private final double argument;
   private final String ERROR_MESSAGE = "Invalid Tangent Input";
 
   /**
-   * Constructor for the Tangent command, takes a constant as its argument and
-   * gets its value by executing a constant command
+   * Constructor for the Tangent command, takes a constant as its argument and gets its value by
+   * executing a constant command
    *
    * @param argument Constant that the tangent gets taken of
    */
-  public Tangent(Value argument){
+  public Tangent(Value argument) {
     this.argument = argument.getValue();
   }
 
@@ -34,10 +34,9 @@ public class Tangent implements Command{
    */
   @Override
   public double execute(Turtle turtle) throws MathException {
-    if(argument % 90 == 0 && argument % 180 != 0){
+    if (argument % 90 == 0 && argument % 180 != 0) {
       throw new MathException(ERROR_MESSAGE);
-    }
-    else{
+    } else {
       return Math.tan(Math.toRadians(argument));
     }
   }

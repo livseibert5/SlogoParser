@@ -22,12 +22,12 @@ public class Repeat implements Command {
   private Controller controller;
 
   /**
-   * Repeat constructor needs a controller to execute the command body, an argument to
-   * know how many times to run, and a list of commands to run the given number of times.
+   * Repeat constructor needs a controller to execute the command body, an argument to know how many
+   * times to run, and a list of commands to run the given number of times.
    *
    * @param controller controller for the current game
-   * @param argument number of times to run the code block
-   * @param list list of commands to run each time
+   * @param argument   number of times to run the code block
+   * @param list       list of commands to run each time
    */
   public Repeat(Controller controller, Value argument, CommandBlock list) {
     count = (int) argument.getValue();
@@ -53,7 +53,7 @@ public class Repeat implements Command {
     int parserOutput = 0;
     Parser parser = new Parser(controller);
     controller.getVariableHandler().addVariable(new Variable(":repcount"));
-    for(int i = 0; i < count; i++){
+    for (int i = 0; i < count; i++) {
       controller.getVariableHandler().getVariableWithName(":repcount").setValue(i);
       parserOutput = parser.parse(list.toString());
     }

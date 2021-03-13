@@ -9,17 +9,17 @@ import slogo.model.Value;
  *
  * @author Rachel Luria
  */
-public class Sine implements Command{
+public class Sine implements Command {
 
   private final double argument;
 
   /**
-   * Constructor for the Sine command, takes a constant as its argument and
-   * gets its value by executing a constant command
+   * Constructor for the Sine command, takes a constant as its argument and gets its value by
+   * executing a constant command
    *
    * @param argument Constant that the sine gets taken of
    */
-  public Sine(Value argument){
+  public Sine(Value argument) {
     this.argument = argument.getValue();
   }
 

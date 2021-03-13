@@ -5,8 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Equal class is the Command subclass that returns 1 if the two arguments are
- * equal to each other.
+ * Equal class is the Command subclass that returns 1 if the two arguments are equal to each other.
  *
  * @author Livia Seibert
  */
@@ -16,8 +15,7 @@ public class Equal implements Command {
   private double argument2;
 
   /**
-   * Constructor for Equal command, takes in two constants to determine
-   * equality of.
+   * Constructor for Equal command, takes in two constants to determine equality of.
    *
    * @param argument1 first argument to compare
    * @param argument2 second argument to compare

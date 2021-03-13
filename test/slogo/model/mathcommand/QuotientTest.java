@@ -30,7 +30,7 @@ public class QuotientTest {
 
   @Test
   void testQuotientargeNumbers() {
-    quotient= new Quotient(new Constant(10500), new Constant(350));
+    quotient = new Quotient(new Constant(10500), new Constant(350));
     assertEquals(30, quotient.execute(turtle));
   }
 
@@ -39,6 +39,7 @@ public class QuotientTest {
     quotient = new Quotient(new Constant(-100), new Constant(-10));
     assertEquals(10, quotient.execute(turtle));
   }
+
   @Test
   void testQuotientOneNegativeNumber() {
     quotient = new Quotient(new Constant(-100), new Constant(10));

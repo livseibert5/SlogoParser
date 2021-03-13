@@ -9,19 +9,19 @@ import slogo.model.Value;
  *
  * @author Rachel Luria
  */
-public class Product implements Command{
+public class Product implements Command {
 
   private final double argument1;
   private final double argument2;
 
   /**
-   * Constructor for the Power command, takes two constants as its arguments and
-   * gets their values by executing a constant command
+   * Constructor for the Power command, takes two constants as its arguments and gets their values
+   * by executing a constant command
    *
    * @param argument1 number being multiplied
    * @param argument2 number being multiplied
    */
-  public Product(Value argument1, Value argument2){
+  public Product(Value argument1, Value argument2) {
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();
   }

@@ -14,9 +14,9 @@ import slogo.model.UserDefinedCommand;
 import slogo.model.backendexceptions.MathException;
 
 /**
- * Parser takes in a user input String from the front end using the .parse function
- * and determines which functions to call and which inputs to pass them so that the
- * program state is updates appropriately.
+ * Parser takes in a user input String from the front end using the .parse function and determines
+ * which functions to call and which inputs to pass them so that the program state is updates
+ * appropriately.
  *
  * @author Livia Seibert
  */
@@ -30,14 +30,16 @@ public class Parser {
   private Stack<Object> poppedStack;
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
   private ResourceBundle resources = ResourceBundle.getBundle("resources.languages.English");
-  private ResourceBundle controlCommands = ResourceBundle.getBundle(RESOURCE_FOLDER + "ControlCommands");
-  private ResourceBundle expressionFactoryTypes = ResourceBundle.getBundle(RESOURCE_FOLDER + "ExpressionFactory");
+  private ResourceBundle controlCommands = ResourceBundle
+      .getBundle(RESOURCE_FOLDER + "ControlCommands");
+  private ResourceBundle expressionFactoryTypes = ResourceBundle
+      .getBundle(RESOURCE_FOLDER + "ExpressionFactory");
   private Turtle turtle;
   private double result;
 
   /**
-   * When a Parser is instantiated on the front end it is passed a Controller so
-   * that the front end an back end both have access to the same TurtleHandler and VariableHandler.
+   * When a Parser is instantiated on the front end it is passed a Controller so that the front end
+   * an back end both have access to the same TurtleHandler and VariableHandler.
    *
    * @param controller controller for the program
    */
@@ -60,8 +62,8 @@ public class Parser {
   }
 
   /**
-   * Takes in user input from the front end and parses the String in order to execute its
-   * expected behavior.
+   * Takes in user input from the front end and parses the String in order to execute its expected
+   * behavior.
    *
    * @param command String with commands from IDE
    * @return integer result of the command
@@ -88,9 +90,10 @@ public class Parser {
   private String removeComments(String command) {
     String[] commandLines = command.split("\\n");
     List<String> newCommandLines = Arrays.asList(commandLines);
-    newCommandLines.stream().filter(line -> !regexDetector.getSymbol(line.split(" ")[0]).equals("Comment"));
+    newCommandLines.stream()
+        .filter(line -> !regexDetector.getSymbol(line.split(" ")[0]).equals("Comment"));
     StringBuilder result = new StringBuilder();
-    for (String line: newCommandLines) {
+    for (String line : newCommandLines) {
       result.append(line);
       result.append(" ");
     }
@@ -121,21 +124,25 @@ public class Parser {
   /**
    * Handles creation of Constants, CommandBlocks, and Variables.
    *
-   * @param commandType type of object to create
+   * @param commandType       type of object to create
    * @param commandComponents list of command pieces
-   * @param index current index of commandComponents list
+   * @param index             current index of commandComponents list
    * @return new index of commandComponents list
    */
-  private int handleNonCommandExpressionComponents(String commandType, String[] commandComponents, int index) {
+  private int handleNonCommandExpressionComponents(String commandType, String[] commandComponents,
+      int index) {
     if (commandType.equals("Constant")) {
       commandStack.push(expressionFactory.makeConstant(Integer.parseInt(commandComponents[index])));
     } else if (commandType.equals("ListEnd")) {
-      int endIndex = expressionFactory.findBeginningOfCommandBlock(index, commandComponents, regexDetector);
-      List<String> commandList = Arrays.asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
+      int endIndex = expressionFactory
+          .findBeginningOfCommandBlock(index, commandComponents, regexDetector);
+      List<String> commandList = Arrays
+          .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
       commandStack.push(expressionFactory.makeCommandBlock(commandList));
       return endIndex;
     } else if (commandType.equals("Variable")) {
-      commandStack.push(expressionFactory.makeVariable(commandComponents[index], controller.getVariableHandler()));
+      commandStack.push(expressionFactory
+          .makeVariable(commandComponents[index], controller.getVariableHandler()));
     }
     return index;
   }
@@ -154,7 +161,8 @@ public class Parser {
     while (!commandStack.isEmpty()) {
       if (expressionFactoryTypes.containsKey(commandStack.peek().getClass().getName())) {
         poppedStack.push(commandStack.pop());
-      } else if (controller.getUserDefinedCommandHandler().containsCommand((String) commandStack.peek())) {
+      } else if (controller.getUserDefinedCommandHandler()
+          .containsCommand((String) commandStack.peek())) {
         executeUserDefinedCommand();
       } else {
         executeSlogoCommand();
@@ -175,7 +183,8 @@ public class Parser {
   private void executeUserDefinedCommand()
       throws ClassNotFoundException, NoSuchMethodException, MathException, InstantiationException, IllegalAccessException, InvocationTargetException {
     Object command = commandStack.pop();
-    UserDefinedCommand userCommand = controller.getUserDefinedCommandHandler().getCommand((String) command);
+    UserDefinedCommand userCommand = controller.getUserDefinedCommandHandler()
+        .getCommand((String) command);
     List<Object> parameters = generateParameters((String) command,
         userCommand.getNumberParameters());
     String newCommand = userCommand.generateCommand(parameters);
@@ -217,11 +226,10 @@ public class Parser {
   }
 
   /**
-   * Puts arguments back on the commandStack if they are not the right arguments
-   * for the command.
+   * Puts arguments back on the commandStack if they are not the right arguments for the command.
    *
    * @param command command attempted to execute
-   * @param args list of arguments given to command
+   * @param args    list of arguments given to command
    */
   private void resetArguments(String command, List<Object> args) {
     int lowerBound = controlCommands.containsKey(command) ? 1 : 0;
