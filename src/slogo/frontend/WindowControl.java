@@ -25,6 +25,8 @@ public class WindowControl {
   private static final int HELP_Y = 700;
   private static final int ENTER_X = 300;
   private static final int ENTER_Y = 675;
+  private static final int UPLOAD_X = 175;
+  private static final int UPLOAD_Y = 0;
 
   private CreateScene myScene;
   private Group root = new Group();
@@ -35,6 +37,7 @@ public class WindowControl {
   private SceneComponents myComponents;
   private HelpButtonMaker helpButton;
   private EnterButtonMaker enterButton;
+  private UploadButtonMaker uploadButton;
 
 
   /**
@@ -49,13 +52,16 @@ public class WindowControl {
     listenerList.add(myTurtleDisplay);
     myComponents = new SceneComponents(root, listenerList);
 
+    uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root);
     helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
     enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
         try {
-          myParser.parse(myComponents.getTextInput());
+          int value = myParser.parse(myComponents.getTextInput());
           myTurtleDisplay.updateTurtleView(1);
+          myComponents.clearTextInput();
+          myComponents.getReturnValue(value);
         } catch (Exception e) {
           makeErrorWindow("Invalid command.");
         }

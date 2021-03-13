@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class HelpButtonMaker extends ButtonMaker {
     private static final int HELP_HEIGHT = 750;
     private static final int HELP_WIDTH = 600;
+    Group root = new Group();
 
 
     public HelpButtonMaker(String myLabel, int x, int y, Group myRoot) {
@@ -28,9 +29,9 @@ public class HelpButtonMaker extends ButtonMaker {
         };
     }
     private Scene makeHelpScene() {
-        Group root = new Group();
         Scene scene = new Scene(root, HELP_WIDTH, HELP_HEIGHT);
         //scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
         return scene;
     }
+
 }
