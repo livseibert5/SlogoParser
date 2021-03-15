@@ -12,6 +12,7 @@ public class Turtle {
   private boolean penDown;
   private boolean isShowing;
   private int penColor;
+  private int penThickness;
   private static final int TURTLE_BOUNDARY = 300;
 
   /**
@@ -146,5 +147,13 @@ public class Turtle {
 
   public int getPenColor() {
     return penColor;
+  }
+
+  public void setPenThickness(int thickness) {
+    penThickness = thickness;
+  }
+
+  public int getPenThickness() {
+    return penThickness;
   }
 }
