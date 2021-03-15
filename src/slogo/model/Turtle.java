@@ -11,8 +11,8 @@ public class Turtle {
   private double orientation;
   private boolean penDown;
   private boolean isShowing;
-  private int penColor;
-  private int penThickness;
+  private double penColor;
+  private double penThickness;
   private static final int TURTLE_BOUNDARY = 300;
 
   /**
@@ -141,19 +141,19 @@ public class Turtle {
     isShowing = false;
   }
 
-  public void setPenColor(int colorIndex) {
+  public void setPenColor(double colorIndex) {
     penColor = colorIndex;
   }
 
-  public int getPenColor() {
+  public double getPenColor() {
     return penColor;
   }
 
-  public void setPenThickness(int thickness) {
+  public void setPenThickness(double thickness) {
     penThickness = thickness;
   }
 
-  public int getPenThickness() {
+  public double getPenThickness() {
     return penThickness;
   }
 }

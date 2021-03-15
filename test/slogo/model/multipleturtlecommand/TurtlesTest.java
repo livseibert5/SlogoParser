@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
 import slogo.model.Turtle;
 
+/**
+ * Tests for Turtles class.
+ *
+ * @author Livia Seibert
+ */
 public class TurtlesTest {
 
   private Turtles turtles;
