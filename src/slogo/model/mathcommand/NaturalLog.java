@@ -10,18 +10,18 @@ import slogo.model.backendexceptions.MathException;
  *
  * @author Rachel Luria
  */
-public class NaturalLog implements Command{
+public class NaturalLog implements Command {
 
   private final double argument;
   private final String ERROR_MESSAGE = "Invalid Log Input";
 
   /**
-   * Constructor for the NaturalLog command, takes a constant as its argument and
-   * gets its value by executing a constant command
+   * Constructor for the NaturalLog command, takes a constant as its argument and gets its value by
+   * executing a constant command
    *
    * @param argument Constant that the naturallog gets taken of
    */
-  public NaturalLog(Value argument){
+  public NaturalLog(Value argument) {
     this.argument = argument.getValue();
   }
 
@@ -34,10 +34,9 @@ public class NaturalLog implements Command{
    */
   @Override
   public double execute(Turtle turtle) throws MathException {
-    if(argument > 0) {
+    if (argument > 0) {
       return Math.log(argument);
-    }
-    else{
+    } else {
       throw new MathException(ERROR_MESSAGE);
     }
   }

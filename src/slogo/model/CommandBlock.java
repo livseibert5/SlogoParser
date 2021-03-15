@@ -1,9 +1,8 @@
 package slogo.model;
 
 /**
- * CommandBlock contains a series of commands to be stored for later use. Specifically,
- * this class is useful for the control commands to execute a block of commands within a
- * loop or if statement.
+ * CommandBlock contains a series of commands to be stored for later use. Specifically, this class
+ * is useful for the control commands to execute a block of commands within a loop or if statement.
  *
  * @author Livia Seibert
  */

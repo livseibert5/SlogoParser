@@ -9,19 +9,19 @@ import slogo.model.Value;
  *
  * @author Rachel Luria
  */
-public class Difference implements Command{
+public class Difference implements Command {
 
   private final double argument1;
   private final double argument2;
 
   /**
-   * Constructor for the Difference command, takes two constants as its arguments and
-   * gets their values by executing a constant command
+   * Constructor for the Difference command, takes two constants as its arguments and gets their
+   * values by executing a constant command
    *
    * @param argument1 argument that gets subtracted from
    * @param argument2 amount that is subtracted
    */
-  public Difference(Value argument1, Value argument2){
+  public Difference(Value argument1, Value argument2) {
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();
   }

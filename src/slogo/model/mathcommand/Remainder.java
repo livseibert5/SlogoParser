@@ -10,19 +10,19 @@ import slogo.model.Value;
  *
  * @author Rachel Luria
  */
-public class Remainder implements Command{
+public class Remainder implements Command {
 
   private final double argument1;
   private final double argument2;
 
   /**
-   * Constructor for the Remainder command, takes two constants as their arguments and
-   * gets their values by executing a constant command
+   * Constructor for the Remainder command, takes two constants as their arguments and gets their
+   * values by executing a constant command
    *
    * @param argument1 being divided in mod equation
    * @param argument2 dividing in mod equation
    */
-  public Remainder(Value argument1, Value argument2){
+  public Remainder(Value argument1, Value argument2) {
     this.argument1 = argument1.getValue();
     this.argument2 = argument2.getValue();
   }

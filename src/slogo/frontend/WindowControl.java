@@ -23,6 +23,8 @@ import slogo.model.parser.Parser;
 public class WindowControl {
   private static final int HELP_X = 1000;
   private static final int HELP_Y = 700;
+  private static final int ENTER_X = 300;
+  private static final int ENTER_Y = 675;
 
   private CreateScene myScene;
   private Group root = new Group();
@@ -46,8 +48,9 @@ public class WindowControl {
     List<PropertyChangeListener> listenerList = new ArrayList<>();
     listenerList.add(myTurtleDisplay);
     myComponents = new SceneComponents(root, listenerList);
+
     helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
-    enterButton = new EnterButtonMaker("Enter", 0, 0, root, new EventHandler<ActionEvent>() {
+    enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
         try {

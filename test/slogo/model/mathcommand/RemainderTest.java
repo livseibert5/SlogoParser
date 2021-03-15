@@ -45,6 +45,7 @@ public class RemainderTest {
     remainder = new Remainder(new Constant(-100), new Constant(-6));
     assertEquals(-4, remainder.execute(turtle));
   }
+
   @Test
   void testQuotientOneNegativeNumber() {
     remainder = new Remainder(new Constant(-100), new Constant(3));

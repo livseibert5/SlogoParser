@@ -9,17 +9,17 @@ import slogo.model.Value;
  *
  * @author Rachel Luria
  */
-public class Cosine implements Command{
+public class Cosine implements Command {
 
   private final double argument;
 
   /**
-   * Constructor for the Cosine command, takes a constant as its argument and
-   * gets its value by executing a constant command
+   * Constructor for the Cosine command, takes a constant as its argument and gets its value by
+   * executing a constant command
    *
    * @param argument Constant that the cosine gets taken of
    */
-  public Cosine(Value argument){
+  public Cosine(Value argument) {
     this.argument = argument.getValue();
   }
 
