@@ -19,7 +19,6 @@ public class TurtleHandler {
    */
   public TurtleHandler() {
     turtles = new HashMap<>();
-    turtles.put(0, new Turtle());
     turtles.put(1, new Turtle());
   }
 
@@ -40,6 +39,10 @@ public class TurtleHandler {
    */
   public void removeTurtle(int id) {
     turtles.remove(id);
+  }
+
+  public int getNumberTurtles() {
+    return turtles.size();
   }
 
   // TODO: once front end works, change this function to get a turtle with a specific id

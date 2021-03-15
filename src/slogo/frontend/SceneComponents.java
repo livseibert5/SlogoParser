@@ -3,16 +3,21 @@ package slogo.frontend;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -33,6 +38,8 @@ public class SceneComponents extends Observable {
   private final ResourceBundle myLanguages = ResourceBundle
       .getBundle("resources.languages.LangaugeOptions" );
   private final Rectangle turtleBox = new Rectangle(WINDOW_SIZE, WINDOW_SIZE, Color.WHITE);
+  private ListView pastCommands = new ListView();
+  private List<String> commands = new ArrayList<>();
 
   private Color oldLineColor = Color.BLACK;
 
@@ -54,6 +61,7 @@ public class SceneComponents extends Observable {
     makeVariableView();
     makeUserCommandView();
     addColorPickers();
+    showPastCommands();
     makeLanguageDropDown();
   }
 
@@ -61,15 +69,40 @@ public class SceneComponents extends Observable {
     commandLine = new TextArea();
     commandLine.setPromptText("Type Commands Here" );
     commandLine.setPrefHeight(WINDOW_SIZE / 2);
-    commandLine.setPrefWidth(WINDOW_SIZE);
+    commandLine.setPrefWidth(WINDOW_SIZE/2 - DEFAULT_BORDER/4);
     commandLine.relocate(DEFAULT_BORDER, DEFAULT_HEIGHT - commandLine.getPrefHeight()
         - 2 * DEFAULT_BORDER); //change this to avoid "magic numbers
     commandLine.setId("commandLine");
     root.getChildren().add(commandLine);
   }
 
+  public void getReturnValue(int value) {
+    System.out.println(value);
+    commandLine.setText(String.valueOf(value));
+    System.out.println(commandLine.getText());
+    commandLine.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        commandLine.clear();
+      }
+    });
+  }
+
+  private void showPastCommands() {
+    pastCommands.setPrefSize(WINDOW_SIZE/2 - DEFAULT_BORDER/4, WINDOW_SIZE/ 2);
+    pastCommands.relocate(DEFAULT_BORDER*1.5 + pastCommands.getPrefWidth(), DEFAULT_HEIGHT - pastCommands.getPrefHeight()
+            - 2 * DEFAULT_BORDER);
+    root.getChildren().add(pastCommands);
+
+  }
+
   public String getTextInput() {
     return commandLine.getText();
+  }
+  public void clearTextInput() {
+    commands.add(commandLine.getText());
+    pastCommands.setItems(FXCollections.observableList(commands));
+    commandLine.clear();
   }
 
   private void makeColorPicker(ColorPicker colorPicker, double x, double y, EventHandler event) {
@@ -78,8 +111,9 @@ public class SceneComponents extends Observable {
   }
 
   private void addColorPickers() {
+    double y = DEFAULT_BORDER / 3;
     double x = turtleBox.getX() + DEFAULT_BORDER + turtleBox.getWidth() / 2;
-    Text backgroundTitle = new Text(x, DEFAULT_BORDER / 3, "Select Background Color:" );
+    Text backgroundTitle = new Text(x, y, "Select Background Color:" );
     backgroundTitle.setId("colorlabel");
     final ColorPicker background = new ColorPicker();
     makeColorPicker(background, x, DEFAULT_BORDER / 2, new EventHandler() {
@@ -90,7 +124,9 @@ public class SceneComponents extends Observable {
     });
     background.setId("background");
     final ColorPicker pen = new ColorPicker();
-    makeColorPicker(pen,0, 200, new EventHandler() {
+    Text penTitle = new Text(DEFAULT_BORDER + turtleBox.getX(), y, "Select Pen Color:");
+    penTitle.setId("colorlabel");
+    makeColorPicker(pen,DEFAULT_BORDER + turtleBox.getX(), DEFAULT_BORDER / 2, new EventHandler() {
         @Override
         public void handle(Event event) {
             notifyListeners("LINECOLOR", oldLineColor, pen.getValue());
@@ -98,7 +134,7 @@ public class SceneComponents extends Observable {
         }
     });
     pen.setId("pen");
-    root.getChildren().addAll(backgroundTitle, background, pen);
+    root.getChildren().addAll(backgroundTitle, background,penTitle, pen);
   }
 
   private void addTurtleWindow() {
@@ -124,7 +160,7 @@ public class SceneComponents extends Observable {
     TableColumn type = new TableColumn("Type" );
     TableColumn value = new TableColumn("Value" );
     table.getColumns().addAll(name, type, value);
-    table.setPrefSize((WINDOW_SIZE - DEFAULT_BORDER) / 2, (WINDOW_SIZE - DEFAULT_BORDER) / 2);
+    table.setPrefSize(WINDOW_SIZE/2 - DEFAULT_BORDER/4, (WINDOW_SIZE - DEFAULT_BORDER) / 2);
     table.relocate(DEFAULT_BORDER, DEFAULT_BORDER);
     root.getChildren().add(table);
   }
@@ -134,8 +170,8 @@ public class SceneComponents extends Observable {
     TableColumn command = new TableColumn("Command" );
     TableColumn definition = new TableColumn("Definition" );
     table.getColumns().addAll(command, definition);
-    table.setPrefSize((WINDOW_SIZE - DEFAULT_BORDER) / 2, (WINDOW_SIZE - DEFAULT_BORDER) / 2);
-    table.relocate(DEFAULT_BORDER * 2 + table.getPrefWidth(), DEFAULT_BORDER);
+    table.setPrefSize(WINDOW_SIZE/2 - DEFAULT_BORDER/4, (WINDOW_SIZE - DEFAULT_BORDER) / 2);
+    table.relocate(DEFAULT_BORDER*1.5 + table.getPrefWidth(), DEFAULT_BORDER);
     root.getChildren().add(table);
   }
 

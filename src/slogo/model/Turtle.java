@@ -11,6 +11,7 @@ public class Turtle {
   private double orientation;
   private boolean penDown;
   private boolean isShowing;
+  private int penColor;
   private static final int TURTLE_BOUNDARY = 300;
 
   /**
@@ -23,6 +24,7 @@ public class Turtle {
     orientation = 90.0;
     penDown = true;
     isShowing = true;
+    penColor = 0;
   }
 
   /**
@@ -136,5 +138,13 @@ public class Turtle {
    */
   public void hideTurtle() {
     isShowing = false;
+  }
+
+  public void setPenColor(int colorIndex) {
+    penColor = colorIndex;
+  }
+
+  public int getPenColor() {
+    return penColor;
   }
 }
