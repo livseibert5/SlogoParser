@@ -74,4 +74,10 @@ public class TurtleTest {
     turtle.hideTurtle();
     assertEquals(false, turtle.isShowing());
   }
+
+  @Test
+  void setPenColor() {
+    turtle.setPenColor(8);
+    assertEquals(8, turtle.getPenColor());
+  }
 }
