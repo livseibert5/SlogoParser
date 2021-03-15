@@ -26,9 +26,9 @@ public class TurtleDisplay implements PropertyChangeListener {
 
   private final Map<Integer, Turtle> turtleMap = new HashMap<>();
   private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
-  private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
-  private String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
-  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
+  private String DEFAULT_IMAGE_PATH2 = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
+  private String IMAGE_FILE2 = DEFAULT_IMAGE_PATH2 + "temp_turtle.jpg";
+  private String USER_FILE = DEFAULT_IMAGE_PATH2 + "UserImage.jpg";
   private ImageView turtleView;
 
   private static final double dimensionSize = 50;
