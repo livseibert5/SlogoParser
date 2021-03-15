@@ -11,15 +11,34 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import slogo.controller.Controller;
 
+/**
+ * Reads user-defined variables and commands from XML files.
+ *
+ * @author Livia Seibert
+ */
 public class FromXML {
 
   private Controller controller;
   private Element root;
 
+  /**
+   * Constructor for FromXML requires a controller so that it can write commands and variables to
+   * their appropriate handlers.
+   *
+   * @param controller controller for game
+   */
   public FromXML(Controller controller) {
     this.controller = controller;
   }
 
+  /**
+   * Reads variables and commands from the XML file into the game.
+   *
+   * @param filename file to read variables and commands from
+   * @throws IOException
+   * @throws SAXException
+   * @throws ParserConfigurationException
+   */
   public void readFile(String filename)
       throws IOException, SAXException, ParserConfigurationException {
     buildParser(filename);
@@ -27,38 +46,62 @@ public class FromXML {
     parseCommands();
   }
 
-  private void buildParser(String fileName) throws ParserConfigurationException, SAXException, IOException {
+  /**
+   * Constructs the Document to parse from.
+   *
+   * @param fileName file to parse
+   * @throws ParserConfigurationException
+   * @throws SAXException
+   * @throws IOException
+   */
+  private void buildParser(String fileName)
+      throws ParserConfigurationException, SAXException, IOException {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     DocumentBuilder db = dbf.newDocumentBuilder();
     Document doc = db.parse(this.getClass().getClassLoader().getResourceAsStream(fileName));
     root = doc.getDocumentElement();
   }
 
+  /**
+   * Creates Variable objects from XML.
+   */
   private void parseVariables() {
     NodeList variables = root.getElementsByTagName("Variable");
     for (int i = 0; i < variables.getLength(); i++) {
       Node currNode = variables.item(i);
       Element nodeElement = (Element) currNode;
       String name = nodeElement.getElementsByTagName("Name").item(0).getTextContent();
-      Double value = Double.parseDouble(nodeElement.getElementsByTagName("Value").item(0).getTextContent());
+      Double value = Double
+          .parseDouble(nodeElement.getElementsByTagName("Value").item(0).getTextContent());
       controller.getVariableHandler().addVariable(new Variable(name, value));
     }
   }
 
+  /**
+   * Creates UserDefinedCommand objects from XML.
+   */
   private void parseCommands() {
     NodeList commands = root.getElementsByTagName("Command");
     for (int i = 0; i < commands.getLength(); i++) {
       Node currNode = commands.item(i);
       Element nodeElement = (Element) currNode;
       String name = nodeElement.getElementsByTagName("Name").item(0).getTextContent();
-      int numParameters = Integer.parseInt(nodeElement.getElementsByTagName("NumberParameters").item(0).getTextContent());
+      int numParameters = Integer
+          .parseInt(nodeElement.getElementsByTagName("NumberParameters").item(0).getTextContent());
       String body = nodeElement.getElementsByTagName("CommandBody").item(0).getTextContent();
       String[] parameters = parseParameters(nodeElement);
       CommandBlock block = new CommandBlock(body);
-      controller.getUserDefinedCommandHandler().addCommand(new UserDefinedCommand(name, numParameters, parameters, block));
+      controller.getUserDefinedCommandHandler()
+          .addCommand(new UserDefinedCommand(name, numParameters, parameters, block));
     }
   }
 
+  /**
+   * Determines parameters for UserDefinedCommand objects from the XML file.
+   *
+   * @param nodeElement element of current command entry
+   * @return list of parameters
+   */
   private String[] parseParameters(Element nodeElement) {
     Node parameterBlock = nodeElement.getElementsByTagName("Parameters").item(0);
     NodeList parameterItems = parameterBlock.getChildNodes();
