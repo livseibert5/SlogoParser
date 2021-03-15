@@ -52,6 +52,14 @@ public class UserDefinedCommand {
     return numberParameters;
   }
 
+  public CommandBlock getBody() {
+    return body;
+  }
+
+  public String[] getParameters() {
+    return parameters;
+  }
+
   /**
    * Creates an executable command with the parameters that the user specifies at runtime.
    *

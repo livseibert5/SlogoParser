@@ -30,6 +30,10 @@ public class VariableHandler {
     variables.add(variable);
   }
 
+  public List<Variable> getAllVariables() {
+    return variables;
+  }
+
   /**
    * Retrieves the value of the variable with the given name.
    *

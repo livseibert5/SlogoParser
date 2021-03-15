@@ -40,4 +40,19 @@ public class UserDefinedCommandTest {
     assertEquals("fd", command.generateCommand(runtimeParameters));
   }
 
+  @Test
+  void testGetBody() {
+    String[] parameters = new String[]{"sum", "difference"};
+    block = new CommandBlock("fd");
+    command = new UserDefinedCommand("move", 2, parameters, block);
+    assertEquals(block, command.getBody());
+  }
+
+  @Test
+  void testGetParameters() {
+    String[] parameters = new String[]{"sum", "difference"};
+    block = new CommandBlock("fd");
+    command = new UserDefinedCommand("move", 2, parameters, block);
+    assertEquals(parameters, command.getParameters());
+  }
 }
