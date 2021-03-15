@@ -30,6 +30,11 @@ public class UserDefinedCommandHandler {
     userDefinedCommandList.add(command);
   }
 
+  /**
+   * Returns the list of all user defined commands.
+   *
+   * @return list of all user defined commands
+   */
   public List<UserDefinedCommand> getAllCommands() {
     return userDefinedCommandList;
   }

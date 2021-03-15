@@ -141,18 +141,38 @@ public class Turtle {
     isShowing = false;
   }
 
+  /**
+   * Allows the turtle's pen color to be changed.
+   *
+   * @param colorIndex index of new pen color
+   */
   public void setPenColor(double colorIndex) {
     penColor = colorIndex;
   }
 
+  /**
+   * Allows access to the turtle's current pen color.
+   *
+   * @return index of current pen color
+   */
   public double getPenColor() {
     return penColor;
   }
 
+  /**
+   * Allows the turtle's pen thickness to be changed.
+   *
+   * @param thickness thickness in pixels of turtle's pen
+   */
   public void setPenThickness(double thickness) {
     penThickness = thickness;
   }
 
+  /**
+   * Allows access to the current thickness of the turtle's pen.
+   *
+   * @return thickness in pixels of turtle's pen
+   */
   public double getPenThickness() {
     return penThickness;
   }
