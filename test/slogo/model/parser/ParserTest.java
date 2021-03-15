@@ -91,4 +91,20 @@ public class ParserTest {
     String command = "# fd 30\nfd 50";
     assertEquals(50, parser.parse(command));
   }
+
+  @Test
+  void RecursionSpiral()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    String command = "to spiral [ :len ]\n"
+        + "[\n"
+        + "  if less? :len 200\n"
+        + "  [\n"
+        + "    fd :len\n"
+        + "    rt 89\n"
+        + "    spiral + :len 3\n"
+        + "  ]\n"
+        + "]\n";
+    assertEquals(1, parser.parse(command));
+  }
+
 }
