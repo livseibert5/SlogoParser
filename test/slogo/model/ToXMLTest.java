@@ -6,6 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
 
+/**
+ * Tests for ToXML class.
+ *
+ * @author Livia Seibert
+ */
 public class ToXMLTest {
 
   private ToXML toXML;

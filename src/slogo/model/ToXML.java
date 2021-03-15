@@ -76,7 +76,7 @@ public class ToXML {
     variableElement = doc.createElement("Variables");
     rootElement.appendChild(variableElement);
     createVariables();
-    functionElement = doc.createElement("Functions");
+    functionElement = doc.createElement("Commands");
     rootElement.appendChild(functionElement);
     createFunctions();
   }
