@@ -34,8 +34,8 @@ public class ToXML {
   private Element functionElement;
 
   /**
-   * ToXML constructor requires access to the controller to retrieve user-defined
-   * variables and commands.
+   * ToXML constructor requires access to the controller to retrieve user-defined variables and
+   * commands.
    *
    * @param controller controller for game
    */
@@ -44,8 +44,8 @@ public class ToXML {
   }
 
   /**
-   * Button click on front end triggers this function, which writes the current
-   * user-defined variables and commands to an XML file.
+   * Button click on front end triggers this function, which writes the current user-defined
+   * variables and commands to an XML file.
    *
    * @throws ParserConfigurationException
    * @throws TransformerException
@@ -110,7 +110,8 @@ public class ToXML {
       name.appendChild(doc.createTextNode(command.getCommandName()));
       commandItem.appendChild(name);
       Element numParameters = doc.createElement("NumberParameters");
-      numParameters.appendChild(doc.createTextNode(Integer.toString(command.getNumberParameters())));
+      numParameters
+          .appendChild(doc.createTextNode(Integer.toString(command.getNumberParameters())));
       commandItem.appendChild(numParameters);
       Element parameters = doc.createElement("Parameters");
       createParameters(command, parameters);
@@ -124,7 +125,7 @@ public class ToXML {
   /**
    * Writes the parameters for user defined commands to the file.
    *
-   * @param command command whose parameters should be written to the file
+   * @param command    command whose parameters should be written to the file
    * @param parameters parameters parent element
    */
   private void createParameters(UserDefinedCommand command, Element parameters) {
@@ -150,7 +151,7 @@ public class ToXML {
 
   /**
    * Writes new XML document to file.
-   * 
+   *
    * @throws TransformerException
    */
   private void exportNewFile() throws TransformerException {
