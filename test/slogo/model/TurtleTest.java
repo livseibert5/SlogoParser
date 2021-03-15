@@ -80,4 +80,10 @@ public class TurtleTest {
     turtle.setPenColor(8);
     assertEquals(8, turtle.getPenColor());
   }
+
+  @Test
+  void setPenThickness() {
+    turtle.setPenThickness(6);
+    assertEquals(6, turtle.getPenThickness());
+  }
 }

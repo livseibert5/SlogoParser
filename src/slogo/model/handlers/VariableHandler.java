@@ -30,6 +30,11 @@ public class VariableHandler {
     variables.add(variable);
   }
 
+  /**
+   * Returns list of all user defined variables.
+   *
+   * @return list of all user defined variables
+   */
   public List<Variable> getAllVariables() {
     return variables;
   }
