@@ -20,6 +20,11 @@ import org.w3c.dom.Element;
 import slogo.controller.Controller;
 import java.util.List;
 
+/**
+ * Exports current user-defined variables and commands to XML file.
+ *
+ * @author Livia Seibert
+ */
 public class ToXML {
 
   private Controller controller;
@@ -28,22 +33,43 @@ public class ToXML {
   private Element variableElement;
   private Element functionElement;
 
+  /**
+   * ToXML constructor requires access to the controller to retrieve user-defined
+   * variables and commands.
+   *
+   * @param controller controller for game
+   */
   public ToXML(Controller controller) {
     this.controller = controller;
   }
 
+  /**
+   * Button click on front end triggers this function, which writes the current
+   * user-defined variables and commands to an XML file.
+   *
+   * @throws ParserConfigurationException
+   * @throws TransformerException
+   */
   public void exportToXML() throws ParserConfigurationException, TransformerException {
     initializeDocumentBuilder();
     createDocument();
     exportNewFile();
   }
 
+  /**
+   * Creates DocumentBuilder and DocumentBuilderFactory to create new XML doc.
+   *
+   * @throws ParserConfigurationException issue with DocumentBuilder creation
+   */
   private void initializeDocumentBuilder() throws ParserConfigurationException {
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
     doc = dBuilder.newDocument();
   }
 
+  /**
+   * Builds the new XML file.
+   */
   private void createDocument() {
     rootElement = doc.createElement("UserDefinedData");
     doc.appendChild(rootElement);
@@ -55,6 +81,9 @@ public class ToXML {
     createFunctions();
   }
 
+  /**
+   * Writes the user defined variables to the file.
+   */
   private void createVariables() {
     List<Variable> variables = controller.getVariableHandler().getAllVariables();
     variables.forEach(variable -> {
@@ -69,6 +98,9 @@ public class ToXML {
     });
   }
 
+  /**
+   * Writes the user defined commands to the file.
+   */
   private void createFunctions() {
     List<UserDefinedCommand> commands = controller.getUserDefinedCommandHandler().getAllCommands();
     commands.forEach(command -> {
@@ -81,12 +113,7 @@ public class ToXML {
       numParameters.appendChild(doc.createTextNode(Integer.toString(command.getNumberParameters())));
       commandItem.appendChild(numParameters);
       Element parameters = doc.createElement("Parameters");
-      String[] parametersList = command.getParameters();
-      Arrays.asList(parametersList).forEach(item -> {
-        Element parameter = doc.createElement("Parameter");
-        parameter.appendChild(doc.createTextNode(item));
-        parameters.appendChild(parameter);
-      });
+      createParameters(command, parameters);
       commandItem.appendChild(parameters);
       Element body = doc.createElement("CommandBody");
       body.appendChild(doc.createTextNode(command.getBody().toString()));
@@ -94,6 +121,26 @@ public class ToXML {
     });
   }
 
+  /**
+   * Writes the parameters for user defined commands to the file.
+   *
+   * @param command command whose parameters should be written to the file
+   * @param parameters parameters parent element
+   */
+  private void createParameters(UserDefinedCommand command, Element parameters) {
+    String[] parametersList = command.getParameters();
+    Arrays.asList(parametersList).forEach(item -> {
+      Element parameter = doc.createElement("Parameter");
+      parameter.appendChild(doc.createTextNode(item));
+      parameters.appendChild(parameter);
+    });
+  }
+
+  /**
+   * Creates a file name for the new XML file from the current date and time.
+   *
+   * @return name for new XML file
+   */
   private String createFileName() {
     String pattern = "MM_dd_yy_HH_mm";
     DateFormat dateFormat = new SimpleDateFormat(pattern);
@@ -101,6 +148,11 @@ public class ToXML {
     return dateFormat.format(today);
   }
 
+  /**
+   * Writes new XML document to file.
+   * 
+   * @throws TransformerException
+   */
   private void exportNewFile() throws TransformerException {
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     Transformer transformer = transformerFactory.newTransformer();
