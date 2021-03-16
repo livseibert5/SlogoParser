@@ -76,6 +76,7 @@ public class Parser {
    */
   public int parse(String command)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
+    turtle = controller.getTurtleHandler().getActiveTurtle();
     String[] commandComponents = removeComments(command).split(" ");
     createCommandStack(commandComponents);
     parseCommandStack();

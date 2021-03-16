@@ -1,5 +1,7 @@
 package slogo.model.handlers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import slogo.model.Turtle;
@@ -13,6 +15,7 @@ import slogo.model.Turtle;
 public class TurtleHandler {
 
   private Map<Integer, Turtle> turtles;
+  private List<Turtle> activeTurtles;
   private Turtle activeTurtle;
   private int currentTurtleIndex;
 
@@ -22,6 +25,8 @@ public class TurtleHandler {
   public TurtleHandler() {
     turtles = new HashMap<>();
     turtles.put(1, new Turtle());
+    activeTurtles = new ArrayList<>();
+    activeTurtles.add(turtles.get(1));
     activeTurtle = turtles.get(1);
     currentTurtleIndex = 1;
   }
@@ -53,8 +58,8 @@ public class TurtleHandler {
     return activeTurtle;
   }
 
-  public void setActiveTurtle(Turtle turtle) {
-    activeTurtle = turtle;
+  public void setActiveTurtle(int turtle) {
+    activeTurtle = turtles.get(turtle);
   }
 
   public int getTurtleId(Turtle turtle) {
