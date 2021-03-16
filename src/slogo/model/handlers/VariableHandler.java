@@ -31,6 +31,15 @@ public class VariableHandler {
   }
 
   /**
+   * Returns list of all user defined variables.
+   *
+   * @return list of all user defined variables
+   */
+  public List<Variable> getAllVariables() {
+    return variables;
+  }
+
+  /**
    * Retrieves the value of the variable with the given name.
    *
    * @param name name of variable to get value of

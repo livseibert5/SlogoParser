@@ -31,6 +31,15 @@ public class UserDefinedCommandHandler {
   }
 
   /**
+   * Returns the list of all user defined commands.
+   *
+   * @return list of all user defined commands
+   */
+  public List<UserDefinedCommand> getAllCommands() {
+    return userDefinedCommandList;
+  }
+
+  /**
    * Retrieves the command from the list that has the given name.
    *
    * @param commandName name of command to retrieve
