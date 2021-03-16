@@ -76,7 +76,7 @@ public class SceneComponents extends Observable {
     root.getChildren().add(commandLine);
   }
 
-  public void getReturnValue(int value) {
+  public void printReturnValue(int value) {
     System.out.println(value);
     commandLine.setText(String.valueOf(value));
     System.out.println(commandLine.getText());
@@ -143,6 +143,7 @@ public class SceneComponents extends Observable {
     turtleBox.setStrokeWidth(2);
     turtleBox.setX(DEFAULT_WIDTH - turtleBox.getWidth() - DEFAULT_BORDER);
     turtleBox.setY((DEFAULT_HEIGHT - turtleBox.getHeight()) / 2);
+    turtleBox.setId("turtleBox");
     root.getChildren().add(turtleBox);
     turtleBox.toBack();
   }
