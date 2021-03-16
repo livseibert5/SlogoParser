@@ -19,7 +19,8 @@ public class Color {
 
   public int getR() {return r;}
 
+  public int getG() {return g;}
+
   public int getB() {return b;}
 
-  public int getG() {return g;}
 }
