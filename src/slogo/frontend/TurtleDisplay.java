@@ -27,13 +27,6 @@ public class TurtleDisplay {
 
   private final Map<Integer, Turtle> turtleMap = new HashMap<>();
   private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
-<<<<<<< HEAD
-=======
-  private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
-  private String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
-  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
-  private ImageView turtleView;
->>>>>>> master
 
   private static final double dimensionSize = 50;
   private static final double TURTLE_OFFSET = dimensionSize / 2;
@@ -184,6 +177,8 @@ public class TurtleDisplay {
    */
 
   public void updateImageView() {
-    turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("src/slogo/frontend/resources/images/UserImage.jpg"))));
+    for (Integer i : turtleViewMap.keySet()) {
+      turtleViewMap.get(i).setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("src/slogo/frontend/resources/images/UserImage.jpg"))));
+    }
   }
 }
