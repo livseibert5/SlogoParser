@@ -1,5 +1,8 @@
 package slogo.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import slogo.model.Color;
 import slogo.model.handlers.TurtleHandler;
 import slogo.model.handlers.UserDefinedCommandHandler;
 import slogo.model.handlers.VariableHandler;
@@ -15,6 +18,7 @@ public class Controller {
   private VariableHandler variableHandler;
   private UserDefinedCommandHandler userDefinedCommandHandler;
   private String language;
+  private Map<Integer, Color> colorMap;
 
   /**
    * Defines a new turtleHandler, variableHandler, and userDefinedCommand handler for
@@ -25,6 +29,7 @@ public class Controller {
     variableHandler = new VariableHandler();
     userDefinedCommandHandler = new UserDefinedCommandHandler();
     language = "English";
+    colorMap = new HashMap<>();
   }
 
   /**
@@ -62,5 +67,15 @@ public class Controller {
    */
   public String getLanguage(){
     return language;
+  }
+
+  /**
+   * Adds a color and index to the color map
+   *
+   * @param index for the color to be mapped to
+   * @param color specific color to be added
+   */
+  public void addColor(int index, Color color) {
+    colorMap.put(index, color);
   }
 }

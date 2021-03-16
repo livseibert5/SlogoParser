@@ -1,5 +1,8 @@
 package slogo.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Turtle is the class that holds the data for the location and orientation of turtle objects so
  * they can be displayed and moved across the screen.
@@ -13,6 +16,7 @@ public class Turtle {
   private boolean isShowing;
   private double penColor;
   private double penThickness;
+  private double penShape;
   private static final int TURTLE_BOUNDARY = 300;
 
   /**
@@ -25,6 +29,7 @@ public class Turtle {
     orientation = 90.0;
     isShowing = true;
     penColor = 0;
+    penShape = 0;
   }
 
   /**
@@ -175,4 +180,12 @@ public class Turtle {
   public double getPenThickness() {
     return penThickness;
   }
+
+  /**
+   * Allows access to the pen's shape to be changed.
+   *
+   * @param value index of the new pen shape
+   */
+  public void setPenShape(double value) { penShape = value; }
+
 }
