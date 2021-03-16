@@ -59,4 +59,13 @@ public class UserDefinedCommandHandler {
     }
     return false;
   }
+
+  /**
+   * Returns all user defined commands for front-end to display.
+   *
+   * @return List<UserDefinedCommand>
+   */
+  public List<UserDefinedCommand> getCommands() {
+    return userDefinedCommandList;
+  }
 }

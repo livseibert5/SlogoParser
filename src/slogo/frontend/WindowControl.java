@@ -37,6 +37,7 @@ public class WindowControl {
   private Controller myController;
   private Parser myParser;
   private TurtleDisplay myTurtleDisplay;
+  private TableDisplay myTableDisplay;
   private SceneComponents myComponents;
   private HelpButtonMaker helpButton;
   private EnterButtonMaker enterButton;
@@ -53,6 +54,7 @@ public class WindowControl {
     myScene = new CreateScene(myStage, root);
     myController = new Controller();
     myParser = new Parser(myController);
+    myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler().getTurtle(1), root);
     List<PropertyChangeListener> listenerList = new ArrayList<>();
     listenerList.add(myTurtleDisplay.getLineColorListener());
@@ -80,6 +82,7 @@ public class WindowControl {
         try {
           int value = myParser.parse(myComponents.getTextInput());
           myTurtleDisplay.updateTurtleView(1);
+          myTableDisplay.updateTables();
           myComponents.clearTextInput();
           myComponents.printReturnValue(value);
         } catch (Exception e) {

@@ -58,8 +58,6 @@ public class SceneComponents extends Observable {
   public void addEverything() {
     addTurtleWindow();
     makeCommandField();
-    makeVariableView();
-    makeUserCommandView();
     addColorPickers();
     showPastCommands();
     makeLanguageDropDown();
@@ -153,27 +151,6 @@ public class SceneComponents extends Observable {
     Scene scene = new Scene(root, WINDOW_SIZE, WINDOW_SIZE);
     //scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
     return scene;
-  }
-
-  private void makeVariableView() {
-    TableView table = new TableView();
-    TableColumn name = new TableColumn("Name" );
-    TableColumn type = new TableColumn("Type" );
-    TableColumn value = new TableColumn("Value" );
-    table.getColumns().addAll(name, type, value);
-    table.setPrefSize(WINDOW_SIZE/2 - DEFAULT_BORDER/4, (WINDOW_SIZE - DEFAULT_BORDER) / 2);
-    table.relocate(DEFAULT_BORDER, DEFAULT_BORDER);
-    root.getChildren().add(table);
-  }
-
-  private void makeUserCommandView() {
-    TableView table = new TableView();
-    TableColumn command = new TableColumn("Command" );
-    TableColumn definition = new TableColumn("Definition" );
-    table.getColumns().addAll(command, definition);
-    table.setPrefSize(WINDOW_SIZE/2 - DEFAULT_BORDER/4, (WINDOW_SIZE - DEFAULT_BORDER) / 2);
-    table.relocate(DEFAULT_BORDER*1.5 + table.getPrefWidth(), DEFAULT_BORDER);
-    root.getChildren().add(table);
   }
 
   private void makeLanguageDropDown() {
