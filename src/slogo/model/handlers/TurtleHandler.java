@@ -29,7 +29,6 @@ public class TurtleHandler {
   /**
    * Allows the front end and the back end to both add new turtles to the map.
    *
-   * @param id     id of new turtle
    * @param turtle new turtle object to add
    */
   public void addTurtle(Turtle turtle) {
@@ -52,6 +51,19 @@ public class TurtleHandler {
 
   public Turtle getActiveTurtle() {
     return activeTurtle;
+  }
+
+  public void setActiveTurtle(Turtle turtle) {
+    activeTurtle = turtle;
+  }
+
+  public int getTurtleId(Turtle turtle) {
+    for (int key: turtles.keySet()) {
+      if (turtles.get(key).equals(turtle)) {
+        return key;
+      }
+    }
+    return -1;
   }
 
   // TODO: once front end works, change this function to get a turtle with a specific id
