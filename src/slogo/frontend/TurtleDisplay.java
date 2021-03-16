@@ -18,18 +18,15 @@ import slogo.model.Turtle;
  *
  * @author Jessica Yang
  */
-public class TurtleDisplay implements PropertyChangeListener {
+public class TurtleDisplay {
 
   private static final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName()
       + ".resources.images.").replace('.', '/');
   private static final String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
+  private static final String USER_IMAGE_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
   private final Map<Integer, Turtle> turtleMap = new HashMap<>();
   private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
-  private String DEFAULT_IMAGE_PATH2 = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
-  private String IMAGE_FILE2 = DEFAULT_IMAGE_PATH2 + "temp_turtle.jpg";
-  private String USER_FILE = DEFAULT_IMAGE_PATH2 + "UserImage.jpg";
-  private ImageView turtleView;
 
   private static final double dimensionSize = 50;
   private static final double TURTLE_OFFSET = dimensionSize / 2;
@@ -38,6 +35,8 @@ public class TurtleDisplay implements PropertyChangeListener {
 
   private final Group myRoot;
   private Color lineColor;
+
+  private PropertyChangeListener lineColorListener;
 
   /**
    * Constructor for TurtleDisplay. Takes in map of turtles from Controller.
@@ -49,6 +48,7 @@ public class TurtleDisplay implements PropertyChangeListener {
     myRoot = root;
     updateImageMap();
     lineColor = Color.BLACK;
+    lineColorListener = evt -> setLineColor((Color) evt.getNewValue());
   }
 
   /**
@@ -67,7 +67,7 @@ public class TurtleDisplay implements PropertyChangeListener {
    */
   private void addTurtleView(int id) {
     Turtle toAddTurtle = turtleMap.get(id);
-    turtleView = new ImageView();
+    ImageView turtleView = new ImageView();
     turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(IMAGE_FILE))));
 
     turtleView.setX(toAddTurtle.getXCoordinate() + X_CENTER_OFFSET);
@@ -122,11 +122,13 @@ public class TurtleDisplay implements PropertyChangeListener {
 
     newLine.setFill(lineColor);
     newLine.setStroke(lineColor);
+    newLine.setStrokeWidth(5);
     newLine.setStartX(currTurtleView.getX() + TURTLE_OFFSET);
     newLine.setStartY(currTurtleView.getY() + TURTLE_OFFSET);
     newLine.setEndX(newLocation[0] + X_CENTER_OFFSET + TURTLE_OFFSET);
     newLine.setEndY(-1 * newLocation[1] + Y_CENTER_OFFSET + TURTLE_OFFSET);
 
+    newLine.setId("line");
     myRoot.getChildren().add(newLine);
   }
 
@@ -152,19 +154,31 @@ public class TurtleDisplay implements PropertyChangeListener {
   }
 
   /**
-   * Called by SceneBuilder to update line color from GUI. TODO
+   * Updates lineColor.
    *
    * @param newColor updated color
    */
   private void setLineColor(Color newColor) {
     lineColor = newColor;
-    System.out.printf("new color!");
   }
 
-  public void propertyChange(PropertyChangeEvent event) {
-    setLineColor((Color) event.getNewValue());
+  /**
+   * Returns PropertyChangeListener to update line color from GUI.
+   *
+   * @return PropertyChangeListener lineColorListener
+   */
+  public PropertyChangeListener getLineColorListener() {
+    return lineColorListener;
   }
+
+  /**
+   * Updates image file used for turtles in the box.
+   *
+   */
+
   public void updateImageView() {
-    turtleView.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("src/slogo/frontend/resources/images/UserImage.jpg"))));
+    for (Integer i : turtleViewMap.keySet()) {
+      turtleViewMap.get(i).setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("src/slogo/frontend/resources/images/UserImage.jpg"))));
+    }
   }
 }
