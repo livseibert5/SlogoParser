@@ -1,8 +1,8 @@
 package slogo.model;
 
 /**
- * Turtle is the class that holds the data for the location and orientation of
- * turtle objects so they can be displayed and moved across the screen.
+ * Turtle is the class that holds the data for the location and orientation of turtle objects so
+ * they can be displayed and moved across the screen.
  */
 public class Turtle {
 
@@ -14,8 +14,8 @@ public class Turtle {
   private static final int TURTLE_BOUNDARY = 300;
 
   /**
-   * Constructor for Turtle object, puts turtle in the middle of the canvas and
-   * sets its orientation to 90.
+   * Constructor for Turtle object, puts turtle in the middle of the canvas and sets its orientation
+   * to 90.
    */
   public Turtle() {
     xCoordinate = 0;
@@ -25,8 +25,8 @@ public class Turtle {
   }
 
   /**
-   * Allows Command classes to set a new orientation for the turtle.
-   * Makes sure this new orientation is positive and less than 360.
+   * Allows Command classes to set a new orientation for the turtle. Makes sure this new orientation
+   * is positive and less than 360.
    *
    * @param orientation new turtle orientation in degrees
    */
@@ -53,8 +53,8 @@ public class Turtle {
   }
 
   /**
-   * Allows access to the orientation of the turtle in degrees for the front end and
-   * the test cases.
+   * Allows access to the orientation of the turtle in degrees for the front end and the test
+   * cases.
    *
    * @return orientation of turtle in degrees
    */
@@ -122,16 +122,16 @@ public class Turtle {
   }
 
   /**
-   * Allows the turtle to be displayed by setting isShowing to true so the
-   * front end knows to show it.
+   * Allows the turtle to be displayed by setting isShowing to true so the front end knows to show
+   * it.
    */
   public void showTurtle() {
     isShowing = true;
   }
 
   /**
-   * Hides the turtle from the canvas by setting isShowing to false so the
-   * front end knows not to display it.
+   * Hides the turtle from the canvas by setting isShowing to false so the front end knows not to
+   * display it.
    */
   public void hideTurtle() {
     isShowing = false;

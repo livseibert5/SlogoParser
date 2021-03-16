@@ -23,13 +23,13 @@ public class PowerTest {
   }
 
   @Test
-  void testPowerOne(){
+  void testPowerOne() {
     power = new Power(new Constant(3), new Constant(1));
     assertEquals(3, power.execute(turtle));
   }
 
   @Test
-  void testPowerFraction(){
+  void testPowerFraction() {
     power = new Power(new Constant(4), new Constant(0.5));
     assertEquals(2, power.execute(turtle));
   }

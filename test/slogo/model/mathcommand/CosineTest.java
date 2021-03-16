@@ -26,7 +26,7 @@ public class CosineTest {
   @Test
   void testCosine45() {
     cos = new Cosine(new Constant(45));
-    assertEquals(0.707, Math.round(cos.execute(turtle) * 1000.0)/1000.0);
+    assertEquals(0.707, Math.round(cos.execute(turtle) * 1000.0) / 1000.0);
   }
 
   @Test
@@ -38,7 +38,7 @@ public class CosineTest {
   @Test
   void testCosine135() {
     cos = new Cosine(new Constant(135));
-    assertEquals(-0.707, Math.round(cos.execute(turtle) * 1000.0)/1000.0);
+    assertEquals(-0.707, Math.round(cos.execute(turtle) * 1000.0) / 1000.0);
   }
 
   @Test
@@ -50,7 +50,7 @@ public class CosineTest {
   @Test
   void testCosine225() {
     cos = new Cosine(new Constant(225));
-    assertEquals(-0.707, Math.round(cos.execute(turtle) * 1000.0)/1000.0);
+    assertEquals(-0.707, Math.round(cos.execute(turtle) * 1000.0) / 1000.0);
   }
 
   @Test
@@ -62,7 +62,7 @@ public class CosineTest {
   @Test
   void testCosine315() {
     cos = new Cosine(new Constant(315));
-    assertEquals(0.707, Math.round(cos.execute(turtle) * 1000.0)/1000.0);
+    assertEquals(0.707, Math.round(cos.execute(turtle) * 1000.0) / 1000.0);
   }
 
 }

@@ -34,7 +34,9 @@ public class TangentTest {
   @Test
   void testTan90() {
     tan = new Tangent(new Constant(90));
-    assertThrows(MathException.class, () -> {tan.execute(turtle);});
+    assertThrows(MathException.class, () -> {
+      tan.execute(turtle);
+    });
   }
 
   @Test

@@ -3,6 +3,7 @@ package slogo.model.movementcommand;
 import org.junit.jupiter.api.Test;
 import slogo.model.Constant;
 import slogo.model.Turtle;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -16,7 +17,7 @@ public class SetTowardsTest {
   private SetTowards setTowards;
 
   @Test
-  public void testSetTowardsPositiveXAxis(){
+  public void testSetTowardsPositiveXAxis() {
     turtle.setOrientation(0);
     setTowards = new SetTowards(new Constant(10), new Constant(0));
     setTowards.execute(turtle);
@@ -24,7 +25,7 @@ public class SetTowardsTest {
   }
 
   @Test
-  public void testSetTowardsNegativeXAxis(){
+  public void testSetTowardsNegativeXAxis() {
     turtle.setOrientation(0);
     setTowards = new SetTowards(new Constant(-10), new Constant(0));
     setTowards.execute(turtle);
@@ -32,7 +33,7 @@ public class SetTowardsTest {
   }
 
   @Test
-  public void testSetTowardsPositiveYAxis(){
+  public void testSetTowardsPositiveYAxis() {
     turtle.setOrientation(0);
     setTowards = new SetTowards(new Constant(0), new Constant(10));
     setTowards.execute(turtle);
@@ -40,7 +41,7 @@ public class SetTowardsTest {
   }
 
   @Test
-  public void testSetTowardsNegativeYAxis(){
+  public void testSetTowardsNegativeYAxis() {
     turtle.setOrientation(0);
     setTowards = new SetTowards(new Constant(0), new Constant(-10));
     setTowards.execute(turtle);
@@ -48,7 +49,7 @@ public class SetTowardsTest {
   }
 
   @Test
-  public void testSetTowardsFirstQuadrant(){
+  public void testSetTowardsFirstQuadrant() {
     turtle.setOrientation(90);
     setTowards = new SetTowards(new Constant(3), new Constant(2));
     setTowards.execute(turtle);
@@ -56,7 +57,7 @@ public class SetTowardsTest {
   }
 
   @Test
-  public void testSetTowardsSecondQuadrant(){
+  public void testSetTowardsSecondQuadrant() {
     turtle.setOrientation(3);
     setTowards = new SetTowards(new Constant(-3), new Constant(2));
     setTowards.execute(turtle);
@@ -64,7 +65,7 @@ public class SetTowardsTest {
   }
 
   @Test
-  public void testSetTowardsThirdQuadrant(){
+  public void testSetTowardsThirdQuadrant() {
     turtle.setOrientation(170);
     setTowards = new SetTowards(new Constant(-3), new Constant(-2));
     setTowards.execute(turtle);
@@ -72,7 +73,7 @@ public class SetTowardsTest {
   }
 
   @Test
-  public void testSetTowardsFourthQuadrant(){
+  public void testSetTowardsFourthQuadrant() {
     turtle.setOrientation(0);
     setTowards = new SetTowards(new Constant(3), new Constant(-2));
     setTowards.execute(turtle);

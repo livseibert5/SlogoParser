@@ -17,6 +17,7 @@ import slogo.model.backendexceptions.MathException;
  * @author Livia Seibert
  */
 public class IfElseTest {
+
   private Controller controller;
   private Turtle turtle;
   private IfElse ifElseCommand;

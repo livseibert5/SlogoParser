@@ -44,7 +44,7 @@ public class CommandFactory {
   /**
    * Calls the constructor of the class to create the actual instance of the object.
    *
-   * @param clazz class type of object we'd like to instantiate
+   * @param clazz     class type of object we'd like to instantiate
    * @param arguments arguments list to pass to new object
    * @return new Command object
    * @throws NoSuchMethodException
@@ -55,7 +55,8 @@ public class CommandFactory {
    */
   private Object makeClass(Class<?> clazz, List<Object> arguments)
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-    return clazz.getDeclaredConstructor(determineParameterTypes(clazz)).newInstance(arguments.toArray());
+    return clazz.getDeclaredConstructor(determineParameterTypes(clazz))
+        .newInstance(arguments.toArray());
   }
 
   /**
@@ -97,7 +98,7 @@ public class CommandFactory {
    * the implementation details of the class's constructor.
    *
    * @param commandType type of command class we want to instantiate
-   * @param arguments list of objects that are the arguments for the new command class
+   * @param arguments   list of objects that are the arguments for the new command class
    * @return new command object
    * @throws ClassNotFoundException
    * @throws InvocationTargetException

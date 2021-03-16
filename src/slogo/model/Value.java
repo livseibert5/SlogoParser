@@ -1,9 +1,8 @@
 package slogo.model;
 
 /**
- * Value class is the super type for Constant and Variable. Since both
- * Constant and Variable can be passed to functions as arguments and both
- * have a double value, they are both Value types.
+ * Value class is the super type for Constant and Variable. Since both Constant and Variable can be
+ * passed to functions as arguments and both have a double value, they are both Value types.
  *
  * @author Livia Seibert
  */

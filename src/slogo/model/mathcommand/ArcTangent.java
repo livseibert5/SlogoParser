@@ -9,17 +9,17 @@ import slogo.model.Value;
  *
  * @author Rachel Luria
  */
-public class ArcTangent implements Command{
+public class ArcTangent implements Command {
 
   private final double argument;
 
   /**
-   * Constructor for the ArcTangent command, takes a constant as its argument and
-   * gets its value by executing a constant command
+   * Constructor for the ArcTangent command, takes a constant as its argument and gets its value by
+   * executing a constant command
    *
    * @param argument Constant that the arctangent gets taken of
    */
-  public ArcTangent(Value argument){
+  public ArcTangent(Value argument) {
     this.argument = argument.getValue();
   }
 

@@ -5,8 +5,8 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * NotEqual class is the Command subclass that returns 1 if the two arguments are
- * not equal to each other.
+ * NotEqual class is the Command subclass that returns 1 if the two arguments are not equal to each
+ * other.
  *
  * @author Livia Seibert
  */

@@ -28,12 +28,16 @@ public class NaturalLogTest {
   @Test
   void testLogZero() throws MathException {
     log = new NaturalLog(new Constant(0));
-    assertThrows(MathException.class, () -> {log.execute(turtle);});
+    assertThrows(MathException.class, () -> {
+      log.execute(turtle);
+    });
   }
 
   @Test
   void testLogNegative() throws MathException {
     log = new NaturalLog(new Constant(-10));
-    assertThrows(MathException.class, () -> {log.execute(turtle);});
+    assertThrows(MathException.class, () -> {
+      log.execute(turtle);
+    });
   }
 }

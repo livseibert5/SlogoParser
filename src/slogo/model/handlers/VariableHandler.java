@@ -5,8 +5,8 @@ import java.util.List;
 import slogo.model.Variable;
 
 /**
- * VariableHandler stores user defined variables in a list so that the back end can use them
- * and the front end can display them.
+ * VariableHandler stores user defined variables in a list so that the back end can use them and the
+ * front end can display them.
  *
  * @author Livia Seibert
  */
@@ -37,7 +37,7 @@ public class VariableHandler {
    * @return value of variable with given name, -1 otherwise
    */
   public double getVariableValueWithName(String name) {
-    for (Variable var: variables) {
+    for (Variable var : variables) {
       if (var.getName().equals(name)) {
         return var.getValue();
       }
@@ -46,14 +46,13 @@ public class VariableHandler {
   }
 
   /**
-   * Retrieves the variable with the given name so that the parser can use its value
-   * in execution.
+   * Retrieves the variable with the given name so that the parser can use its value in execution.
    *
    * @param name name of the variable to retrieve
    * @return variable object with the given name
    */
   public Variable getVariableWithName(String name) {
-    for (Variable var: variables) {
+    for (Variable var : variables) {
       if (var.getName().equals(name)) {
         return var;
       }
@@ -62,7 +61,7 @@ public class VariableHandler {
   }
 
   public void removeVariableWithName(String name) {
-    for (Variable var: variables) {
+    for (Variable var : variables) {
       if (var.getName().equals(name)) {
         variables.remove(var);
         break;

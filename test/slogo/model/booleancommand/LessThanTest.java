@@ -12,6 +12,7 @@ import slogo.model.Turtle;
  * @author Livia Seibert
  */
 public class LessThanTest {
+
   private LessThan lessThan;
   private Turtle turtle = new Turtle();
 
