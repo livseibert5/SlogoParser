@@ -103,8 +103,9 @@ public class ParserTest {
         + "    rt 89\n"
         + "    spiral + :len 3\n"
         + "  ]\n"
-        + "]\n";
+        + "]";
     assertEquals(1, parser.parse(command));
+    assertEquals(1, parser.parse("spiral 10"));
   }
 
 }

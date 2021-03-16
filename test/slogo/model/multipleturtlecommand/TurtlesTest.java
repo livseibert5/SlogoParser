@@ -32,7 +32,7 @@ public class TurtlesTest {
   @Test
   void putFiveTurtles() {
     for (int i = 2; i < 6; i++) {
-      controller.getTurtleHandler().addTurtle(i, new Turtle());
+      controller.getTurtleHandler().addTurtle(new Turtle());
     }
     turtles = new Turtles(controller);
     assertEquals(5, turtles.execute(turtle));

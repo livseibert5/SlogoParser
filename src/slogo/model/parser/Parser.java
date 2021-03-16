@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
+import java.util.stream.Collectors;
 import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.Constant;
@@ -45,7 +46,7 @@ public class Parser {
    */
   public Parser(Controller controller) {
     this.controller = controller;
-    turtle = controller.getTurtleHandler().getTurtle(1);
+    turtle = controller.getTurtleHandler().getActiveTurtle();
     setUpParser();
   }
 
@@ -90,8 +91,10 @@ public class Parser {
   private String removeComments(String command) {
     String[] commandLines = command.split("\\n");
     List<String> newCommandLines = Arrays.asList(commandLines);
-    newCommandLines.stream()
-        .filter(line -> !regexDetector.getSymbol(line.split(" ")[0]).equals("Comment"));
+    newCommandLines.replaceAll(String::trim);
+    newCommandLines = newCommandLines.stream()
+        .filter(line -> !regexDetector.getSymbol(line.split(" ")[0]).equals("Comment")).collect(
+            Collectors.toList());
     StringBuilder result = new StringBuilder();
     for (String line : newCommandLines) {
       result.append(line);

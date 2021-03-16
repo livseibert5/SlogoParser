@@ -12,7 +12,9 @@ import slogo.model.Turtle;
  */
 public class TurtleHandler {
 
-  Map<Integer, Turtle> turtles;
+  private Map<Integer, Turtle> turtles;
+  private Turtle activeTurtle;
+  private int currentTurtleIndex;
 
   /**
    * Constructor for TurtleHandler creates new map for the turtles.
@@ -20,6 +22,8 @@ public class TurtleHandler {
   public TurtleHandler() {
     turtles = new HashMap<>();
     turtles.put(1, new Turtle());
+    activeTurtle = turtles.get(1);
+    currentTurtleIndex = 1;
   }
 
   /**
@@ -28,8 +32,9 @@ public class TurtleHandler {
    * @param id     id of new turtle
    * @param turtle new turtle object to add
    */
-  public void addTurtle(int id, Turtle turtle) {
-    turtles.put(id, turtle);
+  public void addTurtle(Turtle turtle) {
+    currentTurtleIndex++;
+    turtles.put(currentTurtleIndex, turtle);
   }
 
   /**
@@ -43,6 +48,10 @@ public class TurtleHandler {
 
   public int getNumberTurtles() {
     return turtles.size();
+  }
+
+  public Turtle getActiveTurtle() {
+    return activeTurtle;
   }
 
   // TODO: once front end works, change this function to get a turtle with a specific id
