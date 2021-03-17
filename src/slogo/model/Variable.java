@@ -1,5 +1,10 @@
 package slogo.model;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Variable class stores the name and value of user defined variables.
  *
@@ -37,5 +42,29 @@ public class Variable extends Value {
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * Creates stringproperty from name for table updates.
+   *
+   * @return StringProperty property wrapping a string value
+   */
+  public StringProperty nameProperty() {
+    StringProperty nameProperty = new SimpleStringProperty(this, "name");
+    nameProperty.setValue(name);
+
+    return nameProperty;
+  }
+
+  /**
+   * Creates doubleproperty from value for table updates.
+   *
+   * @return DoubleProperty property wrapping a double value
+   */
+  public DoubleProperty valueProperty() {
+    DoubleProperty valueProperty = new SimpleDoubleProperty(this, "value");
+    valueProperty.setValue(getValue());
+
+    return valueProperty;
   }
 }

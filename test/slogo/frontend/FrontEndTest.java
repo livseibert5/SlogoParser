@@ -136,10 +136,10 @@ public class FrontEndTest extends DukeApplicationTest {
   @Test
   // scenario: user adds a variable
   void addVariable() {
-    String varName = ":newvar";
+    String varName = "make :newvar 10";
     commandLine.setText(varName);
     clickOn(enterButton);
-    assertTrue(varName.equals(variableView.getItems().get(0)));
+    assertTrue(1 == variableView.getItems().size());
   }
 
   @Test
@@ -151,6 +151,6 @@ public class FrontEndTest extends DukeApplicationTest {
         + "]";
     commandLine.setText(command);
     clickOn(enterButton);
-    assertTrue(command.equals(commandView.getItems().get(0)));
+    assertTrue(1 == (commandView.getItems().size()));
   }
 }

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import slogo.model.UserDefinedCommand;
 import slogo.model.Variable;
 import slogo.model.handlers.UserDefinedCommandHandler;
@@ -26,8 +27,10 @@ public class TableDisplay {
   private UserDefinedCommandHandler myCommandHandler;
   private Group myRoot;
 
-  private TableView<List<String>> variableView;
+  private TableView<Variable> variableView;
   private TableView<List<String>> commandView;
+
+  private final ObservableList<Variable> allVariables = FXCollections.observableArrayList();
 
   /**
    * Constructor for TableDisplay.
@@ -46,10 +49,15 @@ public class TableDisplay {
 
   private void makeVariableView() {
     variableView = new TableView<>();
-    TableColumn name = new TableColumn("Name" );
-    //TableColumn type = new TableColumn("Type" );
-    TableColumn value = new TableColumn("Value" );
-    variableView.getColumns().addAll(name, value);
+    updateVariableView();
+    variableView.setItems(allVariables);
+
+    TableColumn<Variable, String> nameColumn = new TableColumn<>("Name" );
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    TableColumn<Variable, Double> valueColumn = new TableColumn<>("Value" );
+    valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+
+    variableView.getColumns().addAll(nameColumn, valueColumn);
     variableView.setPrefSize(WINDOW_SIZE/2 - DEFAULT_BORDER/4, (WINDOW_SIZE - DEFAULT_BORDER) / 2);
     variableView.relocate(DEFAULT_BORDER, DEFAULT_BORDER);
 
@@ -78,27 +86,26 @@ public class TableDisplay {
   }
 
   private void updateVariableView() {
-    variableView.setItems((ObservableList<List<String>>) extractVariableRows());
+    extractVariableRows();
+    variableView.setItems(allVariables);
   }
 
   private void updateCommandView() {
     commandView.setItems((ObservableList<List<String>>) extractUserCommandRows());
   }
 
-  private List<List<String>> extractVariableRows() {
-    List<List<String>> allVariableRows = FXCollections.observableArrayList();
+  private void extractVariableRows() {
+    allVariables.clear();
 
     for (Variable v : myVariableHandler.getAllVariables()) {
-      List<String> row = FXCollections.observableArrayList();
-      row.clear();
+      /*
       row.add(v.getName());
       row.add(Double.toString(v.getValue()));
-      allVariableRows.add(row);
+
+       */
+      allVariables.add(v);
     }
-
-    return allVariableRows;
   }
-
 
   private List<List<String>> extractUserCommandRows() {
     List<List<String>> allCommandRows = FXCollections.observableArrayList();
