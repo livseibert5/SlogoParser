@@ -1,10 +1,12 @@
 package slogo.model;
 
+import slogo.Observable;
+
 /**
  * Turtle is the class that holds the data for the location and orientation of turtle objects so
  * they can be displayed and moved across the screen.
  */
-public class Turtle {
+public class Turtle extends Observable {
 
   private double xCoordinate;
   private double yCoordinate;
@@ -13,6 +15,7 @@ public class Turtle {
   private boolean isShowing;
   private double penColor;
   private double penThickness;
+  private double penShape;
   private static final int TURTLE_BOUNDARY = 300;
 
   /**
@@ -25,6 +28,7 @@ public class Turtle {
     orientation = 90.0;
     isShowing = true;
     penColor = 0;
+    penShape = 0;
   }
 
   /**
@@ -49,10 +53,14 @@ public class Turtle {
    * @param newLocation x-coordinate and y-coordinate of new location for turtle
    */
   public void setLocation(double[] newLocation) {
+    double prevX = xCoordinate;
     xCoordinate = newLocation[0] > TURTLE_BOUNDARY ? TURTLE_BOUNDARY : newLocation[0];
     xCoordinate = newLocation[0] < -1 * TURTLE_BOUNDARY ? -1 * TURTLE_BOUNDARY : xCoordinate;
+    notifyListeners("xLocation", prevX, xCoordinate);
+    double prevY = yCoordinate;
     yCoordinate = newLocation[1] > TURTLE_BOUNDARY ? TURTLE_BOUNDARY : newLocation[1];
     yCoordinate = newLocation[1] < -1 * TURTLE_BOUNDARY ? -1 * TURTLE_BOUNDARY : yCoordinate;
+    notifyListeners("yLocation", prevY, yCoordinate);
   }
 
   /**
@@ -114,6 +122,7 @@ public class Turtle {
    * Puts the turtle's pen down by setting the penDown boolean to true.
    */
   public void setPenDown() {
+    notifyListeners("penDown", penDown, true);
     penDown = true;
   }
 
@@ -121,6 +130,7 @@ public class Turtle {
    * Puts the turtle's pen up by setting the penDown boolean to false.
    */
   public void setPenUp() {
+    notifyListeners("penDown", penDown, false);
     penDown = false;
   }
 
@@ -129,6 +139,7 @@ public class Turtle {
    * it.
    */
   public void showTurtle() {
+    notifyListeners("isShowing", isShowing, true);
     isShowing = true;
   }
 
@@ -137,6 +148,7 @@ public class Turtle {
    * display it.
    */
   public void hideTurtle() {
+    notifyListeners("isShowing", isShowing, false);
     isShowing = false;
   }
 
@@ -146,6 +158,7 @@ public class Turtle {
    * @param colorIndex index of new pen color
    */
   public void setPenColor(double colorIndex) {
+    notifyListeners("penColor", penColor, colorIndex);
     penColor = colorIndex;
   }
 
@@ -164,6 +177,7 @@ public class Turtle {
    * @param thickness thickness in pixels of turtle's pen
    */
   public void setPenThickness(double thickness) {
+    notifyListeners("penThickness", penThickness, thickness);
     penThickness = thickness;
   }
 
@@ -174,5 +188,15 @@ public class Turtle {
    */
   public double getPenThickness() {
     return penThickness;
+  }
+
+  /**
+   * Allows access to the pen's shape to be changed.
+   *
+   * @param value index of the new pen shape
+   */
+  public void setPenShape(double value) {
+    notifyListeners("penShape", penShape, value);
+    penShape = value;
   }
 }
