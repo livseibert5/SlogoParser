@@ -30,7 +30,7 @@ public class Parser {
   private Stack<Object> commandStack;
   private Stack<Object> poppedStack;
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
-  private ResourceBundle resources = ResourceBundle.getBundle("resources.languages.English");
+  private ResourceBundle resources = ResourceBundle.getBundle("resources.languages" + controller.getLanguage());
   private ResourceBundle controlCommands = ResourceBundle
       .getBundle(RESOURCE_FOLDER + "ControlCommands");
   private ResourceBundle expressionFactoryTypes = ResourceBundle

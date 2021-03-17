@@ -1,7 +1,9 @@
 package slogo.controller;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 import slogo.model.Color;
 import slogo.model.handlers.TurtleHandler;
 import slogo.model.handlers.UserDefinedCommandHandler;
@@ -18,6 +20,9 @@ public class Controller {
   private VariableHandler variableHandler;
   private UserDefinedCommandHandler userDefinedCommandHandler;
   private String language;
+  private static final String RESOURCE_FOLDER = "slogo.model.resources.";
+  private ResourceBundle colors = ResourceBundle
+      .getBundle(RESOURCE_FOLDER + "Colors");
   private Map<Integer, Color> colorMap;
 
   /**
@@ -30,6 +35,21 @@ public class Controller {
     userDefinedCommandHandler = new UserDefinedCommandHandler();
     language = "English";
     colorMap = new HashMap<>();
+    initializeColors();
+  }
+
+  private void initializeColors() {
+    Enumeration<String> keys = colors.getKeys();
+    for(int i = 0; i < colors.keySet().size(); i++){
+      String key = keys.nextElement();
+      String rgb = colors.getString(key);
+      Color color = new Color(makeColor(rgb.substring(0, 2)), makeColor(rgb.substring(2, 4)), makeColor(rgb.substring(4)));
+      colorMap.put(i, color);
+    }
+  }
+
+  private int makeColor(String hex){
+    return Integer.parseInt(hex, 16);
   }
 
   /**
@@ -78,4 +98,6 @@ public class Controller {
   public void addColor(int index, Color color) {
     colorMap.put(index, color);
   }
+
+  public Color getColor(int index) {return colorMap.get(index);}
 }
