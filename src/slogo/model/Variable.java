@@ -45,9 +45,10 @@ public class Variable extends Value {
   }
 
   /**
-   * Creates stringproperty from name for table updates.
+   * Creates StringProperty from name for table updates.
    *
    * @return StringProperty property wrapping a string value
+   * @author Jessica Yang
    */
   public StringProperty nameProperty() {
     StringProperty nameProperty = new SimpleStringProperty(this, "name");
@@ -57,9 +58,10 @@ public class Variable extends Value {
   }
 
   /**
-   * Creates doubleproperty from value for table updates.
+   * Creates DoubleProperty from value for table updates.
    *
    * @return DoubleProperty property wrapping a double value
+   * @author Jessica Yang
    */
   public DoubleProperty valueProperty() {
     DoubleProperty valueProperty = new SimpleDoubleProperty(this, "value");

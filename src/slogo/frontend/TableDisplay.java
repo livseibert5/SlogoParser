@@ -27,10 +27,8 @@ public class TableDisplay {
   private UserDefinedCommandHandler myCommandHandler;
   private Group myRoot;
 
-  private TableView<Variable> variableView;
-  private TableView<List<String>> commandView;
-
-  private final ObservableList<Variable> allVariables = FXCollections.observableArrayList();
+  private final ObservableList<Variable> allVariables;
+  private final ObservableList<UserDefinedCommand> allCommands;
 
   /**
    * Constructor for TableDisplay.
@@ -43,13 +41,14 @@ public class TableDisplay {
     myVariableHandler = variableHandler;
     myCommandHandler = commandHandler;
     myRoot = root;
+    allVariables = (ObservableList<Variable>) myVariableHandler.getAllVariables();
+    allCommands = (ObservableList<UserDefinedCommand>) myCommandHandler.getAllCommands();
     makeVariableView();
     makeUserCommandView();
   }
 
   private void makeVariableView() {
-    variableView = new TableView<>();
-    updateVariableView();
+    TableView<Variable> variableView = new TableView<>();
     variableView.setItems(allVariables);
 
     TableColumn<Variable, String> nameColumn = new TableColumn<>("Name" );
@@ -66,58 +65,19 @@ public class TableDisplay {
   }
 
   private void makeUserCommandView() {
-    commandView = new TableView();
-    TableColumn command = new TableColumn("Command" );
-    TableColumn definition = new TableColumn("Definition" );
-    commandView.getColumns().addAll(command, definition);
+    TableView<UserDefinedCommand> commandView = new TableView<>();
+    commandView.setItems(allCommands);
+
+    TableColumn<UserDefinedCommand, String> commandColumn = new TableColumn<>("Command" );
+    commandColumn.setCellValueFactory(new PropertyValueFactory<>("commandName"));
+    TableColumn<UserDefinedCommand, String> bodyColumn = new TableColumn<>("Body" );
+    bodyColumn.setCellValueFactory(new PropertyValueFactory<>("body"));
+
+    commandView.getColumns().addAll(commandColumn, bodyColumn);
     commandView.setPrefSize(WINDOW_SIZE/2 - DEFAULT_BORDER/4, (WINDOW_SIZE - DEFAULT_BORDER) / 2);
     commandView.relocate(DEFAULT_BORDER*1.5 + commandView.getPrefWidth(), DEFAULT_BORDER);
 
     commandView.setId("commandview");
     myRoot.getChildren().add(commandView);
-  }
-
-  /**
-   * Updates front-end tables for variables and commands.
-   */
-  public void updateTables() {
-    updateVariableView();
-    updateCommandView();
-  }
-
-  private void updateVariableView() {
-    extractVariableRows();
-    variableView.setItems(allVariables);
-  }
-
-  private void updateCommandView() {
-    commandView.setItems((ObservableList<List<String>>) extractUserCommandRows());
-  }
-
-  private void extractVariableRows() {
-    allVariables.clear();
-
-    for (Variable v : myVariableHandler.getAllVariables()) {
-      /*
-      row.add(v.getName());
-      row.add(Double.toString(v.getValue()));
-
-       */
-      allVariables.add(v);
-    }
-  }
-
-  private List<List<String>> extractUserCommandRows() {
-    List<List<String>> allCommandRows = FXCollections.observableArrayList();
-
-    for (UserDefinedCommand c : myCommandHandler.getAllCommands()) {
-      List<String> row = FXCollections.observableArrayList();
-      row.clear();
-      row.add(c.getCommandName());
-      row.add(c.getBody().toString());
-      allCommandRows.add(row);
-    }
-
-    return allCommandRows;
   }
 }
