@@ -77,13 +77,4 @@ public class VariableHandler {
       }
     }
   }
-
-  /**
-   * Retrieves all variables for front-end to display.
-   *
-   * @return List<Variable>
-   */
-  public List<Variable> getVariables() {
-    return variables;
-  }
 }
