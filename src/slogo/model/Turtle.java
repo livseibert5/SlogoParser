@@ -1,13 +1,12 @@
 package slogo.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import slogo.Observable;
 
 /**
  * Turtle is the class that holds the data for the location and orientation of turtle objects so
  * they can be displayed and moved across the screen.
  */
-public class Turtle {
+public class Turtle extends Observable {
 
   private double xCoordinate;
   private double yCoordinate;
@@ -119,6 +118,7 @@ public class Turtle {
    * Puts the turtle's pen down by setting the penDown boolean to true.
    */
   public void setPenDown() {
+    notifyListeners("penDown", penDown, true);
     penDown = true;
   }
 
@@ -126,6 +126,7 @@ public class Turtle {
    * Puts the turtle's pen up by setting the penDown boolean to false.
    */
   public void setPenUp() {
+    notifyListeners("penDown", penDown, false);
     penDown = false;
   }
 
@@ -134,6 +135,7 @@ public class Turtle {
    * it.
    */
   public void showTurtle() {
+    notifyListeners("isShowing", isShowing, true);
     isShowing = true;
   }
 
@@ -142,6 +144,7 @@ public class Turtle {
    * display it.
    */
   public void hideTurtle() {
+    notifyListeners("isShowing", isShowing, false);
     isShowing = false;
   }
 
@@ -151,6 +154,7 @@ public class Turtle {
    * @param colorIndex index of new pen color
    */
   public void setPenColor(double colorIndex) {
+    notifyListeners("penColor", penColor, colorIndex);
     penColor = colorIndex;
   }
 
@@ -169,6 +173,7 @@ public class Turtle {
    * @param thickness thickness in pixels of turtle's pen
    */
   public void setPenThickness(double thickness) {
+    notifyListeners("penThickness", penThickness, thickness);
     penThickness = thickness;
   }
 
@@ -186,6 +191,8 @@ public class Turtle {
    *
    * @param value index of the new pen shape
    */
-  public void setPenShape(double value) { penShape = value; }
-
+  public void setPenShape(double value) {
+    notifyListeners("penShape", penShape, value);
+    penShape = value;
+  }
 }

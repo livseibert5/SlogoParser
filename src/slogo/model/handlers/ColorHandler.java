@@ -42,6 +42,6 @@ public class ColorHandler {
   public void addColor(int index, Color color) {
     colorMap.put(index, color);
   }
-  
+
 
 }
