@@ -53,10 +53,14 @@ public class Turtle extends Observable {
    * @param newLocation x-coordinate and y-coordinate of new location for turtle
    */
   public void setLocation(double[] newLocation) {
+    double prevX = xCoordinate;
     xCoordinate = newLocation[0] > TURTLE_BOUNDARY ? TURTLE_BOUNDARY : newLocation[0];
     xCoordinate = newLocation[0] < -1 * TURTLE_BOUNDARY ? -1 * TURTLE_BOUNDARY : xCoordinate;
+    notifyListeners("xLocation", prevX, xCoordinate);
+    double prevY = yCoordinate;
     yCoordinate = newLocation[1] > TURTLE_BOUNDARY ? TURTLE_BOUNDARY : newLocation[1];
     yCoordinate = newLocation[1] < -1 * TURTLE_BOUNDARY ? -1 * TURTLE_BOUNDARY : yCoordinate;
+    notifyListeners("yLocation", prevY, yCoordinate);
   }
 
   /**
