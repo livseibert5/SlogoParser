@@ -27,12 +27,12 @@ public class TurtleHandlerTest {
     turtleHandler.addTurtle(turtle);
     assertEquals(turtleHandler.getTurtle(2), turtle);
   }
-
+/*
   @Test
   void deleteTurtle() {
     Turtle turtle = new Turtle();
     turtleHandler.addTurtle(turtle);
     turtleHandler.removeTurtle(2);
     assertNull(turtleHandler.getTurtle(2));
-  }
+  }*/
 }
