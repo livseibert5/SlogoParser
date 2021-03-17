@@ -48,7 +48,7 @@ public class SetPalette implements Command {
   @Override
   public double execute(Turtle turtle) {
     Color color = new Color((int) r, (int) g, (int) b);
-    controller.addColor((int) index, color);
+    controller.getColorHandler().addColor((int) index, color);
     return index;
   }
 
