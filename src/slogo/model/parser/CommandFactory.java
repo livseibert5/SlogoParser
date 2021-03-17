@@ -3,6 +3,7 @@ package slogo.model.parser;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -80,6 +81,14 @@ public class CommandFactory {
   private Constructor[] getConstructors(String commandType) throws ClassNotFoundException {
     var clazz = Class.forName(mySymbols.get(commandType));
     return clazz.getConstructors();
+  }
+
+  public boolean isControlCommand(String commandType) throws ClassNotFoundException {
+    if (mySymbols.containsKey(commandType) && Arrays.asList(getConstructors(commandType)[0].getParameterTypes()).contains(Class.forName("slogo.controller.Controller"))) {
+      System.out.println("Here");
+      return true;
+    }
+    return false;
   }
 
   /**

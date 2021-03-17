@@ -31,8 +31,6 @@ public class Parser {
   private Stack<Object> poppedStack;
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
   private ResourceBundle resources = ResourceBundle.getBundle("resources.languages.English");
-  private ResourceBundle controlCommands = ResourceBundle
-      .getBundle(RESOURCE_FOLDER + "ControlCommands");
   private ResourceBundle expressionFactoryTypes = ResourceBundle
       .getBundle(RESOURCE_FOLDER + "ExpressionFactory");
   private Turtle turtle;
@@ -235,8 +233,8 @@ public class Parser {
    * @param command command attempted to execute
    * @param args    list of arguments given to command
    */
-  private void resetArguments(String command, List<Object> args) {
-    int lowerBound = controlCommands.containsKey(command) ? 1 : 0;
+  private void resetArguments(String command, List<Object> args) throws ClassNotFoundException {
+    int lowerBound = commandFactory.isControlCommand(command) ? 1 : 0;
     for (int i = args.size() - 1; i >= lowerBound; i--) {
       commandStack.push(args.get(i));
     }
@@ -248,9 +246,10 @@ public class Parser {
    * @param command type of command to be created
    * @return list of parameters for command
    */
-  private List<Object> generateParameters(String command, int numArgs) {
+  private List<Object> generateParameters(String command, int numArgs)
+      throws ClassNotFoundException {
     List<Object> args = new ArrayList<>();
-    if (controlCommands.containsKey(command)) {
+    if (commandFactory.isControlCommand(command)) {
       args.add(controller);
       numArgs--;
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import slogo.Observable;
 import slogo.model.Turtle;
 
 /**
@@ -12,7 +13,7 @@ import slogo.model.Turtle;
  *
  * @author Livia Seibert
  */
-public class TurtleHandler {
+public class TurtleHandler extends Observable {
 
   private Map<Integer, Turtle> turtles;
   private List<Turtle> activeTurtles;
