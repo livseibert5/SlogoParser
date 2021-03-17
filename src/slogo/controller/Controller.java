@@ -31,6 +31,7 @@ public class Controller {
     turtleHandler = new TurtleHandler();
     variableHandler = new VariableHandler();
     userDefinedCommandHandler = new UserDefinedCommandHandler();
+    colorHandler = new ColorHandler();
     language = "English";
   }
 
@@ -66,7 +67,7 @@ public class Controller {
   }
 
   /**
-   * Allows the front end to set the language for the parser.
+   * Allows the back end to get the language for the parser.
    *
    * @return language being used
    * @author Rachel Luria
@@ -75,4 +76,10 @@ public class Controller {
     return language;
   }
 
+  /**
+   * Allows the front end to set the language.
+   *
+   * @param lang desired language
+   */
+  public void setLanguage(String lang) {language = lang;}
 }

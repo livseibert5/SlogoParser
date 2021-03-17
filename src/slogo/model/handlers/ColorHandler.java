@@ -20,10 +20,8 @@ public class ColorHandler {
   }
 
   private void initializeColors() {
-    Enumeration<String> keys = colors.getKeys();
     for(int i = 0; i < colors.keySet().size(); i++){
-      String key = keys.nextElement();
-      String rgb = colors.getString(key);
+      String rgb = colors.getString(String.valueOf(i));
       Color color = new Color(makeColor(rgb.substring(0, 2)), makeColor(rgb.substring(2, 4)), makeColor(rgb.substring(4)));
       colorMap.put(i, color);
     }
@@ -43,5 +41,11 @@ public class ColorHandler {
     colorMap.put(index, color);
   }
 
-
+  /**
+   * Allows the frontend to access the color at the particular index.
+   *
+   * @param index
+   * @return color corresponding to the index
+   */
+  public Color getColor(int index) {return colorMap.get(index);}
 }
