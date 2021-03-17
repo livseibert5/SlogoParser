@@ -24,15 +24,15 @@ public class TurtleHandlerTest {
   @Test
   void addNewTurtle() {
     Turtle turtle = new Turtle();
-    turtleHandler.addTurtle(4, turtle);
-    assertEquals(turtleHandler.getTurtle(4), turtle);
+    turtleHandler.addTurtle(turtle);
+    assertEquals(turtleHandler.getTurtle(2), turtle);
   }
 
   @Test
   void deleteTurtle() {
     Turtle turtle = new Turtle();
-    turtleHandler.addTurtle(4, turtle);
-    turtleHandler.removeTurtle(4);
-    assertNull(turtleHandler.getTurtle(4));
+    turtleHandler.addTurtle(turtle);
+    turtleHandler.removeTurtle(2);
+    assertNull(turtleHandler.getTurtle(2));
   }
 }
