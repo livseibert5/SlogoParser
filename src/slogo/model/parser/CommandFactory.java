@@ -85,7 +85,6 @@ public class CommandFactory {
 
   public boolean isControlCommand(String commandType) throws ClassNotFoundException {
     if (mySymbols.containsKey(commandType) && Arrays.asList(getConstructors(commandType)[0].getParameterTypes()).contains(Class.forName("slogo.controller.Controller"))) {
-      System.out.println("Here");
       return true;
     }
     return false;

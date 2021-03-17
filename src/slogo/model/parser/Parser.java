@@ -33,7 +33,7 @@ public class Parser {
   private ResourceBundle resources;
   private ResourceBundle expressionFactoryTypes = ResourceBundle
       .getBundle(RESOURCE_FOLDER + "ExpressionFactory");
-  private Turtle turtle;
+  private List<Turtle> turtles;
   private double result;
 
   /**
@@ -45,7 +45,7 @@ public class Parser {
   public Parser(Controller controller) {
     this.controller = controller;
     resources = ResourceBundle.getBundle("resources.languages." + controller.getLanguage());
-    turtle = controller.getTurtleHandler().getActiveTurtle();
+    turtles = controller.getTurtleHandler().getActiveTurtles();
     setUpParser();
   }
 
@@ -75,7 +75,7 @@ public class Parser {
    */
   public int parse(String command)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
-    turtle = controller.getTurtleHandler().getActiveTurtle();
+    turtles = controller.getTurtleHandler().getActiveTurtles();
     String[] commandComponents = removeComments(command).split(" ");
     createCommandStack(commandComponents);
     parseCommandStack();
@@ -207,7 +207,14 @@ public class Parser {
     List<Object> args = generateParameters((String) command, numArgs);
     try {
       Command commandObj = (Command) commandFactory.createCommand((String) command, args);
-      result = commandObj.execute(turtle);
+      if (command.equals("Tell")) {
+        commandObj.execute(new Turtle());
+        turtles = controller.getTurtleHandler().getActiveTurtles();
+      } else {
+        for (Turtle turtle: turtles) {
+          result = commandObj.execute(turtle);
+        }
+      }
       Constant constant = expressionFactory.makeConstant((int) result);
       poppedStack.pop();
       endCommand(constant);

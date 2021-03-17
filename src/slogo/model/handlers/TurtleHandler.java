@@ -17,7 +17,6 @@ public class TurtleHandler extends Observable {
 
   private Map<Integer, Turtle> turtles;
   private List<Turtle> activeTurtles;
-  private Turtle activeTurtle;
   private int currentTurtleIndex;
 
   /**
@@ -28,7 +27,6 @@ public class TurtleHandler extends Observable {
     turtles.put(1, new Turtle());
     activeTurtles = new ArrayList<>();
     activeTurtles.add(turtles.get(1));
-    activeTurtle = turtles.get(1);
     currentTurtleIndex = 1;
   }
 
@@ -40,6 +38,10 @@ public class TurtleHandler extends Observable {
   public void addTurtle(Turtle turtle) {
     currentTurtleIndex++;
     notifyListeners("addTurtle", turtles, turtles.put(currentTurtleIndex, turtle));
+  }
+
+  public List<Turtle> getActiveTurtles() {
+    return activeTurtles;
   }
 
   /**
@@ -55,12 +57,12 @@ public class TurtleHandler extends Observable {
     return turtles.size();
   }
 
-  public Turtle getActiveTurtle() {
-    return activeTurtle;
+  public List<Turtle> getAllTurtles() {
+    return (List<Turtle>) turtles.values();
   }
 
-  public void setActiveTurtle(int turtle) {
-    activeTurtle = turtles.get(turtle);
+  public void setActiveTurtles(List<Turtle> newActiveTurtles) {
+    activeTurtles = newActiveTurtles;
   }
 
   public int getTurtleId(Turtle turtle) {
@@ -74,6 +76,12 @@ public class TurtleHandler extends Observable {
 
   // TODO: once front end works, change this function to get a turtle with a specific id
   public Turtle getTurtle(int id) {
-    return turtles.get(id);
+    if (turtles.containsKey(id)) {
+      return turtles.get(id);
+    } else {
+      Turtle newTurtle = new Turtle();
+      addTurtle(newTurtle);
+      return newTurtle;
+    }
   }
 }

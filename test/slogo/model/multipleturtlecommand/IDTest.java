@@ -23,6 +23,6 @@ public class IDTest {
 
   @Test
   void checkInitialTurtleID() {
-    assertEquals(1, id.execute(controller.getTurtleHandler().getActiveTurtle()));
+    assertEquals(1, id.execute(controller.getTurtleHandler().getActiveTurtles().get(0)));
   }
 }
