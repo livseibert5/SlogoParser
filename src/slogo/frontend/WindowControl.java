@@ -46,6 +46,7 @@ public class WindowControl {
   private int imageNumber;
   private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
+  private ViewMaker errorWindow;
 
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
@@ -86,25 +87,13 @@ public class WindowControl {
           myComponents.clearTextInput();
           myComponents.printReturnValue(value);
         } catch (Exception e) {
-          makeErrorWindow();
+          errorWindow.showView();
         }
       }
     });
   }
 
-  private void makeErrorWindow() {
-    double windowSize = 200;
-    Group errorRoot = new Group();
-    Scene errorScene = new Scene(errorRoot, windowSize, windowSize);
-
-    Text errorText = new Text(windowSize / 2, windowSize / 2, "Invalid command.");
-    errorText.setFill(Color.BLACK);
-    errorText.setId("errorMessage");
-    errorRoot.getChildren().add(errorText);
-
-    Stage errorWindow = new Stage();
-    errorWindow.setTitle("Error!");
-    errorWindow.setScene(errorScene);
-    errorWindow.show();
+  private void makeViews() {
+    errorWindow = new ErrorView(200, 200);
   }
 }
