@@ -145,10 +145,7 @@ public class FrontEndTest extends DukeApplicationTest {
   @Test
   // scenario: user adds a user defined command
   void addCommand() {
-    String command = "to random_in_range [ :min :max ]\n"
-        + "[\n"
-        + "  random sum :min sum 1 difference :max :min\n"
-        + "]";
+    String command = "to makethree [ :sum ] [ sum 1 2 ]";
     commandLine.setText(command);
     clickOn(enterButton);
     assertTrue(1 == (commandView.getItems().size()));
