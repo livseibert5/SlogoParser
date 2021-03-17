@@ -39,7 +39,7 @@ public class TurtleHandler extends Observable {
    */
   public void addTurtle(Turtle turtle) {
     currentTurtleIndex++;
-    turtles.put(currentTurtleIndex, turtle);
+    notifyListeners("addTurtle", turtles, turtles.put(currentTurtleIndex, turtle));
   }
 
   /**
