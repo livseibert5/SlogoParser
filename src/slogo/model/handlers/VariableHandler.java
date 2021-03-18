@@ -2,6 +2,7 @@ package slogo.model.handlers;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
 import slogo.model.Variable;
 
 /**
@@ -18,7 +19,7 @@ public class VariableHandler {
    * VariableHandler constructor declares new list to store variables in.
    */
   public VariableHandler() {
-    variables = new ArrayList<>();
+    variables = FXCollections.observableArrayList();
   }
 
   /**
