@@ -127,7 +127,7 @@ public class SceneComponents extends Observable {
     makeColorPicker(pen,DEFAULT_BORDER + turtleBox.getX(), DEFAULT_BORDER / 2, new EventHandler() {
         @Override
         public void handle(Event event) {
-            notifyListeners("LINECOLOR", oldLineColor, pen.getValue());
+            notifyListeners("lineColor", oldLineColor, pen.getValue());
             oldLineColor = pen.getValue();
         }
     });

@@ -56,10 +56,9 @@ public class WindowControl {
     myController = new Controller();
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
-    myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler().getTurtle(1), root);
-    List<PropertyChangeListener> listenerList = new ArrayList<>();
-    listenerList.add(myTurtleDisplay.getLineColorListener());
-    myComponents = new SceneComponents(root, listenerList);
+    myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler(), root);
+
+    myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
 
     uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, new EventHandler<ActionEvent>() {
       @Override
