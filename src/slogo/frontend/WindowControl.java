@@ -46,7 +46,7 @@ public class WindowControl {
   private int imageNumber;
   private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
-  private ViewMaker errorWindow;
+  private ViewMaker errorWindow = new ErrorView(200, 200);
 
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
@@ -90,9 +90,5 @@ public class WindowControl {
         }
       }
     });
-  }
-
-  private void makeViews() {
-    errorWindow = new ErrorView(200, 200);
   }
 }
