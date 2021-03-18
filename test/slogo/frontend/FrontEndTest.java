@@ -3,6 +3,7 @@ package slogo.frontend;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -28,6 +29,8 @@ public class FrontEndTest extends DukeApplicationTest {
   private ImageView turtle1;
   private TextArea commandLine;
   private Rectangle turtleBox;
+  private TableView commandView;
+  private TableView variableView;
 
   @Override
   public void start(Stage stage) {
@@ -41,6 +44,8 @@ public class FrontEndTest extends DukeApplicationTest {
     turtle1 = lookup("#turtle1").query();
     commandLine = lookup("#commandLine").query();
     turtleBox = lookup("#turtleBox").query();
+    commandView = lookup("#commandview").query();
+    variableView = lookup("#variableview").query();
   }
 
   @Test
@@ -126,5 +131,23 @@ public class FrontEndTest extends DukeApplicationTest {
     String newColor = "#ff1253";
     select(backgroundColor, newColor);
     assertTrue(turtleBox.getFill().toString().equals(Color.valueOf(newColor).toString()));
+  }
+
+  @Test
+  // scenario: user adds a variable
+  void addVariable() {
+    String varName = "make :newvar 10";
+    commandLine.setText(varName);
+    clickOn(enterButton);
+    assertTrue(1 == variableView.getItems().size());
+  }
+
+  @Test
+  // scenario: user adds a user defined command
+  void addCommand() {
+    String command = "to makethree [ :sum ] [ sum 1 2 ]";
+    commandLine.setText(command);
+    clickOn(enterButton);
+    assertTrue(1 == (commandView.getItems().size()));
   }
 }
