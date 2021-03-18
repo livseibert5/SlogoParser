@@ -1,8 +1,6 @@
 package slogo.frontend;
 
 import java.io.File;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -23,73 +21,65 @@ public class WindowControl {
   private static final int UPLOAD_X = 175;
   private static final int UPLOAD_Y = 0;
 
-  private CreateScene myScene;
-  private Group root = new Group();
-  private Stage stage = new Stage();
+  private final Group root = new Group();
+  private final Stage stage = new Stage();
 
-  private Controller myController;
-  private Parser myParser;
-  private TurtleDisplay myTurtleDisplay;
-  private TableDisplay myTableDisplay;
-  private SceneComponents myComponents;
-  private HelpButtonMaker helpButton;
-  private EnterButtonMaker enterButton;
-  private UploadButtonMaker uploadButton;
-  private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
+  private final Parser myParser;
+  private final TurtleDisplay myTurtleDisplay;
+  private final SceneComponents myComponents;
+  private final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
   private int imageNumber;
-  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
+  private final String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
-  private ViewMaker errorWindow = new ErrorView(200, 200);
+  private final ViewMaker errorWindow = new ErrorView(200, 200);
 
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
    */
   public WindowControl(Stage myStage) {
-    myScene = new CreateScene(myStage, root);
-    myController = new Controller();
+    CreateScene myScene = new CreateScene(myStage, root);
+    Controller myController = new Controller();
     myParser = new Parser(myController);
-    myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
+    TableDisplay myTableDisplay = new TableDisplay(myController.getVariableHandler(),
+        myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler(), root);
 
     myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
 
     createUploadButton();
-    helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
+    HelpButtonMaker helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
     createEnterButton();
 
   }
 
   private void createUploadButton() {
-    uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Upload Turtle Image");
-        fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-        File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-          boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage.jpg"));
-          System.out.println(isMoved);
-          myTurtleDisplay.updateImageView();
-        }
-      }
-    });
+    UploadButtonMaker uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root,
+        event -> {
+          FileChooser fileChooser = new FileChooser();
+          fileChooser.setTitle("Upload Turtle Image");
+          fileChooser.getExtensionFilters().addAll(
+              new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+          File file = fileChooser.showOpenDialog(stage);
+          if (file != null) {
+            boolean isMoved = file
+                .renameTo(new File("src/slogo/frontend/resources/images/UserImage.jpg"));
+            System.out.println(isMoved);
+            myTurtleDisplay.updateImageView();
+          }
+        });
   }
 
   private void createEnterButton() {
-    enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        try {
-          int value = myParser.parse(myComponents.getTextInput());
-          myTurtleDisplay.updateTurtleView(1);
-          myComponents.clearTextInput();
-          myComponents.printReturnValue(value);
-        } catch (Exception e) {
-          errorWindow.showView();
-        }
-      }
-    });
+    EnterButtonMaker enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root,
+        event -> {
+          try {
+            int value = myParser.parse(myComponents.getTextInput());
+            myTurtleDisplay.updateTurtleView(1);
+            myComponents.clearTextInput();
+            myComponents.printReturnValue(value);
+          } catch (Exception e) {
+            errorWindow.showView();
+          }
+        });
   }
 }

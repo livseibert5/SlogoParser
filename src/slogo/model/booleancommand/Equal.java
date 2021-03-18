@@ -11,8 +11,8 @@ import slogo.model.Value;
  */
 public class Equal implements Command {
 
-  private double argument1;
-  private double argument2;
+  private final double argument1;
+  private final double argument2;
 
   /**
    * Constructor for Equal command, takes in two constants to determine equality of.

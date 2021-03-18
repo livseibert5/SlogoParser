@@ -3,9 +3,6 @@ package slogo;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import javafx.scene.Scene;
-import slogo.frontend.CreateScene;
-import slogo.frontend.SceneComponents;
 import slogo.frontend.WindowControl;
 
 /**

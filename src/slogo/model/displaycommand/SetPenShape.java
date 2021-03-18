@@ -12,13 +12,13 @@ import slogo.model.Value;
  */
 public class SetPenShape implements Command {
 
-  private double value;
+  private final double value;
 
   /**
    * SetPenShape constructor takes a value that corresponds to the index of the new
    * pen shape.
    *
-   * @param value
+   * @param value index of new pen shape
    */
   public SetPenShape(Value value) {
     this.value = value.getValue();

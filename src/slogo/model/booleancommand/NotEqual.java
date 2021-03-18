@@ -12,8 +12,8 @@ import slogo.model.Value;
  */
 public class NotEqual implements Command {
 
-  double argument1;
-  double argument2;
+  private final double argument1;
+  private final double argument2;
 
   /**
    * NotEqual Constructor takes two arguments to compare the values of.

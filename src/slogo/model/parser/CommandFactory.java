@@ -2,14 +2,12 @@ package slogo.model.parser;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import slogo.model.Variable;
 
 /**
  * Creates instances of the appropriate command for use in the Parser.
@@ -19,8 +17,7 @@ import slogo.model.Variable;
 public class CommandFactory {
 
   private static final String RESOURCES_PACKAGE = "slogo.model.resources.";
-  private Map<String, String> mySymbols;
-  private List<Variable> variables;
+  private final Map<String, String> mySymbols;
 
   /**
    * Constructor for CommandFactory that sets up the factory.
@@ -28,7 +25,6 @@ public class CommandFactory {
   public CommandFactory() {
     mySymbols = new HashMap<>();
     addCommandClasses();
-    variables = new ArrayList<>();
   }
 
   /**
@@ -48,11 +44,10 @@ public class CommandFactory {
    * @param clazz     class type of object we'd like to instantiate
    * @param arguments arguments list to pass to new object
    * @return new Command object
-   * @throws NoSuchMethodException
-   * @throws IllegalAccessException
-   * @throws InvocationTargetException
-   * @throws InstantiationException
-   * @throws ClassNotFoundException
+   * @throws NoSuchMethodException method not found in command factory
+   * @throws InvocationTargetException can't invoke target
+   * @throws InstantiationException can't make new object from command factory
+   * @throws IllegalAccessException trying to make object in command factory without access
    */
   private Object makeClass(Class<?> clazz, List<Object> arguments)
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -65,7 +60,7 @@ public class CommandFactory {
    *
    * @param commandType type of command class to instantiate
    * @return number of parameters the command's constructor takes
-   * @throws ClassNotFoundException
+   * @throws ClassNotFoundException can't find class to pull constructors from
    */
   public int determineNumberParameters(String commandType) throws ClassNotFoundException {
     return getConstructors(commandType)[0].getParameterCount();
@@ -76,18 +71,17 @@ public class CommandFactory {
    *
    * @param commandType type of command class to instantiate
    * @return list of constructors for the given command type
-   * @throws ClassNotFoundException
+   * @throws ClassNotFoundException can't find class to pull constructors from
    */
-  private Constructor[] getConstructors(String commandType) throws ClassNotFoundException {
+  private Constructor<?>[] getConstructors(String commandType) throws ClassNotFoundException {
     var clazz = Class.forName(mySymbols.get(commandType));
     return clazz.getConstructors();
   }
 
   public boolean isControlCommand(String commandType) throws ClassNotFoundException {
-    if (mySymbols.containsKey(commandType) && Arrays.asList(getConstructors(commandType)[0].getParameterTypes()).contains(Class.forName("slogo.controller.Controller"))) {
-      return true;
-    }
-    return false;
+    return mySymbols.containsKey(commandType) && Arrays
+        .asList(getConstructors(commandType)[0].getParameterTypes())
+        .contains(Class.forName("slogo.controller.Controller"));
   }
 
   /**
@@ -96,8 +90,8 @@ public class CommandFactory {
    * @param clazz class type of object
    * @return list of Classes that are the types of the constructor parameters
    */
-  private Class[] determineParameterTypes(Class<?> clazz) {
-    Constructor[] constructors = clazz.getConstructors();
+  private Class<?>[] determineParameterTypes(Class<?> clazz) {
+    Constructor<?>[] constructors = clazz.getConstructors();
     return constructors[0].getParameterTypes();
   }
 
@@ -108,16 +102,15 @@ public class CommandFactory {
    * @param commandType type of command class we want to instantiate
    * @param arguments   list of objects that are the arguments for the new command class
    * @return new command object
-   * @throws ClassNotFoundException
-   * @throws InvocationTargetException
-   * @throws NoSuchMethodException
-   * @throws InstantiationException
-   * @throws IllegalAccessException
+   * @throws ClassNotFoundException class not found in command factory
+   * @throws NoSuchMethodException method not found in command factory
+   * @throws InvocationTargetException can't invoke target
+   * @throws InstantiationException can't make new object from command factory
+   * @throws IllegalAccessException trying to make object in command factory without access
    */
   public Object createCommand(String commandType, List<Object> arguments)
       throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
     var clazz = Class.forName(mySymbols.get(commandType));
-    Object command = makeClass(clazz, arguments);
-    return command;
+    return makeClass(clazz, arguments);
   }
 }

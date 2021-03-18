@@ -1,8 +1,6 @@
 package slogo.frontend;
 
-import java.beans.PropertyChangeListener;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 import slogo.model.Turtle;
 
 /**
