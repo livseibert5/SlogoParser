@@ -5,13 +5,11 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class HelpButtonMaker extends ButtonMaker {
@@ -32,14 +30,11 @@ public class HelpButtonMaker extends ButtonMaker {
 
     @Override
     EventHandler<ActionEvent> createHandler() {
-        return new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Stage stage = new Stage();
-                stage.setScene(makeHelpScene());
-                stage.setTitle("Help");
-                stage.show();
-            }
+        return event -> {
+            Stage stage = new Stage();
+            stage.setScene(makeHelpScene());
+            stage.setTitle("Help");
+            stage.show();
         };
     }
     private Scene makeHelpScene() {
@@ -48,7 +43,7 @@ public class HelpButtonMaker extends ButtonMaker {
         return scene;
     }
     private List<String> createReferenceList() {
-        List<String> results = new ArrayList<String>();
+        List<String> results = new ArrayList<>();
         File[] files = new File("src/slogo/frontend/resources/reference").listFiles();
         for (File file : files) {
             if (file.isFile()) {
@@ -62,11 +57,8 @@ public class HelpButtonMaker extends ButtonMaker {
     private void addAllButtons(List<String> list) {
         for (int i = 0; i < list.size(); i++) {
             Button link = makeButton(list.get(i), 0, i * 40);
-            link.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event)  {
+            link.setOnAction(event -> {
 
-                }
             });
 
             helpRoot.getChildren().add(link);
