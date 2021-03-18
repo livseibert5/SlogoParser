@@ -44,16 +44,15 @@ public abstract class ViewMaker {
   /**
    * Text object maker and formatter for child classes.
    *
-   * @param x width of text
-   * @param y height of text
+   * @param xCoordinate width of text
+   * @param yCoordinate height of text
    * @param text content of text
-   * @param fill color of text
    * @param id text id
    * @return newText Text object
    */
-  protected Text makeText(double x, double y, String text, Color fill, String id) {
-    Text newText = new Text(x, y, text);
-    newText.setFill(fill);
+  protected Text makeText(double xCoordinate, double yCoordinate, String text, String id) {
+    Text newText = new Text(xCoordinate, yCoordinate, text);
+    newText.setFill(Color.BLACK);
     newText.setId(id);
 
     return newText;

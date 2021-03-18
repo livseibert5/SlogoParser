@@ -2,7 +2,6 @@ package slogo.frontend;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 /**
  * Class for error pop up window.
@@ -30,7 +29,7 @@ public class ErrorView extends ViewMaker {
    */
   @Override
   protected void setUpRoot(Group myRoot, double sizeX, double sizeY) {
-    myRoot.getChildren().add(makeText(sizeX / 2, sizeY / 2, "Invalid command.",
-        Color.BLACK, "errorMessage"));
+    myRoot.getChildren().add(makeText(sizeX / 3, sizeY / 3, "Invalid command.",
+        "errorMessage"));
   }
 }
