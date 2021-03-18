@@ -58,7 +58,7 @@ public class TurtleHandler extends Observable {
   }
 
   public List<Turtle> getAllTurtles() {
-    return (List<Turtle>) turtles.values();
+    return new ArrayList<>(turtles.values());
   }
 
   public void setActiveTurtles(List<Turtle> newActiveTurtles) {
