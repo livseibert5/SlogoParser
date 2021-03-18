@@ -1,16 +1,9 @@
 package slogo.frontend;
 
-import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
@@ -60,13 +53,20 @@ public class WindowControl {
 
     myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
 
+    createUploadButton();
+    helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
+    createEnterButton();
+
+  }
+
+  private void createUploadButton() {
     uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload Turtle Image");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
           boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage.jpg"));
@@ -75,7 +75,9 @@ public class WindowControl {
         }
       }
     });
-    helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
+  }
+
+  private void createEnterButton() {
     enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
