@@ -207,7 +207,7 @@ public class Parser {
     List<Object> args = generateParameters((String) command, numArgs);
     try {
       Command commandObj = (Command) commandFactory.createCommand((String) command, args);
-      if (command.equals("Tell") || command.equals("Ask")) {
+      if (command.equals("Tell") || command.equals("Ask") || command.equals("AskWith")) {
         result = commandObj.execute(new Turtle());
         turtles = controller.getTurtleHandler().getActiveTurtles();
       } else {
