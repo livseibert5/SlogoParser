@@ -1,5 +1,11 @@
 package slogo.controller;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
+import slogo.model.Color;
+import slogo.model.handlers.ColorHandler;
 import slogo.model.handlers.TurtleHandler;
 import slogo.model.handlers.UserDefinedCommandHandler;
 import slogo.model.handlers.VariableHandler;
@@ -14,6 +20,7 @@ public class Controller {
   private TurtleHandler turtleHandler;
   private VariableHandler variableHandler;
   private UserDefinedCommandHandler userDefinedCommandHandler;
+  private ColorHandler colorHandler;
   private String language;
 
   /**
@@ -24,6 +31,7 @@ public class Controller {
     turtleHandler = new TurtleHandler();
     variableHandler = new VariableHandler();
     userDefinedCommandHandler = new UserDefinedCommandHandler();
+    colorHandler = new ColorHandler();
     language = "English";
   }
 
@@ -54,8 +62,12 @@ public class Controller {
     return userDefinedCommandHandler;
   }
 
+  public ColorHandler getColorHandler(){
+    return colorHandler;
+  }
+
   /**
-   * Allows the front end to set the language for the parser.
+   * Allows the back end to get the language for the parser.
    *
    * @return language being used
    * @author Rachel Luria
@@ -63,4 +75,11 @@ public class Controller {
   public String getLanguage(){
     return language;
   }
+
+  /**
+   * Allows the front end to set the language.
+   *
+   * @param lang desired language
+   */
+  public void setLanguage(String lang) {language = lang;}
 }

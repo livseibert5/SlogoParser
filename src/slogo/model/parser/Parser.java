@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Stack;
+import java.util.stream.Collectors;
 import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.Constant;
@@ -29,12 +30,10 @@ public class Parser {
   private Stack<Object> commandStack;
   private Stack<Object> poppedStack;
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
-  private ResourceBundle resources = ResourceBundle.getBundle("resources.languages.English");
-  private ResourceBundle controlCommands = ResourceBundle
-      .getBundle(RESOURCE_FOLDER + "ControlCommands");
+  private ResourceBundle resources;
   private ResourceBundle expressionFactoryTypes = ResourceBundle
       .getBundle(RESOURCE_FOLDER + "ExpressionFactory");
-  private Turtle turtle;
+  private List<Turtle> turtles;
   private double result;
 
   /**
@@ -45,7 +44,8 @@ public class Parser {
    */
   public Parser(Controller controller) {
     this.controller = controller;
-    turtle = controller.getTurtleHandler().getTurtle(1);
+    resources = ResourceBundle.getBundle("resources.languages." + controller.getLanguage());
+    turtles = controller.getTurtleHandler().getActiveTurtles();
     setUpParser();
   }
 
@@ -75,6 +75,7 @@ public class Parser {
    */
   public int parse(String command)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
+    turtles = controller.getTurtleHandler().getActiveTurtles();
     String[] commandComponents = removeComments(command).split(" ");
     createCommandStack(commandComponents);
     parseCommandStack();
@@ -90,8 +91,10 @@ public class Parser {
   private String removeComments(String command) {
     String[] commandLines = command.split("\\n");
     List<String> newCommandLines = Arrays.asList(commandLines);
-    newCommandLines.stream()
-        .filter(line -> !regexDetector.getSymbol(line.split(" ")[0]).equals("Comment"));
+    newCommandLines.replaceAll(String::trim);
+    newCommandLines = newCommandLines.stream()
+        .filter(line -> !regexDetector.getSymbol(line.split(" ")[0]).equals("Comment")).collect(
+            Collectors.toList());
     StringBuilder result = new StringBuilder();
     for (String line : newCommandLines) {
       result.append(line);
@@ -204,7 +207,14 @@ public class Parser {
     List<Object> args = generateParameters((String) command, numArgs);
     try {
       Command commandObj = (Command) commandFactory.createCommand((String) command, args);
-      result = commandObj.execute(turtle);
+      if (command.equals("Tell")) {
+        commandObj.execute(new Turtle());
+        turtles = controller.getTurtleHandler().getActiveTurtles();
+      } else {
+        for (Turtle turtle: turtles) {
+          result = commandObj.execute(turtle);
+        }
+      }
       Constant constant = expressionFactory.makeConstant((int) result);
       poppedStack.pop();
       endCommand(constant);
@@ -231,8 +241,8 @@ public class Parser {
    * @param command command attempted to execute
    * @param args    list of arguments given to command
    */
-  private void resetArguments(String command, List<Object> args) {
-    int lowerBound = controlCommands.containsKey(command) ? 1 : 0;
+  private void resetArguments(String command, List<Object> args) throws ClassNotFoundException {
+    int lowerBound = commandFactory.isControlCommand(command) ? 1 : 0;
     for (int i = args.size() - 1; i >= lowerBound; i--) {
       commandStack.push(args.get(i));
     }
@@ -244,9 +254,10 @@ public class Parser {
    * @param command type of command to be created
    * @return list of parameters for command
    */
-  private List<Object> generateParameters(String command, int numArgs) {
+  private List<Object> generateParameters(String command, int numArgs)
+      throws ClassNotFoundException {
     List<Object> args = new ArrayList<>();
-    if (controlCommands.containsKey(command)) {
+    if (commandFactory.isControlCommand(command)) {
       args.add(controller);
       numArgs--;
     }

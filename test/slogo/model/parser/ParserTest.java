@@ -91,4 +91,39 @@ public class ParserTest {
     String command = "# fd 30\nfd 50";
     assertEquals(50, parser.parse(command));
   }
+
+  @Test
+  void RecursionSpiral()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    String command = "to spiral [ :len ]\n"
+        + "[\n"
+        + "  if less? :len 200\n"
+        + "  [\n"
+        + "    fd :len\n"
+        + "    rt 89\n"
+        + "    spiral + :len 3\n"
+        + "  ]\n"
+        + "]";
+    assertEquals(1, parser.parse(command));
+    assertEquals(1, parser.parse("spiral 10"));
+  }
+
+  @Test
+  void tellTest()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    String command = "tell [ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ]\n"
+        + "rt random 360\n"
+        + "fd 100";
+    assertEquals(100, parser.parse(command));
+  }
+
+  @Test
+  void askWithTest()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    String command = "tell [ 1 2 3 4 5 6 7 8 ]" + " askwith [ greater? xcor 50 ] [\n"
+        + "  lt random 360\n"
+        + "  bk 100\n"
+        + "]";
+    assertEquals(0, parser.parse(command));
+  }
 }

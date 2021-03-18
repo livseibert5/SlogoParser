@@ -24,7 +24,6 @@ public class DoTimesTest {
   @BeforeEach
   void setUp() {
     controller = new Controller();
-    controller.getTurtleHandler().addTurtle(1, new Turtle());
     turtle = controller.getTurtleHandler().getTurtle(1);
   }
 
