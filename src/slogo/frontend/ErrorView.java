@@ -30,9 +30,7 @@ public class ErrorView extends ViewMaker {
    */
   @Override
   protected void setUpRoot(Group myRoot, double sizeX, double sizeY) {
-    Text errorText = new Text(sizeX / 2, sizeY / 2, "Invalid command.");
-    errorText.setFill(Color.BLACK);
-    myRoot.setId("errorMessage");
-    myRoot.getChildren().add(errorText);
+    myRoot.getChildren().add(makeText(sizeX / 2, sizeY / 2, "Invalid command.",
+        Color.BLACK, "errorMessage"));
   }
 }

@@ -2,6 +2,8 @@ package slogo.frontend;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -38,6 +40,24 @@ public abstract class ViewMaker {
    * @param sizeY height of window
    */
   protected abstract void setUpRoot(Group myRoot, double sizeX, double sizeY);
+
+  /**
+   * Text object maker and formatter for child classes.
+   *
+   * @param x width of text
+   * @param y height of text
+   * @param text content of text
+   * @param fill color of text
+   * @param id text id
+   * @return newText Text object
+   */
+  protected Text makeText(double x, double y, String text, Color fill, String id) {
+    Text newText = new Text(x, y, text);
+    newText.setFill(fill);
+    newText.setId(id);
+
+    return newText;
+  }
 
   /**
    * Displays window.
