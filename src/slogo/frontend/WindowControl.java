@@ -83,7 +83,7 @@ public class WindowControl {
       public void handle(ActionEvent event) {
         try {
           int value = myParser.parse(myComponents.getTextInput());
-          myTurtleDisplay.updateTurtleView(1);
+          myTurtleDisplay.updateTurtleView(myController.getTurtleHandler().getActiveTurtles());
           myComponents.clearTextInput();
           myComponents.printReturnValue(value);
         } catch (Exception e) {

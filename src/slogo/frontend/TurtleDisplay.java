@@ -1,7 +1,5 @@
 package slogo.frontend;
 
-import java.beans.EventHandler;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +67,7 @@ public class TurtleDisplay {
    * Adds imageview equivalent for each turtle in turtleMap. TODO use observer
    */
   private void updateImageMap() {
-    for (Turtle t : turtleHandler.getActiveTurtles()) {
+    for (Turtle t : turtleHandler.getAllTurtles()) {
       int id = turtleHandler.getTurtleId(t);
       if (turtleViewMap.get(id) == null) {
         addTurtleView(id);
@@ -101,19 +99,20 @@ public class TurtleDisplay {
   /**
    * Updates state of a given turtle. Assumes turtles in turtleMap have been updated. TODO use observer
    *
-   * @param id turtle id in hashmaps
+   * @param allActiveTurtles list of turtles
    */
-  public void updateTurtleView(int id) {
-    Turtle updatedTurtle = turtleHandler.getTurtle(id);
-    ImageView currTurtleView = turtleViewMap.get(id);
+  public void updateTurtleView(List<Turtle> allActiveTurtles) {
+    for (Turtle t : allActiveTurtles) {
+      ImageView currTurtleView = turtleViewMap.get(turtleHandler.getTurtleId(t));
 
-    if (updatedTurtle.penIsDown()) {
-      drawNewLine(updatedTurtle.getLocation(), currTurtleView);
+      if (t.penIsDown()) {
+        drawNewLine(t.getLocation(), currTurtleView);
+      }
+
+      rotateTurtleView(t.getOrientation() * -1, currTurtleView);
+      moveTurtleView(t.getLocation(), currTurtleView);
+      updateTurtleViewVisibility(t.isShowing(), currTurtleView);
     }
-
-    rotateTurtleView(updatedTurtle.getOrientation() * -1, currTurtleView);
-    moveTurtleView(updatedTurtle.getLocation(), currTurtleView);
-    updateTurtleViewVisibility(updatedTurtle.isShowing(), currTurtleView);
   }
 
   /**
