@@ -38,6 +38,7 @@ public class Turtle extends Observable {
    * @param orientation new turtle orientation in degrees
    */
   public void setOrientation(double orientation) {
+    double prevOrientation = this.orientation;
     if (orientation > 360) {
       this.orientation = orientation - 360;
     } else if (orientation < 0) {
@@ -45,6 +46,7 @@ public class Turtle extends Observable {
     } else {
       this.orientation = orientation;
     }
+    notifyListeners("orientation", prevOrientation, this.orientation);
   }
 
   /**
