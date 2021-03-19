@@ -1,16 +1,9 @@
 package slogo.frontend;
 
-import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
@@ -37,14 +30,16 @@ public class WindowControl {
   private Controller myController;
   private Parser myParser;
   private TurtleDisplay myTurtleDisplay;
+  private TableDisplay myTableDisplay;
   private SceneComponents myComponents;
   private HelpButtonMaker helpButton;
   private EnterButtonMaker enterButton;
   private UploadButtonMaker uploadButton;
   private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
-  private int imageNumber;
+  private int imageNumber = 1;
   private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
+  private ViewMaker errorWindow = new ErrorView(200, 200);
 
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
@@ -53,27 +48,37 @@ public class WindowControl {
     myScene = new CreateScene(myStage, root);
     myController = new Controller();
     myParser = new Parser(myController);
-    myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler().getTurtle(1), root);
-    List<PropertyChangeListener> listenerList = new ArrayList<>();
-    listenerList.add(myTurtleDisplay.getLineColorListener());
-    myComponents = new SceneComponents(root, listenerList);
+    myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
+    myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler(), root);
 
+    myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
+
+    createUploadButton();
+    helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
+    createEnterButton();
+
+  }
+
+  private void createUploadButton() {
     uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload Turtle Image");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
-          boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage.jpg"));
+          boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg"));
           System.out.println(isMoved);
-          myTurtleDisplay.updateImageView();
+          myTurtleDisplay.updateImageView(imageNumber);
+          imageNumber++;
         }
       }
     });
-    helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
+  }
+
+  private void createEnterButton() {
     enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
@@ -83,25 +88,9 @@ public class WindowControl {
           myComponents.clearTextInput();
           myComponents.printReturnValue(value);
         } catch (Exception e) {
-          makeErrorWindow();
+          errorWindow.showView();
         }
       }
     });
-  }
-
-  private void makeErrorWindow() {
-    double windowSize = 200;
-    Group errorRoot = new Group();
-    Scene errorScene = new Scene(errorRoot, windowSize, windowSize);
-
-    Text errorText = new Text(windowSize / 2, windowSize / 2, "Invalid command.");
-    errorText.setFill(Color.BLACK);
-    errorText.setId("errorMessage");
-    errorRoot.getChildren().add(errorText);
-
-    Stage errorWindow = new Stage();
-    errorWindow.setTitle("Error!");
-    errorWindow.setScene(errorScene);
-    errorWindow.show();
   }
 }

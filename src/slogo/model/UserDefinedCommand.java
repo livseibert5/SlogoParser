@@ -3,6 +3,8 @@ package slogo.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * UserDefinedCommand class stores information about a user defined command so it can be executed
@@ -94,5 +96,31 @@ public class UserDefinedCommand {
     }
     result.deleteCharAt(result.length() - 1);
     return result.toString();
+  }
+
+  /**
+   * Creates StringProperty from commandName for table updates.
+   *
+   * @return StringProperty property wrapping a string value
+   * @author Jessica Yang
+   */
+  public StringProperty commandNameProperty() {
+    StringProperty commandNameProperty = new SimpleStringProperty(this, "commandName");
+    commandNameProperty.setValue(commandName);
+
+    return commandNameProperty;
+  }
+
+  /**
+   * Creates StringProperty from body for table updates.
+   *
+   * @return StringProperty property wrapping a string value
+   * @author Jessica Yang
+   */
+  public StringProperty bodyProperty() {
+    StringProperty bodyProperty = new SimpleStringProperty(this, "body");
+    bodyProperty.setValue(body.toString());
+
+    return bodyProperty;
   }
 }
