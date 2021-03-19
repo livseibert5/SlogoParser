@@ -83,6 +83,7 @@ public class WindowControl {
       imageNumber++;
     }
   }
+
   private void enterEvent() {
     try {
       int value = myParser.parse(myCommand.getTextInput());

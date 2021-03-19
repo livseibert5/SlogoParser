@@ -102,6 +102,8 @@ public class TurtleDisplay {
    * @param allActiveTurtles list of turtles
    */
   public void updateTurtleView(List<Turtle> allActiveTurtles) {
+    updateImageMap();
+
     for (Turtle t : allActiveTurtles) {
       ImageView currTurtleView = turtleViewMap.get(turtleHandler.getTurtleId(t));
 
