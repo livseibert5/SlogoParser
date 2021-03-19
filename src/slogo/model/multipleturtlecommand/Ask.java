@@ -2,7 +2,6 @@ package slogo.model.multipleturtlecommand;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import slogo.controller.Controller;
 import slogo.model.Command;
@@ -18,9 +17,9 @@ import slogo.model.parser.Parser;
  */
 public class Ask implements Command {
 
-  private Controller controller;
-  private CommandBlock turtles;
-  private CommandBlock commands;
+  private final Controller controller;
+  private final CommandBlock turtles;
+  private final CommandBlock commands;
 
   public Ask(Controller controller, CommandBlock turtles, CommandBlock commands) {
     this.controller = controller;
@@ -31,7 +30,7 @@ public class Ask implements Command {
   @Override
   public double execute(Turtle turtle)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
-    List<String> turtleList = Arrays.asList(turtles.toString().split(" "));
+    String[] turtleList = turtles.toString().split(" ");
     Parser parser = new Parser(controller);
     int parserOutput;
     List<Turtle> prevActiveTurtles = controller.getTurtleHandler().getActiveTurtles();

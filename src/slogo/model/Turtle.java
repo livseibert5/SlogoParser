@@ -6,7 +6,7 @@ import slogo.Observable;
  * Turtle is the class that holds the data for the location and orientation of turtle objects so
  * they can be displayed and moved across the screen.
  */
-public class Turtle extends Observable {
+public class Turtle extends Observable<Object> {
 
   private double xCoordinate;
   private double yCoordinate;

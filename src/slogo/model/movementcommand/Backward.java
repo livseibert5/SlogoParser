@@ -12,7 +12,7 @@ import slogo.model.Value;
  */
 public class Backward extends MovementCommand implements Command {
 
-  private double pixels;
+  private final double pixels;
 
   /**
    * Constructor for the Backward command, takes a constant as an argument and gets its value by
