@@ -1,9 +1,16 @@
 package slogo.frontend;
 
+
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
+import javafx.scene.control.ComboBox;
+import javafx.scene.text.Text;
 import slogo.model.Turtle;
+import slogo.model.handlers.TurtleHandler;
 
 /**
  * View for current state of a turtle.
@@ -12,15 +19,22 @@ import slogo.model.Turtle;
  */
 public class TurtleDetailsView extends ViewMaker {
 
-  private final Turtle myTurtle;
+  private final TurtleHandler turtleHandler;
+  private ComboBox<Integer> turtleIdComboBox;
+  private ObservableList<Integer> allTurtleIds;
 
-  /*
-  private final PropertyChangeListener turtleXCoordinateListener;
-  private final PropertyChangeListener turtleYCoordinateListener;
-  private final PropertyChangeListener turtleOrientationListener;
-  private final PropertyChangeListener penColorListener;
-  private final PropertyChangeListener penUpListener;
-  */
+  private List<PropertyChangeListener> allListeners;
+  private PropertyChangeListener turtleXCoordinateListener;
+  private PropertyChangeListener turtleYCoordinateListener;
+  private PropertyChangeListener turtleOrientationListener;
+  private PropertyChangeListener penDownListener;
+  private PropertyChangeListener addTurtleListener;
+
+  private Text xLocation;
+  private Text yLocation;
+  private Text orientation;
+  private Text penDown;
+
 
   /**
    * Constructor for TurtleDetailsView class.
@@ -28,25 +42,82 @@ public class TurtleDetailsView extends ViewMaker {
    * @param sizeX x dimension of window
    * @param sizeY y dimension of window
    */
-  public TurtleDetailsView(int sizeX, int sizeY, Turtle turtle) {
+  public TurtleDetailsView(int sizeX, int sizeY, TurtleHandler handler) {
     super(sizeX, sizeY, "Turtle Details");
-    myTurtle = turtle;
+    turtleHandler = handler;
+    allListeners = new ArrayList<>();
+
+    allTurtleIds = FXCollections.observableList(turtleHandler.getAllIds());
+    setUpComboBox();
+    setUpListeners();
+    setUpRoot(getRoot(), sizeX, sizeY);
+  }
+
+  private void updateAllTurtleIds() {
+    for (int id : turtleHandler.getAllIds()) {
+      if (!allTurtleIds.contains(id)) {
+        allTurtleIds.add(id);
+      }
+    }
 
   }
 
-  /*
+  private void setUpComboBox() {
+    turtleIdComboBox = new ComboBox<>(allTurtleIds);
+    turtleIdComboBox.setId("turtleIds");
+    turtleIdComboBox.setOnAction(event -> {
+      updateListeners(turtleIdComboBox.getValue());
+      initializeTextValues(turtleIdComboBox.getValue());
+    });
+  }
+
+  private void updateListeners(int id) {
+    turtleHandler.getTurtle(id).addMultipleListeners(allListeners);
+  }
+
+  private void initializeTextValues(int id) {
+    xLocation.setText(Double.toString(turtleHandler.getTurtle(id).getXCoordinate()));
+    yLocation.setText(Double.toString(turtleHandler.getTurtle(id).getYCoordinate()));
+    orientation.setText(Double.toString(turtleHandler.getTurtle(id).getOrientation()));
+    penDown.setText(Boolean.toString(turtleHandler.getTurtle(id).penIsDown()));
+  }
+
   private void setUpListeners() {
     turtleXCoordinateListener = evt -> {
       if (evt.getPropertyName().equals("xLocation")) {
-
+        xLocation.setText(evt.getNewValue().toString());
       }
-    }
-  }
+    };
+    allListeners.add(turtleOrientationListener);
 
-  private void addAllListeners() {
-    //myTurtle.addListener();
+    turtleYCoordinateListener = evt -> {
+      if (evt.getPropertyName().equals("yLocation")) {
+        yLocation.setText(evt.getNewValue().toString());
+      }
+    };
+    allListeners.add(turtleYCoordinateListener);
+
+    turtleOrientationListener = evt -> {
+      if (evt.getPropertyName().equals("orientation")) {
+        orientation.setText(evt.getNewValue().toString());
+      }
+    };
+    allListeners.add(turtleOrientationListener);
+
+    penDownListener = evt -> {
+      if (evt.getPropertyName().equals("penDown")) {
+        penDown.setText(evt.getNewValue().toString());
+      }
+    };
+    allListeners.add(penDownListener);
+
+    addTurtleListener = evt -> {
+      if (evt.getPropertyName().equals("addTurtle")) {
+        updateAllTurtleIds();
+      }
+    };
+    turtleHandler.addListener(addTurtleListener);
   }
-  */
 
   /**
    * Adds turtle details to root.
@@ -55,21 +126,29 @@ public class TurtleDetailsView extends ViewMaker {
    * @param sizeX width of the window
    * @param sizeY height of the window
    */
-  @Override
-  protected void setUpRoot(Group myRoot, double sizeX, double sizeY) {
+  private void setUpRoot(Group myRoot, double sizeX, double sizeY) {
     //pencolor, location, orientation, up/down, thickness?
-    String xLocation = Double.toString(myTurtle.getLocation()[0]);
-    String yLocation = Double.toString(myTurtle.getLocation()[1]);
-    String orientation = Double.toString(myTurtle.getOrientation());
-    String penDown = Boolean.toString(myTurtle.penIsDown());
+    myRoot.getChildren().add(turtleIdComboBox);
 
-    myRoot.getChildren().add(makeText(sizeX / 4, sizeY / 4, xLocation,
-        "xLocation"));
-    myRoot.getChildren().add(makeText(sizeX / 4, sizeY * (3 / 4.0), yLocation,
-        "yLocation"));
-    myRoot.getChildren().add(makeText(sizeX / 4, sizeY / 2, orientation,
-        "orientation"));
-    myRoot.getChildren().add(makeText(sizeX / 4, sizeY * (3.0 / 4), penDown,
-        "penDown"));
+    myRoot.getChildren().add(makeText(sizeX / 4, (sizeY / 4) - 20, "x",
+        "xLocationLabel"));
+    xLocation = makeText(sizeX / 4, sizeY / 4, null,"xLocation");
+    myRoot.getChildren().add(xLocation);
+
+    myRoot.getChildren().add(makeText(sizeX * (3 / 4.0), (sizeY / 4) - 20,
+        "y", "yLocationLabel"));
+    yLocation = makeText(sizeX * (3 / 4.0), sizeY / 4, null,
+        "yLocation");
+    myRoot.getChildren().add(yLocation);
+
+    myRoot.getChildren().add(makeText(sizeX / 4, (sizeY / 2) - 20,
+        "orientation", "orientationLabel"));
+    orientation = makeText(sizeX / 4, sizeY / 2, null,"orientation");
+    myRoot.getChildren().add(orientation);
+
+    myRoot.getChildren().add(makeText(sizeX / 4, (sizeY * (3.0 / 4)) - 20,
+        "penDown", "penDown"));
+    penDown = makeText(sizeX / 4, sizeY * (3.0 / 4), null,"penDown");
+    myRoot.getChildren().add(penDown);
   }
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
@@ -45,6 +46,7 @@ public class WindowControl {
   private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
   private ViewMaker errorWindow = new ErrorView(200, 200);
+  private ViewMaker turtleDetailsWindow;
 
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
@@ -68,6 +70,18 @@ public class WindowControl {
     ColorPickerMaker penColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE/2 - DEFAULT_BORDER, DEFAULT_BORDER/3, "Pen");
     penColor.setHandler(event -> myTurtleDisplay.setLineColor(penColor.getNewColor()));
     WorkspaceButtonMaker newButton = new WorkspaceButtonMaker("New Workspace", DEFAULT_WIDTH - 200, 0, root);
+    turtleDetailsWindow = new TurtleDetailsView(400, 400, myController.getTurtleHandler());
+    Button turtleDetailButton = makeButton(HELP_X + 100, HELP_Y, "Turtle Details",
+        e -> turtleDetailsWindow.showView());
+  }
+
+  private Button makeButton(double x, double y, String title, EventHandler<ActionEvent> evt) {
+    Button newButton = new Button(title);
+    newButton.relocate(x, y);
+    newButton.setId(title.replaceAll(" ", ""));
+    newButton.setOnAction(evt);
+    root.getChildren().add(newButton);
+    return newButton;
   }
 
   private void uploadEvent() {
