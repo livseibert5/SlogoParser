@@ -53,6 +53,7 @@ public class TurtleHandler extends Observable<Object> {
   }
 
   public void setActiveTurtles(List<Turtle> newActiveTurtles) {
+    notifyListeners("activeTurtles", activeTurtles, newActiveTurtles);
     activeTurtles = newActiveTurtles;
   }
 
