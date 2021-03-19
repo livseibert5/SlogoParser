@@ -109,6 +109,23 @@ public class ParserTest {
   }
 
   @Test
+  void RecursionNotLoop()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    String command = "to example [ :x ]\n"
+        + "[\n"
+        + "  if greater? :x 10\n"
+        + "  [\n"
+        + "    example difference :x 10\n"
+        + "  ]\n"
+        + "  fd 50\n"
+        + "  right 10\n"
+        + "]\n";
+    assertEquals(1, parser.parse(command));
+    assertEquals(1, parser.parse("example 100"));
+  }
+
+
+  @Test
   void tellTest()
       throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
     String command = "tell [ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ]\n"
