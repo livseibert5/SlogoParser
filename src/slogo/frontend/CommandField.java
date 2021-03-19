@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 
@@ -18,6 +19,7 @@ public class CommandField {
     private double size;
     private double border;
     private double height;
+    private boolean returnedValue = false;
 
     public CommandField(Group root, double WINDOW_SIZE, double DEFAULT_BORDER, double DEFAULT_HEIGHT) {
         this.root = root;
@@ -33,16 +35,19 @@ public class CommandField {
         commandLine.setId("commandLine");
         root.getChildren().add(commandLine);
         showPastCommands();
+        executeFromHistory();
     }
 
     public void printReturnValue(int value) {
-        System.out.println(value);
+        returnedValue = true;
         commandLine.setText(String.valueOf(value));
-        System.out.println(commandLine.getText());
         commandLine.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                commandLine.clear();
+                if (returnedValue) {
+                    commandLine.clear();
+                    returnedValue = false;
+                }
             }
         });
     }
@@ -52,6 +57,20 @@ public class CommandField {
                 - 2 * border);
         root.getChildren().add(pastCommands);
 
+    }
+
+    private void executeFromHistory() {
+        pastCommands.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                executeSourcedCommand(pastCommands.getSelectionModel().getSelectedItem());
+            }
+        });
+    }
+
+    public void executeSourcedCommand(String command) {
+        returnedValue = false;
+        commandLine.setText(command);
     }
 
     public String getTextInput() {

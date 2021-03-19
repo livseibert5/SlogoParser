@@ -1,10 +1,13 @@
 package slogo.frontend;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import slogo.model.UserDefinedCommand;
 import slogo.model.Variable;
 import slogo.model.handlers.UserDefinedCommandHandler;
@@ -22,9 +25,11 @@ public class TableDisplay {
   private static final double DEFAULT_BORDER = 50;
 
   private final Group myRoot;
+  private TableView<Variable> variableView;
 
   private final ObservableList<Variable> allVariables;
   private final ObservableList<UserDefinedCommand> allCommands;
+  private String selectedUserCommand;
 
   /**
    * Constructor for TableDisplay.
@@ -36,6 +41,7 @@ public class TableDisplay {
   public TableDisplay(VariableHandler variableHandler, UserDefinedCommandHandler commandHandler,
       Group root) {
     myRoot = root;
+    //userEvent = event;
     allVariables = (ObservableList<Variable>) variableHandler.getAllVariables();
     allCommands = (ObservableList<UserDefinedCommand>) commandHandler.getAllCommands();
     makeVariableView();
@@ -43,7 +49,7 @@ public class TableDisplay {
   }
 
   private void makeVariableView() {
-    TableView<Variable> variableView = new TableView<>();
+    variableView = new TableView<>();
     variableView.setPrefSize(WINDOW_SIZE / 2 - DEFAULT_BORDER / 4,
         (WINDOW_SIZE - DEFAULT_BORDER) / 2);
     variableView.relocate(DEFAULT_BORDER, DEFAULT_BORDER);
@@ -62,7 +68,12 @@ public class TableDisplay {
     variableView.setId("variableview");
     myRoot.getChildren().add(variableView);
   }
-
+  public String getSelectedUserCommand() {
+    return variableView.getSelectionModel().getSelectedItem().getName();
+  }
+  public void setHandler(EventHandler<MouseEvent> event) {
+    variableView.setOnMouseClicked(event);
+  }
   private void makeUserCommandView() {
     TableView<UserDefinedCommand> commandView = new TableView<>();
     commandView.setPrefSize(WINDOW_SIZE / 2 - DEFAULT_BORDER / 4,
@@ -81,6 +92,12 @@ public class TableDisplay {
     commandView.getColumns().add(bodyColumn);
 
     commandView.setId("commandview");
+    commandView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+
+      }
+    });
     myRoot.getChildren().add(commandView);
   }
 }

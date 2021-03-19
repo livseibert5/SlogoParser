@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -61,6 +63,7 @@ public class WindowControl {
     myController = new Controller();
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
+    myTableDisplay.setHandler(event -> myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand()));
     myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler(), root);
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
     //myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
