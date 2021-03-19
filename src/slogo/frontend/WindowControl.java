@@ -2,17 +2,9 @@ package slogo.frontend;
 
 import java.io.File;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-<<<<<<< HEAD
 import javafx.scene.control.Button;
-=======
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
->>>>>>> mal115
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
@@ -21,7 +13,7 @@ import slogo.model.parser.Parser;
 /**
  * Creates stage, scene, and animation.
  * TODO assumptions, dependencies, example of use
- *
+ *d
  * @author Jessica Yang
  */
 public class WindowControl {
