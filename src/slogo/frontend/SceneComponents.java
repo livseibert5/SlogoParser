@@ -146,13 +146,6 @@ public class SceneComponents extends Observable {
     turtleBox.toBack();
   }
 
-  private Scene makeHelpScene() {
-    Group root = new Group();
-    Scene scene = new Scene(root, WINDOW_SIZE, WINDOW_SIZE);
-    //scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
-    return scene;
-  }
-
   private void makeLanguageDropDown() {
     ArrayList<String> list = new ArrayList<>(myLanguages.keySet());
     ComboBox<String> languages = new ComboBox<String>(FXCollections.observableList(list));

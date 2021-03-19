@@ -194,9 +194,11 @@ public class TurtleDisplay {
    *
    */
 
-  public void updateImageView() {
+  public void updateImageView(int imageNumber) {
     for (Integer i : turtleViewMap.keySet()) {
-      turtleViewMap.get(i).setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("src/slogo/frontend/resources/images/UserImage.jpg"))));
+      String image = "src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg";
+      System.out.println(image);
+      turtleViewMap.get(i).setImage(new Image(getClass().getResourceAsStream(image)));
     }
   }
 }
