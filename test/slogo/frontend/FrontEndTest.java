@@ -150,4 +150,14 @@ public class FrontEndTest extends DukeApplicationTest {
     clickOn(enterButton);
     assertTrue(1 == (commandView.getItems().size()));
   }
+
+  @Test
+  // scenario: user adds an additional turtle
+  void addTurtle() {
+    assertNotNull(lookup("#turtle1").query());
+    String command = "tell [ 2 ]";
+    commandLine.setText(command);
+    clickOn(enterButton);
+    assertNotNull(lookup("#turtle2").query());
+  }
 }
