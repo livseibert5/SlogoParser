@@ -3,9 +3,12 @@ package slogo.model.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
+import slogo.model.Turtle;
 import slogo.model.backendexceptions.MathException;
 
 /**
@@ -16,10 +19,12 @@ import slogo.model.backendexceptions.MathException;
 public class ParserTest {
 
   private Parser parser;
+  private Controller controller;
 
   @BeforeEach
   void setUp() {
-    parser = new Parser(new Controller());
+    this.controller = new Controller();
+    parser = new Parser(controller);
   }
 
   @Test
@@ -142,5 +147,26 @@ public class ParserTest {
         + "  bk 100\n"
         + "]";
     assertEquals(0, parser.parse(command));
+  }
+
+  @Test
+  void askTest()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    List<Turtle> turtles = new ArrayList<>();
+    turtles.add(controller.getTurtleHandler().getTurtle(1));
+    for (int i = 1; i < 20; i++) {
+      Turtle newTurtle = new Turtle();
+      controller.getTurtleHandler().addTurtle(newTurtle);
+      turtles.add(newTurtle);
+    }
+    controller.getTurtleHandler().setActiveTurtles(turtles);
+    String command = "ask [ 1 8 2 ] [ \n"
+        + "  bk 100\n"
+        + "]";
+    assertEquals(100, parser.parse(command));
+    assertEquals(-100, controller.getTurtleHandler().getAllTurtles().get(0).getYCoordinate());
+    assertEquals(-100, controller.getTurtleHandler().getAllTurtles().get(1).getYCoordinate());
+    assertEquals(-100, controller.getTurtleHandler().getAllTurtles().get(7).getYCoordinate());
+    assertEquals(0, controller.getTurtleHandler().getAllTurtles().get(6).getYCoordinate());
   }
 }
