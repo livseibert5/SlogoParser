@@ -1,6 +1,7 @@
 package slogo.frontend;
 
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -11,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import slogo.Observable;
 
@@ -36,8 +36,7 @@ public class SceneComponents extends Observable<Object> {
 
   public SceneComponents(Group myRoot, List<PropertyChangeListener> listeners) {
     this.root = myRoot;
-    addEverything();
-    addAllListeners(listeners);
+    addMultipleListeners(listeners);
   }
 
   private void addAllListeners(List<PropertyChangeListener> listeners) {
@@ -132,6 +131,5 @@ public class SceneComponents extends Observable<Object> {
     languages.setId("language");
     root.getChildren().add(languages);
   }
-
 }
 
