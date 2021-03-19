@@ -160,4 +160,31 @@ public class FrontEndTest extends DukeApplicationTest {
     clickOn(enterButton);
     assertNotNull(lookup("#turtle2").query());
   }
+
+  @Test
+  // scenario: user moves two turtles independently
+  void multiTurtleMove() {
+    String addTurtles = "tell [ 1 2 ]";
+    commandLine.setText(addTurtles);
+    clickOn(enterButton);
+
+    commandLine.setText("pd");
+    clickOn(enterButton);
+
+    commandLine.setText("tell [ 1 ]");
+    clickOn(enterButton);
+    commandLine.setText("fd 200");
+    clickOn(enterButton);
+
+    commandLine.setText("tell [ 2 ]");
+    clickOn(enterButton);
+    String newColor = "#ff6666";
+    select(penColor, newColor);
+    commandLine.setText("fd 50");
+    clickOn(enterButton);
+
+    ImageView turtle1 = lookup("#turtle1").query();
+    ImageView turtle2 = lookup("#turtle2").query();
+    assertTrue(turtle1.getY() < turtle2.getY());
+  }
 }
