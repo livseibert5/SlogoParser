@@ -13,7 +13,6 @@ import slogo.model.backendexceptions.MathException;
 public class NaturalLog implements Command {
 
   private final double argument;
-  private final String ERROR_MESSAGE = "Invalid Log Input";
 
   /**
    * Constructor for the NaturalLog command, takes a constant as its argument and gets its value by
@@ -37,6 +36,7 @@ public class NaturalLog implements Command {
     if (argument > 0) {
       return Math.log(argument);
     } else {
+      String ERROR_MESSAGE = "Invalid Log Input";
       throw new MathException(ERROR_MESSAGE);
     }
   }

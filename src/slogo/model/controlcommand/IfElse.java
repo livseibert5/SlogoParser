@@ -17,10 +17,10 @@ import slogo.model.Turtle;
  */
 public class IfElse implements Command {
 
-  private double value;
-  private Controller controller;
-  private CommandBlock trueBlock;
-  private CommandBlock falseBlock;
+  private final double value;
+  private final Controller controller;
+  private final CommandBlock trueBlock;
+  private final CommandBlock falseBlock;
 
   /**
    * Constructor for IfElse command takes in a constant as the condition, a block to execute if the
@@ -43,12 +43,12 @@ public class IfElse implements Command {
    * condition is zero.
    *
    * @param turtle turtle object to execute command on
-   * @return
-   * @throws ClassNotFoundException
-   * @throws NoSuchMethodException
-   * @throws InvocationTargetException
-   * @throws InstantiationException
-   * @throws IllegalAccessException
+   * @return result of executing the true or false block
+   * @throws ClassNotFoundException class not found in command factory
+   * @throws NoSuchMethodException method not found in command factory
+   * @throws InvocationTargetException can't invoke target
+   * @throws InstantiationException can't make new object from command factory
+   * @throws IllegalAccessException trying to make object in command factory without access
    */
   @Override
   public double execute(Turtle turtle)

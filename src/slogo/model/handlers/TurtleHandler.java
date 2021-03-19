@@ -13,9 +13,9 @@ import slogo.model.Turtle;
  *
  * @author Livia Seibert
  */
-public class TurtleHandler extends Observable {
+public class TurtleHandler extends Observable<Object> {
 
-  private Map<Integer, Turtle> turtles;
+  private final Map<Integer, Turtle> turtles;
   private List<Turtle> activeTurtles;
   private int currentTurtleIndex;
 
@@ -44,21 +44,22 @@ public class TurtleHandler extends Observable {
     return activeTurtles;
   }
 
-  /**
-   * Allows the front end and the back end to remove the turtle with the given id.
-   *
-   * @param id id of turtle to remove
-   */
-  public void removeTurtle(int id) {
-    turtles.remove(id);
-  }
-
   public int getNumberTurtles() {
     return turtles.size();
   }
 
   public List<Turtle> getAllTurtles() {
-    return (List<Turtle>) turtles.values();
+    return new ArrayList<>(turtles.values());
+  }
+
+  /**
+   * Returns list of all turtle ids.
+   *
+   * @return List<Integer> of turtle IDs.
+   * @author Jessica Yang
+   */
+  public List<Integer> getAllIds() {
+    return new ArrayList<>(turtles.keySet());
   }
 
   public void setActiveTurtles(List<Turtle> newActiveTurtles) {

@@ -12,13 +12,13 @@ import slogo.model.Value;
  */
 public class SetPenColor implements Command {
 
-  private double value;
+  private final double value;
 
   /**
    * SetPenColor constructor takes a value that corresponds to the index of the new
    * pen color.
    *
-   * @param value
+   * @param value index of new pen color
    */
   public SetPenColor(Value value) {
     this.value = value.getValue();

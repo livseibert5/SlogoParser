@@ -12,7 +12,7 @@ import slogo.model.Value;
  */
 public class Right extends MovementCommand implements Command {
 
-  private double degrees;
+  private final double degrees;
 
   /**
    * Constructor for the Right command, takes a constant as an argument and gets its value by

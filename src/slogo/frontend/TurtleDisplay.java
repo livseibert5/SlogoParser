@@ -1,7 +1,5 @@
 package slogo.frontend;
 
-import java.beans.EventHandler;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import slogo.model.Turtle;
+import slogo.model.handlers.ColorHandler;
 import slogo.model.handlers.TurtleHandler;
 
 /**
@@ -29,6 +28,7 @@ public class TurtleDisplay {
   private static final String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
   private static final String USER_IMAGE_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
+  private final ColorHandler colorHandler;
   private final TurtleHandler turtleHandler;
   private final Map<Integer, ImageView> turtleViewMap = new HashMap<>();
 
@@ -40,24 +40,32 @@ public class TurtleDisplay {
   private final Group myRoot;
   private Color lineColor;
 
-  private final PropertyChangeListener lineColorListener;
-  private final PropertyChangeListener addTurtleListener;
+  private PropertyChangeListener lineColorListener;
+  private PropertyChangeListener addTurtleListener;
 
   /**
    * Constructor for TurtleDisplay. Takes in map of turtles from Controller.
    *
-   * @param handler from backend
+   * @param root Group from Window
+   * @param turtleHandler from controller
+   * @param colorHandler from controller
    */
-  public TurtleDisplay(TurtleHandler handler, Group root) {
-    turtleHandler = handler;
+  public TurtleDisplay(Group root, TurtleHandler turtleHandler, ColorHandler colorHandler) {
+    this.turtleHandler = turtleHandler;
+    this.colorHandler = colorHandler;
     myRoot = root;
     updateImageMap();
     lineColor = Color.BLACK;
+    setUpListeners();
+  }
+
+  private void setUpListeners() {
     lineColorListener = evt -> {
-      if (evt.getPropertyName().equals("lineColor")) {
-        setLineColor((Color) evt.getNewValue());
+      if (evt.getPropertyName().equals("penColor")) {
+        setLineColor(parsePenColor((Integer) evt.getNewValue()));
       }
     };
+
     addTurtleListener = evt -> {
       if (evt.getPropertyName().equals("addTurtle")) {
         updateImageMap();
@@ -69,8 +77,7 @@ public class TurtleDisplay {
    * Adds imageview equivalent for each turtle in turtleMap. TODO use observer
    */
   private void updateImageMap() {
-    for (Turtle t : turtleHandler.getActiveTurtles()) {
-      int id = turtleHandler.getTurtleId(t);
+    for (int id : turtleHandler.getAllIds()) {
       if (turtleViewMap.get(id) == null) {
         addTurtleView(id);
       }
@@ -101,23 +108,26 @@ public class TurtleDisplay {
   /**
    * Updates state of a given turtle. Assumes turtles in turtleMap have been updated. TODO use observer
    *
-   * @param id turtle id in hashmaps
+   * @param allActiveTurtles list of turtles
    */
-  public void updateTurtleView(int id) {
-    Turtle updatedTurtle = turtleHandler.getTurtle(id);
-    ImageView currTurtleView = turtleViewMap.get(id);
+  public void updateTurtleView(List<Turtle> allActiveTurtles) {
+    updateImageMap(); //TODO delete when hooked up to turtlehandler
 
-    if (updatedTurtle.penIsDown()) {
-      drawNewLine(updatedTurtle.getLocation(), currTurtleView);
+    for (Turtle t : allActiveTurtles) {
+      ImageView currTurtleView = turtleViewMap.get(turtleHandler.getTurtleId(t));
+
+      if (t.penIsDown()) {
+        drawNewLine(t.getLocation(), currTurtleView);
+      }
+
+      rotateTurtleView(t.getOrientation() * -1, currTurtleView);
+      moveTurtleView(t.getLocation(), currTurtleView);
+      updateTurtleViewVisibility(t.isShowing(), currTurtleView);
     }
-
-    rotateTurtleView(updatedTurtle.getOrientation() * -1, currTurtleView);
-    moveTurtleView(updatedTurtle.getLocation(), currTurtleView);
-    updateTurtleViewVisibility(updatedTurtle.isShowing(), currTurtleView);
   }
 
   /**
-   * Changes visibility of TurtleView.
+   * Changes visibility of TurtleDetailsView.
    *
    * @param visible boolean
    * @param currTurtleView needs to be updated view
@@ -148,7 +158,7 @@ public class TurtleDisplay {
   }
 
   /**
-   * Rotates TurtleView orientation.
+   * Rotates TurtleDetailsView orientation.
    *
    * @param newOrientation boolean
    * @param currTurtleView needs to be updated view
@@ -158,7 +168,7 @@ public class TurtleDisplay {
   }
 
   /**
-   * Moves TurtleView.
+   * Moves TurtleDetailsView.
    *
    * @param newLocation double array
    * @param currTurtleView needs to be updated view
@@ -168,17 +178,23 @@ public class TurtleDisplay {
     currTurtleView.setY(-1 * newLocation[1] + Y_CENTER_OFFSET);
   }
 
+  /** Retrieves javafx Color object from slogo color. */
+  private Color parsePenColor(int colorIndex) {
+    slogo.model.Color penColor = colorHandler.getColor(colorIndex);
+    return new Color(penColor.getR(), penColor.getG(), penColor.getB(), 1.0);
+  }
+
   /**
-   * Updates lineColor.
+   * Sets new pen line color.
    *
-   * @param newColor updated color
+   * @param newColor color object
    */
-  private void setLineColor(Color newColor) {
+  public void setLineColor(Color newColor) {
     lineColor = newColor;
   }
 
   /**
-   * Returns PropertyChangeListener to update line color from GUI.
+   * Returns list of PropertyChangeListener to update values.
    *
    * @return PropertyChangeListener lineColorListener
    */
@@ -191,9 +207,7 @@ public class TurtleDisplay {
 
   /**
    * Updates image file used for turtles in the box.
-   *
    */
-
   public void updateImageView(int imageNumber) {
     for (Integer i : turtleViewMap.keySet()) {
       String image = "src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg";

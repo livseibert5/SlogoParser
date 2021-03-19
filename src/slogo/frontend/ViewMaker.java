@@ -14,9 +14,8 @@ import javafx.stage.Stage;
  */
 public abstract class ViewMaker {
 
-  private Group viewRoot = new Group();
-  private Scene viewScene;
-  private Stage viewWindow = new Stage();
+  private final Stage viewWindow = new Stage();
+  private final Group viewRoot = new Group();
 
   /**
    * Constructor for ViewMaker abstract class. Assumes setUpRoot is implemented in child classes.
@@ -26,20 +25,19 @@ public abstract class ViewMaker {
    * @param title string title of window
    */
   public ViewMaker(double sizeX, double sizeY, String title) {
-    viewScene = new Scene(viewRoot, sizeX, sizeY);
-    setUpRoot(viewRoot, sizeX, sizeY);
+    Scene viewScene = new Scene(viewRoot, sizeX, sizeY);
     viewWindow.setTitle(title);
     viewWindow.setScene(viewScene);
   }
 
   /**
-   * Overridden by child-classes to fill in the scene.
+   * Used by child-classes to access class root.
    *
-   * @param myRoot to be added to
-   * @param sizeX width of window
-   * @param sizeY height of window
+   * @return viewRoot to be added to
    */
-  protected abstract void setUpRoot(Group myRoot, double sizeX, double sizeY);
+  protected Group getRoot() {
+    return viewRoot;
+  }
 
   /**
    * Text object maker and formatter for child classes.
