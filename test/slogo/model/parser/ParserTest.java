@@ -1,6 +1,7 @@
 package slogo.model.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -168,5 +169,16 @@ public class ParserTest {
     assertEquals(-100, controller.getTurtleHandler().getAllTurtles().get(1).getYCoordinate());
     assertEquals(-100, controller.getTurtleHandler().getAllTurtles().get(7).getYCoordinate());
     assertEquals(0, controller.getTurtleHandler().getAllTurtles().get(6).getYCoordinate());
+  }
+
+  @Test
+  void badCommandThenGoodCommand()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    String badCommand = "xyz 20";
+    String goodCommand = "fd 50";
+    assertThrows(Exception.class, () -> {
+      parser.parse(badCommand);
+    });
+    assertEquals(50, parser.parse(goodCommand));
   }
 }
