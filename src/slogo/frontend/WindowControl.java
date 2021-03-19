@@ -53,20 +53,22 @@ public class WindowControl {
   }
 
   private void createUploadButton() {
-    UploadButtonMaker uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root,
-        event -> {
-          FileChooser fileChooser = new FileChooser();
-          fileChooser.setTitle("Upload Turtle Image");
-          fileChooser.getExtensionFilters().addAll(
-              new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-          File file = fileChooser.showOpenDialog(stage);
-          if (file != null) {
-            boolean isMoved = file
-                .renameTo(new File("src/slogo/frontend/resources/images/UserImage.jpg"));
-            System.out.println(isMoved);
-            myTurtleDisplay.updateImageView();
-          }
-        });
+    uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Upload Turtle Image");
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+          boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg"));
+          System.out.println(isMoved);
+          myTurtleDisplay.updateImageView(imageNumber);
+          imageNumber++;
+        }
+      }
+    });
   }
 
   private void createEnterButton() {
