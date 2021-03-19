@@ -42,6 +42,7 @@ public class TurtleDisplay {
   private final Group myRoot;
   private Color lineColor;
 
+  private PropertyChangeListener turtleChangeListener;
   private PropertyChangeListener lineColorListener;
   private PropertyChangeListener addTurtleListener;
 
@@ -56,9 +57,9 @@ public class TurtleDisplay {
     this.turtleHandler = turtleHandler;
     this.colorHandler = colorHandler;
     myRoot = root;
-    updateImageMap();
     lineColor = Color.BLACK;
     setUpListeners();
+    updateImageMap();
   }
 
   private void setUpListeners() {
@@ -73,6 +74,14 @@ public class TurtleDisplay {
         updateImageMap();
       }
     };
+
+    turtleChangeListener = evt -> {
+      if (evt.getPropertyName().equals("xLocation")
+          || evt.getPropertyName().equals("yLocation")
+          || evt.getPropertyName().equals("orientation")) {
+        updateTurtleView();
+      }
+    };
   }
 
   /**
@@ -82,8 +91,11 @@ public class TurtleDisplay {
     for (int id : turtleHandler.getAllIds()) {
       if (turtleViewMap.get(id) == null) {
         addTurtleView(id);
+        turtleHandler.getTurtle(id).addListener(turtleChangeListener);
       }
     }
+
+    updateTurtleView();
   }
 
   /**
@@ -110,12 +122,9 @@ public class TurtleDisplay {
   /**
    * Updates state of a given turtle. Assumes turtles in turtleMap have been updated. TODO use observer
    *
-   * @param allActiveTurtles list of turtles
    */
-  public void updateTurtleView(List<Turtle> allActiveTurtles) {
-    updateImageMap(); //TODO delete when hooked up to turtlehandler
-
-    for (Turtle t : allActiveTurtles) {
+  private void updateTurtleView() {
+    for (Turtle t : turtleHandler.getActiveTurtles()) {
       ImageView currTurtleView = turtleViewMap.get(turtleHandler.getTurtleId(t));
 
       if (t.penIsDown()) {

@@ -101,7 +101,7 @@ public class WindowControl {
   private void enterEvent() {
     try {
       int value = myParser.parse(myCommand.getTextInput());
-      myTurtleDisplay.updateTurtleView(myController.getTurtleHandler().getActiveTurtles());
+      //myTurtleDisplay.updateTurtleView(myController.getTurtleHandler().getActiveTurtles());
       myCommand.clearTextInput();
       myCommand.printReturnValue(value);
     } catch (Exception e) {
