@@ -77,8 +77,7 @@ public class TurtleDisplay {
    * Adds imageview equivalent for each turtle in turtleMap. TODO use observer
    */
   private void updateImageMap() {
-    for (Turtle t : turtleHandler.getAllTurtles()) {
-      int id = turtleHandler.getTurtleId(t);
+    for (int id : turtleHandler.getAllIds()) {
       if (turtleViewMap.get(id) == null) {
         addTurtleView(id);
       }
