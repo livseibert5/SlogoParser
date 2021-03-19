@@ -73,6 +73,7 @@ public class WindowControl {
     backgroundColor.setHandler(event -> myTurtleWindow.setColor(backgroundColor.getNewColor()));
     ColorPickerMaker penColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE/2 - DEFAULT_BORDER, DEFAULT_BORDER/3, "Pen");
     penColor.setHandler(event -> myTurtleDisplay.setLineColor(penColor.getNewColor()));
+    WorkspaceButtonMaker newButton = new WorkspaceButtonMaker("New Workspace", DEFAULT_WIDTH - 200, 0, root);
   }
 
   private void uploadEvent() {
