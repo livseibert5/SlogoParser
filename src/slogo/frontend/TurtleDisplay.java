@@ -1,6 +1,8 @@
 package slogo.frontend;
 
 import java.beans.PropertyChangeListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -212,7 +214,11 @@ public class TurtleDisplay {
     for (Integer i : turtleViewMap.keySet()) {
       String image = "src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg";
       System.out.println(image);
-      turtleViewMap.get(i).setImage(new Image(getClass().getResourceAsStream(image)));
+      try {
+        turtleViewMap.get(i).setImage(new Image(new FileInputStream(image)));
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
     }
   }
 }

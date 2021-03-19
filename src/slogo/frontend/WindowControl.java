@@ -2,9 +2,17 @@ package slogo.frontend;
 
 import java.io.File;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+<<<<<<< HEAD
 import javafx.scene.control.Button;
+=======
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+>>>>>>> mal115
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
@@ -57,7 +65,7 @@ public class WindowControl {
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
-
+    myTableDisplay.setHandler(event -> myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand()));
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
     //myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
     uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, event -> uploadEvent());
