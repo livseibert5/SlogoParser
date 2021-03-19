@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +24,7 @@ public class FrontEndTest extends DukeApplicationTest {
 
   private Button helpButton;
   private Button enterButton;
+  private Button turtleDetailButton;
   private ColorPicker penColor;
   private ColorPicker backgroundColor;
   private ComboBox languageSelector;
@@ -38,6 +40,7 @@ public class FrontEndTest extends DukeApplicationTest {
 
     helpButton = lookup("#Help").query();
     enterButton = lookup("#Enter").query();
+    turtleDetailButton = lookup("#TurtleDetails").query();
     penColor = lookup("#Pen").query();
     backgroundColor = lookup("#Background").query();
     languageSelector = lookup("#language").query();
@@ -186,5 +189,42 @@ public class FrontEndTest extends DukeApplicationTest {
     ImageView turtle1 = lookup("#turtle1").query();
     ImageView turtle2 = lookup("#turtle2").query();
     assertTrue(turtle1.getY() < turtle2.getY());
+  }
+
+  @Test
+  // scenario: user opens turtledetailviewer to watch default turtle
+  void singleTurtleDetailViewer() {
+    clickOn(turtleDetailButton);
+    ComboBox<Integer> ids = lookup("#turtleIds").query();
+    assertNotNull(ids);
+
+    select(ids, "1");
+
+    Text yLocation = lookup("#yLocation").query();
+    assertTrue(yLocation.getText().equals("0.0"));
+
+    commandLine.setText("fd 50");
+    clickOn(enterButton);
+    assertTrue(yLocation.getText().equals("50.0"));
+  }
+
+  @Test
+  // scenario: user opens turtledetailview to watch multiple turtles
+  void multiTurtleDetailViewer() {
+    clickOn(turtleDetailButton);
+    ComboBox<Integer> ids = lookup("#turtleIds").query();
+    Text yLocation = lookup("#yLocation").query();
+
+    select(ids, "1");
+    commandLine.setText("fd 50");
+    clickOn(enterButton);
+    assertTrue(yLocation.getText().equals("50.0"));
+
+    commandLine.setText("tell [ 2 ]");
+    clickOn(enterButton);
+    select(ids, "2");
+    commandLine.setText("fd 100");
+    clickOn(enterButton);
+    assertTrue(yLocation.getText().equals("100.0"));
   }
 }
