@@ -36,7 +36,7 @@ public class WindowControl {
   private EnterButtonMaker enterButton;
   private UploadButtonMaker uploadButton;
   private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
-  private int imageNumber;
+  private int imageNumber = 1;
   private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
   private ViewMaker errorWindow = new ErrorView(200, 200);
@@ -69,9 +69,10 @@ public class WindowControl {
             new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
-          boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage.jpg"));
+          boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg"));
           System.out.println(isMoved);
-          myTurtleDisplay.updateImageView();
+          myTurtleDisplay.updateImageView(imageNumber);
+          imageNumber++;
         }
       }
     });
