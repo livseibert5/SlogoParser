@@ -27,19 +27,18 @@ public abstract class ViewMaker {
    */
   public ViewMaker(double sizeX, double sizeY, String title) {
     viewScene = new Scene(viewRoot, sizeX, sizeY);
-    setUpRoot(viewRoot, sizeX, sizeY);
     viewWindow.setTitle(title);
     viewWindow.setScene(viewScene);
   }
 
   /**
-   * Overridden by child-classes to fill in the scene.
+   * Used by child-classes to access class root.
    *
-   * @param myRoot to be added to
-   * @param sizeX width of window
-   * @param sizeY height of window
+   * @return viewRoot to be added to
    */
-  protected abstract void setUpRoot(Group myRoot, double sizeX, double sizeY);
+  protected Group getRoot() {
+    return viewRoot;
+  }
 
   /**
    * Text object maker and formatter for child classes.

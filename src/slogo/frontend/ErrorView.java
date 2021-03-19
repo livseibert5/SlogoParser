@@ -18,6 +18,7 @@ public class ErrorView extends ViewMaker {
    */
   public ErrorView(double sizeX, double sizeY) {
     super(sizeX, sizeY, "Error");
+    setUpRoot(getRoot(), sizeX, sizeY);
   }
 
   /**
@@ -27,8 +28,7 @@ public class ErrorView extends ViewMaker {
    * @param sizeX width of the window
    * @param sizeY height of the window
    */
-  @Override
-  protected void setUpRoot(Group myRoot, double sizeX, double sizeY) {
+  private void setUpRoot(Group myRoot, double sizeX, double sizeY) {
     myRoot.getChildren().add(makeText(sizeX / 3, sizeY / 3, "Invalid command.",
         "errorMessage"));
   }
