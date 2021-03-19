@@ -41,15 +41,7 @@ public class SceneComponents extends Observable {
 
   public SceneComponents(Group myRoot, List<PropertyChangeListener> listeners) {
     this.root = myRoot;
-    addAllListeners(listeners);
+    addListeners(listeners);
   }
-
-  private void addAllListeners(List<PropertyChangeListener> listeners) {
-      for (PropertyChangeListener l : listeners) {
-          addListener(l);
-      }
-  }
-
-
 }
 

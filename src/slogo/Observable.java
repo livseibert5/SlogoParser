@@ -20,20 +20,13 @@ public class Observable<T> {
   /**
    * Used by other classes to add their own listener to the Observable subclass.
    *
-   * @param newListener used to listener
-   * @throws Exception null pointer exception
+   * @param newListeners list of listeners
    */
-  public void addListener(PropertyChangeListener newListener) {
-    /*
-    try {
-      myListeners.add(newListener);
-    } catch (NullPointerException e) {
-      throw new Exception("Null listener passed.");
-    }
-
-     */
-    if (newListener != null) {
-      myListeners.add(newListener);
+  public void addListeners(List<PropertyChangeListener> newListeners) {
+    for (PropertyChangeListener l : newListeners) {
+      if (l != null) {
+        myListeners.add(l);
+      }
     }
   }
 
