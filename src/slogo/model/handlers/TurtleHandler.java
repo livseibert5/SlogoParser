@@ -61,6 +61,16 @@ public class TurtleHandler extends Observable {
     return new ArrayList<>(turtles.values());
   }
 
+  /**
+   * Returns list of all turtle ids.
+   *
+   * @return List<Integer> of turtle IDs.
+   * @author Jessica Yang
+   */
+  public List<Integer> getAllIds() {
+    return new ArrayList<>(turtles.keySet());
+  }
+
   public void setActiveTurtles(List<Turtle> newActiveTurtles) {
     activeTurtles = newActiveTurtles;
   }
