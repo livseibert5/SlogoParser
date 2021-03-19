@@ -18,15 +18,26 @@ public class Observable<T> {
   }
 
   /**
-   * Used by other classes to add their own listener to the Observable subclass.
+   * Used by other classes to add their own listeners to the Observable subclass.
    *
    * @param newListeners list of listeners
    */
-  public void addListeners(List<PropertyChangeListener> newListeners) {
+  public void addMultipleListeners(List<PropertyChangeListener> newListeners) {
     for (PropertyChangeListener l : newListeners) {
       if (l != null) {
         myListeners.add(l);
       }
+    }
+  }
+
+  /**
+   * Userd by other classes to add a single listner to the Observable subclass.
+   *
+   * @param newListener propertychangelistener
+   */
+  public void addListener(PropertyChangeListener newListener) {
+    if (newListener != null) {
+      myListeners.add(newListener);
     }
   }
 
