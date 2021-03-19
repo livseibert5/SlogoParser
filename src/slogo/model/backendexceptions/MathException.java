@@ -13,6 +13,6 @@ public class MathException extends Exception {
    * @param message message to be thrown upon regex error
    */
   public MathException(String message) {
-    super(String.format(message));
+    super(message);
   }
 }

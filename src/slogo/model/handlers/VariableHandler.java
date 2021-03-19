@@ -1,6 +1,5 @@
 package slogo.model.handlers;
 
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import slogo.model.Variable;

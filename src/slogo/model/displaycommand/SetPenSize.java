@@ -12,7 +12,7 @@ import slogo.model.Value;
  */
 public class SetPenSize implements Command {
 
-  private double value;
+  private final double value;
 
   /**
    * SetPenSize constructor takes a value that corresponds to the pixel size for the pen's

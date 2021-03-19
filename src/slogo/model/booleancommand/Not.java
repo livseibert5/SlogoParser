@@ -12,7 +12,7 @@ import slogo.model.Value;
  */
 public class Not implements Command {
 
-  private double argument;
+  private final double argument;
 
   /**
    * Not constructor takes in one argument to return the not of.

@@ -17,9 +17,9 @@ import slogo.model.Variable;
  */
 public class DoTimes implements Command {
 
-  private Controller controller;
-  private CommandBlock limit;
-  private CommandBlock commandBlock;
+  private final Controller controller;
+  private final CommandBlock limit;
+  private final CommandBlock commandBlock;
 
   /**
    * DoTimes Constructor needs a controller to execute the command block, a limit to determine how

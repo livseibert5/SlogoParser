@@ -3,43 +3,34 @@ package slogo.frontend;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import slogo.Observable;
 
-public class SceneComponents extends Observable {
+public class SceneComponents extends Observable<Object> {
 
   private final Group root;
   private TextArea commandLine;
-  private static final int DEFAULT_HEIGHT = 750;
-  private static final int DEFAULT_WIDTH = 1350;
-  private static final int WINDOW_SIZE = 600;
-  private static final int DEFAULT_BORDER = 50;
+  private static final double DEFAULT_HEIGHT = 750;
+  private static final double DEFAULT_WIDTH = 1350;
+  private static final double WINDOW_SIZE = 600;
+  private static final double DEFAULT_BORDER = 50;
   public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
   private final ResourceBundle myResources = ResourceBundle
       .getBundle(DEFAULT_RESOURCE_PACKAGE + "text" );
   private final ResourceBundle myLanguages = ResourceBundle
       .getBundle("resources.languages.LangaugeOptions" );
   private final Rectangle turtleBox = new Rectangle(WINDOW_SIZE, WINDOW_SIZE, Color.WHITE);
-  private ListView pastCommands = new ListView();
-  private List<String> commands = new ArrayList<>();
+  private final ListView<String> pastCommands = new ListView<>();
+  private final List<String> commands = new ArrayList<>();
 
   private Color oldLineColor = Color.BLACK;
 
@@ -78,12 +69,7 @@ public class SceneComponents extends Observable {
     System.out.println(value);
     commandLine.setText(String.valueOf(value));
     System.out.println(commandLine.getText());
-    commandLine.setOnMouseClicked(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        commandLine.clear();
-      }
-    });
+    commandLine.setOnMouseClicked(event -> commandLine.clear());
   }
 
   private void showPastCommands() {
@@ -103,7 +89,7 @@ public class SceneComponents extends Observable {
     commandLine.clear();
   }
 
-  private void makeColorPicker(ColorPicker colorPicker, double x, double y, EventHandler event) {
+  private void makeColorPicker(ColorPicker colorPicker, double x, double y, EventHandler<ActionEvent> event) {
     colorPicker.setOnAction(event);
     colorPicker.relocate(x, y);
   }
@@ -114,22 +100,15 @@ public class SceneComponents extends Observable {
     Text backgroundTitle = new Text(x, y, "Select Background Color:" );
     backgroundTitle.setId("colorlabel");
     final ColorPicker background = new ColorPicker();
-    makeColorPicker(background, x, DEFAULT_BORDER / 2, new EventHandler() {
-      @Override
-      public void handle(Event event) {
-        turtleBox.setFill(background.getValue());
-      }
-    });
+    makeColorPicker(background, x, DEFAULT_BORDER / 2,
+        event -> turtleBox.setFill(background.getValue()));
     background.setId("background");
     final ColorPicker pen = new ColorPicker();
     Text penTitle = new Text(DEFAULT_BORDER + turtleBox.getX(), y, "Select Pen Color:");
     penTitle.setId("colorlabel");
-    makeColorPicker(pen,DEFAULT_BORDER + turtleBox.getX(), DEFAULT_BORDER / 2, new EventHandler() {
-        @Override
-        public void handle(Event event) {
-            notifyListeners("lineColor", oldLineColor, pen.getValue());
-            oldLineColor = pen.getValue();
-        }
+    makeColorPicker(pen,DEFAULT_BORDER + turtleBox.getX(), DEFAULT_BORDER / 2, event -> {
+        notifyListeners("lineColor", oldLineColor, pen.getValue());
+        oldLineColor = pen.getValue();
     });
     pen.setId("pen");
     root.getChildren().addAll(backgroundTitle, background,penTitle, pen);
@@ -148,7 +127,7 @@ public class SceneComponents extends Observable {
 
   private void makeLanguageDropDown() {
     ArrayList<String> list = new ArrayList<>(myLanguages.keySet());
-    ComboBox<String> languages = new ComboBox<String>(FXCollections.observableList(list));
+    ComboBox<String> languages = new ComboBox<>(FXCollections.observableList(list));
     languages.setValue("English" );
     languages.setId("language");
     root.getChildren().add(languages);

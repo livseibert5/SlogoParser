@@ -20,9 +20,9 @@ import slogo.model.parser.Parser;
  */
 public class AskWith implements Command {
 
-  private Controller controller;
-  private CommandBlock condition;
-  private CommandBlock commands;
+  private final Controller controller;
+  private final CommandBlock condition;
+  private final CommandBlock commands;
 
   public AskWith(Controller controller, CommandBlock condition, CommandBlock commands) {
     this.controller = controller;

@@ -11,7 +11,7 @@ import slogo.model.Turtle;
  */
 public class ID implements Command {
 
-  private Controller controller;
+  private final Controller controller;
 
   public ID(Controller controller) {
     this.controller = controller;

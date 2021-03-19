@@ -12,8 +12,8 @@ import slogo.model.Value;
  */
 public class SetTowards implements Command {
 
-  double x;
-  double y;
+  private final double x;
+  private final double y;
 
   public SetTowards(Value argument1, Value argument2) {
     this.x = argument1.getValue();

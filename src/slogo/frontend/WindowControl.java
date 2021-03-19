@@ -26,18 +26,17 @@ public class WindowControl {
   private CreateScene myScene;
   private Group root = new Group();
   private Stage stage = new Stage();
-
   private Controller myController;
-  private Parser myParser;
-  private TurtleDisplay myTurtleDisplay;
   private TableDisplay myTableDisplay;
-  private SceneComponents myComponents;
   private HelpButtonMaker helpButton;
   private EnterButtonMaker enterButton;
   private UploadButtonMaker uploadButton;
-  private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
   private int imageNumber = 1;
-  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
+  private final Parser myParser;
+  private final TurtleDisplay myTurtleDisplay;
+  private final SceneComponents myComponents;
+  private final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
+  private final String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
   private ViewMaker errorWindow = new ErrorView(200, 200);
 

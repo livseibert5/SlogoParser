@@ -1,6 +1,5 @@
 package slogo.model.handlers;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -8,10 +7,10 @@ import slogo.model.Color;
 
 
 public class ColorHandler {
-  private Map<Integer, Color> colorMap;
+  private final Map<Integer, Color> colorMap;
 
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
-  private ResourceBundle colors = ResourceBundle
+  private final ResourceBundle colors = ResourceBundle
       .getBundle(RESOURCE_FOLDER + "Colors");
 
   public ColorHandler() {
@@ -44,7 +43,7 @@ public class ColorHandler {
   /**
    * Allows the frontend to access the color at the particular index.
    *
-   * @param index
+   * @param index index of color
    * @return color corresponding to the index
    */
   public Color getColor(int index) {return colorMap.get(index);}

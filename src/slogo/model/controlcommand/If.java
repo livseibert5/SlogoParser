@@ -17,9 +17,9 @@ import slogo.model.Turtle;
  */
 public class If implements Command {
 
-  private double value;
-  private Controller controller;
-  private CommandBlock trueBlock;
+  private final double value;
+  private final Controller controller;
+  private final CommandBlock trueBlock;
 
   /**
    * Constructor for If command takes in a constant and a block of commands to execute if the

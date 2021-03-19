@@ -1,7 +1,6 @@
 package slogo.frontend;
 
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 
 /**
  * Class for error pop up window.

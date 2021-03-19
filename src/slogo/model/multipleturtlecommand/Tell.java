@@ -17,8 +17,8 @@ import slogo.model.backendexceptions.MathException;
  */
 public class Tell implements Command {
 
-  private CommandBlock turtles;
-  private Controller controller;
+  private final CommandBlock turtles;
+  private final Controller controller;
 
   public Tell(Controller controller, CommandBlock turtles) {
     this.controller = controller;
