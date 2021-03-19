@@ -2,25 +2,11 @@ package slogo.frontend;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import slogo.Observable;
 
@@ -41,7 +27,7 @@ public class SceneComponents extends Observable {
 
   public SceneComponents(Group myRoot, List<PropertyChangeListener> listeners) {
     this.root = myRoot;
-    addListeners(listeners);
+    addMultipleListeners(listeners);
   }
 }
 
