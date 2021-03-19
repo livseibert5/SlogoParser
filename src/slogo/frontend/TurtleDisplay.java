@@ -173,9 +173,7 @@ public class TurtleDisplay {
    *
    * @param newColor updated color
    */
-  private void setLineColor(Color newColor) {
-    lineColor = newColor;
-  }
+  public void setLineColor(Color newColor) { lineColor = newColor; }
 
   /**
    * Returns PropertyChangeListener to update line color from GUI.

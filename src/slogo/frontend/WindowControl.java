@@ -29,6 +29,10 @@ public class WindowControl {
   private static final int ENTER_Y = 675;
   private static final int UPLOAD_X = 175;
   private static final int UPLOAD_Y = 0;
+  private static final int DEFAULT_HEIGHT = 750;
+  private static final int DEFAULT_WIDTH = 1350;
+  private static final int WINDOW_SIZE = 600;
+  private static final int DEFAULT_BORDER = 50;
 
   private CreateScene myScene;
   private Group root = new Group();
@@ -42,6 +46,7 @@ public class WindowControl {
   private HelpButtonMaker helpButton;
   private EnterButtonMaker enterButton;
   private UploadButtonMaker uploadButton;
+  private CommandField myCommand;
   private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
   private int imageNumber = 1;
   private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
@@ -57,38 +62,41 @@ public class WindowControl {
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler(), root);
-
-    myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
-
-    uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Upload Turtle Image");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-        File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-          boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg"));
-          System.out.println(isMoved);
-          myTurtleDisplay.updateImageView(imageNumber);
-          imageNumber++;
-        }
-      }
-    });
+    myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
+    //myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
+    uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, event -> uploadEvent());
     helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
-    enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        try {
-          int value = myParser.parse(myComponents.getTextInput());
-          myTurtleDisplay.updateTurtleView(1);
-          myComponents.clearTextInput();
-          myComponents.printReturnValue(value);
-        } catch (Exception e) {
-          errorWindow.showView();
-        }
-      }
-    });
+    enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, event -> enterEvent());
+    LanguageDropDown dropDown = new LanguageDropDown(root, myController);
+    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    ColorPickerMaker backgroundColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE - DEFAULT_BORDER, DEFAULT_BORDER / 3, "Background");
+    backgroundColor.setHandler(event -> myTurtleWindow.setColor(backgroundColor.getNewColor()));
+    ColorPickerMaker penColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE/2 - DEFAULT_BORDER, DEFAULT_BORDER/3, "Pen");
+    penColor.setHandler(event -> myTurtleDisplay.setLineColor(penColor.getNewColor()));
   }
+
+  private void uploadEvent() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Upload Turtle Image");
+    fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+    File file = fileChooser.showOpenDialog(stage);
+    if (file != null) {
+      boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg"));
+      System.out.println(isMoved);
+      myTurtleDisplay.updateImageView(imageNumber);
+      imageNumber++;
+    }
+  }
+  private void enterEvent() {
+    try {
+      int value = myParser.parse(myCommand.getTextInput());
+      myTurtleDisplay.updateTurtleView(1);
+      myCommand.clearTextInput();
+      myCommand.printReturnValue(value);
+    } catch (Exception e) {
+      errorWindow.showView();
+    }
+  }
+
 }
