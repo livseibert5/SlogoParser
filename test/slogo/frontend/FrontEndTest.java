@@ -38,8 +38,8 @@ public class FrontEndTest extends DukeApplicationTest {
 
     helpButton = lookup("#Help").query();
     enterButton = lookup("#Enter").query();
-    penColor = lookup("#pen").query();
-    backgroundColor = lookup("#background").query();
+    penColor = lookup("#Pen").query();
+    backgroundColor = lookup("#Background").query();
     languageSelector = lookup("#language").query();
     turtle1 = lookup("#turtle1").query();
     commandLine = lookup("#commandLine").query();
