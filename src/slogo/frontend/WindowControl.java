@@ -54,7 +54,7 @@ public class WindowControl {
     myController = new Controller();
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
-    myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler(), root);
+    myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
 
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
     //myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());

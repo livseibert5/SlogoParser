@@ -10,7 +10,7 @@ import slogo.model.Turtle;
  *
  * @author Jessica Yang
  */
-public class TurtleView extends ViewMaker {
+public class TurtleDetailsView extends ViewMaker {
 
   private final Turtle myTurtle;
 
@@ -23,12 +23,12 @@ public class TurtleView extends ViewMaker {
   */
 
   /**
-   * Constructor for TurtleView class.
+   * Constructor for TurtleDetailsView class.
    *
    * @param sizeX x dimension of window
    * @param sizeY y dimension of window
    */
-  public TurtleView(int sizeX, int sizeY, Turtle turtle) {
+  public TurtleDetailsView(int sizeX, int sizeY, Turtle turtle) {
     super(sizeX, sizeY, "Turtle Details");
     myTurtle = turtle;
 
