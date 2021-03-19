@@ -18,7 +18,7 @@ import slogo.controller.Controller;
  */
 public class FromXML {
 
-  private Controller controller;
+  private final Controller controller;
   private Element root;
 
   /**
@@ -35,9 +35,9 @@ public class FromXML {
    * Reads variables and commands from the XML file into the game.
    *
    * @param filename file to read variables and commands from
-   * @throws IOException
-   * @throws SAXException
-   * @throws ParserConfigurationException
+   * @throws IOException issue reading from file
+   * @throws SAXException issue with XML parser
+   * @throws ParserConfigurationException issue with XML parser
    */
   public void readFile(String filename)
       throws IOException, SAXException, ParserConfigurationException {
@@ -50,9 +50,9 @@ public class FromXML {
    * Constructs the Document to parse from.
    *
    * @param fileName file to parse
-   * @throws ParserConfigurationException
-   * @throws SAXException
-   * @throws IOException
+   * @throws ParserConfigurationException issue configuring XML parser
+   * @throws SAXException issue with XML parser
+   * @throws IOException issue reading from file
    */
   private void buildParser(String fileName)
       throws ParserConfigurationException, SAXException, IOException {
@@ -71,7 +71,7 @@ public class FromXML {
       Node currNode = variables.item(i);
       Element nodeElement = (Element) currNode;
       String name = nodeElement.getElementsByTagName("Name").item(0).getTextContent();
-      Double value = Double
+      double value = Double
           .parseDouble(nodeElement.getElementsByTagName("Value").item(0).getTextContent());
       controller.getVariableHandler().addVariable(new Variable(name, value));
     }

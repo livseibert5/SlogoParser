@@ -12,8 +12,8 @@ import slogo.model.Value;
  */
 public class GreaterThan implements Command {
 
-  private double argument1;
-  private double argument2;
+  private final double argument1;
+  private final double argument2;
 
   /**
    * Constructor for GreaterThan command, takes in 2 arguments to compare magnitude of.

@@ -18,9 +18,9 @@ import slogo.model.parser.Parser;
  */
 public class For implements Command {
 
-  private Controller controller;
-  private CommandBlock header;
-  private CommandBlock body;
+  private final Controller controller;
+  private final CommandBlock header;
+  private final CommandBlock body;
 
   /**
    * For constructor needs a controller to parse the command body of the for loop, a header to

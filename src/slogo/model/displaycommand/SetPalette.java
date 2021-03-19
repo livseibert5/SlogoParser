@@ -14,11 +14,11 @@ import slogo.model.Value;
  */
 public class SetPalette implements Command {
 
-  private Controller controller;
-  private double index;
-  private double r;
-  private double b;
-  private double g;
+  private final Controller controller;
+  private final double index;
+  private final double r;
+  private final double b;
+  private final double g;
 
   /**
    * SetPenColor constructor takes a value that corresponds to the index of the new

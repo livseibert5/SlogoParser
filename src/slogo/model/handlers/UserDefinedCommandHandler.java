@@ -1,6 +1,5 @@
 package slogo.model.handlers;
 
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import slogo.model.UserDefinedCommand;
@@ -19,7 +18,6 @@ public class UserDefinedCommandHandler {
    * Constructor for UserDefinedCommandHandler declares a list to hold the commands.
    */
   public UserDefinedCommandHandler() {
-    //userDefinedCommandList = new ArrayList<>();
     userDefinedCommandList = FXCollections.observableArrayList();
   }
 

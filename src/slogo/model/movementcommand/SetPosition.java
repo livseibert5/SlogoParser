@@ -12,8 +12,8 @@ import slogo.model.Value;
  */
 public class SetPosition implements Command {
 
-  double argumentX;
-  double argumentY;
+  private final double argumentX;
+  private final double argumentY;
 
   /**
    * Constructor for SetPosition command that takes in two constant commands as arguments to set the

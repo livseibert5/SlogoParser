@@ -1,7 +1,6 @@
 package slogo.model.parser;
 
 import java.util.List;
-import java.util.ResourceBundle;
 import slogo.model.CommandBlock;
 import slogo.model.Constant;
 import slogo.model.Variable;

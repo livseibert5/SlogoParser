@@ -17,9 +17,9 @@ import slogo.model.Turtle;
  */
 public class Repeat implements Command {
 
-  private int count;
-  private CommandBlock list;
-  private Controller controller;
+  private final int count;
+  private final CommandBlock list;
+  private final Controller controller;
 
   /**
    * Repeat constructor needs a controller to execute the command body, an argument to know how many
@@ -40,12 +40,11 @@ public class Repeat implements Command {
    *
    * @param turtle turtle object to execute command on
    * @return result of last command
-   * @throws ClassNotFoundException
-   * @throws NoSuchMethodException
-   * @throws InvocationTargetException
-   * @throws InstantiationException
-   * @throws IllegalAccessException
-   * @throws MathException
+   * @throws ClassNotFoundException class not found in command factory
+   * @throws NoSuchMethodException method not found in command factory
+   * @throws InvocationTargetException can't invoke target
+   * @throws InstantiationException can't make new object from command factory
+   * @throws IllegalAccessException trying to make object in command factory without access
    */
   @Override
   public double execute(Turtle turtle)

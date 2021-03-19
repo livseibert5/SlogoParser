@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
-import slogo.controller.Controller;
 import slogo.model.backendexceptions.RegexDetectorError;
 
 /**
@@ -19,8 +18,7 @@ import slogo.model.backendexceptions.RegexDetectorError;
 public class RegexDetector {
 
   private static final String RESOURCES_PACKAGE = "resources.languages.";
-  private final String ERROR_MESSAGE = "RegexDetector didn't find a match for %s.";
-  private List<Entry<String, Pattern>> mySymbols;
+  private final List<Entry<String, Pattern>> mySymbols;
 
   /**
    * Constructor for RegexDetector object.
@@ -56,6 +54,7 @@ public class RegexDetector {
         return e.getKey();
       }
     }
+    String ERROR_MESSAGE = "RegexDetector didn't find a match for %s.";
     throw new RegexDetectorError(ERROR_MESSAGE, text);
   }
 

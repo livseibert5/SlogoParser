@@ -7,9 +7,9 @@ package slogo.model;
  */
 public class Color {
 
-  private int r;
-  private int g;
-  private int b;
+  private final int r;
+  private final int g;
+  private final int b;
 
   /**
    * Constructor to assign the r,g,b values of the color
@@ -22,7 +22,7 @@ public class Color {
     this.r = r;
     this.g = g;
     this.b = b;
-  };
+  }
 
   /**
    * Gets the red value in the rgb scale

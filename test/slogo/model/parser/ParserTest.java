@@ -121,7 +121,7 @@ public class ParserTest {
         + "  right 10\n"
         + "]\n";
     assertEquals(1, parser.parse(command));
-    assertEquals(1, parser.parse("example 100"));
+    assertEquals(10, parser.parse("example 100"));
   }
 
 

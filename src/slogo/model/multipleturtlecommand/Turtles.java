@@ -11,7 +11,7 @@ import slogo.model.Turtle;
  */
 public class Turtles implements Command {
 
-  private Controller controller;
+  private final Controller controller;
 
   /**
    * Constructor for Turtles needs the controller to determine how many turtles are in the TurtleHandler.
