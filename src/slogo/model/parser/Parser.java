@@ -155,7 +155,7 @@ public class Parser {
         List<String> groupList = Arrays
             .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
         System.out.println("New String: " + groupBlock.insertCommand(groupList));
-        parse(groupBlock.insertCommand(groupList));
+        commandStack.push(expressionFactory.makeConstant(parse(groupBlock.insertCommand(groupList))));
       }
       case "Variable" -> commandStack.push(expressionFactory
           .makeVariable(commandComponents[index], controller.getVariableHandler()));
