@@ -46,5 +46,5 @@ public class ColorHandler {
    * @param index index of color
    * @return color corresponding to the index
    */
-  public Color getColor(int index) {return colorMap.get(index);}
+  public Color getColor(double index) {return colorMap.get((int) index);}
 }
