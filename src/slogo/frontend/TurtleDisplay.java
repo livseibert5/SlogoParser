@@ -40,10 +40,9 @@ public class TurtleDisplay {
   private static final double Y_CENTER_OFFSET = 375 - TURTLE_OFFSET;
 
   private final Group myRoot;
-  private Color lineColor;
 
+  List<PropertyChangeListener> allListeners = new ArrayList<>();
   private PropertyChangeListener turtleChangeListener;
-  private PropertyChangeListener lineColorListener;
   private PropertyChangeListener addTurtleListener;
 
   /**
@@ -57,23 +56,17 @@ public class TurtleDisplay {
     this.turtleHandler = turtleHandler;
     this.colorHandler = colorHandler;
     myRoot = root;
-    lineColor = Color.BLACK;
     setUpListeners();
     updateImageMap();
   }
 
   private void setUpListeners() {
-    lineColorListener = evt -> {
-      if (evt.getPropertyName().equals("penColor")) {
-        setLineColor(parsePenColor((Integer) evt.getNewValue()));
-      }
-    };
-
     addTurtleListener = evt -> {
       if (evt.getPropertyName().equals("addTurtle")) {
         updateImageMap();
       }
     };
+    allListeners.add(addTurtleListener);
 
     turtleChangeListener = evt -> {
       if (evt.getPropertyName().equals("xLocation")
@@ -82,6 +75,7 @@ public class TurtleDisplay {
         updateTurtleView();
       }
     };
+    allListeners.add(turtleChangeListener);
   }
 
   /**
@@ -120,15 +114,15 @@ public class TurtleDisplay {
   }
 
   /**
-   * Updates state of a given turtle. Assumes turtles in turtleMap have been updated. TODO use observer
-   *
+   * Updates state of a given turtle. Assumes turtles in turtleMap have been updated.
    */
   private void updateTurtleView() {
     for (Turtle t : turtleHandler.getActiveTurtles()) {
-      ImageView currTurtleView = turtleViewMap.get(turtleHandler.getTurtleId(t));
+      int id = turtleHandler.getTurtleId(t);
+      ImageView currTurtleView = turtleViewMap.get(id);
 
       if (t.penIsDown()) {
-        drawNewLine(t.getLocation(), currTurtleView);
+        drawNewLine(t, currTurtleView);
       }
 
       rotateTurtleView(t.getOrientation() * -1, currTurtleView);
@@ -153,16 +147,18 @@ public class TurtleDisplay {
    * @param newLocation double array
    * @param currTurtleView needs to be updated view
    */
-  private void drawNewLine(double[] newLocation, ImageView currTurtleView) {
+  private void drawNewLine(Turtle currTurtle, ImageView currTurtleView) {
     Line newLine = new Line();
+    Color lineColor = parsePenColor(currTurtle.getPenColor());
+    double lineThickness = currTurtle.getPenThickness();
 
     newLine.setFill(lineColor);
     newLine.setStroke(lineColor);
-    newLine.setStrokeWidth(5);
+    newLine.setStrokeWidth(lineThickness);
     newLine.setStartX(currTurtleView.getX() + TURTLE_OFFSET);
     newLine.setStartY(currTurtleView.getY() + TURTLE_OFFSET);
-    newLine.setEndX(newLocation[0] + X_CENTER_OFFSET + TURTLE_OFFSET);
-    newLine.setEndY(-1 * newLocation[1] + Y_CENTER_OFFSET + TURTLE_OFFSET);
+    newLine.setEndX(currTurtle.getXCoordinate() + X_CENTER_OFFSET + TURTLE_OFFSET);
+    newLine.setEndY(-1 * currTurtle.getYCoordinate() + Y_CENTER_OFFSET + TURTLE_OFFSET);
 
     newLine.setId("line");
     myRoot.getChildren().add(newLine);
@@ -190,9 +186,9 @@ public class TurtleDisplay {
   }
 
   /** Retrieves javafx Color object from slogo color. */
-  private Color parsePenColor(int colorIndex) {
+  private Color parsePenColor(double colorIndex) {
     slogo.model.Color penColor = colorHandler.getColor(colorIndex);
-    return new Color(penColor.getR(), penColor.getG(), penColor.getB(), 1.0);
+    return new Color(penColor.getR(), penColor.getG(), penColor.getB(), 255);
   }
 
   /**
@@ -201,7 +197,16 @@ public class TurtleDisplay {
    * @param newColor color object
    */
   public void setLineColor(Color newColor) {
-    lineColor = newColor;
+    //lineColor = newColor;
+  }
+
+  /**
+   * Sets new pen line thickness.
+   *
+   * @param thickness of pen
+   */
+  public void setLineThickness(Double thickness) {
+    //lineThickness = thickness;
   }
 
   /**
@@ -209,10 +214,7 @@ public class TurtleDisplay {
    *
    * @return PropertyChangeListener lineColorListener
    */
-  public List<PropertyChangeListener> getListeners() {
-    List<PropertyChangeListener> allListeners = new ArrayList<>();
-    allListeners.add(lineColorListener);
-    allListeners.add(addTurtleListener);
+  public List<PropertyChangeListener> getListeners() { ;
     return allListeners;
   }
 
