@@ -37,9 +37,10 @@ public class AskWithTest {
   @Test
   void basicAsk()
       throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-    askWith = new AskWith(controller, new CommandBlock("id equal? 3"), new CommandBlock("fd 50"));
+    askWith = new AskWith(controller, new CommandBlock("equal? id 3"), new CommandBlock("fd 50"));
+    System.out.println(controller.getTurtleHandler().getAllTurtles());
     askWith.execute(new Turtle());
-    assertEquals(0, controller.getTurtleHandler().getAllTurtles().get(1).getYCoordinate());
-    assertEquals(50, controller.getTurtleHandler().getAllTurtles().get(2).getYCoordinate());
+    assertEquals(0, controller.getTurtleHandler().getTurtle(1).getYCoordinate());
+    assertEquals(50, controller.getTurtleHandler().getTurtle(3).getYCoordinate());
   }
 }
