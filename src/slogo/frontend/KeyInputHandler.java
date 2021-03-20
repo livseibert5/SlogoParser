@@ -29,10 +29,10 @@ public class KeyInputHandler extends Observable<Object> {
   }
 
   public void pressA() {
-    notifyListeners("backEndXCoordinate", 0, 1.0);
+    notifyListeners("backEndXCoordinate", 0, -1.0);
   }
 
   public void pressD() {
-    notifyListeners("backEndXCoordinate", 0, -1.0);
+    notifyListeners("backEndXCoordinate", 0, 1.0);
   }
 }
