@@ -156,6 +156,7 @@ public class Parser {
             .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
         System.out.println("New String: " + groupBlock.insertCommand(groupList));
         commandStack.push(expressionFactory.makeConstant(parse(groupBlock.insertCommand(groupList))));
+        return endIndex;
       }
       case "Variable" -> commandStack.push(expressionFactory
           .makeVariable(commandComponents[index], controller.getVariableHandler()));
