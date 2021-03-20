@@ -50,7 +50,7 @@ public class Observable<T> {
    *
    * @return myListeners all listeners
    */
-  protected List<PropertyChangeListener> getListeners() {
+  public List<PropertyChangeListener> getListeners() {
     return myListeners;
   }
 

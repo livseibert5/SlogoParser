@@ -1,9 +1,12 @@
 package slogo.frontend;
 
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.Observable;
 import slogo.controller.Controller;
+import slogo.model.Turtle;
 import slogo.model.parser.Parser;
 import java.lang.reflect.Field;
 
@@ -129,7 +133,11 @@ public class WindowControl {
     try {
       Class<?> keyHandlerClass = Class.forName("slogo.frontend.KeyInputHandler");
       KeyInputHandler keyHandler = new KeyInputHandler();
-      //keyHandler.addMultipleListeners(inserthere!); TODO add listeners from backend
+      List<PropertyChangeListener> turtleListeners = new ArrayList<>();
+      for (Turtle turtle: myController.getTurtleHandler().getActiveTurtles()) {
+        turtleListeners.addAll(turtle.getListeners());
+      }
+      keyHandler.addMultipleListeners(turtleListeners); //TODO add listeners from backend
       root.setOnKeyPressed(evt -> {
         try {
           Method moveMethod = keyHandlerClass.getMethod("press" + evt.getCode().toString());

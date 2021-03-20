@@ -1,6 +1,5 @@
 package slogo.model;
 
-import java.beans.PropertyChangeListener;
 import slogo.Observable;
 
 /**
