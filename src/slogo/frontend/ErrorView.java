@@ -1,6 +1,7 @@
 package slogo.frontend;
 
 import javafx.scene.Group;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
 /**
@@ -28,7 +29,7 @@ public class ErrorView extends ViewMaker {
    * @param sizeY height of the window
    */
   @Override
-  protected void setUpRoot(Group myRoot, double sizeX, double sizeY) {
+  protected void setUpRoot(BorderPane myRoot, double sizeX, double sizeY) {
     myRoot.getChildren().add(makeText(sizeX / 3, sizeY / 3, "Invalid command.",
         "errorMessage"));
   }

@@ -2,6 +2,7 @@ package slogo.frontend;
 
 import java.beans.PropertyChangeListener;
 import javafx.scene.Group;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import slogo.model.Turtle;
 
@@ -56,7 +57,7 @@ public class TurtleView extends ViewMaker {
    * @param sizeY height of the window
    */
   @Override
-  protected void setUpRoot(Group myRoot, double sizeX, double sizeY) {
+  protected void setUpRoot(BorderPane myRoot, double sizeX, double sizeY) {
     //pencolor, location, orientation, up/down, thickness?
     String xLocation = Double.toString(myTurtle.getLocation()[0]);
     String yLocation = Double.toString(myTurtle.getLocation()[1]);

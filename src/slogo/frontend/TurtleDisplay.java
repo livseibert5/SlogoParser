@@ -1,6 +1,5 @@
 package slogo.frontend;
 
-import java.beans.EventHandler;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.FileInputStream;
@@ -10,9 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import slogo.model.Turtle;
@@ -95,6 +98,7 @@ public class TurtleDisplay {
 
     turtleView.setRotate(toAddTurtle.getOrientation() * -1);
     turtleView.setId("turtle" + id);
+
     turtleViewMap.put(id, turtleView);
     myRoot.getChildren().add(turtleView);
     turtleView.toFront();
@@ -205,4 +209,5 @@ public class TurtleDisplay {
       }
     }
   }
+
 }

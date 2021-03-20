@@ -2,6 +2,7 @@ package slogo.frontend;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -14,7 +15,7 @@ import javafx.stage.Stage;
  */
 public abstract class ViewMaker {
 
-  private Group viewRoot = new Group();
+  private BorderPane viewRoot = new BorderPane();
   private Scene viewScene;
   private Stage viewWindow = new Stage();
 
@@ -46,7 +47,7 @@ public abstract class ViewMaker {
    * @param sizeX width of window
    * @param sizeY height of window
    */
-  protected abstract void setUpRoot(Group myRoot, double sizeX, double sizeY);
+  protected abstract void setUpRoot(BorderPane myRoot, double sizeX, double sizeY);
 
   /**
    * Text object maker and formatter for child classes.

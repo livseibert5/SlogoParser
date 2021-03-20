@@ -63,17 +63,15 @@ public class WindowControl {
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTableDisplay.setHandler(event -> myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand()));
     myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler(), root);
+    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
-    ImageCustomizer myCustomizer = new ImageCustomizer(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay);
+    ImageCustomizer myCustomizer = new ImageCustomizer(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay, myTurtleWindow);
     CustomizerButton customizerButton = new CustomizerButton("Customize", UPLOAD_X, UPLOAD_Y, root, event -> myCustomizer.showView());
     helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
     enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, event -> enterEvent());
     LanguageDropDown dropDown = new LanguageDropDown(root, myController);
-    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    ColorPickerMaker backgroundColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE - DEFAULT_BORDER, DEFAULT_BORDER / 3, "Background");
-    backgroundColor.setHandler(event -> myTurtleWindow.setColor(backgroundColor.getNewColor()));
-    ColorPickerMaker penColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE/2 - DEFAULT_BORDER, DEFAULT_BORDER/3, "Pen");
-    penColor.setHandler(event -> myTurtleDisplay.setLineColor(penColor.getNewColor()));
+    //ColorPickerMaker penColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE/2 - DEFAULT_BORDER, DEFAULT_BORDER/3, "Pen");
+    //penColor.setHandler(event -> myTurtleDisplay.setLineColor(penColor.getNewColor()));
     WorkspaceButtonMaker newButton = new WorkspaceButtonMaker("New Workspace", DEFAULT_WIDTH - 200, 0, root);
   }
 
