@@ -25,11 +25,11 @@ public class TableDisplay {
   private static final double DEFAULT_BORDER = 50;
 
   private final Group myRoot;
-  private TableView<Variable> variableView;
+  private TableView<UserDefinedCommand> commandView;
 
   private final ObservableList<Variable> allVariables;
   private final ObservableList<UserDefinedCommand> allCommands;
-  private String selectedUserCommand;
+  //private String selectedUserCommand;
 
   /**
    * Constructor for TableDisplay.
@@ -49,7 +49,7 @@ public class TableDisplay {
   }
 
   private void makeVariableView() {
-    variableView = new TableView<>();
+    TableView<Variable> variableView = new TableView<>();
     variableView.setPrefSize(WINDOW_SIZE / 2 - DEFAULT_BORDER / 4,
         (WINDOW_SIZE - DEFAULT_BORDER) / 2);
     variableView.relocate(DEFAULT_BORDER, DEFAULT_BORDER);
@@ -68,14 +68,19 @@ public class TableDisplay {
     variableView.setId("variableview");
     myRoot.getChildren().add(variableView);
   }
-  public String getSelectedUserCommand() {
-    return variableView.getSelectionModel().getSelectedItem().getName();
+  public String getSelectedUserCommand() throws Exception {
+    try {
+      return commandView.getSelectionModel().getSelectedItem().getCommandName();
+    } catch (NullPointerException e) {
+      throw e;
+    }
   }
   public void setHandler(EventHandler<MouseEvent> event) {
-    variableView.setOnMouseClicked(event);
+    commandView.setOnMouseClicked(event);
   }
+
   private void makeUserCommandView() {
-    TableView<UserDefinedCommand> commandView = new TableView<>();
+    commandView = new TableView<>();
     commandView.setPrefSize(WINDOW_SIZE / 2 - DEFAULT_BORDER / 4,
         (WINDOW_SIZE - DEFAULT_BORDER) / 2);
     commandView.relocate(DEFAULT_BORDER * 1.5 + commandView.getPrefWidth(), DEFAULT_BORDER);

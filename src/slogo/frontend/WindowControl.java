@@ -1,14 +1,21 @@
 package slogo.frontend;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import slogo.Observable;
 import slogo.controller.Controller;
 import slogo.model.parser.Parser;
+import java.lang.reflect.Field;
 
 /**
  * Creates stage, scene, and animation.
@@ -28,7 +35,7 @@ public class WindowControl {
   private static final int WINDOW_SIZE = 600;
   private static final int DEFAULT_BORDER = 50;
 
-  private CreateScene myScene;
+  private SceneMaker sceneMaker;
   private Group root = new Group();
   private Stage stage = new Stage();
   private Controller myController;
@@ -45,19 +52,26 @@ public class WindowControl {
   //private final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
   private final String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
-  private ViewMaker errorWindow = new ErrorView(200, 200);
+  private ErrorView errorWindow = new ErrorView(200, 200);
   private ViewMaker turtleDetailsWindow;
 
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
    */
   public WindowControl(Stage myStage) {
-    myScene = new CreateScene(myStage, root);
+    sceneMaker = new SceneMaker(root, myStage, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     myController = new Controller();
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
-    myTableDisplay.setHandler(event -> myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand()));
+    myTableDisplay.setHandler(event -> {
+      try {
+        myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand());
+      } catch (Exception e) {
+        errorWindow.updateMessage("No commands available.");
+        errorWindow.showView();
+      }
+    });
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
     //myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
     uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, event -> uploadEvent());
@@ -73,6 +87,7 @@ public class WindowControl {
     turtleDetailsWindow = new TurtleDetailsView(400, 400, myController.getTurtleHandler());
     Button turtleDetailButton = makeButton(HELP_X + 100, HELP_Y, "Turtle Details",
         e -> turtleDetailsWindow.showView());
+    setUpKeyInput();
   }
 
   private Button makeButton(double x, double y, String title, EventHandler<ActionEvent> evt) {
@@ -101,10 +116,30 @@ public class WindowControl {
   private void enterEvent() {
     try {
       int value = myParser.parse(myCommand.getTextInput());
-      //myTurtleDisplay.updateTurtleView(myController.getTurtleHandler().getActiveTurtles());
       myCommand.clearTextInput();
       myCommand.printReturnValue(value);
     } catch (Exception e) {
+      errorWindow.updateMessage("Invalid command.");
+      errorWindow.showView();
+    }
+  }
+
+  private void setUpKeyInput() {
+    try {
+      Class<?> keyHandlerClass = Class.forName("slogo.frontend.KeyInputHandler");
+      KeyInputHandler keyHandler = new KeyInputHandler();
+      //keyHandler.addMultipleListeners(inserthere!); TODO add listeners from backend
+      root.setOnKeyPressed(evt -> {
+        try {
+          Method moveMethod = keyHandlerClass.getMethod("press" + evt.getCode().toString());
+          moveMethod.invoke(keyHandler);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+          errorWindow.updateMessage("Invalid key button. Try using WASD, and RL.");
+          errorWindow.showView();
+        }
+      });
+    } catch (ClassNotFoundException e) {
+      errorWindow.updateMessage("Fatal error: KeyInputHandler class not found.");
       errorWindow.showView();
     }
   }
