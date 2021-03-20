@@ -1,6 +1,8 @@
 package slogo.frontend;
 
 import java.beans.PropertyChangeListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ public class TurtleDisplay {
 
   private static final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName()
       + ".resources.images.").replace('.', '/');
-  private static final String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
+  private static final String IMAGE_FILE = DEFAULT_IMAGE_PATH + "default_turtle.png";
   private static final String USER_IMAGE_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
   private final ColorHandler colorHandler;
@@ -40,6 +42,7 @@ public class TurtleDisplay {
   private final Group myRoot;
   private Color lineColor;
 
+  private PropertyChangeListener turtleChangeListener;
   private PropertyChangeListener lineColorListener;
   private PropertyChangeListener addTurtleListener;
 
@@ -54,9 +57,9 @@ public class TurtleDisplay {
     this.turtleHandler = turtleHandler;
     this.colorHandler = colorHandler;
     myRoot = root;
-    updateImageMap();
     lineColor = Color.BLACK;
     setUpListeners();
+    updateImageMap();
   }
 
   private void setUpListeners() {
@@ -71,6 +74,14 @@ public class TurtleDisplay {
         updateImageMap();
       }
     };
+
+    turtleChangeListener = evt -> {
+      if (evt.getPropertyName().equals("xLocation")
+          || evt.getPropertyName().equals("yLocation")
+          || evt.getPropertyName().equals("orientation")) {
+        updateTurtleView();
+      }
+    };
   }
 
   /**
@@ -80,8 +91,11 @@ public class TurtleDisplay {
     for (int id : turtleHandler.getAllIds()) {
       if (turtleViewMap.get(id) == null) {
         addTurtleView(id);
+        turtleHandler.getTurtle(id).addListener(turtleChangeListener);
       }
     }
+
+    updateTurtleView();
   }
 
   /**
@@ -108,12 +122,9 @@ public class TurtleDisplay {
   /**
    * Updates state of a given turtle. Assumes turtles in turtleMap have been updated. TODO use observer
    *
-   * @param allActiveTurtles list of turtles
    */
-  public void updateTurtleView(List<Turtle> allActiveTurtles) {
-    updateImageMap(); //TODO delete when hooked up to turtlehandler
-
-    for (Turtle t : allActiveTurtles) {
+  private void updateTurtleView() {
+    for (Turtle t : turtleHandler.getActiveTurtles()) {
       ImageView currTurtleView = turtleViewMap.get(turtleHandler.getTurtleId(t));
 
       if (t.penIsDown()) {
@@ -212,7 +223,11 @@ public class TurtleDisplay {
     for (Integer i : turtleViewMap.keySet()) {
       String image = "src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg";
       System.out.println(image);
-      turtleViewMap.get(i).setImage(new Image(getClass().getResourceAsStream(image)));
+      try {
+        turtleViewMap.get(i).setImage(new Image(new FileInputStream(image)));
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
     }
   }
 }
