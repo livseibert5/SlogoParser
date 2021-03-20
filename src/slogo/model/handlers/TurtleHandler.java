@@ -37,6 +37,7 @@ public class TurtleHandler extends Observable<Object> {
    */
   public void addTurtle(Turtle turtle) {
     currentTurtleIndex++;
+    turtle.addMultipleListeners(getListeners());
     notifyListeners("addTurtle", turtles, turtles.put(currentTurtleIndex, turtle));
   }
 
