@@ -9,6 +9,8 @@ import javafx.scene.Group;
  */
 public class ErrorView extends ViewMaker {
 
+  private String errorMessage;
+
   /**
    * Constructor for ErrorView class.
    *
@@ -28,7 +30,16 @@ public class ErrorView extends ViewMaker {
    * @param sizeY height of the window
    */
   private void setUpRoot(Group myRoot, double sizeX, double sizeY) {
-    myRoot.getChildren().add(makeText(sizeX / 3, sizeY / 3, "Invalid command.",
+    myRoot.getChildren().add(makeText(sizeX / 3, sizeY / 3, errorMessage,
         "errorMessage"));
+  }
+
+  /**
+   * Allows error message to be customized for specific events.
+   *
+   * @param message specific string message
+   */
+  public void setMessage(String message) {
+    errorMessage = message;
   }
 }

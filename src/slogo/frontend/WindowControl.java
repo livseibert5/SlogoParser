@@ -52,7 +52,7 @@ public class WindowControl {
   //private final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
   private final String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
-  private ViewMaker errorWindow = new ErrorView(200, 200);
+  private ErrorView errorWindow = new ErrorView(200, 200);
   private ViewMaker turtleDetailsWindow;
 
   /**
@@ -113,6 +113,7 @@ public class WindowControl {
       myCommand.clearTextInput();
       myCommand.printReturnValue(value);
     } catch (Exception e) {
+      errorWindow.setMessage("Invalid command.");
       errorWindow.showView();
     }
   }
@@ -127,10 +128,12 @@ public class WindowControl {
           Method moveMethod = keyHandlerClass.getMethod("press" + evt.getCode().toString());
           moveMethod.invoke(keyHandler);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+          errorWindow.setMessage("Invalid key button. Try using WASD, and RL.");
           errorWindow.showView();
         }
       });
     } catch (ClassNotFoundException e) {
+      errorWindow.setMessage("Fatal error: KeyInputHandler class not found.");
       errorWindow.showView();
     }
   }
