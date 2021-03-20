@@ -13,6 +13,8 @@ import slogo.model.Constant;
 import slogo.model.GroupBlock;
 import slogo.model.Turtle;
 import slogo.model.UserDefinedCommand;
+import slogo.model.Value;
+import slogo.model.Variable;
 import slogo.model.backendexceptions.MathException;
 
 /**
@@ -154,7 +156,6 @@ public class Parser {
         int endIndex = groupBlock.findIndex(index, commandComponents, regexDetector);
         List<String> groupList = Arrays
             .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
-        System.out.println("New String: " + groupBlock.insertCommand(groupList));
         commandStack.push(expressionFactory.makeConstant(parse(groupBlock.insertCommand(groupList))));
         return endIndex;
       }
@@ -199,13 +200,25 @@ public class Parser {
   private void executeUserDefinedCommand()
       throws ClassNotFoundException, NoSuchMethodException, MathException, InstantiationException, IllegalAccessException, InvocationTargetException {
     Object command = commandStack.pop();
+    poppedStack.push(command);
     UserDefinedCommand userCommand = controller.getUserDefinedCommandHandler()
         .getCommand((String) command);
     List<Object> parameters = generateParameters((String) command,
         userCommand.getNumberParameters());
-    String newCommand = userCommand.generateCommand(parameters);
-    Constant result = new Constant(parse(newCommand));
-    endCommand(result);
+    boolean correctParams = true;
+    for (Object param: parameters) {
+      if (!(param instanceof Value)) {
+        correctParams = false;
+      }
+    }
+    if (!correctParams) {
+      resetArguments((String) command, parameters);
+    } else {
+      String newCommand = userCommand.generateCommand(parameters);
+      Constant result = new Constant(parse(newCommand));
+      poppedStack.pop();
+      endCommand(result);
+    }
   }
 
   /**
