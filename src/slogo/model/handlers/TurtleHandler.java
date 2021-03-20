@@ -1,5 +1,6 @@
 package slogo.model.handlers;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,8 @@ public class TurtleHandler extends Observable<Object> {
   private final Map<Integer, Turtle> turtles;
   private List<Turtle> activeTurtles;
   private int currentTurtleIndex;
+  private PropertyChangeListener backEndX;
+  private PropertyChangeListener backEndY;
 
   /**
    * Constructor for TurtleHandler creates new map for the turtles.
@@ -28,6 +31,25 @@ public class TurtleHandler extends Observable<Object> {
     activeTurtles = new ArrayList<>();
     activeTurtles.add(turtles.get(1));
     currentTurtleIndex = 1;
+    setUpListeners();
+    activeTurtles.forEach(turtle -> {
+      turtle.addListener(backEndX);
+      turtle.addListener(backEndY);
+    });
+  }
+
+  private void setUpListeners() {
+    backEndY = event -> {
+      if (event.getPropertyName().equals("backEndYCoordinate")) {
+        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate(), turtle.getYCoordinate() + (Integer) event.getNewValue()}));
+      }
+    };
+
+    backEndX = event -> {
+      if (event.getPropertyName().equals("backEndXCoordinate")) {
+        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate() + (Integer) event.getNewValue(), turtle.getYCoordinate()}));
+      }
+    };
   }
 
   /**
@@ -65,6 +87,10 @@ public class TurtleHandler extends Observable<Object> {
   public void setActiveTurtles(List<Turtle> newActiveTurtles) {
     notifyListeners("activeTurtles", activeTurtles, newActiveTurtles);
     activeTurtles = newActiveTurtles;
+    activeTurtles.forEach(turtle -> {
+      turtle.addListener(backEndX);
+      turtle.addListener(backEndY);
+    });
   }
 
   public int getTurtleId(Turtle turtle) {
