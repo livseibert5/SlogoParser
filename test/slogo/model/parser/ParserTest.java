@@ -99,6 +99,13 @@ public class ParserTest {
   }
 
   @Test
+  void testSumCommand()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    String command = "sum 10 sum 20 sum 30 40";
+    assertEquals(100, parser.parse(command));
+  }
+
+  @Test
   void RecursionSpiral()
       throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
     String command = "to spiral [ :len ]\n"
