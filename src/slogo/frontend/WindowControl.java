@@ -35,6 +35,7 @@ public class WindowControl {
   private static final int DEFAULT_WIDTH = 1350;
   private static final int WINDOW_SIZE = 600;
   private static final int DEFAULT_BORDER = 50;
+  private final Stage stage = new Stage();
 
   private CreateScene myScene;
   private Group root = new Group();
@@ -73,6 +74,7 @@ public class WindowControl {
     //ColorPickerMaker penColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE/2 - DEFAULT_BORDER, DEFAULT_BORDER/3, "Pen");
     //penColor.setHandler(event -> myTurtleDisplay.setLineColor(penColor.getNewColor()));
     WorkspaceButtonMaker newButton = new WorkspaceButtonMaker("New Workspace", DEFAULT_WIDTH - 200, 0, root);
+    EnterButtonMaker xmlButton = new EnterButtonMaker("Upload XML File", HELP_X - 100, HELP_Y, root, event -> uploadXML());
   }
 
 
@@ -85,6 +87,16 @@ public class WindowControl {
       myCommand.printReturnValue(value);
     } catch (Exception e) {
       errorWindow.showView();
+    }
+  }
+  private void uploadXML() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Upload XML");
+    fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+    File file = fileChooser.showOpenDialog(stage);
+    if (file != null) {
+      boolean isMoved = file.renameTo(new File("data/UserUploaded.xml"));
     }
   }
 
