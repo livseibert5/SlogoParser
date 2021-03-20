@@ -27,7 +27,7 @@ public class TurtleDisplay {
 
   private static final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName()
       + ".resources.images.").replace('.', '/');
-  private static final String IMAGE_FILE = DEFAULT_IMAGE_PATH + "temp_turtle.jpg";
+  private static final String IMAGE_FILE = DEFAULT_IMAGE_PATH + "default_turtle.png";
   private static final String USER_IMAGE_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
   private final ColorHandler colorHandler;
