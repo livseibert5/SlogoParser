@@ -188,7 +188,7 @@ public class TurtleDisplay {
   /** Retrieves javafx Color object from slogo color. */
   private Color parsePenColor(double colorIndex) {
     slogo.model.Color penColor = colorHandler.getColor(colorIndex);
-    return new Color(penColor.getR(), penColor.getG(), penColor.getB(), 255);
+    return new Color(penColor.getR(), penColor.getG(), penColor.getB(), 1.0);
   }
 
   /**
