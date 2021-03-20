@@ -41,6 +41,10 @@ public class Observable<T> {
     }
   }
 
+  public void removeListener(PropertyChangeListener listener) {
+    myListeners.remove(listener);
+  }
+
   /**
    * Used by subclasses to notify listeners of property changes.
    *

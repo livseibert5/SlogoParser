@@ -1,5 +1,6 @@
 package slogo.model.handlers;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +88,10 @@ public class TurtleHandler extends Observable<Object> {
   public void setActiveTurtles(List<Turtle> newActiveTurtles) {
     notifyListeners("activeTurtles", activeTurtles, newActiveTurtles);
     activeTurtles = newActiveTurtles;
+    turtles.forEach((id, turtle) -> {
+      turtle.removeListener(backEndX);
+      turtle.removeListener(backEndY);
+    });
     activeTurtles.forEach(turtle -> {
       turtle.addListener(backEndX);
       turtle.addListener(backEndY);
