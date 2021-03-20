@@ -42,13 +42,13 @@ public class TurtleHandler extends Observable<Object> {
   private void setUpListeners() {
     backEndY = event -> {
       if (event.getPropertyName().equals("backEndYCoordinate")) {
-        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate(), turtle.getYCoordinate() + (Integer) event.getNewValue()}));
+        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate(), turtle.getYCoordinate() + (Double) event.getNewValue()}));
       }
     };
 
     backEndX = event -> {
       if (event.getPropertyName().equals("backEndXCoordinate")) {
-        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate() + (Integer) event.getNewValue(), turtle.getYCoordinate()}));
+        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate() + (Double) event.getNewValue(), turtle.getYCoordinate()}));
       }
     };
   }
