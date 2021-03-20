@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 
 public class CreateScene {
 
-  private final Group root;
   private static final int DEFAULT_HEIGHT = 750;
   private static final int DEFAULT_WIDTH = 1350;
   public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
@@ -17,15 +16,13 @@ public class CreateScene {
   public static final String STYLESHEET = "default.css";
   private final ResourceBundle myResources = ResourceBundle
       .getBundle(DEFAULT_RESOURCE_PACKAGE + "text" );
-  private final Stage stage;
+  private final Scene scene;
 
-  public CreateScene(Stage myStage, Group myRoot) {
-    this.stage = myStage;
-    this.root = myRoot;
-    displayStage(makeScene());
+  public CreateScene(Group root, int width, int height) {
+    scene = makeScene(root);
   }
 
-  private Scene makeScene() {
+  private Scene makeScene(Group root) {
     Scene scene = new Scene(root, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     scene.getStylesheets()
         .add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
@@ -38,6 +35,4 @@ public class CreateScene {
     stage.setResizable(false);
     stage.show();
   }
-
-
 }
