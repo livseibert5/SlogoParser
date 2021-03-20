@@ -21,18 +21,18 @@ public class KeyInputHandler extends Observable<Object> {
   }
 
   public void pressW() {
-    notifyListeners("backEndYCoordinate", 0, -1.0);
-  }
-
-  public void pressS() {
     notifyListeners("backEndYCoordinate", 0, 1.0);
   }
 
+  public void pressS() {
+    notifyListeners("backEndYCoordinate", 0, -1.0);
+  }
+
   public void pressA() {
-    notifyListeners("backEndXCoordinate", 0, -1.0);
+    notifyListeners("backEndXCoordinate", 0, 1.0);
   }
 
   public void pressD() {
-    notifyListeners("backEndXCoordinate", 0, 1.0);
+    notifyListeners("backEndXCoordinate", 0, -1.0);
   }
 }
