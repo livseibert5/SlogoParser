@@ -64,7 +64,14 @@ public class WindowControl {
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
-    myTableDisplay.setHandler(event -> myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand()));
+    myTableDisplay.setHandler(event -> {
+      try {
+        myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand());
+      } catch (Exception e) {
+        errorWindow.updateMessage("No commands available.");
+        errorWindow.showView();
+      }
+    });
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
     //myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
     uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, event -> uploadEvent());
