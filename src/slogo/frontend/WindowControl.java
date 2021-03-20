@@ -13,7 +13,7 @@ import slogo.model.parser.Parser;
 /**
  * Creates stage, scene, and animation.
  * TODO assumptions, dependencies, example of use
- *
+ *d
  * @author Jessica Yang
  */
 public class WindowControl {
@@ -57,7 +57,7 @@ public class WindowControl {
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
-
+    myTableDisplay.setHandler(event -> myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand()));
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
     //myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
     uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, event -> uploadEvent());
@@ -101,7 +101,7 @@ public class WindowControl {
   private void enterEvent() {
     try {
       int value = myParser.parse(myCommand.getTextInput());
-      myTurtleDisplay.updateTurtleView(myController.getTurtleHandler().getActiveTurtles());
+      //myTurtleDisplay.updateTurtleView(myController.getTurtleHandler().getActiveTurtles());
       myCommand.clearTextInput();
       myCommand.printReturnValue(value);
     } catch (Exception e) {
