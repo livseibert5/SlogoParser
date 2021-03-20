@@ -32,6 +32,13 @@ public abstract class ViewMaker {
     viewWindow.setScene(viewScene);
   }
 
+  public ViewMaker(double sizeX, double sizeY, String title, TurtleDisplay turtles) {
+    viewScene = new Scene(viewRoot, sizeX, sizeY);
+    setUpRoot(viewRoot, sizeX, sizeY);
+    viewWindow.setTitle(title);
+    viewWindow.setScene(viewScene);
+  }
+
   /**
    * Overridden by child-classes to fill in the scene.
    *

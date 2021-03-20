@@ -38,7 +38,6 @@ public class WindowControl {
 
   private CreateScene myScene;
   private Group root = new Group();
-  private Stage stage = new Stage();
 
   private Controller myController;
   private Parser myParser;
@@ -50,7 +49,6 @@ public class WindowControl {
   private UploadButtonMaker uploadButton;
   private CommandField myCommand;
   private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
-  private int imageNumber = 1;
   private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
   private ViewMaker errorWindow = new ErrorView(200, 200);
@@ -66,8 +64,8 @@ public class WindowControl {
     myTableDisplay.setHandler(event -> myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand()));
     myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler(), root);
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
-    //myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
-    uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, event -> uploadEvent());
+    ImageCustomizer myCustomizer = new ImageCustomizer(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay);
+    CustomizerButton customizerButton = new CustomizerButton("Customize", UPLOAD_X, UPLOAD_Y, root, event -> myCustomizer.showView());
     helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
     enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, event -> enterEvent());
     LanguageDropDown dropDown = new LanguageDropDown(root, myController);
@@ -79,19 +77,8 @@ public class WindowControl {
     WorkspaceButtonMaker newButton = new WorkspaceButtonMaker("New Workspace", DEFAULT_WIDTH - 200, 0, root);
   }
 
-  private void uploadEvent() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Upload Turtle Image");
-    fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-    File file = fileChooser.showOpenDialog(stage);
-    if (file != null) {
-      boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg"));
-      System.out.println(isMoved);
-      myTurtleDisplay.updateImageView(imageNumber);
-      imageNumber++;
-    }
-  }
+
+
   private void enterEvent() {
     try {
       int value = myParser.parse(myCommand.getTextInput());
