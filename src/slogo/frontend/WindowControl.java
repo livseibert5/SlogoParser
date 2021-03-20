@@ -109,11 +109,10 @@ public class WindowControl {
   private void enterEvent() {
     try {
       int value = myParser.parse(myCommand.getTextInput());
-      //myTurtleDisplay.updateTurtleView(myController.getTurtleHandler().getActiveTurtles());
       myCommand.clearTextInput();
       myCommand.printReturnValue(value);
     } catch (Exception e) {
-      errorWindow.setMessage("Invalid command.");
+      errorWindow.updateMessage("Invalid command.");
       errorWindow.showView();
     }
   }
@@ -128,12 +127,12 @@ public class WindowControl {
           Method moveMethod = keyHandlerClass.getMethod("press" + evt.getCode().toString());
           moveMethod.invoke(keyHandler);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-          errorWindow.setMessage("Invalid key button. Try using WASD, and RL.");
+          errorWindow.updateMessage("Invalid key button. Try using WASD, and RL.");
           errorWindow.showView();
         }
       });
     } catch (ClassNotFoundException e) {
-      errorWindow.setMessage("Fatal error: KeyInputHandler class not found.");
+      errorWindow.updateMessage("Fatal error: KeyInputHandler class not found.");
       errorWindow.showView();
     }
   }

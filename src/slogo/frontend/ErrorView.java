@@ -1,6 +1,7 @@
 package slogo.frontend;
 
 import javafx.scene.Group;
+import javafx.scene.text.Text;
 
 /**
  * Class for error pop up window.
@@ -9,7 +10,7 @@ import javafx.scene.Group;
  */
 public class ErrorView extends ViewMaker {
 
-  private String errorMessage;
+  private Text messageText;
 
   /**
    * Constructor for ErrorView class.
@@ -19,6 +20,9 @@ public class ErrorView extends ViewMaker {
    */
   public ErrorView(double sizeX, double sizeY) {
     super(sizeX, sizeY, "Error");
+    messageText = makeText(10, sizeY / 3, null,
+        "errorMessage");
+    messageText.setWrappingWidth(sizeX - 20);
     setUpRoot(getRoot(), sizeX, sizeY);
   }
 
@@ -30,8 +34,7 @@ public class ErrorView extends ViewMaker {
    * @param sizeY height of the window
    */
   private void setUpRoot(Group myRoot, double sizeX, double sizeY) {
-    myRoot.getChildren().add(makeText(sizeX / 3, sizeY / 3, errorMessage,
-        "errorMessage"));
+    myRoot.getChildren().add(messageText);
   }
 
   /**
@@ -39,7 +42,7 @@ public class ErrorView extends ViewMaker {
    *
    * @param message specific string message
    */
-  public void setMessage(String message) {
-    errorMessage = message;
+  public void updateMessage(String message) {
+    messageText.setText(message);
   }
 }
