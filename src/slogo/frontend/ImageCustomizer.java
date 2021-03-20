@@ -1,7 +1,9 @@
 package slogo.frontend;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -15,8 +17,11 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ImageCustomizer extends ViewMaker{
     private Stage stage = new Stage();
@@ -25,6 +30,7 @@ public class ImageCustomizer extends ViewMaker{
     private static final double IMAGE_SIZE = 50;
     private final TurtleDisplay myTurtleDisplay;
     private final TurtleWindow myWindow;
+    private ComboBox<Integer> numbers;
     private ImageView[] images;
     private Rectangle[] colors;
     /**
@@ -43,11 +49,22 @@ public class ImageCustomizer extends ViewMaker{
     @Override
     protected void setUpRoot(BorderPane myRoot, double sizeX, double sizeY) {
         column = new VBox(5);
-        UploadButtonMaker uploadButton = new UploadButtonMaker("Upload Image", column, event -> uploadEvent());
-        column.getChildren().addAll(imagePalette(), penColorPalette());
+        column.getChildren().addAll(uploadBox(), imagePalette(), penColorPalette());
         addBackgroundColor();
         myRoot.setTop(column);
         column.setAlignment(Pos.CENTER);
+    }
+    private HBox uploadBox() {
+        HBox box = new HBox();
+        UploadButtonMaker uploadButton = new UploadButtonMaker("Upload Image", box, event -> uploadEvent());
+        List<Integer> range = IntStream.rangeClosed(1, 10)
+                .boxed().collect(Collectors.toList());
+        numbers = new ComboBox<>(FXCollections.observableList(range));
+        numbers.setOnAction(event -> {
+            imageNumber = numbers.getValue() -1;
+        });
+        box.getChildren().add(numbers);
+        return box;
     }
 
     private void uploadEvent() { //need to edit this a lot
@@ -57,7 +74,13 @@ public class ImageCustomizer extends ViewMaker{
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
-            boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg"));
+            String path = "src/slogo/frontend/resources/images/" + imageNumber + ".jpg";
+            boolean isMoved = file.renameTo(new File(path));
+            try {
+                images[imageNumber].setImage(new Image(new FileInputStream(path)));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
     private HBox imagePalette() {
@@ -88,7 +111,7 @@ public class ImageCustomizer extends ViewMaker{
         for (int i = 0; i < 10; i++) {
             Rectangle option = new Rectangle(IMAGE_SIZE, IMAGE_SIZE, Color.RED);
             palette.getChildren().add(option);
-            colors[i] =option;
+            colors[i] = option;
         }
         return palette;
     }
