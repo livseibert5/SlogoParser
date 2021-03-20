@@ -38,6 +38,7 @@ public class TurtleDisplay {
   private static final double TURTLE_OFFSET = dimensionSize / 2;
   private static final double X_CENTER_OFFSET = 1000 - TURTLE_OFFSET;
   private static final double Y_CENTER_OFFSET = 375 - TURTLE_OFFSET;
+  private static final double ROTATION_OFFSET = 90;
 
   private final Group myRoot;
 
@@ -106,7 +107,7 @@ public class TurtleDisplay {
     turtleView.setFitHeight(dimensionSize);
     turtleView.setFitWidth(dimensionSize);
 
-    turtleView.setRotate(toAddTurtle.getOrientation() * -1);
+    turtleView.setRotate(toAddTurtle.getOrientation() * -1 + ROTATION_OFFSET);
     turtleView.setId("turtle" + id);
     turtleViewMap.put(id, turtleView);
     myRoot.getChildren().add(turtleView);
@@ -144,7 +145,7 @@ public class TurtleDisplay {
   /**
    * Draws line from original location to new location.
    *
-   * @param newLocation double array
+   * @param currTurtle updated turtle
    * @param currTurtleView needs to be updated view
    */
   private void drawNewLine(Turtle currTurtle, ImageView currTurtleView) {
@@ -171,7 +172,7 @@ public class TurtleDisplay {
    * @param currTurtleView needs to be updated view
    */
   private void rotateTurtleView(double newOrientation, ImageView currTurtleView) {
-    currTurtleView.setRotate(newOrientation);
+    currTurtleView.setRotate(newOrientation + ROTATION_OFFSET);
   }
 
   /**

@@ -129,6 +129,9 @@ public class WindowControl {
     }
   }
 
+  /**
+   * Assumes user will not use ctrl key.
+   */
   private void setUpKeyInput() {
     try {
       Class<?> keyHandlerClass = Class.forName("slogo.frontend.KeyInputHandler");
