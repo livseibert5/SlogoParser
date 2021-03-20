@@ -25,8 +25,8 @@ public class ImageCustomizer extends ViewMaker{
     private static final double IMAGE_SIZE = 50;
     private final TurtleDisplay myTurtleDisplay;
     private final TurtleWindow myWindow;
-    private List<ImageView> images;
-    private List<Rectangle> colors;
+    private ImageView[] images;
+    private Rectangle[] colors;
     /**
      * Constructor for ViewMaker abstract class. Assumes setUpRoot is implemented in child classes.
      *
@@ -50,7 +50,7 @@ public class ImageCustomizer extends ViewMaker{
         column.setAlignment(Pos.CENTER);
     }
 
-    private void uploadEvent() {
+    private void uploadEvent() { //need to edit this a lot
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload Turtle Image");
         fileChooser.getExtensionFilters().addAll(
@@ -58,21 +58,20 @@ public class ImageCustomizer extends ViewMaker{
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             boolean isMoved = file.renameTo(new File("src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg"));
-            System.out.println(isMoved);
-            myTurtleDisplay.updateImageView(imageNumber);
-            imageNumber++;
         }
     }
     private HBox imagePalette() {
+        images = new ImageView[10];
         HBox palette = new HBox(10);
-        images = new ArrayList<>();
-        for (int i = 1; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             try {
-                ImageView option = new ImageView(new Image(new FileInputStream("src/slogo/frontend/resources/images/UserImage" + i + ".jpg")));
+                String path = "src/slogo/frontend/resources/images/" + i + ".jpg";
+                ImageView option = new ImageView(new Image(new FileInputStream(path)));
                 option.setFitHeight(IMAGE_SIZE);
                 option.setFitWidth(IMAGE_SIZE);
                 palette.getChildren().add(option);
-                images.add(option);
+                option.setOnMouseClicked(event -> myTurtleDisplay.updateImageView(path));
+                images[i] = option;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -84,12 +83,12 @@ public class ImageCustomizer extends ViewMaker{
         backgroundColor.setHandler(event -> myWindow.setColor(backgroundColor.getNewColor()));
     }
     private HBox penColorPalette() {
+        colors = new Rectangle[10];
         HBox palette = new HBox(10);
-        colors = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Rectangle option = new Rectangle(IMAGE_SIZE, IMAGE_SIZE, Color.RED);
             palette.getChildren().add(option);
-            colors.add(option);
+            colors[i] =option;
         }
         return palette;
     }

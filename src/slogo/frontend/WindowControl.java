@@ -16,7 +16,11 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
+import slogo.model.ToXML;
 import slogo.model.parser.Parser;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 /**
  * Creates stage, scene, and animation.
@@ -68,13 +72,23 @@ public class WindowControl {
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
     ImageCustomizer myCustomizer = new ImageCustomizer(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay, myTurtleWindow);
     CustomizerButton customizerButton = new CustomizerButton("Customize", UPLOAD_X, UPLOAD_Y, root, event -> myCustomizer.showView());
-    helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
+    helpButton = new HelpButtonMaker("Help", HELP_X + 50, HELP_Y, root);
     enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, event -> enterEvent());
     LanguageDropDown dropDown = new LanguageDropDown(root, myController);
     //ColorPickerMaker penColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE/2 - DEFAULT_BORDER, DEFAULT_BORDER/3, "Pen");
     //penColor.setHandler(event -> myTurtleDisplay.setLineColor(penColor.getNewColor()));
+    ToXML toXML = new ToXML(myController);
     WorkspaceButtonMaker newButton = new WorkspaceButtonMaker("New Workspace", DEFAULT_WIDTH - 200, 0, root);
-    EnterButtonMaker xmlButton = new EnterButtonMaker("Upload XML File", HELP_X - 100, HELP_Y, root, event -> uploadXML());
+    EnterButtonMaker xmlUpload = new EnterButtonMaker("Upload XML File", HELP_X - 200, HELP_Y, root, event -> uploadXML());
+    EnterButtonMaker xmlSave = new EnterButtonMaker("Save as XML", HELP_X + 150, HELP_Y, root, event -> {
+      try {
+        toXML.exportToXML();
+      } catch (ParserConfigurationException e) {
+        e.printStackTrace();
+      } catch (TransformerException e) {
+        e.printStackTrace();
+      }
+    });
   }
 
 

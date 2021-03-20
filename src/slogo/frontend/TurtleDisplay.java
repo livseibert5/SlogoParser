@@ -198,12 +198,10 @@ public class TurtleDisplay {
    *
    */
 
-  public void updateImageView(int imageNumber) {
+  public void updateImageView(String path) {
     for (Integer i : turtleViewMap.keySet()) {
-      String image = "src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg";
-      System.out.println(image);
       try {
-        turtleViewMap.get(i).setImage(new Image(new FileInputStream(image)));
+        turtleViewMap.get(i).setImage(new Image(new FileInputStream(path)));
       } catch (FileNotFoundException e) {
         e.printStackTrace();
       }
