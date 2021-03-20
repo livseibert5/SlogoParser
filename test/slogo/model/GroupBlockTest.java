@@ -40,7 +40,7 @@ public class GroupBlockTest {
   @Test
   void testWithParsing()
       throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-      assertEquals(70, parser.parse("fd ( sum 10 20 30 40 )"));
+      assertEquals(100, parser.parse("fd ( sum 10 20 30 40 )"));
   }
 
 }

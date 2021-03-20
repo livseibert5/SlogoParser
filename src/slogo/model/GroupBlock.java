@@ -43,12 +43,6 @@ public class GroupBlock {
     List<String> flexArgs = new ArrayList<>(arguments);
 
     String command = arguments.get(0);
-    String commandType = regexDetector.getSymbol(command);
-
-    int numArgs = commandFactory.determineNumberParameters(commandType);
-    if(commandFactory.isControlCommand(command)) {
-      numArgs --;
-    }
 
     int count = 1;
     int change = 0;
