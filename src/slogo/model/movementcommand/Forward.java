@@ -33,6 +33,7 @@ public class Forward extends MovementCommand implements Command {
    */
   @Override
   public double execute(Turtle turtle) {
+    System.out.println("Foward: " + pixels);
     turtle.setLocation(
         determineLocation(turtle.getLocation(), Math.toRadians(turtle.getOrientation()), pixels));
     return pixels;

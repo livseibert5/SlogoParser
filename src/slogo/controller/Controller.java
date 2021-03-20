@@ -57,6 +57,10 @@ public class Controller {
     return userDefinedCommandHandler;
   }
 
+  /**
+   *
+   * @return
+   */
   public ColorHandler getColorHandler(){
     return colorHandler;
   }
