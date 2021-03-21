@@ -20,7 +20,8 @@ public abstract class ViewMaker {
   public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
   public static final String DEFAULT_RESOURCE_FOLDER =
       "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/" );
-  public static final String STYLESHEET = "default.css";
+  public final String STYLE = "styles/";
+  public String STYLESHEET = "Default.css";
 
   /**
    * Constructor for ViewMaker abstract class. Assumes setUpRoot is implemented in child classes.
@@ -31,7 +32,7 @@ public abstract class ViewMaker {
    */
   public ViewMaker(double sizeX, double sizeY, String title) {
     Scene viewScene = new Scene(viewRoot, sizeX, sizeY);
-    viewScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
+    viewScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + STYLESHEET).toExternalForm());
     viewStage.setTitle(title);
     viewStage.setScene(viewScene);
   }
@@ -83,4 +84,5 @@ public abstract class ViewMaker {
   public void showView() {
     viewStage.show();
   }
+
 }

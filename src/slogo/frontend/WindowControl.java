@@ -7,10 +7,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.xml.sax.SAXException;
@@ -86,7 +91,7 @@ public class WindowControl {
     myCustomizer = new ImageCustomizeView(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay, myTurtleWindow);
     LanguageDropDown dropDown = new LanguageDropDown(root, myController);
     turtleDetailsView = new TurtleDetailsView(400, 400, myController.getTurtleHandler());
-
+    setUpPreferences();
     setUpButtons();
     setUpKeyInput();
   }
@@ -178,5 +183,22 @@ public class WindowControl {
     }
 
     return turtleListeners;
+  }
+  public void setUpPreferences() {
+    List<String> results = new ArrayList<>();
+    File[] files = new File("src/slogo/frontend/resources/styles").listFiles();
+    assert files != null;
+    for (File file : files) {
+      if (file.isFile()) {
+        results.add(file.getName().substring(0, file.getName().lastIndexOf('.')));
+      }
+    }
+    ComboBox<String> prefs = new ComboBox<>(FXCollections.observableList(results));
+    prefs.setOnAction(event -> {
+      sceneMaker.changeStyle(prefs.getValue());
+    });
+    prefs.setValue("Default");
+    prefs.relocate(300,0);
+    root.getChildren().add(prefs);
   }
 }

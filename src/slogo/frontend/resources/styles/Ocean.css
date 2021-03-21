@@ -1,0 +1,55 @@
+.root {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Apple Chancery";
+    -fx-base: blanchedalmond;
+    -fx-background: blanchedalmond;
+    -fx-alignment: center;
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-background-color: aqua;
+    -fx-border-radius: 10;
+    -fx-background-radius: 20;
+    -fx-padding: 5;
+    -fx-alignment: center;
+}
+
+.button:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.combo-box-base {
+    -fx-text-base-color: white;
+    -fx-background-color: aqua;
+    -fx-border-radius: 10;
+    -fx-background-radius: 15;
+}
+.combo-box-base:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Apple Chancery";
+    -fx-text-fill: seagreen;
+    -fx-opacity: 0.6;
+}
+
+.text-field {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Apple Chancery";
+}
+
+#title-text {
+    -fx-font-size: 32pt;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-font-family: "Apple Chancery";
+}
+
+#colorlabel {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Apple Chancery";
+
+}

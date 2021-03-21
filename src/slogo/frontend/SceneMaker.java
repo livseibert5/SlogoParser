@@ -11,9 +11,8 @@ public class SceneMaker {
   public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
   public static final String DEFAULT_RESOURCE_FOLDER =
       "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/" );
-  public static final String STYLESHEET = "default.css";
-  private final ResourceBundle myResources = ResourceBundle
-      .getBundle(DEFAULT_RESOURCE_PACKAGE + "text" );
+  public static final String STYLESHEET = "Default.css";
+  public static final String STYLE = "styles/";
   private final Scene scene;
 
   public SceneMaker(Group root, Stage stage, int width, int height) {
@@ -24,7 +23,7 @@ public class SceneMaker {
   private Scene makeScene(Group root, int width, int height) {
     Scene scene = new Scene(root, width, height);
     scene.getStylesheets()
-        .add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
+        .add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + STYLESHEET).toExternalForm());
     return scene;
   }
 
@@ -33,5 +32,11 @@ public class SceneMaker {
     stage.setTitle("Slogo");
     stage.setResizable(false);
     stage.show();
+  }
+  public void changeStyle(String style) {
+    scene.getStylesheets().clear();
+    scene.getStylesheets()
+            .add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + style + ".css").toExternalForm());
+
   }
 }
