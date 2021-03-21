@@ -14,7 +14,6 @@ import slogo.model.GroupBlock;
 import slogo.model.Turtle;
 import slogo.model.UserDefinedCommand;
 import slogo.model.Value;
-import slogo.model.Variable;
 import slogo.model.backendexceptions.MathException;
 
 /**
