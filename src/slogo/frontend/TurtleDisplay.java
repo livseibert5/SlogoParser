@@ -1,5 +1,9 @@
 package slogo.frontend;
 
+<<<<<<< HEAD
+=======
+import java.beans.PropertyChangeEvent;
+>>>>>>> mal115
 import java.beans.PropertyChangeListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,9 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import slogo.model.Turtle;
@@ -114,6 +122,7 @@ public class TurtleDisplay {
 
     turtleView.setRotate(toAddTurtle.getOrientation() * -1);
     turtleView.setId("turtle" + id);
+
     turtleViewMap.put(id, turtleView);
     myRoot.getChildren().add(turtleView);
     turtleView.toFront();
@@ -219,15 +228,19 @@ public class TurtleDisplay {
   /**
    * Updates image file used for turtles in the box.
    */
+<<<<<<< HEAD
   public void updateImageView(int imageNumber) {
+=======
+
+  public void updateImageView(String path) {
+>>>>>>> mal115
     for (Integer i : turtleViewMap.keySet()) {
-      String image = "src/slogo/frontend/resources/images/UserImage" + imageNumber + ".jpg";
-      System.out.println(image);
       try {
-        turtleViewMap.get(i).setImage(new Image(new FileInputStream(image)));
+        turtleViewMap.get(i).setImage(new Image(new FileInputStream(path)));
       } catch (FileNotFoundException e) {
         e.printStackTrace();
       }
     }
   }
+
 }

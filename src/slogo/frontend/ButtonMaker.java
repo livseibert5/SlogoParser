@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 abstract class ButtonMaker {
     private final Button button;
@@ -31,6 +33,13 @@ abstract class ButtonMaker {
         root.getChildren().add(button);
         button.setOnAction(myHandler);
     }
+    public ButtonMaker(String myLabel, Pane myBox, EventHandler<ActionEvent> myHandler) {
+        label = myLabel;
+        button = makeButton(label, 0, 0);
+        button.setOnAction(myHandler);
+        myBox.getChildren().addAll(button);
+    }
+
 
     public Button makeButton(String name, double x, double y) {
         Button result = new Button();

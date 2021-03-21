@@ -8,7 +8,11 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.Controller;
+import slogo.model.ToXML;
 import slogo.model.parser.Parser;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 /**
  * Creates stage, scene, and animation.
@@ -27,10 +31,15 @@ public class WindowControl {
   private static final int DEFAULT_WIDTH = 1350;
   private static final int WINDOW_SIZE = 600;
   private static final int DEFAULT_BORDER = 50;
+  private final Stage stage = new Stage();
 
   private CreateScene myScene;
   private Group root = new Group();
+<<<<<<< HEAD
   private Stage stage = new Stage();
+=======
+
+>>>>>>> mal115
   private Controller myController;
   private TableDisplay myTableDisplay;
   private HelpButtonMaker helpButton;
@@ -38,12 +47,16 @@ public class WindowControl {
   private UploadButtonMaker uploadButton;
   private CommandField myCommand;
   private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
+<<<<<<< HEAD
   private int imageNumber = 1;
   private final Parser myParser;
   private final TurtleDisplay myTurtleDisplay;
   //private final SceneComponents myComponents;
   //private final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
   private final String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
+=======
+  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
+>>>>>>> mal115
 
   private ViewMaker errorWindow = new ErrorView(200, 200);
   private ViewMaker turtleDetailsWindow;
@@ -58,18 +71,22 @@ public class WindowControl {
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
     myTableDisplay.setHandler(event -> myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand()));
+<<<<<<< HEAD
+=======
+    myTurtleDisplay = new TurtleDisplay(myController.getTurtleHandler(), root);
+    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+>>>>>>> mal115
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
-    //myComponents = new SceneComponents(root, myTurtleDisplay.getListeners());
-    uploadButton = new UploadButtonMaker("Upload Image", UPLOAD_X, UPLOAD_Y, root, event -> uploadEvent());
-    helpButton = new HelpButtonMaker("Help", HELP_X, HELP_Y, root);
+    ImageCustomizer myCustomizer = new ImageCustomizer(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay, myTurtleWindow);
+    CustomizerButton customizerButton = new CustomizerButton("Customize", UPLOAD_X, UPLOAD_Y, root, event -> myCustomizer.showView());
+    helpButton = new HelpButtonMaker("Help", HELP_X + 50, HELP_Y, root);
     enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, event -> enterEvent());
     LanguageDropDown dropDown = new LanguageDropDown(root, myController);
-    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    ColorPickerMaker backgroundColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE - DEFAULT_BORDER, DEFAULT_BORDER / 3, "Background");
-    backgroundColor.setHandler(event -> myTurtleWindow.setColor(backgroundColor.getNewColor()));
-    ColorPickerMaker penColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE/2 - DEFAULT_BORDER, DEFAULT_BORDER/3, "Pen");
-    penColor.setHandler(event -> myTurtleDisplay.setLineColor(penColor.getNewColor()));
+    //ColorPickerMaker penColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE/2 - DEFAULT_BORDER, DEFAULT_BORDER/3, "Pen");
+    //penColor.setHandler(event -> myTurtleDisplay.setLineColor(penColor.getNewColor()));
+    ToXML toXML = new ToXML(myController);
     WorkspaceButtonMaker newButton = new WorkspaceButtonMaker("New Workspace", DEFAULT_WIDTH - 200, 0, root);
+<<<<<<< HEAD
     turtleDetailsWindow = new TurtleDetailsView(400, 400, myController.getTurtleHandler());
     Button turtleDetailButton = makeButton(HELP_X + 100, HELP_Y, "Turtle Details",
         e -> turtleDetailsWindow.showView());
@@ -97,6 +114,21 @@ public class WindowControl {
       imageNumber++;
     }
   }
+=======
+    EnterButtonMaker xmlUpload = new EnterButtonMaker("Upload XML File", HELP_X - 200, HELP_Y, root, event -> uploadXML());
+    EnterButtonMaker xmlSave = new EnterButtonMaker("Save as XML", HELP_X + 150, HELP_Y, root, event -> {
+      try {
+        toXML.exportToXML();
+      } catch (ParserConfigurationException e) {
+        e.printStackTrace();
+      } catch (TransformerException e) {
+        e.printStackTrace();
+      }
+    });
+  }
+
+
+>>>>>>> mal115
 
   private void enterEvent() {
     try {
@@ -108,4 +140,18 @@ public class WindowControl {
       errorWindow.showView();
     }
   }
+<<<<<<< HEAD
+=======
+  private void uploadXML() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Upload XML");
+    fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+    File file = fileChooser.showOpenDialog(stage);
+    if (file != null) {
+      boolean isMoved = file.renameTo(new File("data/UserUploaded.xml"));
+    }
+  }
+
+>>>>>>> mal115
 }
