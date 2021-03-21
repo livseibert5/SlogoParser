@@ -7,9 +7,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,7 +21,6 @@ import slogo.model.FromXML;
 import slogo.model.Turtle;
 import slogo.model.ToXML;
 import slogo.model.parser.Parser;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -34,7 +30,7 @@ import javax.xml.transform.TransformerException;
  *d
  * @author Jessica Yang
  */
-public class WindowControl {
+public class WindowControl extends ViewMaker {
   private static final int HELP_X = 1000;
   private static final int HELP_Y = 700;
   private static final int ENTER_X = 300;
@@ -48,17 +44,12 @@ public class WindowControl {
   private static final int HELP_HEIGHT = 500;
   private static final int HELP_WIDTH = 750;
 
-  private SceneMaker sceneMaker;
-  private Group root = new Group();
-  private Stage stage = new Stage();
+  private final Group root = new Group();
 
-  private Controller myController;
-  private TableDisplay myTableDisplay;
+  private final Controller myController;
+  private final TableDisplay myTableDisplay;
   private CommandField myCommand;
-  private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
 
-  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
-  private int imageNumber = 1;
   private final Parser myParser;
   private final TurtleDisplay myTurtleDisplay;
 
@@ -72,7 +63,7 @@ public class WindowControl {
    * Constructor for WindowControl class. Returns WindowControl object.
    */
   public WindowControl(Stage myStage) {
-    sceneMaker = new SceneMaker(root, myStage, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    super(DEFAULT_WIDTH, DEFAULT_HEIGHT, "Slogo");
     myController = new Controller();
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
@@ -88,11 +79,12 @@ public class WindowControl {
     });
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
     LanguageDropDown dropDown = new LanguageDropDown(root, myController);
-
     setUpViews();
     setUpPreferences();
     setUpButtons();
     setUpKeyInput();
+    getRoot().setCenter(root);
+    showView();
   }
 
   private void setUpViews() {
@@ -108,36 +100,33 @@ public class WindowControl {
     viewListeners.add(helpView.getListener());
     viewListeners.add(turtleDetailsView.getListener());
 
-    sceneMaker.addMultipleListeners(viewListeners);
+    addMultipleListeners(viewListeners);
   }
 
   private void setUpButtons() {
     ToXML toXML = new ToXML(myController);
-    Button xmlSaveButton = makeButton(HELP_X + 150, HELP_Y, "Save as XML", event -> {
+    addButton(HELP_X + 150, HELP_Y, "Save as XML", event -> {
       try {
         toXML.exportToXML();
       } catch (ParserConfigurationException | TransformerException e) {
         e.printStackTrace();
       }
     });
-    Button xmlUploadButton = makeButton(HELP_X - 200, HELP_Y, "Upload XML File", event -> uploadXML());
-    Button customizerButton = makeButton(UPLOAD_X, UPLOAD_Y, "Customize", event -> myCustomizer.showView());
-    Button helpButton = makeButton(HELP_X + 50, HELP_Y, "Help", evt -> helpView.showView());
-    Button enterButton = makeButton(ENTER_X, ENTER_Y, "Enter", event -> enterEvent());
-    Button newButton = makeButton(DEFAULT_WIDTH - 200, 0, "New Workspace", evt -> {
+    addButton(HELP_X - 200, HELP_Y, "Upload XML File", event -> uploadXML());
+    addButton(UPLOAD_X, UPLOAD_Y, "Customize", event -> myCustomizer.showView());
+    addButton(HELP_X + 50, HELP_Y, "Help", evt -> helpView.showView());
+    addButton(ENTER_X, ENTER_Y, "Enter", event -> enterEvent());
+    addButton(DEFAULT_WIDTH - 200, 0, "New Workspace", evt -> {
       WindowControl window = new WindowControl(new Stage());
     });
-    Button turtleDetailButton = makeButton(DEFAULT_WIDTH - 400, 0, "Turtle Details",
+    addButton(DEFAULT_WIDTH - 400, 0, "Turtle Details",
         e -> turtleDetailsView.showView());
   }
 
-  private Button makeButton(double x, double y, String title, EventHandler<ActionEvent> evt) {
-    Button newButton = new Button(title);
-    newButton.relocate(x, y);
-    newButton.setId(title.replaceAll(" ", ""));
+  private void addButton(double x, double y, String title, EventHandler<ActionEvent> evt) {
+    Button newButton = makeButton(x, y, title);
     newButton.setOnAction(evt);
     root.getChildren().add(newButton);
-    return newButton;
   }
 
   private void enterEvent() {
@@ -157,7 +146,8 @@ public class WindowControl {
     fileChooser.setTitle("Upload XML");
     fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("XML Files", "*.xml"));
-    File file = fileChooser.showOpenDialog(stage);
+    //File file = fileChooser.showOpenDialog(stage);
+    File file = fileChooser.showOpenDialog(getStage());
     if (file != null) {
       try {
         fromXML.readFile(file.getName());
@@ -200,7 +190,7 @@ public class WindowControl {
     return turtleListeners;
   }
 
-  public void setUpPreferences() {
+  private void setUpPreferences() {
     List<String> results = new ArrayList<>();
     File[] files = new File("src/slogo/frontend/resources/styles").listFiles();
     assert files != null;
@@ -211,7 +201,8 @@ public class WindowControl {
     }
     ComboBox<String> prefs = new ComboBox<>(FXCollections.observableList(results));
     prefs.setOnAction(event -> {
-      sceneMaker.changeStyle(prefs.getValue());
+      //sceneMaker.changeStyle(prefs.getValue());
+      changeStyle(prefs.getValue());
     });
     prefs.setValue("Default");
     prefs.relocate(300,0);

@@ -1,15 +1,13 @@
 package slogo.frontend;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import slogo.Observable;
 
 /**
  * Creates basic window that can be extended.
@@ -17,15 +15,16 @@ import javafx.stage.Stage;
  *
  * @author Jessica Yang
  */
-public abstract class ViewMaker {
+public class ViewMaker extends Observable<Object> {
 
   private final Stage viewStage = new Stage();
   private final BorderPane viewRoot = new BorderPane();
+  private final Scene viewScene;
   public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
   public static final String DEFAULT_RESOURCE_FOLDER =
       "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/" );
   public final String STYLE = "styles/";
-  public String STYLESHEET = "Default.css";
+  public static String styleSheet = "Default.css";
 
   private PropertyChangeListener cssListener;
 
@@ -37,17 +36,23 @@ public abstract class ViewMaker {
    * @param title string title of window
    */
   public ViewMaker(double sizeX, double sizeY, String title) {
-    Scene viewScene = new Scene(viewRoot, sizeX, sizeY);
-    viewScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + STYLESHEET).toExternalForm());
+    viewScene = new Scene(viewRoot, sizeX, sizeY);
+    updateStyleSheet();
     viewStage.setTitle(title);
     viewStage.setScene(viewScene);
     cssListener = evt -> {
       if (evt.getPropertyName().equals("css")) {
-        viewScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + evt.getNewValue()).toExternalForm());
+        styleSheet = (String) evt.getNewValue();
+        updateStyleSheet();
       }
     };
   }
 
+  private void updateStyleSheet() {
+    viewScene.getStylesheets().clear();
+    viewScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE
+        + styleSheet).toExternalForm());
+  }
   /**
    * Retrieves listener used by ViewMaker.
    *
@@ -64,6 +69,15 @@ public abstract class ViewMaker {
    */
   protected BorderPane getRoot() {
     return viewRoot;
+  }
+
+  /**
+   * Used by child-classes to access class stage.
+   *
+   * @return viewStage to be added to
+   */
+  protected Stage getStage() {
+    return viewStage;
   }
 
   /**
@@ -94,7 +108,7 @@ public abstract class ViewMaker {
   protected Button makeButton(double xCoordinate, double yCoordinate, String text) {
     Button newButton = new Button(text);
     newButton.relocate(xCoordinate, yCoordinate);
-    newButton.setId(text);
+    newButton.setId(text.replaceAll(" ", ""));
     return newButton;
   }
 
@@ -103,6 +117,17 @@ public abstract class ViewMaker {
    */
   public void showView() {
     viewStage.show();
+  }
+
+  /**
+   * Updates the css used for styling the view.
+   *
+   * @param style filename of new .css
+   */
+  public void changeStyle(String style) {
+    notifyListeners("css", styleSheet, (style + ".css"));
+    styleSheet = style + ".css";
+    updateStyleSheet();
   }
 
 }
