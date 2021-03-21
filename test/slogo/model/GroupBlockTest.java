@@ -34,14 +34,13 @@ public class GroupBlockTest {
   @Test
   void testTwoParameterFunction() throws ClassNotFoundException {
     List<String> list = new ArrayList<>(Arrays.asList("sum", "30","40", "50", "60"));
-    assertEquals("sum 30 40 sum 50 60", groupBlock.insertCommand(list));
+    assertEquals("sum 30 sum 40 sum 50 60", groupBlock.insertCommand(list));
   }
 
   @Test
   void testWithParsing()
       throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-      assertEquals(100, parser.parse("fd ( sum 10 20 30 40 )"));
+    assertEquals(100, parser.parse("fd ( sum 10 20 30 40 )"));
   }
 
 }
-
