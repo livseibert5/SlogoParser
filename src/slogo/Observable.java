@@ -11,30 +11,47 @@ import java.util.List;
  * @author Jessica Yang, Robert C. Duvall
  */
 public class Observable<T> {
-  private List<PropertyChangeListener> myListeners;
+  private final List<PropertyChangeListener> myListeners;
 
   public Observable() {
     myListeners = new ArrayList<>();
   }
 
   /**
-   * Used by other classes to add their own listener to the Observable subclass.
+   * Used by other classes to add their own listeners to the Observable subclass.
    *
-   * @param newListener used to listener
-   * @throws Exception null pointer exception
+   * @param newListeners list of listeners
+   */
+  public void addMultipleListeners(List<PropertyChangeListener> newListeners) {
+    for (PropertyChangeListener l : newListeners) {
+      if (l != null) {
+        myListeners.add(l);
+      }
+    }
+  }
+
+  /**
+   * Used by other classes to add a single listner to the Observable subclass.
+   *
+   * @param newListener propertychangelistener
    */
   public void addListener(PropertyChangeListener newListener) {
-    /*
-    try {
-      myListeners.add(newListener);
-    } catch (NullPointerException e) {
-      throw new Exception("Null listener passed.");
-    }
-
-     */
     if (newListener != null) {
       myListeners.add(newListener);
     }
+  }
+
+  public void removeListener(PropertyChangeListener listener) {
+    myListeners.remove(listener);
+  }
+
+  /**
+   * Gets listeners for classes extending observable.
+   *
+   * @return myListeners all listeners
+   */
+  public List<PropertyChangeListener> getListeners() {
+    return myListeners;
   }
 
   /**

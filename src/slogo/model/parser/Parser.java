@@ -10,8 +10,11 @@ import java.util.stream.Collectors;
 import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.Constant;
+import slogo.model.GroupBlock;
 import slogo.model.Turtle;
 import slogo.model.UserDefinedCommand;
+import slogo.model.Value;
+import slogo.model.Variable;
 import slogo.model.backendexceptions.MathException;
 
 /**
@@ -23,15 +26,15 @@ import slogo.model.backendexceptions.MathException;
  */
 public class Parser {
 
-  private RegexDetector regexDetector = new RegexDetector();
-  private CommandFactory commandFactory = new CommandFactory();
-  private Controller controller;
+  private final RegexDetector regexDetector = new RegexDetector();
+  private final CommandFactory commandFactory = new CommandFactory();
+  private final Controller controller;
   private ExpressionFactory expressionFactory;
   private Stack<Object> commandStack;
   private Stack<Object> poppedStack;
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
-  private ResourceBundle resources;
-  private ResourceBundle expressionFactoryTypes = ResourceBundle
+  private final ResourceBundle resources;
+  private final ResourceBundle expressionFactoryTypes = ResourceBundle
       .getBundle(RESOURCE_FOLDER + "ExpressionFactory");
   private List<Turtle> turtles;
   private double result;
@@ -67,14 +70,15 @@ public class Parser {
    *
    * @param command String with commands from IDE
    * @return integer result of the command
-   * @throws ClassNotFoundException
-   * @throws NoSuchMethodException
-   * @throws InvocationTargetException
-   * @throws InstantiationException
-   * @throws IllegalAccessException
+   * @throws ClassNotFoundException class not found in command factory
+   * @throws NoSuchMethodException method not found in command factory
+   * @throws InvocationTargetException can't invoke target
+   * @throws InstantiationException can't make new object from command factory
+   * @throws IllegalAccessException trying to make object in command factory without access
    */
   public int parse(String command)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
+    setUpParser();
     turtles = controller.getTurtleHandler().getActiveTurtles();
     String[] commandComponents = removeComments(command).split(" ");
     createCommandStack(commandComponents);
@@ -109,7 +113,8 @@ public class Parser {
    *
    * @param commandComponents list of command components to parse
    */
-  private void createCommandStack(String[] commandComponents) {
+  private void createCommandStack(String[] commandComponents)
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
     int index = commandComponents.length - 1;
     while (index >= 0) {
       String commandType = regexDetector.getSymbol(commandComponents[index]);
@@ -133,18 +138,28 @@ public class Parser {
    * @return new index of commandComponents list
    */
   private int handleNonCommandExpressionComponents(String commandType, String[] commandComponents,
-      int index) {
-    if (commandType.equals("Constant")) {
-      commandStack.push(expressionFactory.makeConstant(Integer.parseInt(commandComponents[index])));
-    } else if (commandType.equals("ListEnd")) {
-      int endIndex = expressionFactory
-          .findBeginningOfCommandBlock(index, commandComponents, regexDetector);
-      List<String> commandList = Arrays
-          .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
-      commandStack.push(expressionFactory.makeCommandBlock(commandList));
-      return endIndex;
-    } else if (commandType.equals("Variable")) {
-      commandStack.push(expressionFactory
+      int index)
+      throws ClassNotFoundException, NoSuchMethodException, MathException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    switch (commandType) {
+      case "Constant" -> commandStack
+          .push(expressionFactory.makeConstant(Integer.parseInt(commandComponents[index])));
+      case "ListEnd" -> {
+        int endIndex = expressionFactory
+            .findBeginningOfCommandBlock(index, commandComponents, regexDetector);
+        List<String> commandList = Arrays
+            .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
+        commandStack.push(expressionFactory.makeCommandBlock(commandList));
+        return endIndex;
+      }
+      case "GroupEnd" -> {
+        GroupBlock groupBlock = new GroupBlock(controller);
+        int endIndex = groupBlock.findIndex(index, commandComponents, regexDetector);
+        List<String> groupList = Arrays
+            .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
+        commandStack.push(expressionFactory.makeConstant(parse(groupBlock.insertCommand(groupList))));
+        return endIndex;
+      }
+      case "Variable" -> commandStack.push(expressionFactory
           .makeVariable(commandComponents[index], controller.getVariableHandler()));
     }
     return index;
@@ -153,11 +168,11 @@ public class Parser {
   /**
    * Pops commands off of the commandStack, passes them their expected parameters, and runs them.
    *
-   * @throws ClassNotFoundException
-   * @throws NoSuchMethodException
-   * @throws InstantiationException
-   * @throws IllegalAccessException
-   * @throws InvocationTargetException
+   * @throws ClassNotFoundException class not found in command factory
+   * @throws NoSuchMethodException method not found in command factory
+   * @throws InvocationTargetException can't invoke target
+   * @throws InstantiationException can't make new object from command factory
+   * @throws IllegalAccessException trying to make object in command factory without access
    */
   private void parseCommandStack()
       throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
@@ -176,29 +191,40 @@ public class Parser {
   /**
    * Runs a user defined command with the values input at runtime.
    *
-   * @throws ClassNotFoundException
-   * @throws NoSuchMethodException
-   * @throws MathException
-   * @throws InstantiationException
-   * @throws IllegalAccessException
-   * @throws InvocationTargetException
+   * @throws ClassNotFoundException class not found in command factory
+   * @throws NoSuchMethodException method not found in command factory
+   * @throws InvocationTargetException can't invoke target
+   * @throws InstantiationException can't make new object from command factory
+   * @throws IllegalAccessException trying to make object in command factory without access
    */
   private void executeUserDefinedCommand()
       throws ClassNotFoundException, NoSuchMethodException, MathException, InstantiationException, IllegalAccessException, InvocationTargetException {
     Object command = commandStack.pop();
+    poppedStack.push(command);
     UserDefinedCommand userCommand = controller.getUserDefinedCommandHandler()
         .getCommand((String) command);
     List<Object> parameters = generateParameters((String) command,
         userCommand.getNumberParameters());
-    String newCommand = userCommand.generateCommand(parameters);
-    Constant result = new Constant(parse(newCommand));
-    endCommand(result);
+    boolean correctParams = true;
+    for (Object param: parameters) {
+      if (!(param instanceof Value)) {
+        correctParams = false;
+      }
+    }
+    if (!correctParams) {
+      resetArguments((String) command, parameters);
+    } else {
+      String newCommand = userCommand.generateCommand(parameters);
+      Constant result = new Constant(parse(newCommand));
+      poppedStack.pop();
+      endCommand(result);
+    }
   }
 
   /**
    * Executes a slogo command.
    *
-   * @throws ClassNotFoundException
+   * @throws ClassNotFoundException can't find class for given command type
    */
   private void executeSlogoCommand() throws ClassNotFoundException {
     Object command = commandStack.pop();
@@ -207,10 +233,11 @@ public class Parser {
     List<Object> args = generateParameters((String) command, numArgs);
     try {
       Command commandObj = (Command) commandFactory.createCommand((String) command, args);
-      if (command.equals("Tell")) {
-        commandObj.execute(new Turtle());
+      if (command.equals("Tell") || command.equals("Ask") || command.equals("AskWith")) {
+        result = commandObj.execute(new Turtle());
         turtles = controller.getTurtleHandler().getActiveTurtles();
       } else {
+        turtles = controller.getTurtleHandler().getActiveTurtles();
         for (Turtle turtle: turtles) {
           result = commandObj.execute(turtle);
         }

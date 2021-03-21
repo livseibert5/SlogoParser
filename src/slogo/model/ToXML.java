@@ -27,9 +27,8 @@ import java.util.List;
  */
 public class ToXML {
 
-  private Controller controller;
+  private final Controller controller;
   private Document doc;
-  private Element rootElement;
   private Element variableElement;
   private Element functionElement;
 
@@ -47,8 +46,8 @@ public class ToXML {
    * Button click on front end triggers this function, which writes the current user-defined
    * variables and commands to an XML file.
    *
-   * @throws ParserConfigurationException
-   * @throws TransformerException
+   * @throws ParserConfigurationException issue configuring XML parser
+   * @throws TransformerException issue writing to XML file
    */
   public void exportToXML() throws ParserConfigurationException, TransformerException {
     initializeDocumentBuilder();
@@ -71,7 +70,7 @@ public class ToXML {
    * Builds the new XML file.
    */
   private void createDocument() {
-    rootElement = doc.createElement("UserDefinedData");
+    Element rootElement = doc.createElement("UserDefinedData");
     doc.appendChild(rootElement);
     variableElement = doc.createElement("Variables");
     rootElement.appendChild(variableElement);
@@ -152,7 +151,7 @@ public class ToXML {
   /**
    * Writes new XML document to file.
    *
-   * @throws TransformerException
+   * @throws TransformerException issue writing to XML file
    */
   private void exportNewFile() throws TransformerException {
     TransformerFactory transformerFactory = TransformerFactory.newInstance();

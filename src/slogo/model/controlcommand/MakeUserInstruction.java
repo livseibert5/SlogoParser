@@ -16,10 +16,10 @@ import slogo.model.UserDefinedCommand;
  */
 public class MakeUserInstruction implements Command {
 
-  private Controller controller;
-  private String name;
-  private CommandBlock arguments;
-  private CommandBlock function;
+  private final Controller controller;
+  private final String name;
+  private final CommandBlock arguments;
+  private final CommandBlock function;
 
   /**
    * MakeUserInstruction constructor needs a controller to add the command to the
@@ -45,11 +45,11 @@ public class MakeUserInstruction implements Command {
    *
    * @param turtle turtle object to execute command on
    * @return 1 if storing the command was successful
-   * @throws ClassNotFoundException
-   * @throws NoSuchMethodException
-   * @throws InvocationTargetException
-   * @throws InstantiationException
-   * @throws IllegalAccessException
+   * @throws ClassNotFoundException class not found in command factory
+   * @throws NoSuchMethodException method not found in command factory
+   * @throws InvocationTargetException can't invoke target
+   * @throws InstantiationException can't make new object from command factory
+   * @throws IllegalAccessException trying to make object in command factory without access
    */
   @Override
   public double execute(Turtle turtle)

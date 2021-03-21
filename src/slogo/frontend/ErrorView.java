@@ -3,6 +3,7 @@ package slogo.frontend;
 import javafx.scene.Group;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 /**
  * Class for error pop up window.
@@ -10,6 +11,8 @@ import javafx.scene.paint.Color;
  * @author Jessica Yang
  */
 public class ErrorView extends ViewMaker {
+
+  private Text messageText;
 
   /**
    * Constructor for ErrorView class.
@@ -19,6 +22,10 @@ public class ErrorView extends ViewMaker {
    */
   public ErrorView(double sizeX, double sizeY) {
     super(sizeX, sizeY, "Error");
+    messageText = makeText(10, sizeY / 3, null,
+        "errorMessage");
+    messageText.setWrappingWidth(sizeX - 20);
+    setUpRoot(getRoot(), sizeX, sizeY);
   }
 
   /**
@@ -31,6 +38,18 @@ public class ErrorView extends ViewMaker {
   @Override
   protected void setUpRoot(BorderPane myRoot, double sizeX, double sizeY) {
     myRoot.getChildren().add(makeText(sizeX / 3, sizeY / 3, "Invalid command.",
-        "errorMessage"));
+            "errorMessage"));
+  }
+  private void setUpRoot (Group myRoot,double sizeX, double sizeY){
+      myRoot.getChildren().add(messageText);
+  }
+
+  /**
+   * Allows error message to be customized for specific events.
+   *
+   * @param message specific string message
+   */
+  public void updateMessage(String message) {
+    messageText.setText(message);
   }
 }

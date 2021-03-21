@@ -100,11 +100,6 @@ public class DukeApplicationTest extends ApplicationTest {
     simulateAction(cp, () -> { cp.setValue(value); cp.fireEvent(new ActionEvent()); });
   }
 
-  protected void select (ComboBox<String> cb, String value) {
-    // FIXME: duplicated code - but no common ancestor defines getSelectionModel()
-    simulateAction(cb, () -> cb.getSelectionModel().select(value));
-  }
-
   protected void select (ChoiceBox<String> cb, String value) {
     // FIXME: duplicated code - but no common ancestor defines getSelectionModel()
     simulateAction(cb, () -> cb.getSelectionModel().select(value));
@@ -125,6 +120,19 @@ public class DukeApplicationTest extends ApplicationTest {
     simulateAction(cp, () -> {
       cp.setValue(Color.valueOf(value));
       cp.fireEvent(new ActionEvent());
+    });
+  }
+
+  /**
+   * Testing method for changing values in Combobox objects.
+   *
+   * @param cb ColorPicker object
+   * @param value new integer value
+   */
+  protected void select(ComboBox cb, String value) {
+    simulateAction(cb, () -> {
+      cb.setValue(Integer.valueOf(value));
+      cb.fireEvent(new ActionEvent());
     });
   }
 

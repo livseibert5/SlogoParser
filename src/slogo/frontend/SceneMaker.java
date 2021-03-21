@@ -1,49 +1,37 @@
 package slogo.frontend;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.util.ResourceBundle;
 
-public class CreateScene {
+public class SceneMaker {
 
-  private Group root;
-  private static final int DEFAULT_HEIGHT = 750;
-  private static final int DEFAULT_WIDTH = 1350;
   public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
   public static final String DEFAULT_RESOURCE_FOLDER =
       "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/" );
   public static final String STYLESHEET = "default.css";
   private final ResourceBundle myResources = ResourceBundle
       .getBundle(DEFAULT_RESOURCE_PACKAGE + "text" );
-  private final Stage stage;
-  public static final double FRAMES_PER_SECOND = 60.0;
-  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  private final Scene scene;
 
-  public CreateScene(Stage myStage, Group myRoot) {
-    this.stage = myStage;
-    this.root = myRoot;
-    displayStage(makeScene());
+  public SceneMaker(Group root, Stage stage, int width, int height) {
+    scene = makeScene(root, width, height);
+    displayStage(stage);
   }
 
-  private Scene makeScene() {
-    Scene scene = new Scene(root, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+  private Scene makeScene(Group root, int width, int height) {
+    Scene scene = new Scene(root, width, height);
     scene.getStylesheets()
         .add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
     return scene;
   }
 
-  private void displayStage(Scene scene) {
+  private void displayStage(Stage stage) {
     stage.setScene(scene);
-    stage.setTitle("Slogo" );
+    stage.setTitle("Slogo");
     stage.setResizable(false);
     stage.show();
   }
-
-
 }

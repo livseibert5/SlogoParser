@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 abstract class ButtonMaker {
-    private Button button;
+    private final Button button;
     String label;
     int x;
     int y;
@@ -43,9 +43,8 @@ abstract class ButtonMaker {
 
     public Button makeButton(String name, double x, double y) {
         Button result = new Button();
-        String label = name;
-        result.setId(label);
-        result.setText(label);
+        result.setId(name);
+        result.setText(name);
         result.relocate(x, y);
         return result;
     }

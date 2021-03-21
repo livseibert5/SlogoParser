@@ -15,9 +15,9 @@ public class UploadButtonMaker extends ButtonMaker{
         super(myLabel, myBox, myHandler);
     }
 
+
     @Override
     EventHandler<ActionEvent> createHandler() {
         return null;
-
     }
 }

@@ -26,4 +26,13 @@ public class VariableHandlerTest {
     variableHandler.addVariable(variable);
     assertEquals(variable, variableHandler.getVariableWithName(":var"));
   }
+
+  @Test
+  void addVariableWithSameNameChangesVal() {
+    Variable variable = new Variable(":var", 10);
+    variableHandler.addVariable(variable);
+    Variable newVar = new Variable(":var", 20);
+    variableHandler.addVariable(newVar);
+    assertEquals(1, variableHandler.getAllVariables().size());
+  }
 }

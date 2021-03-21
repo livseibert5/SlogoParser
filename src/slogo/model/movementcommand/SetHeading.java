@@ -1,7 +1,6 @@
 package slogo.model.movementcommand;
 
 import slogo.model.Command;
-import slogo.model.Constant;
 import slogo.model.Turtle;
 import slogo.model.Value;
 
@@ -13,7 +12,7 @@ import slogo.model.Value;
  */
 public class SetHeading implements Command {
 
-  double orientation;
+  private final double orientation;
 
   /**
    * Constructor for the SetHeading command, takes a constant as an argument and later gets its

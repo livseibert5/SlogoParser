@@ -1,10 +1,5 @@
 package slogo.controller;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-import slogo.model.Color;
 import slogo.model.handlers.ColorHandler;
 import slogo.model.handlers.TurtleHandler;
 import slogo.model.handlers.UserDefinedCommandHandler;
@@ -17,10 +12,10 @@ import slogo.model.handlers.VariableHandler;
  */
 public class Controller {
 
-  private TurtleHandler turtleHandler;
-  private VariableHandler variableHandler;
-  private UserDefinedCommandHandler userDefinedCommandHandler;
-  private ColorHandler colorHandler;
+  private final TurtleHandler turtleHandler;
+  private final VariableHandler variableHandler;
+  private final UserDefinedCommandHandler userDefinedCommandHandler;
+  private final ColorHandler colorHandler;
   private String language;
 
   /**
@@ -62,6 +57,10 @@ public class Controller {
     return userDefinedCommandHandler;
   }
 
+  /**
+   *
+   * @return
+   */
   public ColorHandler getColorHandler(){
     return colorHandler;
   }

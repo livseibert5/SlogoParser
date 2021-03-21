@@ -12,7 +12,7 @@ import slogo.model.Value;
  */
 public class Forward extends MovementCommand implements Command {
 
-  private double pixels;
+  private final double pixels;
 
   /**
    * Constructor for the Forward command, takes a constant as an argument and gets its value by
@@ -33,6 +33,7 @@ public class Forward extends MovementCommand implements Command {
    */
   @Override
   public double execute(Turtle turtle) {
+    System.out.println("Foward: " + pixels);
     turtle.setLocation(
         determineLocation(turtle.getLocation(), Math.toRadians(turtle.getOrientation()), pixels));
     return pixels;

@@ -1,6 +1,5 @@
 package slogo.model.handlers;
 
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import slogo.model.Variable;
@@ -28,7 +27,11 @@ public class VariableHandler {
    * @param variable new variable object to add
    */
   public void addVariable(Variable variable) {
-    variables.add(variable);
+    if (getVariableWithName(variable.getName()) != null) {
+      getVariableWithName(variable.getName()).setValue(variable.getValue());
+    } else {
+      variables.add(variable);
+    }
   }
 
   /**

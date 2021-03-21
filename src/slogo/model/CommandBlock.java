@@ -8,7 +8,7 @@ package slogo.model;
  */
 public class CommandBlock {
 
-  private String commandBlock;
+  private final String commandBlock;
 
   /**
    * Constructor for CommandBlock, takes a String of commands.

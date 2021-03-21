@@ -1,5 +1,7 @@
 package slogo.model.handlers;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +15,13 @@ import slogo.model.Turtle;
  *
  * @author Livia Seibert
  */
-public class TurtleHandler extends Observable {
+public class TurtleHandler extends Observable<Object> {
 
-  private Map<Integer, Turtle> turtles;
+  private final Map<Integer, Turtle> turtles;
   private List<Turtle> activeTurtles;
   private int currentTurtleIndex;
+  private PropertyChangeListener backEndX;
+  private PropertyChangeListener backEndY;
 
   /**
    * Constructor for TurtleHandler creates new map for the turtles.
@@ -28,6 +32,25 @@ public class TurtleHandler extends Observable {
     activeTurtles = new ArrayList<>();
     activeTurtles.add(turtles.get(1));
     currentTurtleIndex = 1;
+    setUpListeners();
+    activeTurtles.forEach(turtle -> {
+      turtle.addListener(backEndX);
+      turtle.addListener(backEndY);
+    });
+  }
+
+  private void setUpListeners() {
+    backEndY = event -> {
+      if (event.getPropertyName().equals("backEndYCoordinate")) {
+        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate(), turtle.getYCoordinate() + (Double) event.getNewValue()}));
+      }
+    };
+
+    backEndX = event -> {
+      if (event.getPropertyName().equals("backEndXCoordinate")) {
+        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate() + (Double) event.getNewValue(), turtle.getYCoordinate()}));
+      }
+    };
   }
 
   /**
@@ -37,6 +60,7 @@ public class TurtleHandler extends Observable {
    */
   public void addTurtle(Turtle turtle) {
     currentTurtleIndex++;
+    turtle.addMultipleListeners(getListeners());
     notifyListeners("addTurtle", turtles, turtles.put(currentTurtleIndex, turtle));
   }
 
@@ -44,25 +68,35 @@ public class TurtleHandler extends Observable {
     return activeTurtles;
   }
 
-  /**
-   * Allows the front end and the back end to remove the turtle with the given id.
-   *
-   * @param id id of turtle to remove
-   */
-  public void removeTurtle(int id) {
-    turtles.remove(id);
-  }
-
   public int getNumberTurtles() {
     return turtles.size();
   }
 
   public List<Turtle> getAllTurtles() {
-    return (List<Turtle>) turtles.values();
+    return new ArrayList<>(turtles.values());
+  }
+
+  /**
+   * Returns list of all turtle ids.
+   *
+   * @return List<Integer> of turtle IDs.
+   * @author Jessica Yang
+   */
+  public List<Integer> getAllIds() {
+    return new ArrayList<>(turtles.keySet());
   }
 
   public void setActiveTurtles(List<Turtle> newActiveTurtles) {
+    notifyListeners("activeTurtles", activeTurtles, newActiveTurtles);
     activeTurtles = newActiveTurtles;
+    turtles.forEach((id, turtle) -> {
+      turtle.removeListener(backEndX);
+      turtle.removeListener(backEndY);
+    });
+    activeTurtles.forEach(turtle -> {
+      turtle.addListener(backEndX);
+      turtle.addListener(backEndY);
+    });
   }
 
   public int getTurtleId(Turtle turtle) {
