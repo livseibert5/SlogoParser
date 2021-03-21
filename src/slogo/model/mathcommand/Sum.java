@@ -34,7 +34,6 @@ public class Sum implements Command {
    */
   @Override
   public double execute(Turtle turtle) {
-    System.out.println("Sum: " + argument1 + " " + argument2);
     return argument1 + argument2;
   }
 }
