@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import slogo.model.Turtle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Tests for TurtleHandler class.
@@ -27,12 +27,9 @@ public class TurtleHandlerTest {
     turtleHandler.addTurtle(turtle);
     assertEquals(turtleHandler.getTurtle(2), turtle);
   }
-/*
+
   @Test
-  void deleteTurtle() {
-    Turtle turtle = new Turtle();
-    turtleHandler.addTurtle(turtle);
-    turtleHandler.removeTurtle(2);
-    assertNull(turtleHandler.getTurtle(2));
-  }*/
+  void getTurtleDoesntExists() {
+    assertNotNull(turtleHandler.getTurtle(2));
+  }
 }
