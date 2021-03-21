@@ -36,6 +36,7 @@ public class TurtleHandler extends Observable<Object> {
     activeTurtles.forEach(turtle -> {
       turtle.addListener(backEndX);
       turtle.addListener(backEndY);
+      turtle.addListener(backEndOrientation);
     });
   }
 
@@ -54,7 +55,7 @@ public class TurtleHandler extends Observable<Object> {
       }
     };
     backEndOrientation = event -> {
-      if (event.getPropertyName().equals("backEndOrientation")) {
+      if (event.getPropertyName().equals("frontEndOrientation")) {
         activeTurtles.forEach(turtle -> turtle.setOrientation(turtle.getOrientation() + (Double) event.getNewValue()));
       }
     };
@@ -119,10 +120,12 @@ public class TurtleHandler extends Observable<Object> {
     turtles.forEach((id, turtle) -> {
       turtle.removeListener(backEndX);
       turtle.removeListener(backEndY);
+      turtle.removeListener(backEndOrientation);
     });
     activeTurtles.forEach(turtle -> {
       turtle.addListener(backEndX);
       turtle.addListener(backEndY);
+      turtle.addListener(backEndOrientation);
     });
   }
 
