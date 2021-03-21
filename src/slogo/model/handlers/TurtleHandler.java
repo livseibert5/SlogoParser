@@ -21,6 +21,7 @@ public class TurtleHandler extends Observable<Object> {
   private int currentTurtleIndex;
   private PropertyChangeListener backEndX;
   private PropertyChangeListener backEndY;
+  private PropertyChangeListener backEndOrientation;
 
   /**
    * Constructor for TurtleHandler creates new map for the turtles.
@@ -50,6 +51,11 @@ public class TurtleHandler extends Observable<Object> {
     backEndX = event -> {
       if (event.getPropertyName().equals("backEndXCoordinate")) {
         activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate() + (Double) event.getNewValue(), turtle.getYCoordinate()}));
+      }
+    };
+    backEndOrientation = event -> {
+      if (event.getPropertyName().equals("backEndOrientation")) {
+        activeTurtles.forEach(turtle -> turtle.setOrientation(turtle.getOrientation() + (Double) event.getNewValue()));
       }
     };
   }
