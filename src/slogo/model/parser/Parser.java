@@ -33,7 +33,7 @@ public class Parser {
   private Stack<Object> commandStack;
   private Stack<Object> poppedStack;
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
-  private final ResourceBundle resources;
+  private ResourceBundle resources;
   private final ResourceBundle expressionFactoryTypes = ResourceBundle
       .getBundle(RESOURCE_FOLDER + "ExpressionFactory");
   private List<Turtle> turtles;
@@ -78,12 +78,18 @@ public class Parser {
    */
   public int parse(String command)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
+    updateLanguage();
     setUpParser();
     turtles = controller.getTurtleHandler().getActiveTurtles();
     String[] commandComponents = removeComments(command).split(" ");
     createCommandStack(commandComponents);
     parseCommandStack();
     return (int) result;
+  }
+
+  private void updateLanguage() {
+    resources = ResourceBundle.getBundle("resources.languages." + controller.getLanguage());
+    regexDetector.addPatterns(controller.getLanguage());
   }
 
   /**
