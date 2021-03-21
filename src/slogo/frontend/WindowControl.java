@@ -37,8 +37,8 @@ public class WindowControl {
   private static final int DEFAULT_WIDTH = 1350;
   private static final int WINDOW_SIZE = 600;
   private static final int DEFAULT_BORDER = 50;
-  private static final int HELP_HEIGHT = 750;
-  private static final int HELP_WIDTH = 600;
+  private static final int HELP_HEIGHT = 500;
+  private static final int HELP_WIDTH = 750;
 
   private SceneMaker sceneMaker;
   private Group root = new Group();
