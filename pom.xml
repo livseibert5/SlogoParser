@@ -65,15 +65,12 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
+            <version>3.8.0</version>
             <configuration>
                 <encoding>iso-8859-1</encoding>
                 <compilerArgs/>
-                <source>15</source>
-                <target>15</target>
-                <compilerArgs>
-                    <arg>--enable-preview</arg>
-                </compilerArgs>
+                <source>14</source>
+                <target>14</target>
             </configuration>
         </plugin>
         <plugin>
@@ -115,7 +112,7 @@
         <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.5</version>
+            <version>0.8.6</version>
             <executions>
                 <execution>
                     <id>default-prepare-agent</id>
@@ -161,7 +158,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.5</version>
+                <version>0.8.6</version>
                 <reportSets>
                     <reportSet>
                         <reports>
