@@ -205,20 +205,28 @@ public class Parser {
         .getCommand((String) command);
     List<Object> parameters = generateParameters((String) command,
         userCommand.getNumberParameters());
-    boolean correctParams = true;
-    for (Object param: parameters) {
-      if (!(param instanceof Value)) {
-        correctParams = false;
-      }
-    }
-    if (!correctParams) {
+    if (!hasCorrectUserDefinedArguments(parameters)) {
       resetArguments((String) command, parameters);
     } else {
       String newCommand = userCommand.generateCommand(parameters);
-      Constant result = new Constant(parse(newCommand));
-      poppedStack.pop();
-      endCommand(result);
+      Constant constant = expressionFactory.makeConstant(parse(newCommand));
+      endCommand(constant);
     }
+  }
+
+  /**
+   * Checks if the input for the user defined commands is of the correct type.
+   *
+   * @param parameters list of parameters for the command
+   * @return true if the parameters are all values, false otherwise
+   */
+  private boolean hasCorrectUserDefinedArguments(List<Object> parameters) {
+    for (Object param: parameters) {
+      if (!(param instanceof Value)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -233,20 +241,36 @@ public class Parser {
     List<Object> args = generateParameters((String) command, numArgs);
     try {
       Command commandObj = (Command) commandFactory.createCommand((String) command, args);
-      if (command.equals("Tell") || command.equals("Ask") || command.equals("AskWith")) {
-        result = commandObj.execute(new Turtle());
-        turtles = controller.getTurtleHandler().getActiveTurtles();
-      } else {
-        turtles = controller.getTurtleHandler().getActiveTurtles();
-        for (Turtle turtle: turtles) {
-          result = commandObj.execute(turtle);
-        }
-      }
+      executeOnMultipleTurtles((String) command, commandObj);
       Constant constant = expressionFactory.makeConstant((int) result);
-      poppedStack.pop();
       endCommand(constant);
     } catch (Exception e) {
       resetArguments((String) command, args);
+    }
+  }
+
+  /**
+   * Executes a command for all active turtles.
+   *
+   * @param command command name
+   * @param commandObj instance of command to execute
+   * @throws ClassNotFoundException class not found in command factory
+   * @throws NoSuchMethodException constructor doesn't exist in command factory
+   * @throws InvocationTargetException issue invoking constructor
+   * @throws InstantiationException issue instantiating command
+   * @throws IllegalAccessException illegal access to command
+   * @throws MathException illegal math command
+   */
+  private void executeOnMultipleTurtles(String command, Command commandObj)
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    if (command.equals("Tell") || command.equals("Ask") || command.equals("AskWith")) {
+      result = commandObj.execute(new Turtle());
+      turtles = controller.getTurtleHandler().getActiveTurtles();
+    } else {
+      turtles = controller.getTurtleHandler().getActiveTurtles();
+      for (Turtle turtle: turtles) {
+        result = commandObj.execute(turtle);
+      }
     }
   }
 
@@ -256,6 +280,7 @@ public class Parser {
    * @param result constant containing return value of command execution
    */
   private void endCommand(Constant result) {
+    poppedStack.pop();
     commandStack.push(result);
     while (!poppedStack.isEmpty()) {
       commandStack.push(poppedStack.pop());

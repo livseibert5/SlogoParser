@@ -1,161 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<parameters>
-  <setUp>
-    <kindofSimulation>Segregation</kindofSimulation>
-    <titleofConfig> Simple Segregation model </titleofConfig>
-    <author>Martha Aboagye</author>
-    <author>Jin Cho</author>
-    <author>Montana Lee</author>
-    <description> This is a setup with mostly empty cells.
-      The balance of red to blue is 1:1. The similarity level
-      is  also low enough that a 100% satisfaction is possible
-      within 1 or 2 rounds.
-
-    </description>
-    <width>10</width>
-    <height>10</height>
-  </setUp>
-  <initialize>
-    <row rowNumber="1">
-      <column>2</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>1</column>
-      <column>0</column>
-
-    </row>
-    <row rowNumber="2">
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>1</column>
-      <column>0</column>
-      <column>2</column>
-      <column>0</column>
-      <column>0</column>
-
-    </row>
-    <row rowNumber="3">
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>1</column>
-
-    </row>
-    <row rowNumber="4">
-      <column>0</column>
-      <column>1</column>
-      <column>0</column>
-      <column>2</column>
-      <column>2</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-
-    </row>
-    <row rowNumber = "5">
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>1</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-
-    </row>
-    <row rowNumber = "6">
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>1</column>
-
-    </row>
-    <row rowNumber = "7">
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>1</column>
-      <column>1</column>
-
-    </row>
-    <row rowNumber = "8">
-      <column>1</column>
-      <column>1</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>1</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-
-    </row>
-    <row rowNumber = "9">
-      <column>2</column>
-      <column>1</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-
-    </row>
-
-    <row rowNumber = "10">
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>1</column>
-      <column>0</column>
-      <column>0</column>
-      <column>0</column>
-      <column>1</column>
-
-    </row>
-
-
-  </initialize>
-
-  <gameparameter>
-    <percentsimilar>20</percentsimilar>
-    <percentred>50</percentred>
-    <percentblue>50</percentblue>
-    <percentempty>80</percentempty>
-  </gameparameter>
-
-</parameters>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<UserDefinedData>
+    <Variables>
+        <Variable>
+            <Name>:x</Name>
+            <Value>5.0</Value>
+        </Variable>
+        <Variable>
+            <Name>:y</Name>
+            <Value>10.0</Value>
+        </Variable>
+    </Variables>
+    <Commands>
+        <Command>
+            <Name>move</Name>
+            <NumberParameters>2</NumberParameters>
+            <Parameters>
+                <Parameter>sum</Parameter>
+                <Parameter>difference</Parameter>
+            </Parameters>
+            <CommandBody>fd 50</CommandBody>
+        </Command>
+    </Commands>
+</UserDefinedData>
