@@ -33,7 +33,7 @@ public class FrontEndTest extends DukeApplicationTest {
   private Rectangle turtleBox;
   private TableView commandView;
   private TableView variableView;
-/*
+
   @Override
   public void start(Stage stage) {
     WindowControl window = new WindowControl(stage);
@@ -211,5 +211,5 @@ public class FrontEndTest extends DukeApplicationTest {
     commandLine.setText("fd 100");
     clickOn(enterButton);
     assertTrue(yLocation.getText().equals("100.0"));
-  }*/
+  }
 }

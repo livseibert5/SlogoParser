@@ -23,12 +23,12 @@ public class FromXMLTest {
     controller = new Controller();
     fromXML = new FromXML(controller);
   }
-/*
+
   @Test
   void parseStandardFile() throws ParserConfigurationException, SAXException, IOException {
     fromXML.readFile("03_15_21_11_54.xml");
     assertNotNull(controller.getVariableHandler().getVariableWithName(":x"));
     assertNotNull(controller.getVariableHandler().getVariableWithName(":y"));
     assertNotNull(controller.getUserDefinedCommandHandler().getCommand("move"));
-  }*/
+  }
 }
