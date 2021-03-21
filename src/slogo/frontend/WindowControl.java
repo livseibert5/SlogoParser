@@ -91,8 +91,6 @@ public class WindowControl {
     });
   }
 
-
-
   private void enterEvent() {
     try {
       int value = myParser.parse(myCommand.getTextInput());
