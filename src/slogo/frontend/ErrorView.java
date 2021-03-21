@@ -2,6 +2,7 @@ package slogo.frontend;
 
 import javafx.scene.Group;
 import javafx.scene.text.Text;
+import javafx.scene.layout.BorderPane;
 
 /**
  * Class for error pop up window.
@@ -33,7 +34,7 @@ public class ErrorView extends ViewMaker {
    * @param sizeX width of the window
    * @param sizeY height of the window
    */
-  private void setUpRoot(Group myRoot, double sizeX, double sizeY) {
+  private void setUpRoot(BorderPane myRoot, double sizeX, double sizeY) {
     myRoot.getChildren().add(messageText);
   }
 

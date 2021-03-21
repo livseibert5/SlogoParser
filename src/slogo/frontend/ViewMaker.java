@@ -1,7 +1,7 @@
 package slogo.frontend;
 
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -15,7 +15,8 @@ import javafx.stage.Stage;
 public abstract class ViewMaker {
 
   private final Stage viewWindow = new Stage();
-  private final Group viewRoot = new Group();
+  private BorderPane viewRoot = new BorderPane();
+  private Scene viewScene;
 
   /**
    * Constructor for ViewMaker abstract class. Assumes setUpRoot is implemented in child classes.
@@ -30,12 +31,18 @@ public abstract class ViewMaker {
     viewWindow.setScene(viewScene);
   }
 
+  public ViewMaker(double sizeX, double sizeY, String title, TurtleDisplay turtles) {
+    viewScene = new Scene(viewRoot, sizeX, sizeY);
+    viewWindow.setTitle(title);
+    viewWindow.setScene(viewScene);
+  }
+
   /**
    * Used by child-classes to access class root.
    *
    * @return viewRoot to be added to
    */
-  protected Group getRoot() {
+  protected BorderPane getRoot() {
     return viewRoot;
   }
 
