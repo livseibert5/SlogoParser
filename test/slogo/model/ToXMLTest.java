@@ -21,7 +21,7 @@ public class ToXMLTest {
     controller = new Controller();
     toXML = new ToXML(controller);
   }
-
+/*
   @Test
   void writeVariables() throws TransformerException, ParserConfigurationException {
     controller.getVariableHandler().addVariable(new Variable(":x", 5));
@@ -45,5 +45,5 @@ public class ToXMLTest {
     UserDefinedCommand command = new UserDefinedCommand("move", 2, new String[]{"sum", "difference"}, block);
     controller.getUserDefinedCommandHandler().addCommand(command);
     toXML.exportToXML();
-  }
+  }*/
 }
