@@ -12,10 +12,12 @@ public class GroupBlock {
   private final ResourceBundle expressionFactoryTypes = ResourceBundle
       .getBundle(RESOURCE_FOLDER + "ExpressionFactory");
   private static final String RESOURCE_FOLDER = "slogo.model.resources.";
-
+  private final CommandFactory commandFactory;
+  private final RegexDetector regexDetector;
 
   public GroupBlock(Controller controller) {
-    RegexDetector regexDetector = new RegexDetector();
+    commandFactory = new CommandFactory();
+    regexDetector = new RegexDetector();
     regexDetector.addPatterns(controller.getLanguage());
   }
 
@@ -33,18 +35,24 @@ public class GroupBlock {
     return index;
   }
 
-  public String insertCommand(List<String> arguments) {
+  public String insertCommand(List<String> arguments) throws ClassNotFoundException {
 
     List<String> flexArgs = new ArrayList<>(arguments);
 
     String command = arguments.get(0);
+    String commandType = regexDetector.getSymbol(command);
 
     int START_INDEX = 1;
     int MAX_CHANGE = 1;
 
+    int numArgs = commandFactory.determineNumberParameters(commandType);
+    if(commandFactory.isControlCommand(command)) {
+      numArgs --;
+    }
+
     int count = START_INDEX;
     int change = 0;
-    while(count < arguments.size()){
+    while(count < flexArgs.size() - numArgs + START_INDEX){
       if(change < MAX_CHANGE){
         change++;
         count++;
@@ -60,3 +68,4 @@ public class GroupBlock {
   }
 
 }
+
