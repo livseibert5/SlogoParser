@@ -36,8 +36,8 @@ public class WindowControl {
   private static final int ENTER_Y = 675;
   private static final int UPLOAD_X = 175;
   private static final int UPLOAD_Y = 0;
-  private static final int DEFAULT_HEIGHT = 750;
-  private static final int DEFAULT_WIDTH = 1350;
+  private static final int DEFAULT_HEIGHT = 800;
+  private static final int DEFAULT_WIDTH = 1280;
   private static final int WINDOW_SIZE = 600;
   private static final int DEFAULT_BORDER = 50;
   private static final int HELP_HEIGHT = 500;
