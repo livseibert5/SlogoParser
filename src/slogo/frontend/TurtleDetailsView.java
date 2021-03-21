@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import slogo.model.Turtle;
 import slogo.model.handlers.TurtleHandler;
@@ -126,7 +127,7 @@ public class TurtleDetailsView extends ViewMaker {
    * @param sizeX width of the window
    * @param sizeY height of the window
    */
-  private void setUpRoot(Group myRoot, double sizeX, double sizeY) {
+  private void setUpRoot(BorderPane myRoot, double sizeX, double sizeY) {
     //pencolor, location, orientation, up/down, thickness?
     myRoot.getChildren().add(turtleIdComboBox);
 

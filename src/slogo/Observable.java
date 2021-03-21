@@ -31,7 +31,7 @@ public class Observable<T> {
   }
 
   /**
-   * Userd by other classes to add a single listner to the Observable subclass.
+   * Used by other classes to add a single listner to the Observable subclass.
    *
    * @param newListener propertychangelistener
    */
@@ -39,6 +39,19 @@ public class Observable<T> {
     if (newListener != null) {
       myListeners.add(newListener);
     }
+  }
+
+  public void removeListener(PropertyChangeListener listener) {
+    myListeners.remove(listener);
+  }
+
+  /**
+   * Gets listeners for classes extending observable.
+   *
+   * @return myListeners all listeners
+   */
+  public List<PropertyChangeListener> getListeners() {
+    return myListeners;
   }
 
   /**

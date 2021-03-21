@@ -28,6 +28,7 @@ public class Turtle extends Observable<Object> {
     orientation = 90.0;
     isShowing = true;
     penColor = 0;
+    penThickness = 5;
     penShape = 0;
   }
 

@@ -10,8 +10,11 @@ import java.util.stream.Collectors;
 import slogo.controller.Controller;
 import slogo.model.Command;
 import slogo.model.Constant;
+import slogo.model.GroupBlock;
 import slogo.model.Turtle;
 import slogo.model.UserDefinedCommand;
+import slogo.model.Value;
+import slogo.model.Variable;
 import slogo.model.backendexceptions.MathException;
 
 /**
@@ -110,7 +113,8 @@ public class Parser {
    *
    * @param commandComponents list of command components to parse
    */
-  private void createCommandStack(String[] commandComponents) {
+  private void createCommandStack(String[] commandComponents)
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
     int index = commandComponents.length - 1;
     while (index >= 0) {
       String commandType = regexDetector.getSymbol(commandComponents[index]);
@@ -134,7 +138,8 @@ public class Parser {
    * @return new index of commandComponents list
    */
   private int handleNonCommandExpressionComponents(String commandType, String[] commandComponents,
-      int index) {
+      int index)
+      throws ClassNotFoundException, NoSuchMethodException, MathException, InstantiationException, IllegalAccessException, InvocationTargetException {
     switch (commandType) {
       case "Constant" -> commandStack
           .push(expressionFactory.makeConstant(Integer.parseInt(commandComponents[index])));
@@ -144,6 +149,14 @@ public class Parser {
         List<String> commandList = Arrays
             .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
         commandStack.push(expressionFactory.makeCommandBlock(commandList));
+        return endIndex;
+      }
+      case "GroupEnd" -> {
+        GroupBlock groupBlock = new GroupBlock(controller);
+        int endIndex = groupBlock.findIndex(index, commandComponents, regexDetector);
+        List<String> groupList = Arrays
+            .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
+        commandStack.push(expressionFactory.makeConstant(parse(groupBlock.insertCommand(groupList))));
         return endIndex;
       }
       case "Variable" -> commandStack.push(expressionFactory
@@ -187,13 +200,25 @@ public class Parser {
   private void executeUserDefinedCommand()
       throws ClassNotFoundException, NoSuchMethodException, MathException, InstantiationException, IllegalAccessException, InvocationTargetException {
     Object command = commandStack.pop();
+    poppedStack.push(command);
     UserDefinedCommand userCommand = controller.getUserDefinedCommandHandler()
         .getCommand((String) command);
     List<Object> parameters = generateParameters((String) command,
         userCommand.getNumberParameters());
-    String newCommand = userCommand.generateCommand(parameters);
-    Constant result = new Constant(parse(newCommand));
-    endCommand(result);
+    boolean correctParams = true;
+    for (Object param: parameters) {
+      if (!(param instanceof Value)) {
+        correctParams = false;
+      }
+    }
+    if (!correctParams) {
+      resetArguments((String) command, parameters);
+    } else {
+      String newCommand = userCommand.generateCommand(parameters);
+      Constant result = new Constant(parse(newCommand));
+      poppedStack.pop();
+      endCommand(result);
+    }
   }
 
   /**

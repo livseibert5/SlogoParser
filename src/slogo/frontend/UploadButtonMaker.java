@@ -3,6 +3,7 @@ package slogo.frontend;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -18,6 +19,5 @@ public class UploadButtonMaker extends ButtonMaker{
     @Override
     EventHandler<ActionEvent> createHandler() {
         return null;
-
     }
 }

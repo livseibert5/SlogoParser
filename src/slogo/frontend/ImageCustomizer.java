@@ -42,12 +42,12 @@ public class ImageCustomizer extends ViewMaker{
      */
     public ImageCustomizer(double sizeX, double sizeY, String title, TurtleDisplay turtles, TurtleWindow window) {
         super(sizeX, sizeY, title);
+        setUpRoot(getRoot(), sizeX, sizeY);
         myTurtleDisplay = turtles;
         myWindow = window;
     }
 
-    @Override
-    protected void setUpRoot(BorderPane myRoot, double sizeX, double sizeY) {
+    private void setUpRoot(BorderPane myRoot, double sizeX, double sizeY) {
         column = new VBox(5);
         column.getChildren().addAll(uploadBox(), imagePalette(), penColorPalette());
         addBackgroundColor();
