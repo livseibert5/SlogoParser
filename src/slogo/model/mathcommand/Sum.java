@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Sum is the Command subclass that finds the sum of two given inputs.
+ * Sum is the Command that finds the sum of two given inputs.
  *
  * @author Rachel Luria
  */

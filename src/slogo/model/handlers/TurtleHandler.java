@@ -1,6 +1,5 @@
 package slogo.model.handlers;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +38,15 @@ public class TurtleHandler extends Observable<Object> {
     });
   }
 
+  /**
+   * Creates listeners to allow the back end to update the turtle's location based on front end key input.
+   */
   private void setUpListeners() {
     backEndY = event -> {
       if (event.getPropertyName().equals("backEndYCoordinate")) {
         activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate(), turtle.getYCoordinate() + (Double) event.getNewValue()}));
       }
     };
-
     backEndX = event -> {
       if (event.getPropertyName().equals("backEndXCoordinate")) {
         activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate() + (Double) event.getNewValue(), turtle.getYCoordinate()}));
@@ -64,14 +65,29 @@ public class TurtleHandler extends Observable<Object> {
     notifyListeners("addTurtle", turtles, turtles.put(currentTurtleIndex, turtle));
   }
 
+  /**
+   * Allows access to the list of active turtles.
+   *
+   * @return list of active turtles
+   */
   public List<Turtle> getActiveTurtles() {
     return activeTurtles;
   }
 
+  /**
+   * Allows access to number of turtles that exist.
+   *
+   * @return number of turtles created
+   */
   public int getNumberTurtles() {
     return turtles.size();
   }
 
+  /**
+   * Returns a list of all the turtles creates.
+   *
+   * @return list of all turtles
+   */
   public List<Turtle> getAllTurtles() {
     return new ArrayList<>(turtles.values());
   }
@@ -86,6 +102,11 @@ public class TurtleHandler extends Observable<Object> {
     return new ArrayList<>(turtles.keySet());
   }
 
+  /**
+   * Sets active turtles, applies the listeners to them.
+   *
+   * @param newActiveTurtles turtles that should listen to commands
+   */
   public void setActiveTurtles(List<Turtle> newActiveTurtles) {
     notifyListeners("activeTurtles", activeTurtles, newActiveTurtles);
     activeTurtles = newActiveTurtles;
@@ -99,6 +120,12 @@ public class TurtleHandler extends Observable<Object> {
     });
   }
 
+  /**
+   * Returns ID of the given turtle.
+   *
+   * @param turtle turtle to retrieve id of
+   * @return id of turtle
+   */
   public int getTurtleId(Turtle turtle) {
     for (int key: turtles.keySet()) {
       if (turtles.get(key).equals(turtle)) {
@@ -108,7 +135,12 @@ public class TurtleHandler extends Observable<Object> {
     return -1;
   }
 
-  // TODO: once front end works, change this function to get a turtle with a specific id
+  /**
+   * Retrieves turtle with the given id.
+   *
+   * @param id id of turtle to return
+   * @return turtle object with given id
+   */
   public Turtle getTurtle(int id) {
     if (turtles.containsKey(id)) {
       return turtles.get(id);

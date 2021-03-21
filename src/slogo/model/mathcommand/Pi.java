@@ -4,7 +4,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * Pi is the Command subclass that finds the value of Pi.
+ * Pi is the Command that finds the value of Pi.
  *
  * @author Rachel Luria
  */

@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Product is the Command subclass that finds the product of given two inputs.
+ * Product is the Command that finds the product of given two inputs.
  *
  * @author Rachel Luria
  */

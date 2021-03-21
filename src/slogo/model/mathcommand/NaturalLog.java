@@ -6,7 +6,7 @@ import slogo.model.Value;
 import slogo.model.backendexceptions.MathException;
 
 /**
- * NaturalLog is the Command subclass that finds the naturallog of a given input.
+ * NaturalLog is the Command that finds the naturallog of a given input.
  *
  * @author Rachel Luria
  */

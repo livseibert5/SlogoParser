@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * GreaterThan class is the Command subclass that returns 1 if the first argument is greater than
+ * GreaterThan class is the Command that returns 1 if the first argument is greater than
  * the second argument, and returns 0 otherwise.
  *
  * @author Livia Seibert
