@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -29,7 +28,7 @@ import javax.xml.transform.TransformerException;
 /**
  * Creates stage, scene, and animation.
  * TODO assumptions, dependencies, example of use
- *
+ *d
  * @author Jessica Yang
  */
 public class WindowControl {
@@ -49,10 +48,7 @@ public class WindowControl {
   private Stage stage = new Stage();
 
   private Controller myController;
-  private Parser myParser;
-  private TurtleDisplay myTurtleDisplay;
   private TableDisplay myTableDisplay;
-  private SceneComponents myComponents;
   private HelpButtonMaker helpButton;
   private EnterButtonMaker enterButton;
   private UploadButtonMaker uploadButton;
