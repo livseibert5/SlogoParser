@@ -140,9 +140,7 @@ public class WindowControl {
     File file = fileChooser.showOpenDialog(stage);
     if (file != null) {
       try {
-        String path = "data/UserUploaded.xml";
-        boolean isMoved = file.renameTo(new File(path));
-        fromXML.readFile("UserUploaded.xml");
+        fromXML.readFile(file.getName());
       } catch (IOException | SAXException | ParserConfigurationException e) {
         errorView.showView();
       }
