@@ -1,5 +1,9 @@
 package slogo.frontend;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -23,6 +27,8 @@ public abstract class ViewMaker {
   public final String STYLE = "styles/";
   public String STYLESHEET = "Default.css";
 
+  private PropertyChangeListener cssListener;
+
   /**
    * Constructor for ViewMaker abstract class. Assumes setUpRoot is implemented in child classes.
    *
@@ -35,6 +41,20 @@ public abstract class ViewMaker {
     viewScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + STYLESHEET).toExternalForm());
     viewStage.setTitle(title);
     viewStage.setScene(viewScene);
+    cssListener = evt -> {
+      if (evt.getPropertyName().equals("css")) {
+        viewScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + evt.getNewValue()).toExternalForm());
+      }
+    };
+  }
+
+  /**
+   * Retrieves listener used by ViewMaker.
+   *
+   * @return cssListener
+   */
+  public PropertyChangeListener getListener() {
+    return cssListener;
   }
 
   /**

@@ -62,9 +62,9 @@ public class WindowControl {
   private final Parser myParser;
   private final TurtleDisplay myTurtleDisplay;
 
-  private ErrorView errorView = new ErrorView(200, 200);
+  private ErrorView errorView;
   private ViewMaker turtleDetailsView;
-  private ViewMaker helpView = new HelpView(HELP_WIDTH, HELP_HEIGHT);
+  private ViewMaker helpView;
   private ImageCustomizeView myCustomizer;
 
 
@@ -77,7 +77,6 @@ public class WindowControl {
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
-    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     myController.getTurtleHandler().addMultipleListeners(myTurtleDisplay.getListeners());
     myTableDisplay.setHandler(event -> {
       try {
@@ -88,12 +87,28 @@ public class WindowControl {
       }
     });
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
-    myCustomizer = new ImageCustomizeView(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay, myTurtleWindow);
     LanguageDropDown dropDown = new LanguageDropDown(root, myController);
-    turtleDetailsView = new TurtleDetailsView(400, 400, myController.getTurtleHandler());
+
+    setUpViews();
     setUpPreferences();
     setUpButtons();
     setUpKeyInput();
+  }
+
+  private void setUpViews() {
+    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    myCustomizer = new ImageCustomizeView(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay, myTurtleWindow);
+    errorView = new ErrorView(200, 200);
+    helpView = new HelpView(HELP_WIDTH, HELP_HEIGHT);
+    turtleDetailsView = new TurtleDetailsView(400, 400, myController.getTurtleHandler());
+
+    List<PropertyChangeListener> viewListeners = new ArrayList<>();
+    viewListeners.add(myCustomizer.getListener());
+    viewListeners.add(errorView.getListener());
+    viewListeners.add(helpView.getListener());
+    viewListeners.add(turtleDetailsView.getListener());
+
+    sceneMaker.addMultipleListeners(viewListeners);
   }
 
   private void setUpButtons() {
@@ -184,6 +199,7 @@ public class WindowControl {
 
     return turtleListeners;
   }
+
   public void setUpPreferences() {
     List<String> results = new ArrayList<>();
     File[] files = new File("src/slogo/frontend/resources/styles").listFiles();

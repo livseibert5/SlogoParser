@@ -1,19 +1,20 @@
 package slogo.frontend;
 
+import java.util.Objects;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.ResourceBundle;
+import slogo.Observable;
 
-public class SceneMaker {
+public class SceneMaker extends Observable<String> {
 
   public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
   public static final String DEFAULT_RESOURCE_FOLDER =
       "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/" );
-  public static final String STYLESHEET = "Default.css";
   public static final String STYLE = "styles/";
   private final Scene scene;
+  public static String styleSheet = "Default.css";
 
   public SceneMaker(Group root, Stage stage, int width, int height) {
     scene = makeScene(root, width, height);
@@ -23,7 +24,7 @@ public class SceneMaker {
   private Scene makeScene(Group root, int width, int height) {
     Scene scene = new Scene(root, width, height);
     scene.getStylesheets()
-        .add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + STYLESHEET).toExternalForm());
+        .add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + styleSheet).toExternalForm());
     return scene;
   }
 
@@ -33,10 +34,12 @@ public class SceneMaker {
     stage.setResizable(false);
     stage.show();
   }
+
   public void changeStyle(String style) {
+    notifyListeners("css", styleSheet, (style + ".css"));
+    styleSheet = style + ".css";
     scene.getStylesheets().clear();
     scene.getStylesheets()
-            .add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + style + ".css").toExternalForm());
-
+            .add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLE + styleSheet).toExternalForm());
   }
 }
