@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import slogo.model.Turtle;
 import slogo.model.handlers.TurtleHandler;
@@ -150,5 +151,10 @@ public class TurtleDetailsView extends ViewMaker {
         "penDown", "penDown"));
     penDown = makeText(sizeX / 4, sizeY * (3.0 / 4), null,"penDown");
     myRoot.getChildren().add(penDown);
+  }
+
+  @Override
+  protected void setUpRoot(BorderPane myRoot, double sizeX, double sizeY) {
+
   }
 }
