@@ -2,6 +2,7 @@ package slogo.frontend;
 
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,7 +13,9 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.xml.sax.SAXException;
 import slogo.controller.Controller;
+import slogo.model.FromXML;
 import slogo.model.Turtle;
 import slogo.model.ToXML;
 import slogo.model.parser.Parser;
@@ -58,6 +61,7 @@ public class WindowControl {
   private ViewMaker turtleDetailsView;
   private ViewMaker helpView = new HelpView(HELP_WIDTH, HELP_HEIGHT);
   private ImageCustomizeView myCustomizer;
+  private FromXML fromXML = new FromXML(myController);
 
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
@@ -134,7 +138,13 @@ public class WindowControl {
             new FileChooser.ExtensionFilter("XML Files", "*.xml"));
     File file = fileChooser.showOpenDialog(stage);
     if (file != null) {
-      boolean isMoved = file.renameTo(new File("data/UserUploaded.xml"));
+      try {
+        String path = "data/UserUploaded.xml";
+        boolean isMoved = file.renameTo(new File(path));
+        fromXML.readFile(path);
+      } catch (IOException | SAXException | ParserConfigurationException e) {
+        errorView.showView();
+      }
     }
   }
 
