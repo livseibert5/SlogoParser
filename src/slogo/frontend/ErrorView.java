@@ -24,18 +24,14 @@ public class ErrorView extends ViewMaker {
     messageText = makeText(10, sizeY / 3, null,
         "errorMessage");
     messageText.setWrappingWidth(sizeX - 20);
-    setUpRoot(getRoot(), sizeX, sizeY);
+    setUpRoot();
   }
 
   /**
    * Adds text to the root.
-   *
-   * @param myRoot to be added to
-   * @param sizeX width of the window
-   * @param sizeY height of the window
    */
-  private void setUpRoot(BorderPane myRoot, double sizeX, double sizeY) {
-    myRoot.getChildren().add(messageText);
+  private void setUpRoot() {
+    getRoot().setCenter(messageText);
   }
 
   /**
