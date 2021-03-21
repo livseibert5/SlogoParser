@@ -118,7 +118,7 @@ public class ParserTest {
         + "  ]\n"
         + "]";
     assertEquals(1, parser.parse(command));
-    assertEquals(1, parser.parse("spiral 10"));
+    assertEquals(0, parser.parse("spiral 10"));
   }
 
   @Test

@@ -31,8 +31,8 @@ public class SetPaletteTest {
         new Constant(69), new Constant(0));
     assertEquals(3, paletteCommand.execute(turtle));
     Color color = controller.getColorHandler().getColor(3);
-    assertEquals(255, color.getR());
-    assertEquals(69, color.getG());
+    assertEquals(1.0, Math.round(color.getR() * 1000.0)/1000.0);
+    assertEquals(0.271, Math.round(color.getG() * 1000.0)/1000.0);
     assertEquals(0, color.getB());
   }
 
@@ -42,9 +42,9 @@ public class SetPaletteTest {
         new Constant(192), new Constant(203));
     assertEquals(30, paletteCommand.execute(turtle));
     Color color = controller.getColorHandler().getColor(30);
-    assertEquals(255, color.getR());
-    assertEquals(192, color.getG());
-    assertEquals(203, color.getB());
+    assertEquals(1, color.getR());
+    assertEquals(0.753, Math.round(color.getG() * 1000.0)/1000.0);
+    assertEquals(0.796, Math.round(color.getB() * 1000.0)/1000.0);
   }
 
 }

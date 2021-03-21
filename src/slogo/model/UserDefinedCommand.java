@@ -30,7 +30,6 @@ public class UserDefinedCommand {
    */
   public UserDefinedCommand(String commandName, int numberParameters, String[] parameters,
       CommandBlock body) {
-    System.out.println(body.toString());
     this.commandName = commandName;
     this.numberParameters = numberParameters;
     this.parameters = parameters;
