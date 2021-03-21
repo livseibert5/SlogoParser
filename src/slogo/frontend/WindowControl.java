@@ -61,7 +61,7 @@ public class WindowControl {
   private ViewMaker turtleDetailsView;
   private ViewMaker helpView = new HelpView(HELP_WIDTH, HELP_HEIGHT);
   private ImageCustomizeView myCustomizer;
-  private FromXML fromXML = new FromXML(myController);
+
 
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
@@ -132,6 +132,7 @@ public class WindowControl {
   }
   
   private void uploadXML() {
+    FromXML fromXML = new FromXML(myController);
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Upload XML");
     fileChooser.getExtensionFilters().addAll(
@@ -141,7 +142,7 @@ public class WindowControl {
       try {
         String path = "data/UserUploaded.xml";
         boolean isMoved = file.renameTo(new File(path));
-        fromXML.readFile(path);
+        fromXML.readFile("UserUploaded.xml");
       } catch (IOException | SAXException | ParserConfigurationException e) {
         errorView.showView();
       }
