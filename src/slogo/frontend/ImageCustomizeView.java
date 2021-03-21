@@ -3,6 +3,7 @@ package slogo.frontend;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class ImageCustomizer extends ViewMaker{
+public class ImageCustomizeView extends ViewMaker{
     private Stage stage = new Stage();
     private VBox column;
     private int imageNumber = 1;
@@ -40,7 +41,7 @@ public class ImageCustomizer extends ViewMaker{
      * @param sizeY y dimension of window
      * @param title string title of window
      */
-    public ImageCustomizer(double sizeX, double sizeY, String title, TurtleDisplay turtles, TurtleWindow window) {
+    public ImageCustomizeView(double sizeX, double sizeY, String title, TurtleDisplay turtles, TurtleWindow window) {
         super(sizeX, sizeY, title);
         setUpRoot(getRoot(), sizeX, sizeY);
         myTurtleDisplay = turtles;
@@ -56,7 +57,9 @@ public class ImageCustomizer extends ViewMaker{
     }
     private HBox uploadBox() {
         HBox box = new HBox();
-        UploadButtonMaker uploadButton = new UploadButtonMaker("Upload Image", box, event -> uploadEvent());
+        Button uploadButton = makeButton(0, 0, "Upload Image");
+        uploadButton.setOnAction(event -> uploadEvent());
+        box.getChildren().add(uploadButton);
         List<Integer> range = IntStream.rangeClosed(1, 10)
                 .boxed().collect(Collectors.toList());
         numbers = new ComboBox<>(FXCollections.observableList(range));

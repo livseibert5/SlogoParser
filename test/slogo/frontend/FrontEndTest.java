@@ -1,13 +1,12 @@
 package slogo.frontend;
 
+import java.awt.event.KeyEvent;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,14 +24,13 @@ public class FrontEndTest extends DukeApplicationTest {
   private Button helpButton;
   private Button enterButton;
   private Button turtleDetailButton;
-  private ColorPicker penColor;
-  private ColorPicker backgroundColor;
   private ComboBox languageSelector;
   private ImageView turtle1;
   private TextArea commandLine;
   private Rectangle turtleBox;
   private TableView commandView;
   private TableView variableView;
+  private Group root;
 
   @Override
   public void start(Stage stage) {
@@ -47,6 +45,7 @@ public class FrontEndTest extends DukeApplicationTest {
     turtleBox = lookup("#turtleBox").query();
     commandView = lookup("#commandview").query();
     variableView = lookup("#variableview").query();
+    root = lookup("#root").query();
   }
 
   @Test
@@ -121,6 +120,7 @@ public class FrontEndTest extends DukeApplicationTest {
   @Test
   // scenario: user changes the color of the background and draws a line
   void changeBackgroundColor() {
+
   }
 
   @Test

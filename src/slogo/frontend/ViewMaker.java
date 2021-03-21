@@ -1,6 +1,7 @@
 package slogo.frontend;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -14,9 +15,12 @@ import javafx.stage.Stage;
  */
 public abstract class ViewMaker {
 
-  private final Stage viewWindow = new Stage();
-  private BorderPane viewRoot = new BorderPane();
-  private Scene viewScene;
+  private final Stage viewStage = new Stage();
+  private final BorderPane viewRoot = new BorderPane();
+  public static final String DEFAULT_RESOURCE_PACKAGE = "slogo.frontend.resources.";
+  public static final String DEFAULT_RESOURCE_FOLDER =
+      "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/" );
+  public static final String STYLESHEET = "default.css";
 
   /**
    * Constructor for ViewMaker abstract class. Assumes setUpRoot is implemented in child classes.
@@ -27,14 +31,9 @@ public abstract class ViewMaker {
    */
   public ViewMaker(double sizeX, double sizeY, String title) {
     Scene viewScene = new Scene(viewRoot, sizeX, sizeY);
-    viewWindow.setTitle(title);
-    viewWindow.setScene(viewScene);
-  }
-
-  public ViewMaker(double sizeX, double sizeY, String title, TurtleDisplay turtles) {
-    viewScene = new Scene(viewRoot, sizeX, sizeY);
-    viewWindow.setTitle(title);
-    viewWindow.setScene(viewScene);
+    viewScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_FOLDER + STYLESHEET).toExternalForm());
+    viewStage.setTitle(title);
+    viewStage.setScene(viewScene);
   }
 
   /**
@@ -49,8 +48,8 @@ public abstract class ViewMaker {
   /**
    * Text object maker and formatter for child classes.
    *
-   * @param xCoordinate width of text
-   * @param yCoordinate height of text
+   * @param xCoordinate x location
+   * @param yCoordinate y location
    * @param text content of text
    * @param id text id
    * @return newText Text object
@@ -64,9 +63,24 @@ public abstract class ViewMaker {
   }
 
   /**
+   * Button object maker and formatter for child classes.
+   *
+   * @param xCoordinate x location
+   * @param yCoordinate y location
+   * @param text content of text
+   * @return newButton Button object
+   */
+  protected Button makeButton(double xCoordinate, double yCoordinate, String text) {
+    Button newButton = new Button(text);
+    newButton.relocate(xCoordinate, yCoordinate);
+    newButton.setId(text);
+    return newButton;
+  }
+
+  /**
    * Displays window.
    */
   public void showView() {
-    viewWindow.show();
+    viewStage.show();
   }
 }
