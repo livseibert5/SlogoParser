@@ -41,8 +41,6 @@ public class FrontEndTest extends DukeApplicationTest {
     helpButton = lookup("#Help").query();
     enterButton = lookup("#Enter").query();
     turtleDetailButton = lookup("#TurtleDetails").query();
-    penColor = lookup("#Pen").query();
-    backgroundColor = lookup("#Background").query();
     languageSelector = lookup("#language").query();
     turtle1 = lookup("#turtle1").query();
     commandLine = lookup("#commandLine").query();
@@ -118,22 +116,13 @@ public class FrontEndTest extends DukeApplicationTest {
   @Test
   // scenario: user changes the color of the pen color
   void changePenColor() {
-    String newColor = "#ff6666";
-    select(penColor, newColor);
-    commandLine.setText("pd");
-    clickOn(enterButton);
-    commandLine.setText("fd 50");
-    clickOn(enterButton);
-    Line newLine = lookup("#line").query();
-    assertTrue(newLine.getFill().toString().equals(Color.valueOf(newColor).toString()));
+
   }
 
   @Test
   // scenario: user changes the color of the background and draws a line
   void changeBackgroundColor() {
-    String newColor = "#ff1253";
-    select(backgroundColor, newColor);
-    assertTrue(turtleBox.getFill().toString().equals(Color.valueOf(newColor).toString()));
+
   }
 
   @Test
@@ -181,8 +170,6 @@ public class FrontEndTest extends DukeApplicationTest {
 
     commandLine.setText("tell [ 2 ]");
     clickOn(enterButton);
-    String newColor = "#ff6666";
-    select(penColor, newColor);
     commandLine.setText("fd 50");
     clickOn(enterButton);
 
