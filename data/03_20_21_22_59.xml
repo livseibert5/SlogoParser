@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<UserDefinedData>
+    <Variables/>
+    <Commands>
+        <Command>
+            <Name>move</Name>
+            <NumberParameters>2</NumberParameters>
+            <Parameters>
+                <Parameter>sum</Parameter>
+                <Parameter>difference</Parameter>
+            </Parameters>
+            <CommandBody>fd 50</CommandBody>
+        </Command>
+    </Commands>
+</UserDefinedData>

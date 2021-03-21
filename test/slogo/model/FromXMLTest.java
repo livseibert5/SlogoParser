@@ -26,7 +26,7 @@ public class FromXMLTest {
 
   @Test
   void parseStandardFile() throws ParserConfigurationException, SAXException, IOException {
-    fromXML.readFile("03_15_21_11_54.xml");
+    fromXML.readFile("03_21_21_12_07.xml");
     assertNotNull(controller.getVariableHandler().getVariableWithName(":x"));
     assertNotNull(controller.getVariableHandler().getVariableWithName(":y"));
     assertNotNull(controller.getUserDefinedCommandHandler().getCommand("move"));

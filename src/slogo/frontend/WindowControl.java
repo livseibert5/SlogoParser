@@ -2,25 +2,23 @@ package slogo.frontend;
 
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import slogo.Observable;
+import org.xml.sax.SAXException;
 import slogo.controller.Controller;
+import slogo.model.FromXML;
 import slogo.model.Turtle;
 import slogo.model.ToXML;
 import slogo.model.parser.Parser;
-import java.lang.reflect.Field;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -42,6 +40,8 @@ public class WindowControl {
   private static final int DEFAULT_WIDTH = 1280;
   private static final int WINDOW_SIZE = 600;
   private static final int DEFAULT_BORDER = 50;
+  private static final int HELP_HEIGHT = 500;
+  private static final int HELP_WIDTH = 750;
 
   private SceneMaker sceneMaker;
   private Group root = new Group();
@@ -49,21 +49,19 @@ public class WindowControl {
 
   private Controller myController;
   private TableDisplay myTableDisplay;
-  private HelpButtonMaker helpButton;
-  private EnterButtonMaker enterButton;
-  private UploadButtonMaker uploadButton;
   private CommandField myCommand;
   private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
 
+  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
   private int imageNumber = 1;
   private final Parser myParser;
   private final TurtleDisplay myTurtleDisplay;
-  //private final SceneComponents myComponents;
-  //private final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
-  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
-  private ErrorView errorWindow = new ErrorView(200, 200);
-  private ViewMaker turtleDetailsWindow;
+  private ErrorView errorView = new ErrorView(200, 200);
+  private ViewMaker turtleDetailsView;
+  private ViewMaker helpView = new HelpView(HELP_WIDTH, HELP_HEIGHT);
+  private ImageCustomizeView myCustomizer;
+
 
   /**
    * Constructor for WindowControl class. Returns WindowControl object.
@@ -74,40 +72,43 @@ public class WindowControl {
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
+    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     myController.getTurtleHandler().addMultipleListeners(myTurtleDisplay.getListeners());
     myTableDisplay.setHandler(event -> {
       try {
         myCommand.executeSourcedCommand(myTableDisplay.getSelectedUserCommand());
       } catch (Exception e) {
-        errorWindow.updateMessage("No commands available.");
-        errorWindow.showView();
+        errorView.updateMessage("No commands available.");
+        errorView.showView();
       }
     });
-    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
-    ImageCustomizer myCustomizer = new ImageCustomizer(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay, myTurtleWindow);
-    CustomizerButton customizerButton = new CustomizerButton("Customize", UPLOAD_X, UPLOAD_Y, root, event -> myCustomizer.showView());
-    helpButton = new HelpButtonMaker("Help", HELP_X + 50, HELP_Y, root);
-    enterButton = new EnterButtonMaker("Enter", ENTER_X, ENTER_Y, root, event -> enterEvent());
+    myCustomizer = new ImageCustomizeView(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay, myTurtleWindow);
     LanguageDropDown dropDown = new LanguageDropDown(root, myController);
-    //ColorPickerMaker penColor = new ColorPickerMaker(root, DEFAULT_WIDTH - WINDOW_SIZE/2 - DEFAULT_BORDER, DEFAULT_BORDER/3, "Pen");
-    //penColor.setHandler(event -> myTurtleDisplay.setLineColor(penColor.getNewColor()));
+    turtleDetailsView = new TurtleDetailsView(400, 400, myController.getTurtleHandler());
+
+    setUpButtons();
+    setUpKeyInput();
+  }
+
+  private void setUpButtons() {
     ToXML toXML = new ToXML(myController);
-    WorkspaceButtonMaker newButton = new WorkspaceButtonMaker("New Workspace", DEFAULT_WIDTH - 200, 0, root);
-    EnterButtonMaker xmlUpload = new EnterButtonMaker("Upload XML File", HELP_X - 200, HELP_Y, root, event -> uploadXML());
-    EnterButtonMaker xmlSave = new EnterButtonMaker("Save as XML", HELP_X + 150, HELP_Y, root, event -> {
+    Button xmlSaveButton = makeButton(HELP_X + 150, HELP_Y, "Save as XML", event -> {
       try {
         toXML.exportToXML();
-      } catch (ParserConfigurationException e) {
-        e.printStackTrace();
-      } catch (TransformerException e) {
+      } catch (ParserConfigurationException | TransformerException e) {
         e.printStackTrace();
       }
     });
-    turtleDetailsWindow = new TurtleDetailsView(400, 400, myController.getTurtleHandler());
+    Button xmlUploadButton = makeButton(HELP_X - 200, HELP_Y, "Upload XML File", event -> uploadXML());
+    Button customizerButton = makeButton(UPLOAD_X, UPLOAD_Y, "Customize", event -> myCustomizer.showView());
+    Button helpButton = makeButton(HELP_X + 50, HELP_Y, "Help", evt -> helpView.showView());
+    Button enterButton = makeButton(ENTER_X, ENTER_Y, "Enter", event -> enterEvent());
+    Button newButton = makeButton(DEFAULT_WIDTH - 200, 0, "New Workspace", evt -> {
+      WindowControl window = new WindowControl(new Stage());
+    });
     Button turtleDetailButton = makeButton(DEFAULT_WIDTH - 400, 0, "Turtle Details",
-        e -> turtleDetailsWindow.showView());
-    setUpKeyInput();
+        e -> turtleDetailsView.showView());
   }
 
   private Button makeButton(double x, double y, String title, EventHandler<ActionEvent> evt) {
@@ -125,19 +126,24 @@ public class WindowControl {
       myCommand.clearTextInput();
       myCommand.printReturnValue(value);
     } catch (Exception e) {
-      errorWindow.updateMessage("Invalid command.");
-      errorWindow.showView();
+      errorView.updateMessage("Invalid command.");
+      errorView.showView();
     }
   }
   
   private void uploadXML() {
+    FromXML fromXML = new FromXML(myController);
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Upload XML");
     fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("XML Files", "*.xml"));
     File file = fileChooser.showOpenDialog(stage);
     if (file != null) {
-      boolean isMoved = file.renameTo(new File("data/UserUploaded.xml"));
+      try {
+        fromXML.readFile(file.getName());
+      } catch (IOException | SAXException | ParserConfigurationException e) {
+        errorView.showView();
+      }
     }
   }
 
@@ -148,23 +154,29 @@ public class WindowControl {
     try {
       Class<?> keyHandlerClass = Class.forName("slogo.frontend.KeyInputHandler");
       KeyInputHandler keyHandler = new KeyInputHandler();
-      List<PropertyChangeListener> turtleListeners = new ArrayList<>();
-      for (Turtle turtle: myController.getTurtleHandler().getActiveTurtles()) {
-        turtleListeners.addAll(turtle.getListeners());
-      }
-      keyHandler.addMultipleListeners(turtleListeners); //TODO add listeners from backend
+      keyHandler.addMultipleListeners(getAllTurtleListeners());
       root.setOnKeyPressed(evt -> {
         try {
           Method moveMethod = keyHandlerClass.getMethod("press" + evt.getCode().toString());
           moveMethod.invoke(keyHandler);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-          errorWindow.updateMessage("Invalid key button. Try using WASD, and RL.");
-          errorWindow.showView();
+          errorView.updateMessage("Invalid key button. Try using WASD, and RL.");
+          errorView.showView();
         }
       });
     } catch (ClassNotFoundException e) {
-      errorWindow.updateMessage("Fatal error: KeyInputHandler class not found.");
-      errorWindow.showView();
+      errorView.updateMessage("Fatal error: KeyInputHandler class not found.");
+      errorView.showView();
     }
+  }
+
+  private List<PropertyChangeListener> getAllTurtleListeners() {
+    List<PropertyChangeListener> turtleListeners = new ArrayList<>();
+
+    for (Turtle turtle : myController.getTurtleHandler().getActiveTurtles()) {
+      turtleListeners.addAll(turtle.getListeners());
+    }
+
+    return turtleListeners;
   }
 }

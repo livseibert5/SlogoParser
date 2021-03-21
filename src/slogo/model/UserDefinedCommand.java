@@ -54,10 +54,20 @@ public class UserDefinedCommand {
     return numberParameters;
   }
 
+  /**
+   * Returns the command block for the command.
+   *
+   * @return command block with function commands
+   */
   public CommandBlock getBody() {
     return body;
   }
 
+  /**
+   * Returns the parameters for the command.
+   *
+   * @return list of parameters for command
+   */
   public String[] getParameters() {
     return parameters;
   }

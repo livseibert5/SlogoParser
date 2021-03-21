@@ -7,6 +7,7 @@ import slogo.model.UserDefinedCommand;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class UserDefinedCommandHandlerTest {
 
@@ -25,5 +26,10 @@ public class UserDefinedCommandHandlerTest {
     commandHandler.addCommand(command);
     assertTrue(commandHandler.containsCommand("move"));
     assertNotNull(commandHandler.getCommand("move"));
+  }
+
+  @Test
+  void commandDoesntExist() {
+    assertNull(commandHandler.getCommand("zebra"));
   }
 }

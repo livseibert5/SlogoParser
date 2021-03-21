@@ -29,7 +29,6 @@ public class TableDisplay {
 
   private final ObservableList<Variable> allVariables;
   private final ObservableList<UserDefinedCommand> allCommands;
-  //private String selectedUserCommand;
 
   /**
    * Constructor for TableDisplay.
@@ -68,6 +67,7 @@ public class TableDisplay {
     variableView.setId("variableview");
     myRoot.getChildren().add(variableView);
   }
+
   public String getSelectedUserCommand() throws Exception {
     try {
       return commandView.getSelectionModel().getSelectedItem().getCommandName();
@@ -75,6 +75,7 @@ public class TableDisplay {
       throw e;
     }
   }
+
   public void setHandler(EventHandler<MouseEvent> event) {
     commandView.setOnMouseClicked(event);
   }
