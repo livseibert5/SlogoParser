@@ -11,7 +11,7 @@ import slogo.model.backendexceptions.MathException;
 import slogo.model.parser.Parser;
 
 /**
- * For is the command subclass that runs for each value specified in the range start-end going by
+ * For is the Command that runs for each value specified in the range start-end going by
  * increment.
  *
  * @author Livia Seibert
@@ -41,13 +41,13 @@ public class For implements Command {
    * updating the variable on each loop.
    *
    * @param turtle turtle object to execute command on
-   * @return
-   * @throws ClassNotFoundException
-   * @throws NoSuchMethodException
-   * @throws InvocationTargetException
-   * @throws InstantiationException
-   * @throws IllegalAccessException
-   * @throws MathException
+   * @return last parser output
+   * @throws ClassNotFoundException class not found in command factory
+   * @throws NoSuchMethodException constructor doesn't exist in command factory
+   * @throws InvocationTargetException issue invoking constructor
+   * @throws InstantiationException issue instantiating command
+   * @throws IllegalAccessException illegal access to command
+   * @throws MathException illegal math command
    */
   @Override
   public double execute(Turtle turtle)

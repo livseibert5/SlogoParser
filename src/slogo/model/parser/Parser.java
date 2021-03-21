@@ -26,7 +26,7 @@ import slogo.model.backendexceptions.MathException;
  */
 public class Parser {
 
-  private final RegexDetector regexDetector = new RegexDetector();
+  private RegexDetector regexDetector = new RegexDetector();
   private final CommandFactory commandFactory = new CommandFactory();
   private final Controller controller;
   private ExpressionFactory expressionFactory;
@@ -60,6 +60,7 @@ public class Parser {
     poppedStack = new Stack<>();
     result = 0;
     expressionFactory = new ExpressionFactory();
+    regexDetector = new RegexDetector();
     regexDetector.addPatterns(controller.getLanguage());
     regexDetector.addPatterns("Syntax");
   }

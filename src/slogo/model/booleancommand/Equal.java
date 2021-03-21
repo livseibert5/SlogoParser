@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Equal class is the Command subclass that returns 1 if the two arguments are equal to each other.
+ * Equal class is the Command that returns 1 if the two arguments are equal to each other.
  *
  * @author Livia Seibert
  */

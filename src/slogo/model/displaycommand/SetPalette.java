@@ -7,7 +7,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * SetPalette is the command subclass that lets the user define a color by inputting
+ * SetPalette is the Command that lets the user define a color by inputting
  * the rbg values and an index for the color to be added to
  *
  * @author Rachel Luria

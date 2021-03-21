@@ -116,13 +116,11 @@ public class FrontEndTest extends DukeApplicationTest {
   @Test
   // scenario: user changes the color of the pen color
   void changePenColor() {
-
   }
 
   @Test
   // scenario: user changes the color of the background and draws a line
   void changeBackgroundColor() {
-
   }
 
   @Test

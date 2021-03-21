@@ -8,7 +8,7 @@ import slogo.model.Turtle;
 import slogo.model.UserDefinedCommand;
 
 /**
- * MakeUserInstruction is the Command subclass that lets users define their own commands with a
+ * MakeUserInstruction is the Command that lets users define their own commands with a
  * name, arguments, and body. These user-defined commands are then able to be run by name from the
  * command line.
  *

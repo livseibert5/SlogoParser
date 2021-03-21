@@ -4,7 +4,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * XCoordinate is the Command subclass that lets the user access the x-coordinate of the turtle's
+ * XCoordinate is the Command that lets the user access the x-coordinate of the turtle's
  * location.
  *
  * @author Livia Seibert

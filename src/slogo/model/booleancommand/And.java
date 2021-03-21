@@ -5,14 +5,14 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * And class is the Command subclass that returns 1 if both constants are non-zero and 0 otherwise.
+ * And class is the Command that returns 1 if both constants are non-zero and 0 otherwise.
  *
  * @author Livia Seibert
  */
 public class And implements Command {
 
-  double argument1;
-  double argument2;
+  private final double argument1;
+  private final double argument2;
 
   /**
    * Constructor for And argument, takes in two constants to compare.

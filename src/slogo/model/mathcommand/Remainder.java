@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Remainder is the Command subclass that finds the remainder of the division of two given inputs.
+ * Remainder is the Command that finds the remainder of the division of two given inputs.
  *
  * @author Rachel Luria
  */

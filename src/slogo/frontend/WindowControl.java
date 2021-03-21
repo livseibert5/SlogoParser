@@ -105,7 +105,7 @@ public class WindowControl {
       }
     });
     turtleDetailsWindow = new TurtleDetailsView(400, 400, myController.getTurtleHandler());
-    Button turtleDetailButton = makeButton(HELP_X + 100, HELP_Y, "Turtle Details",
+    Button turtleDetailButton = makeButton(DEFAULT_WIDTH - 400, 0, "Turtle Details",
         e -> turtleDetailsWindow.showView());
     setUpKeyInput();
   }
@@ -129,6 +129,7 @@ public class WindowControl {
       errorWindow.showView();
     }
   }
+  
   private void uploadXML() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Upload XML");

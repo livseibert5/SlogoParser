@@ -5,7 +5,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * Turtles is the Command subclass that returns the number of turtles created so far.
+ * Turtles is the Command that returns the number of turtles created so far.
  *
  * @author Livia Seibert
  */

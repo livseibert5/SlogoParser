@@ -8,7 +8,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * MakeVariable is the Command subclass that lets the user define a command and save the value for
+ * MakeVariable is the Command that lets the user define a command and save the value for
  * later use.
  *
  * @author Livia Seibert
