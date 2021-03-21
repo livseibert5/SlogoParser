@@ -37,7 +37,7 @@ public class WindowControl {
   private static final int DEFAULT_WIDTH = 1350;
   private static final int WINDOW_SIZE = 600;
   private static final int DEFAULT_BORDER = 50;
-  private static final int HELP_HEIGHT = 600;
+  private static final int HELP_HEIGHT = 750;
   private static final int HELP_WIDTH = 600;
 
   private SceneMaker sceneMaker;
@@ -49,10 +49,10 @@ public class WindowControl {
   private CommandField myCommand;
   private String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName() + ".resources.images.").replace('.', '/');
 
+  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
   private int imageNumber = 1;
   private final Parser myParser;
   private final TurtleDisplay myTurtleDisplay;
-  private String USER_FILE = DEFAULT_IMAGE_PATH + "UserImage.jpg";
 
   private ErrorView errorView = new ErrorView(200, 200);
   private ViewMaker turtleDetailsView;
@@ -68,6 +68,7 @@ public class WindowControl {
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
+    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     myController.getTurtleHandler().addMultipleListeners(myTurtleDisplay.getListeners());
     myTableDisplay.setHandler(event -> {
       try {
@@ -77,7 +78,6 @@ public class WindowControl {
         errorView.showView();
       }
     });
-    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     myCommand = new CommandField(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_HEIGHT);
     myCustomizer = new ImageCustomizeView(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay, myTurtleWindow);
     LanguageDropDown dropDown = new LanguageDropDown(root, myController);
