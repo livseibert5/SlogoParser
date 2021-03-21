@@ -30,7 +30,6 @@ public class FrontEndTest extends DukeApplicationTest {
   private Rectangle turtleBox;
   private TableView commandView;
   private TableView variableView;
-  private Group root;
 
   @Override
   public void start(Stage stage) {
@@ -45,7 +44,6 @@ public class FrontEndTest extends DukeApplicationTest {
     turtleBox = lookup("#turtleBox").query();
     commandView = lookup("#commandview").query();
     variableView = lookup("#variableview").query();
-    root = lookup("#root").query();
   }
 
   @Test
