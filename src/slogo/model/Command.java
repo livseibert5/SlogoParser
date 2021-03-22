@@ -15,12 +15,12 @@ public interface Command {
    *
    * @param turtle turtle object to execute command on
    * @return double result of executing command
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException method not found in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     method not found in command factory
    * @throws InvocationTargetException can't invoke target
-   * @throws InstantiationException can't make new object from command factory
-   * @throws IllegalAccessException trying to make object in command factory without access
-   * @throws MathException illegal math command
+   * @throws InstantiationException    can't make new object from command factory
+   * @throws IllegalAccessException    trying to make object in command factory without access
+   * @throws MathException             illegal math command
    */
   double execute(Turtle turtle)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException;

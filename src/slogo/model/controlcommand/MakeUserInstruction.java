@@ -8,9 +8,9 @@ import slogo.model.Turtle;
 import slogo.model.UserDefinedCommand;
 
 /**
- * MakeUserInstruction is the Command that lets users define their own commands with a
- * name, arguments, and body. These user-defined commands are then able to be run by name from the
- * command line.
+ * MakeUserInstruction is the Command that lets users define their own commands with a name,
+ * arguments, and body. These user-defined commands are then able to be run by name from the command
+ * line.
  *
  * @author Livia Seibert
  */
@@ -45,11 +45,11 @@ public class MakeUserInstruction implements Command {
    *
    * @param turtle turtle object to execute command on
    * @return 1 if storing the command was successful
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException method not found in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     method not found in command factory
    * @throws InvocationTargetException can't invoke target
-   * @throws InstantiationException can't make new object from command factory
-   * @throws IllegalAccessException trying to make object in command factory without access
+   * @throws InstantiationException    can't make new object from command factory
+   * @throws IllegalAccessException    trying to make object in command factory without access
    */
   @Override
   public double execute(Turtle turtle)

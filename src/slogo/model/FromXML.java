@@ -35,8 +35,8 @@ public class FromXML {
    * Reads variables and commands from the XML file into the game.
    *
    * @param filename file to read variables and commands from
-   * @throws IOException issue reading from file
-   * @throws SAXException issue with XML parser
+   * @throws IOException                  issue reading from file
+   * @throws SAXException                 issue with XML parser
    * @throws ParserConfigurationException issue with XML parser
    */
   public void readFile(String filename)
@@ -51,8 +51,8 @@ public class FromXML {
    *
    * @param fileName file to parse
    * @throws ParserConfigurationException issue configuring XML parser
-   * @throws SAXException issue with XML parser
-   * @throws IOException issue reading from file
+   * @throws SAXException                 issue with XML parser
+   * @throws IOException                  issue reading from file
    */
   private void buildParser(String fileName)
       throws ParserConfigurationException, SAXException, IOException {

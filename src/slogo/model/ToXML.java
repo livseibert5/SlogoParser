@@ -47,7 +47,7 @@ public class ToXML {
    * variables and commands to an XML file.
    *
    * @throws ParserConfigurationException issue configuring XML parser
-   * @throws TransformerException issue writing to XML file
+   * @throws TransformerException         issue writing to XML file
    */
   public void exportToXML() throws ParserConfigurationException, TransformerException {
     initializeDocumentBuilder();

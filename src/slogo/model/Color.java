@@ -30,19 +30,26 @@ public class Color {
    *
    * @return r value
    */
-  public double getR() {return r/MAX_RGB;}
+  public double getR() {
+    return r / MAX_RGB;
+  }
 
   /**
    * Gets the green value in the rgb scale
    *
    * @return g value
    */
-  public double getG() {return g/MAX_RGB;}
+  public double getG() {
+    return g / MAX_RGB;
+  }
 
   /**
    * Gets the blue value in the rgb scale
+   *
    * @return b scale
    */
-  public double getB() {return b/MAX_RGB;}
+  public double getB() {
+    return b / MAX_RGB;
+  }
 
 }

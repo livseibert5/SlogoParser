@@ -70,11 +70,11 @@ public class Parser {
    *
    * @param command String with commands from IDE
    * @return integer result of the command
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException method not found in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     method not found in command factory
    * @throws InvocationTargetException can't invoke target
-   * @throws InstantiationException can't make new object from command factory
-   * @throws IllegalAccessException trying to make object in command factory without access
+   * @throws InstantiationException    can't make new object from command factory
+   * @throws IllegalAccessException    trying to make object in command factory without access
    */
   public int parse(String command)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
@@ -162,7 +162,7 @@ public class Parser {
         int endIndex = groupBlock.findIndex(index, commandComponents, regexDetector);
         List<String> groupList = Arrays
             .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
-        if(commandStack.size() > 0) {
+        if (commandStack.size() > 0) {
           groupList.add((String) commandStack.pop());
         }
         int result = parse(groupBlock.insertCommand(groupList));
@@ -178,11 +178,11 @@ public class Parser {
   /**
    * Pops commands off of the commandStack, passes them their expected parameters, and runs them.
    *
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException method not found in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     method not found in command factory
    * @throws InvocationTargetException can't invoke target
-   * @throws InstantiationException can't make new object from command factory
-   * @throws IllegalAccessException trying to make object in command factory without access
+   * @throws InstantiationException    can't make new object from command factory
+   * @throws IllegalAccessException    trying to make object in command factory without access
    */
   private void parseCommandStack()
       throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, MathException {
@@ -201,11 +201,11 @@ public class Parser {
   /**
    * Runs a user defined command with the values input at runtime.
    *
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException method not found in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     method not found in command factory
    * @throws InvocationTargetException can't invoke target
-   * @throws InstantiationException can't make new object from command factory
-   * @throws IllegalAccessException trying to make object in command factory without access
+   * @throws InstantiationException    can't make new object from command factory
+   * @throws IllegalAccessException    trying to make object in command factory without access
    */
   private void executeUserDefinedCommand()
       throws ClassNotFoundException, NoSuchMethodException, MathException, InstantiationException, IllegalAccessException, InvocationTargetException {
@@ -231,7 +231,7 @@ public class Parser {
    * @return true if the parameters are all values, false otherwise
    */
   private boolean hasCorrectUserDefinedArguments(List<Object> parameters) {
-    for (Object param: parameters) {
+    for (Object param : parameters) {
       if (!(param instanceof Value)) {
         return false;
       }
@@ -262,14 +262,14 @@ public class Parser {
   /**
    * Executes a command for all active turtles.
    *
-   * @param command command name
+   * @param command    command name
    * @param commandObj instance of command to execute
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException constructor doesn't exist in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     constructor doesn't exist in command factory
    * @throws InvocationTargetException issue invoking constructor
-   * @throws InstantiationException issue instantiating command
-   * @throws IllegalAccessException illegal access to command
-   * @throws MathException illegal math command
+   * @throws InstantiationException    issue instantiating command
+   * @throws IllegalAccessException    illegal access to command
+   * @throws MathException             illegal math command
    */
   private void executeOnMultipleTurtles(String command, Command commandObj)
       throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
@@ -278,7 +278,7 @@ public class Parser {
       turtles = controller.getTurtleHandler().getActiveTurtles();
     } else {
       turtles = controller.getTurtleHandler().getActiveTurtles();
-      for (Turtle turtle: turtles) {
+      for (Turtle turtle : turtles) {
         result = commandObj.execute(turtle);
       }
     }

@@ -5,8 +5,8 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Forward class is the Command that determines the end location of the turtle when moved
- * forwards by a certain number of pixels.
+ * Forward class is the Command that determines the end location of the turtle when moved forwards
+ * by a certain number of pixels.
  *
  * @author Livia Seibert and Rachel Luria
  */

@@ -11,6 +11,7 @@ import java.util.List;
  * @author Jessica Yang, Robert C. Duvall
  */
 public class Observable<T> {
+
   private final List<PropertyChangeListener> myListeners;
 
   public Observable() {

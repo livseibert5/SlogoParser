@@ -40,11 +40,11 @@ public class Repeat implements Command {
    *
    * @param turtle turtle object to execute command on
    * @return result of last command
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException method not found in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     method not found in command factory
    * @throws InvocationTargetException can't invoke target
-   * @throws InstantiationException can't make new object from command factory
-   * @throws IllegalAccessException trying to make object in command factory without access
+   * @throws InstantiationException    can't make new object from command factory
+   * @throws IllegalAccessException    trying to make object in command factory without access
    */
   @Override
   public double execute(Turtle turtle)

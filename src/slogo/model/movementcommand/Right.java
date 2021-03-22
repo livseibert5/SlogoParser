@@ -5,8 +5,8 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Right class is the Command that determines the end location of the turtle when moved
- * right by a certain number of pixels.
+ * Right class is the Command that determines the end location of the turtle when moved right by a
+ * certain number of pixels.
  *
  * @author Rachel Luria and Livia Seibert
  */
