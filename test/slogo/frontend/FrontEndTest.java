@@ -1,6 +1,7 @@
 package slogo.frontend;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -24,7 +25,6 @@ public class FrontEndTest extends DukeApplicationTest {
   private Button helpButton;
   private Button enterButton;
   private Button turtleDetailButton;
-  private ComboBox languageSelector;
   private ImageView turtle1;
   private TextArea commandLine;
   private Rectangle turtleBox;
@@ -38,7 +38,6 @@ public class FrontEndTest extends DukeApplicationTest {
     helpButton = lookup("#Help").query();
     enterButton = lookup("#Enter").query();
     turtleDetailButton = lookup("#TurtleDetails").query();
-    languageSelector = lookup("#language").query();
     turtle1 = lookup("#turtle1").query();
     commandLine = lookup("#commandLine").query();
     turtleBox = lookup("#turtleBox").query();
@@ -50,6 +49,15 @@ public class FrontEndTest extends DukeApplicationTest {
   // scenario: user presses the help button
   void pressHelpButton() {
     clickOn(helpButton);
+  }
+
+  @Test
+    //scenario: user open help document
+  void openHelpPage() {
+    clickOn(helpButton);
+    Button forward = lookup("#forward").query();
+    clickOn(forward);
+    assertNotNull(lookup("#forward").query());
   }
 
   @Test
@@ -108,17 +116,6 @@ public class FrontEndTest extends DukeApplicationTest {
     commandLine.setText("asdfasdfa");
     clickOn(enterButton);
     assertNotNull(lookup("#errorMessage").query());
-  }
-
-  @Test
-  // scenario: user changes the color of the pen color
-  void changePenColor() {
-  }
-
-  @Test
-  // scenario: user changes the color of the background and draws a line
-  void changeBackgroundColor() {
-
   }
 
   @Test

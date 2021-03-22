@@ -9,9 +9,6 @@ import slogo.Observable;
  */
 public class KeyInputHandler extends Observable<Object> {
 
-  public KeyInputHandler() {
-  }
-
   public void pressL() {
     notifyListeners("frontEndOrientation", 0, 1.0);
   }

@@ -53,7 +53,6 @@ public class ImageCustomizeView extends ViewMaker{
         column.getChildren().addAll(uploadBox(), imagePalette(), penColorPalette());
         addBackgroundColor();
         myRoot.setTop(column);
-        column.setAlignment(Pos.CENTER);
     }
     private HBox uploadBox() {
         HBox box = new HBox();
@@ -66,7 +65,9 @@ public class ImageCustomizeView extends ViewMaker{
         numbers.setOnAction(event -> {
             imageNumber = numbers.getValue() -1;
         });
+        numbers.setValue(1);
         box.getChildren().add(numbers);
+        box.setAlignment(Pos.CENTER);
         return box;
     }
 
@@ -102,6 +103,7 @@ public class ImageCustomizeView extends ViewMaker{
                 e.printStackTrace();
             }
         }
+        palette.setAlignment(Pos.CENTER);
         return palette;
     }
     private void addBackgroundColor() {
@@ -117,6 +119,7 @@ public class ImageCustomizeView extends ViewMaker{
             option.setOnMouseClicked(event -> myTurtleDisplay.setLineColor((Color) option.getFill()));
             colors[i] = option;
         }
+        palette.setAlignment(Pos.CENTER);
         return palette;
     }
 }

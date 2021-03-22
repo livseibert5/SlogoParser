@@ -20,7 +20,7 @@
 }
 
 .combo-box-base {
-    -fx-text-base-color: #006464;
+    -fx-text-base-color: black;
     -fx-background-color: white;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
@@ -43,16 +43,6 @@
 
 #title-text {
     -fx-font-size: 32pt;
-    -fx-font-weight: bold;
-    -fx-text-alignment: center;
-    -fx-font-family: "Segoe UI Semibold";
-}
-.Rectangle {
-    -fx-fill: #ff69b4;
-
-}
-#settings-text {
-    -fx-font-size: 24pt;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
     -fx-font-family: "Segoe UI Semibold";

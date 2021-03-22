@@ -7,12 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Class for help window.
@@ -54,20 +51,18 @@ public class HelpView extends ViewMaker {
     getRoot().setCenter(grid);
   }
 
-  private void makeHelpPage(String title) {
-    Group PopUpRoot = new Group();
-    Stage stage = new Stage();
-    setText(PopUpRoot, title);
-    SceneMaker helpScene = new SceneMaker(PopUpRoot, stage, HELP_WIDTH - 100, HELP_HEIGHT - 100);
-    stage.setTitle(title);
+  private void makeHelpPage(String text) {
+    ViewMaker helpPage = new ViewMaker(HELP_WIDTH - 100, HELP_HEIGHT - 100, "Details");
+    helpPage.getRoot().setCenter(setText(text));
+    helpPage.showView();
   }
 
-  private void setText(Group root, String file) {
+  private TextArea setText(String file) {
     TextArea text = new TextArea();
+    text.setId(file.replaceAll(" ", ""));
     text.setPrefSize(HELP_WIDTH - 100, HELP_HEIGHT - 100);
     text.setEditable(false);
     text.setWrapText(true);
-    System.out.println(file);
     List<String> lines = new ArrayList<>();
     String read;
     try {
@@ -82,7 +77,7 @@ public class HelpView extends ViewMaker {
     for (String line : lines) {
       text.appendText(line + "\n");
     }
-    root.getChildren().add(text);
+    return text;
   }
 
 

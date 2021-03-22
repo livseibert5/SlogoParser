@@ -2,6 +2,7 @@ package slogo.frontend;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.Pane;
@@ -18,8 +19,8 @@ public class ColorPickerMaker {
         colorPicker.setId(label);
         Text title = new Text("Select " + label + " Color:");
         title.setId("colorlabel");
+        box.setAlignment(Pos.CENTER);
         box.getChildren().addAll(title, colorPicker);
-        //box.relocate(x,y);
         root.getChildren().add(box);
     }
     public void setHandler(EventHandler<ActionEvent> event) {
