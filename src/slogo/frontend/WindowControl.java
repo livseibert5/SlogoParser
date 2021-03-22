@@ -68,6 +68,7 @@ public class WindowControl extends ViewMaker {
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
+    myTurtleDisplay.addMultipleListeners(getAllTurtleListeners());
     myController.getTurtleHandler().addMultipleListeners(myTurtleDisplay.getListeners());
     myTableDisplay.setHandler(event -> {
       try {
