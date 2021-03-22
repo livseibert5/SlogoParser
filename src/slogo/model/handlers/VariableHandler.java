@@ -73,6 +73,11 @@ public class VariableHandler {
     return null;
   }
 
+  /**
+   * Removes the variable object with the given name.
+   *
+   * @param name name of variable to remove
+   */
   public void removeVariableWithName(String name) {
     for (Variable var : variables) {
       if (var.getName().equals(name)) {

@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Difference is the Command subclass that finds the difference between two given inputs.
+ * Difference is the Command that finds the difference between two given inputs.
  *
  * @author Rachel Luria
  */

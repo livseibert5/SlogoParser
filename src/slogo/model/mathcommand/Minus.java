@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Minus is the Command subclass that finds the minus of a given input.
+ * Minus is the Command that finds the minus of a given input.
  *
  * @author Rachel Luria
  */

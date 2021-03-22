@@ -3,7 +3,7 @@
     <Variables>
         <Variable>
             <Name>:zebra</Name>
-            <Value>50.0</Value>
+            <Value>20.0</Value>
         </Variable>
     </Variables>
     <Commands/>

@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Cosine is the Command subclass that finds the cosine of a given input.
+ * Cosine is the Command that finds the cosine of a given input.
  *
  * @author Rachel Luria
  */

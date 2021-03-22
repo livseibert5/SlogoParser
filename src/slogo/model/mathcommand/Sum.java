@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Sum is the Command subclass that finds the sum of two given inputs.
+ * Sum is the Command that finds the sum of two given inputs.
  *
  * @author Rachel Luria
  */
@@ -34,7 +34,6 @@ public class Sum implements Command {
    */
   @Override
   public double execute(Turtle turtle) {
-    System.out.println("Sum: " + argument1 + " " + argument2);
     return argument1 + argument2;
   }
 }

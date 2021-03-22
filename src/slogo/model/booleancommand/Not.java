@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Not class is the Command subclass that returns 1 if the argument is 0 and returns 0 if the
+ * Not class is the Command that returns 1 if the argument is 0 and returns 0 if the
  * argument is non-zero.
  *
  * @author Livia Seibert

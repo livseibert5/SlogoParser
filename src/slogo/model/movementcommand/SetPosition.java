@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * SetPosition class is the Command subclass that lets the user specify new x and y coordinates for
+ * SetPosition class is the Command that lets the user specify new x and y coordinates for
  * the turtle.
  *
  * @author Livia Seibert

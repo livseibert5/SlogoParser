@@ -10,7 +10,7 @@ import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 
 /**
- * IfElse is the Command subclass that runs one block of commands if the condition passed in is
+ * IfElse is the Command that runs one block of commands if the condition passed in is
  * true, and the other block if the condition is false.
  *
  * @author Livia Seibert

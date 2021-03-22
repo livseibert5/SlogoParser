@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * SetPenColor is the command subclass that lets the user choose the color of the turtle's pen
+ * SetPenColor is the Command that lets the user choose the color of the turtle's pen
  * by setting its index.
  *
  * @author Livia Seibert

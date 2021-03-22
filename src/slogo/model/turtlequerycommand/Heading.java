@@ -4,7 +4,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * Heading is the Command subclass that lets the user retrieve the turtle's orientation in degrees.
+ * Heading is the Command that lets the user retrieve the turtle's orientation in degrees.
  *
  * @author Livia Seibert
  */

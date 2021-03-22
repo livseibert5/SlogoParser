@@ -105,7 +105,7 @@ public class ParserTest {
     assertEquals(100, parser.parse(command));
   }
 
-  //@Test
+  @Test
   void RecursionSpiral()
       throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
     String command = "to spiral [ :len ]\n"
@@ -118,7 +118,7 @@ public class ParserTest {
         + "  ]\n"
         + "]";
     assertEquals(1, parser.parse(command));
-    assertEquals(1, parser.parse("spiral 10"));
+    assertEquals(0, parser.parse("spiral 10"));
   }
 
   @Test

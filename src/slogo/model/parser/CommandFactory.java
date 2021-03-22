@@ -78,6 +78,13 @@ public class CommandFactory {
     return clazz.getConstructors();
   }
 
+  /**
+   * Determines if a command needs to be passed the controller as one of its arguments.
+   *
+   * @param commandType command name
+   * @return true if command requires controller, otherwise false
+   * @throws ClassNotFoundException can't find class to determine parameters of
+   */
   public boolean isControlCommand(String commandType) throws ClassNotFoundException {
     return mySymbols.containsKey(commandType) && Arrays
         .asList(getConstructors(commandType)[0].getParameterTypes())

@@ -25,23 +25,22 @@ public class GroupBlockTest {
     parser = new Parser(controller);
   }
 
-  //@Test
+  @Test
   void testOneParameterFunction() throws ClassNotFoundException {
     List<String> list = new ArrayList<>(Arrays.asList("fd", "30","40", "50", "60"));
     assertEquals("fd 30 fd 40 fd 50 fd 60", groupBlock.insertCommand(list));
   }
 
-  //@Test
+  @Test
   void testTwoParameterFunction() throws ClassNotFoundException {
     List<String> list = new ArrayList<>(Arrays.asList("sum", "30","40", "50", "60"));
-    assertEquals("sum 30 40 sum 50 60", groupBlock.insertCommand(list));
+    assertEquals("sum 30 sum 40 sum 50 60", groupBlock.insertCommand(list));
   }
 
   @Test
   void testWithParsing()
       throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-      assertEquals(100, parser.parse("fd ( sum 10 20 30 40 )"));
+    assertEquals(100, parser.parse("fd ( sum 10 20 30 40 )"));
   }
 
 }
-

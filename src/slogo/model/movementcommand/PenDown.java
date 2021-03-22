@@ -4,7 +4,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * PenDown is the Command subclass that lets the user set the turtle's pen down so that it can draw
+ * PenDown is the Command that lets the user set the turtle's pen down so that it can draw
  * on the canvas.
  *
  * @author Livia Seibert
