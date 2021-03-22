@@ -116,7 +116,8 @@ public class ImageCustomizeView extends ViewMaker{
         for (int i = 0; i < 10; i++) {
             Rectangle option = new Rectangle(IMAGE_SIZE, IMAGE_SIZE, Color.RED);
             palette.getChildren().add(option);
-            option.setOnMouseClicked(event -> myTurtleDisplay.setLineColor((Color) option.getFill()));
+            int finalI = i;
+            option.setOnMouseClicked(event -> myTurtleDisplay.setLineColor(finalI));
             colors[i] = option;
         }
         palette.setAlignment(Pos.CENTER);
