@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import slogo.Observable;
 import slogo.model.Turtle;
 import slogo.model.handlers.ColorHandler;
 import slogo.model.handlers.TurtleHandler;
@@ -24,7 +25,7 @@ import slogo.model.handlers.TurtleHandler;
  *
  * @author Jessica Yang
  */
-public class TurtleDisplay {
+public class TurtleDisplay extends Observable<Object> {
 
   private static final String DEFAULT_IMAGE_PATH = "/" + (TurtleDisplay.class.getPackageName()
       + ".resources.images.").replace('.', '/');
@@ -197,10 +198,10 @@ public class TurtleDisplay {
   /**
    * Sets new pen line color.
    *
-   * @param newColor color object
+   * @param colorIndex palette index
    */
-  public void setLineColor(Color newColor) {
-    //lineColor = newColor;
+  public void setLineColor(double colorIndex) {
+    notifyListeners("backEndPenColor", 0, colorIndex);
   }
 
   /**
