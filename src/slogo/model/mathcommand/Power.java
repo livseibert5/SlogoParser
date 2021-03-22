@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Power is the Command subclass that finds the power of two given inputs.
+ * Power is the Command that finds the power of two given inputs.
  *
  * @author Rachel Luria
  */

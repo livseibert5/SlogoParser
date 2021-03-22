@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Quotient is the Command subclass that finds the quotient of two given inputs.
+ * Quotient is the Command that finds the quotient of two given inputs.
  *
  * @author Rachel Luria
  */

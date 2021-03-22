@@ -7,11 +7,13 @@ import slogo.controller.Controller;
 import slogo.model.parser.CommandFactory;
 import slogo.model.parser.RegexDetector;
 
+/**
+ * Class to handle unlimited parameters/grouping
+ *
+ * @author Rachel Luria
+ */
 public class GroupBlock {
 
-  private final ResourceBundle expressionFactoryTypes = ResourceBundle
-      .getBundle(RESOURCE_FOLDER + "ExpressionFactory");
-  private static final String RESOURCE_FOLDER = "slogo.model.resources.";
   private final CommandFactory commandFactory;
   private final RegexDetector regexDetector;
 
@@ -52,8 +54,17 @@ public class GroupBlock {
 
     int count = START_INDEX;
     int change = 0;
+    boolean skip = false;
     while(count < flexArgs.size() - numArgs + START_INDEX){
-      if(change < MAX_CHANGE){
+
+      if(flexArgs.get(count).equals("(")){
+        skip = true;
+      }
+
+      if(skip){
+        count++;
+      }
+      else if(change < MAX_CHANGE){
         change++;
         count++;
       }
@@ -62,8 +73,11 @@ public class GroupBlock {
         change = 0;
         count++;
       }
-    }
 
+      if (flexArgs.get(count - 1).equals(")")) {
+          skip = false;
+      }
+    }
     return String.join(" ", flexArgs);
   }
 

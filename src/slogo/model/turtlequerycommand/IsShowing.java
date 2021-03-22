@@ -4,7 +4,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * IsShowing is the Command subclass that lets the user determine whether or not the turtle is
+ * IsShowing is the Command that lets the user determine whether or not the turtle is
  * displayed on the screen.
  *
  * @author Livia Seibert

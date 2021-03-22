@@ -86,4 +86,28 @@ public class TurtleTest {
     turtle.setPenThickness(6);
     assertEquals(6, turtle.getPenThickness());
   }
+
+  @Test
+  void setLocationOutOfBoundsPosY() {
+    turtle.setLocation(new double[]{0, 1000});
+    assertEquals(300, turtle.getYCoordinate());
+  }
+
+  @Test
+  void setLocationOutOfBoundsPosX() {
+    turtle.setLocation(new double[]{10000, 0});
+    assertEquals(300, turtle.getXCoordinate());
+  }
+
+  @Test
+  void setLocationOutOfBoundsNegY() {
+    turtle.setLocation(new double[]{0, -1000});
+    assertEquals(-300, turtle.getYCoordinate());
+  }
+
+  @Test
+  void setLocationOutOfBoundsNegX() {
+    turtle.setLocation(new double[]{-10000, 0});
+    assertEquals(-300, turtle.getXCoordinate());
+  }
 }

@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * LessThan class is the Command subclass that returns 1 if the first argument is less than the
+ * LessThan class is the Command that returns 1 if the first argument is less than the
  * second argument, and returns 0 otherwise.
  *
  * @author Livia Seibert

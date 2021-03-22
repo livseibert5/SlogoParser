@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Sine is the Command subclass that finds the sine of a given input.
+ * Sine is the Command that finds the sine of a given input.
  *
  * @author Rachel Luria
  */

@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * SetHeading is the Command subclass that lets the user set a new orientation for the Turtle
+ * SetHeading is the Command that lets the user set a new orientation for the Turtle
  * object.
  *
  * @author Livia Seibert and Rachel Luria

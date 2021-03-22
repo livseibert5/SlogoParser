@@ -53,11 +53,14 @@
     <resources>
         <!-- external data files -->
         <resource>
-            <directory>src/resources</directory>
+            <directory>data</directory>
         </resource>
         <!-- internal resource files also need to be included, but not directly -->
         <resource>
             <directory>src</directory>
+        </resource>
+        <resource>
+            <directory>data</directory>
         </resource>
     </resources>
     <plugins>
@@ -112,7 +115,7 @@
         <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.5</version>
+            <version>0.8.6</version>
             <executions>
                 <execution>
                     <id>default-prepare-agent</id>
@@ -158,7 +161,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.5</version>
+                <version>0.8.6</version>
                 <reportSets>
                     <reportSet>
                         <reports>

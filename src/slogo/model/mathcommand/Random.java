@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Random is the Command subclass that finds a random number beneath a certain threshold.
+ * Random is the Command that finds a random number beneath a certain threshold.
  *
  * @author Rachel Luria
  */

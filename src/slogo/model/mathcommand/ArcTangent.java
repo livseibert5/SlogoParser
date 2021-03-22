@@ -5,7 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * ArcTangent is the Command subclass that finds the arctangent of a given input.
+ * ArcTangent is the Command that finds the arctangent of a given input.
  *
  * @author Rachel Luria
  */

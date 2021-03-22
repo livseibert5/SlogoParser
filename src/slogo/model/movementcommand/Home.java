@@ -4,7 +4,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * Home is the Command subclass that moves the turtle to location (0, 0).
+ * Home is the Command that moves the turtle to location (0, 0).
  *
  * @author Livia Seibert
  */

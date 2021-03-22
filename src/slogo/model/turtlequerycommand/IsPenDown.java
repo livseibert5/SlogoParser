@@ -4,7 +4,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * IsPenDown is the Command subclass that lets the user determine whether or not the pen is down so
+ * IsPenDown is the Command that lets the user determine whether or not the pen is down so
  * the turtle can draw on the screen.
  *
  * @author Livia Seibert

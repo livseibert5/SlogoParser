@@ -6,7 +6,7 @@ import slogo.model.Value;
 import slogo.model.backendexceptions.MathException;
 
 /**
- * Tangent is the Command subclass that finds the tangent of a given input.
+ * Tangent is the Command that finds the tangent of a given input.
  *
  * @author Rachel Luria
  */
