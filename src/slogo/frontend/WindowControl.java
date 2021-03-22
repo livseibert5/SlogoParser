@@ -31,13 +31,13 @@ import javax.xml.transform.TransformerException;
  * @author Jessica Yang
  */
 public class WindowControl extends ViewMaker {
-  private static final int HELP_X = 1000;
+  private static final int HELP_X = 1150;
   private static final int HELP_Y = 700;
   private static final int ENTER_X = 300;
   private static final int ENTER_Y = 675;
   private static final int UPLOAD_X = 175;
   private static final int UPLOAD_Y = 0;
-  private static final int DEFAULT_HEIGHT = 800;
+  private static final int DEFAULT_HEIGHT = 750;
   private static final int DEFAULT_WIDTH = 1280;
   private static final int WINDOW_SIZE = 600;
   private static final int DEFAULT_BORDER = 50;
@@ -68,6 +68,7 @@ public class WindowControl extends ViewMaker {
     myParser = new Parser(myController);
     myTableDisplay = new TableDisplay(myController.getVariableHandler(), myController.getUserDefinedCommandHandler(), root);
     myTurtleDisplay = new TurtleDisplay(root, myController.getTurtleHandler(), myController.getColorHandler());
+    myTurtleDisplay.addMultipleListeners(getAllTurtleListeners());
     myController.getTurtleHandler().addMultipleListeners(myTurtleDisplay.getListeners());
     myTableDisplay.setHandler(event -> {
       try {
@@ -88,7 +89,7 @@ public class WindowControl extends ViewMaker {
   }
 
   private void setUpViews() {
-    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    TurtleWindow myTurtleWindow = new TurtleWindow(root, WINDOW_SIZE, DEFAULT_BORDER - 30, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     myCustomizer = new ImageCustomizeView(WINDOW_SIZE, WINDOW_SIZE, "Customize Colors and Images", myTurtleDisplay, myTurtleWindow);
     errorView = new ErrorView(200, 200);
     helpView = new HelpView(HELP_WIDTH, HELP_HEIGHT);
@@ -105,7 +106,7 @@ public class WindowControl extends ViewMaker {
 
   private void setUpButtons() {
     ToXML toXML = new ToXML(myController);
-    addButton(HELP_X + 150, HELP_Y, "Save as XML", event -> {
+    addButton(HELP_X - 350, HELP_Y, "Save as XML", event -> {
       try {
         toXML.exportToXML();
       } catch (ParserConfigurationException | TransformerException e) {

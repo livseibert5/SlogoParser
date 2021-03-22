@@ -22,6 +22,7 @@ public class TurtleHandler extends Observable<Object> {
   private PropertyChangeListener backEndX;
   private PropertyChangeListener backEndY;
   private PropertyChangeListener backEndOrientation;
+  private PropertyChangeListener backEndPenColor;
 
   /**
    * Constructor for TurtleHandler creates new map for the turtles.
@@ -37,6 +38,7 @@ public class TurtleHandler extends Observable<Object> {
       turtle.addListener(backEndX);
       turtle.addListener(backEndY);
       turtle.addListener(backEndOrientation);
+      turtle.addListener(backEndPenColor);
     });
   }
 
@@ -62,6 +64,11 @@ public class TurtleHandler extends Observable<Object> {
       if (event.getPropertyName().equals("frontEndOrientation")) {
         activeTurtles.forEach(turtle -> turtle
             .setOrientation(turtle.getOrientation() + (Double) event.getNewValue()));
+      }
+    };
+    backEndPenColor = event -> {
+      if (event.getPropertyName().equals("backEndPenColor")) {
+        activeTurtles.forEach(turtle -> turtle.setPenColor((Double) event.getNewValue()));
       }
     };
   }
