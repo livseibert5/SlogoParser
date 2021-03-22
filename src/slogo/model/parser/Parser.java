@@ -78,12 +78,18 @@ public class Parser {
    */
   public int parse(String command)
       throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, MathException {
+    updateLanguage();
     setUpParser();
     turtles = controller.getTurtleHandler().getActiveTurtles();
     String[] commandComponents = removeComments(command).split(" ");
     createCommandStack(commandComponents);
     parseCommandStack();
     return (int) result;
+  }
+
+  private void updateLanguage() {
+    resources = ResourceBundle.getBundle("resources.languages." + controller.getLanguage());
+    regexDetector.addPatterns(controller.getLanguage());
   }
 
   /**
