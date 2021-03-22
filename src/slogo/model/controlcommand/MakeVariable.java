@@ -8,8 +8,8 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * MakeVariable is the Command that lets the user define a command and save the value for
- * later use.
+ * MakeVariable is the Command that lets the user define a command and save the value for later
+ * use.
  *
  * @author Livia Seibert
  */
@@ -38,11 +38,11 @@ public class MakeVariable implements Command {
    *
    * @param turtle turtle object to execute command on
    * @return value variable is being set to
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException method not found in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     method not found in command factory
    * @throws InvocationTargetException can't invoke target
-   * @throws InstantiationException can't make new object from command factory
-   * @throws IllegalAccessException trying to make object in command factory without access
+   * @throws InstantiationException    can't make new object from command factory
+   * @throws IllegalAccessException    trying to make object in command factory without access
    */
   @Override
   public double execute(Turtle turtle)

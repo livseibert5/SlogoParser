@@ -19,8 +19,8 @@ public class Controller {
   private String language;
 
   /**
-   * Defines a new turtleHandler, variableHandler, and userDefinedCommand handler for
-   * both the front end and back end to use.
+   * Defines a new turtleHandler, variableHandler, and userDefinedCommand handler for both the front
+   * end and back end to use.
    */
   public Controller() {
     turtleHandler = new TurtleHandler();
@@ -58,10 +58,9 @@ public class Controller {
   }
 
   /**
-   *
    * @return
    */
-  public ColorHandler getColorHandler(){
+  public ColorHandler getColorHandler() {
     return colorHandler;
   }
 
@@ -71,7 +70,7 @@ public class Controller {
    * @return language being used
    * @author Rachel Luria
    */
-  public String getLanguage(){
+  public String getLanguage() {
     return language;
   }
 
@@ -80,5 +79,7 @@ public class Controller {
    *
    * @param lang desired language
    */
-  public void setLanguage(String lang) {language = lang;}
+  public void setLanguage(String lang) {
+    language = lang;
+  }
 }

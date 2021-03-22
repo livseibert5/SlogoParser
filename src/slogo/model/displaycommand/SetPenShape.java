@@ -5,8 +5,8 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * SetPenShape is the Command that lets the user choose the shape of the turtle
- * by setting its index.
+ * SetPenShape is the Command that lets the user choose the shape of the turtle by setting its
+ * index.
  *
  * @author Rachel Luria
  */
@@ -15,8 +15,7 @@ public class SetPenShape implements Command {
   private final double value;
 
   /**
-   * SetPenShape constructor takes a value that corresponds to the index of the new
-   * pen shape.
+   * SetPenShape constructor takes a value that corresponds to the index of the new pen shape.
    *
    * @param value index of new pen shape
    */

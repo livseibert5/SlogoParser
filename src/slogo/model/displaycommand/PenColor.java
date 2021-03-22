@@ -4,8 +4,7 @@ import slogo.model.Command;
 import slogo.model.Turtle;
 
 /**
- * PenColor is the Command that returns the index of the current color
- * of the turtle's pen.
+ * PenColor is the Command that returns the index of the current color of the turtle's pen.
  *
  * @author Livia Seibert
  */

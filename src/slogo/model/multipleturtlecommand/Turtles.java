@@ -14,7 +14,8 @@ public class Turtles implements Command {
   private final Controller controller;
 
   /**
-   * Constructor for Turtles needs the controller to determine how many turtles are in the TurtleHandler.
+   * Constructor for Turtles needs the controller to determine how many turtles are in the
+   * TurtleHandler.
    *
    * @param controller current controller for game
    */

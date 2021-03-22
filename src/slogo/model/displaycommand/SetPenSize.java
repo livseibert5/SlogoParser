@@ -5,8 +5,7 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * SetPenSize is the Command that lets the user set the thickness of the turtle's pen
- * in pixels.
+ * SetPenSize is the Command that lets the user set the thickness of the turtle's pen in pixels.
  *
  * @author Livia Seibert
  */
@@ -15,8 +14,8 @@ public class SetPenSize implements Command {
   private final double value;
 
   /**
-   * SetPenSize constructor takes a value that corresponds to the pixel size for the pen's
-   * new width.
+   * SetPenSize constructor takes a value that corresponds to the pixel size for the pen's new
+   * width.
    *
    * @param value new thickness of pen in pixels
    */

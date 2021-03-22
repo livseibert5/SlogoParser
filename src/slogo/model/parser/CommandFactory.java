@@ -44,10 +44,10 @@ public class CommandFactory {
    * @param clazz     class type of object we'd like to instantiate
    * @param arguments arguments list to pass to new object
    * @return new Command object
-   * @throws NoSuchMethodException method not found in command factory
+   * @throws NoSuchMethodException     method not found in command factory
    * @throws InvocationTargetException can't invoke target
-   * @throws InstantiationException can't make new object from command factory
-   * @throws IllegalAccessException trying to make object in command factory without access
+   * @throws InstantiationException    can't make new object from command factory
+   * @throws IllegalAccessException    trying to make object in command factory without access
    */
   private Object makeClass(Class<?> clazz, List<Object> arguments)
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -109,11 +109,11 @@ public class CommandFactory {
    * @param commandType type of command class we want to instantiate
    * @param arguments   list of objects that are the arguments for the new command class
    * @return new command object
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException method not found in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     method not found in command factory
    * @throws InvocationTargetException can't invoke target
-   * @throws InstantiationException can't make new object from command factory
-   * @throws IllegalAccessException trying to make object in command factory without access
+   * @throws InstantiationException    can't make new object from command factory
+   * @throws IllegalAccessException    trying to make object in command factory without access
    */
   public Object createCommand(String commandType, List<Object> arguments)
       throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {

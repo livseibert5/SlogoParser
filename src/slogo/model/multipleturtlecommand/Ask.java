@@ -25,8 +25,8 @@ public class Ask implements Command {
    * Constructor for Ask command, requires controller to execute command block.
    *
    * @param controller controller for current game
-   * @param turtles ids of turtles to run command on
-   * @param commands commands to run
+   * @param turtles    ids of turtles to run command on
+   * @param commands   commands to run
    */
   public Ask(Controller controller, CommandBlock turtles, CommandBlock commands) {
     this.controller = controller;
@@ -35,17 +35,17 @@ public class Ask implements Command {
   }
 
   /**
-   * Updates the active turtles list, executes the command block for those turtles, then sets
-   * the active turtles list back to its previous value.
+   * Updates the active turtles list, executes the command block for those turtles, then sets the
+   * active turtles list back to its previous value.
    *
    * @param turtle turtle object to execute command on
    * @return last parser output
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException constructor doesn't exist in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     constructor doesn't exist in command factory
    * @throws InvocationTargetException issue invoking constructor
-   * @throws InstantiationException issue instantiating command
-   * @throws IllegalAccessException illegal access to command
-   * @throws MathException illegal math command
+   * @throws InstantiationException    issue instantiating command
+   * @throws IllegalAccessException    illegal access to command
+   * @throws MathException             illegal math command
    */
   @Override
   public double execute(Turtle turtle)
@@ -55,7 +55,7 @@ public class Ask implements Command {
     int parserOutput;
     List<Turtle> prevActiveTurtles = controller.getTurtleHandler().getActiveTurtles();
     List<Turtle> turtleObjects = new ArrayList<>();
-    for (String turtleItem: turtleList) {
+    for (String turtleItem : turtleList) {
       turtleObjects.add(controller.getTurtleHandler().getTurtle(Integer.parseInt(turtleItem)));
     }
     controller.getTurtleHandler().setActiveTurtles(turtleObjects);

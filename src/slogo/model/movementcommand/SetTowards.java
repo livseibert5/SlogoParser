@@ -5,8 +5,8 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * SetTowards is the Command that lets the user specify a coordinate that it wants the
- * turtle to face, and then sets the turtle's orientation to face this location.
+ * SetTowards is the Command that lets the user specify a coordinate that it wants the turtle to
+ * face, and then sets the turtle's orientation to face this location.
  *
  * @author Rachel Luria and Livia Seibert
  */

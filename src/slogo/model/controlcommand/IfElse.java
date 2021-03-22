@@ -10,8 +10,8 @@ import slogo.model.parser.Parser;
 import slogo.model.Turtle;
 
 /**
- * IfElse is the Command that runs one block of commands if the condition passed in is
- * true, and the other block if the condition is false.
+ * IfElse is the Command that runs one block of commands if the condition passed in is true, and the
+ * other block if the condition is false.
  *
  * @author Livia Seibert
  */
@@ -44,11 +44,11 @@ public class IfElse implements Command {
    *
    * @param turtle turtle object to execute command on
    * @return result of executing the true or false block
-   * @throws ClassNotFoundException class not found in command factory
-   * @throws NoSuchMethodException method not found in command factory
+   * @throws ClassNotFoundException    class not found in command factory
+   * @throws NoSuchMethodException     method not found in command factory
    * @throws InvocationTargetException can't invoke target
-   * @throws InstantiationException can't make new object from command factory
-   * @throws IllegalAccessException trying to make object in command factory without access
+   * @throws InstantiationException    can't make new object from command factory
+   * @throws IllegalAccessException    trying to make object in command factory without access
    */
   @Override
   public double execute(Turtle turtle)

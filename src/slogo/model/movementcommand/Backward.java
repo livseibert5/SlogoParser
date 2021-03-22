@@ -5,8 +5,8 @@ import slogo.model.Turtle;
 import slogo.model.Value;
 
 /**
- * Backward class is the Command that determines the end location of the turtle when moved
- * backwards by a certain number of pixels.
+ * Backward class is the Command that determines the end location of the turtle when moved backwards
+ * by a certain number of pixels.
  *
  * @author Livia Seibert and Rachel Luria
  */

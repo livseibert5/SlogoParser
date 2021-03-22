@@ -41,22 +41,27 @@ public class TurtleHandler extends Observable<Object> {
   }
 
   /**
-   * Creates listeners to allow the back end to update the turtle's location based on front end key input.
+   * Creates listeners to allow the back end to update the turtle's location based on front end key
+   * input.
    */
   private void setUpListeners() {
     backEndY = event -> {
       if (event.getPropertyName().equals("backEndYCoordinate")) {
-        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate(), turtle.getYCoordinate() + (Double) event.getNewValue()}));
+        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate(),
+            turtle.getYCoordinate() + (Double) event.getNewValue()}));
       }
     };
     backEndX = event -> {
       if (event.getPropertyName().equals("backEndXCoordinate")) {
-        activeTurtles.forEach(turtle -> turtle.setLocation(new double[]{turtle.getXCoordinate() + (Double) event.getNewValue(), turtle.getYCoordinate()}));
+        activeTurtles.forEach(turtle -> turtle.setLocation(
+            new double[]{turtle.getXCoordinate() + (Double) event.getNewValue(),
+                turtle.getYCoordinate()}));
       }
     };
     backEndOrientation = event -> {
       if (event.getPropertyName().equals("frontEndOrientation")) {
-        activeTurtles.forEach(turtle -> turtle.setOrientation(turtle.getOrientation() + (Double) event.getNewValue()));
+        activeTurtles.forEach(turtle -> turtle
+            .setOrientation(turtle.getOrientation() + (Double) event.getNewValue()));
       }
     };
   }
@@ -136,7 +141,7 @@ public class TurtleHandler extends Observable<Object> {
    * @return id of turtle
    */
   public int getTurtleId(Turtle turtle) {
-    for (int key: turtles.keySet()) {
+    for (int key : turtles.keySet()) {
       if (turtles.get(key).equals(turtle)) {
         return key;
       }

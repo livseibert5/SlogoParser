@@ -47,38 +47,42 @@ public class GroupBlock {
     int START_INDEX = 1;
     int MAX_CHANGE = 1;
 
-    int numArgs = commandFactory.determineNumberParameters(commandType);
-    if(commandFactory.isControlCommand(command)) {
-      numArgs --;
-    }
+    int numArgs = findNumberArguments(commandType, command);
 
     int count = START_INDEX;
     int change = 0;
     boolean skip = false;
-    while(count < flexArgs.size() - numArgs + START_INDEX){
+    while (count < flexArgs.size() - numArgs + START_INDEX) {
 
-      if(flexArgs.get(count).equals("(")){
+      if (flexArgs.get(count).equals("(")) {
         skip = true;
       }
 
-      if(skip){
+      if (skip) {
         count++;
-      }
-      else if(change < MAX_CHANGE){
+      } else if (change < MAX_CHANGE) {
         change++;
         count++;
-      }
-      else if (change == MAX_CHANGE){
+      } else if (change == MAX_CHANGE) {
         flexArgs.add(count, command);
         change = 0;
         count++;
       }
 
       if (flexArgs.get(count - 1).equals(")")) {
-          skip = false;
+        skip = false;
       }
     }
     return String.join(" ", flexArgs);
+  }
+
+  private int findNumberArguments(String commandType, String command)
+      throws ClassNotFoundException {
+    int numArgs = commandFactory.determineNumberParameters(commandType);
+    if (commandFactory.isControlCommand(command)) {
+      numArgs--;
+    }
+    return numArgs;
   }
 
 }
