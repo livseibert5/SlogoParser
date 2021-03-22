@@ -146,6 +146,7 @@ public class Parser {
   private int handleNonCommandExpressionComponents(String commandType, String[] commandComponents,
       int index)
       throws ClassNotFoundException, NoSuchMethodException, MathException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    GroupBlock groupBlock = new GroupBlock(controller);
     switch (commandType) {
       case "Constant" -> commandStack
           .push(expressionFactory.makeConstant(Integer.parseInt(commandComponents[index])));
@@ -158,11 +159,14 @@ public class Parser {
         return endIndex;
       }
       case "GroupEnd" -> {
-        GroupBlock groupBlock = new GroupBlock(controller);
         int endIndex = groupBlock.findIndex(index, commandComponents, regexDetector);
         List<String> groupList = Arrays
             .asList(Arrays.copyOfRange(commandComponents, endIndex + 1, index));
-        commandStack.push(expressionFactory.makeConstant(parse(groupBlock.insertCommand(groupList))));
+        if(commandStack.size() > 0) {
+          groupList.add((String) commandStack.pop());
+        }
+        int result = parse(groupBlock.insertCommand(groupList));
+        commandStack.push(expressionFactory.makeConstant(result));
         return endIndex;
       }
       case "Variable" -> commandStack.push(expressionFactory

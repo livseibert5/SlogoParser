@@ -43,4 +43,11 @@ public class GroupBlockTest {
     assertEquals(100, parser.parse("fd ( sum 10 20 30 40 )"));
   }
 
+  /*
+  @Test
+  void testWithLoop()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    assertEquals(150, parser.parse("( fd 50 ( sum 50 50 50 ) )"));
+  }
+   */
 }
