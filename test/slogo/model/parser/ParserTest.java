@@ -188,4 +188,14 @@ public class ParserTest {
     });
     assertEquals(50, parser.parse(goodCommand));
   }
+
+  @Test
+  void testSpanishCommand()
+      throws NoSuchMethodException, InstantiationException, MathException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    controller.setLanguage("Spanish");
+
+    String command = "ava 30";
+    assertEquals(30, parser.parse(command));
+  }
+
 }
