@@ -79,3 +79,11 @@ use the Observable pattern to update the front end based on changes to the model
 thought that we'd have to use a lot more back end external API commands, but we were able to use the controller instead as an
 intermediary between the front end and the back end data. We also ended up deciding to make every Command its own class instead
 of grouping them together by type in order to use polymorphism and the Liskov Substitution Principle.
+
+## Adding New Commands
+
+To add a new command, we first need to make a new class for the command that implements the Command interface.
+All the functionality of the command is written within the .execute method from the Command interface, and a
+constructor should be defined and passed the proper argument types that the command expects. Then, tge class path
+for this command would have to be added to the ExpressionFactory properties file, and the command itself would have
+to be put in the English properties file. The parser will not have to be altered at all for new command types.
