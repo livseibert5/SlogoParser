@@ -20,7 +20,7 @@ public class ExpressionFactory {
    * @param value value for new constant object
    * @return Constant object with given value
    */
-  public Constant makeConstant(int value) {
+  public Constant makeConstant(double value) {
     return new Constant(value);
   }
 

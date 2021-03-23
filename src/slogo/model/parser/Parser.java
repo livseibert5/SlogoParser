@@ -149,7 +149,7 @@ public class Parser {
     GroupBlock groupBlock = new GroupBlock(controller);
     switch (commandType) {
       case "Constant" -> commandStack
-          .push(expressionFactory.makeConstant(Integer.parseInt(commandComponents[index])));
+          .push(expressionFactory.makeConstant(Double.parseDouble(commandComponents[index])));
       case "ListEnd" -> {
         int endIndex = expressionFactory
             .findBeginningOfCommandBlock(index, commandComponents, regexDetector);
