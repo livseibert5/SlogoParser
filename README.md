@@ -23,6 +23,9 @@ Livia - I worked on the backend of the project with Rachel. Initially, we planne
 one of us work on commands and one of us work on the parser, but we ended up collaborating on most pieces
 of the back end.
 
+Rachel - I worked on the backend of the project with Livia. I collaborate with her on any issues she was
+having with the parser and also worked on the commands, handlers and rest of backend.
+
 ### Resources Used
 
 [Reflections](https://docs.oracle.com/javase/tutorial/reflect/index.html)
@@ -47,6 +50,10 @@ Features implemented:
 ### Notes/Assumptions
 
 Assumptions or Simplifications:
+
+An assumption that was made for grouping was that only one set of parenthesis
+could be used. When there are multiple parenthesis grouping only works on certain 
+conditions and not entirely correctly.
 
 Interesting data files:
 
