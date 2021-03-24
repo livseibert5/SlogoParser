@@ -58,7 +58,9 @@ public class Controller {
   }
 
   /**
-   * @return
+   * Allows front end and back end to access color handler.
+   *
+   * @return current color handler
    */
   public ColorHandler getColorHandler() {
     return colorHandler;
