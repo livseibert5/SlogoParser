@@ -62,6 +62,10 @@ in to the simulation.
 
 Known Bugs:
 
+I accidentally used the Constant typecast instead of the Value typecast in UserDefinedCommand. For
+that reason, the parser doesn't work when you pass a user defined command a variable as input. To fix
+it, switch (Constant) in line 84 of UserDefinedCommand to (Value).
+
 Extra credit:
 
 
