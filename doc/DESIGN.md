@@ -15,6 +15,10 @@ of the back end.
 Rachel - I worked on the backend of the project with Livia. I collaborate with her on any issues she was
 having with the parser and also worked on the commands, handlers and rest of backend.
 
+Jessica - I worked on the frontend of the project with Montana. I handled the frontend external API, which
+involved syncing information with backend using observables, also well as miscellaneous frontend internal
+pieces.
+
 ## Design Goals
 
 The main goal of the back end design was to make the functionality as extensible as possible. We inferred
@@ -22,6 +26,13 @@ that for the complete implementation there would be many more types of commands 
 adding a new command needed to be as simple as possible. We were able to achieve this by creating a Command
 interface that all command classes implemented. That way, the parser could handle any objects that implement
 the Command interface and use their polymorphic execute function to make them run.
+
+The main goal of the front end design was to create the different objects needed with as little duplication
+as possible, which involved creating classes to be extended from. In addition, the Observable pattern
+was used to sync information across front end and from front-end to back end so data could be updated
+immediately. Specific pipelines for information were set up so that adding new channels of communication
+between front end and back end changes could be straight forward. Lambda functions were also used for
+Javafx objects, like buttons, to execute functions upon certain events occurring.
 
 Another design goal was good communication between the front end and the back end. The execution of commands
 on the back end needed to initiate a change in the view, and variables and user defined commands needed to be
@@ -60,6 +71,14 @@ then to read in an XML file of user defined variables and commands and use them 
 this functionality don't impact other pieces of the code and are enacted through a button on the front end, so they were
 a very simple addition to the design.
 
+Front end design relied on a ViewMaker class, that would be directly declared or extended from to
+create the various windows in the project. Similarly, ColorPickerMaker, CommandField, LanguageDropDown,
+and TableDisplay also handled the creation of javafx objects. WindowControl, the main display window
+of the project is an extension of ViewMaker. TurtleDisplay handled the front-end representation of
+backend Turtle objects, and would communicate using TurtleController and observables. KeyHandler was
+acted upon using reflection in WindowController to handle front-end movement of the turtles.
+
+
 ## Assumptions or Simplifications
 
 An assumption that was made for grouping was that only one set of parenthesis
@@ -87,3 +106,8 @@ All the functionality of the command is written within the .execute method from 
 constructor should be defined and passed the proper argument types that the command expects. Then, tge class path
 for this command would have to be added to the ExpressionFactory properties file, and the command itself would have
 to be put in the English properties file. The parser will not have to be altered at all for new command types.
+
+For commands that change the (visible, especially) properties of a turtle, an PropertyChangeListener
+in the TurtleDisplay class would have to be added, with the appropriate visual handling of the displayed
+turtle. The backend would then need to add a notifyListeners call while handling the command to ensure
+the front-end representation is aware of the change.
